@@ -1,5 +1,5 @@
 # webGNIS Database Documentation
-Version 1.1 - Updated: 2024-04-12
+Version 1.2 - Updated: 2024-04-12
 
 ## Overview
 This database is designed to store and manage geodetic control points (GCPs), benchmarks, and gravity stations for the Philippines. It provides a comprehensive solution for tracking station locations, coordinates, observations, and historical changes.
@@ -26,30 +26,61 @@ This database is designed to store and manage geodetic control points (GCPs), be
 
 ## Data Import Procedures
 
-### GCP Data Import
-The `import_gcp_data` procedure loads Ground Control Point data from CSV files:
+### Data Source Files
+The database is designed to work with three main data sources:
+1. GCP Data: `GCP Table (All).csv`
+2. Benchmark Data: `Benchmark Table (All).csv`
+3. Gravity Data: `Gravity.csv`
+
+### Import Process
+Due to security restrictions in MySQL/XAMPP, direct LOAD DATA INFILE commands are not available. Instead, use the following process:
+
+1. Create temporary tables for each data type:
 ```sql
-CALL import_gcp_data('path/to/gcp_data.csv');
+-- For GCP data
+CREATE TEMPORARY TABLE temp_gcp (
+    stat_name VARCHAR(50),
+    region VARCHAR(100),
+    province VARCHAR(100),
+    municipal VARCHAR(100),
+    barangay VARCHAR(100),
+    -- ... (see 06_data_import.sql for full structure)
+);
+
+-- For Benchmark data
+CREATE TEMPORARY TABLE temp_benchmark (
+    ID INT,
+    stat_name VARCHAR(50),
+    -- ... (see 06_data_import.sql for full structure)
+);
+
+-- For Gravity data
+CREATE TEMPORARY TABLE temp_gravity (
+    STATION_CODE VARCHAR(50),
+    STATION_NAME VARCHAR(100),
+    -- ... (see 06_data_import.sql for full structure)
+);
 ```
 
-Features:
-- Handles multiple coordinate formats (DMS and decimal)
-- Validates and cleans station names
-- Processes administrative region data
-- Tracks monument status and construction details
-- Records observation history
+2. Import data using phpMyAdmin:
+   - Open phpMyAdmin
+   - Select the database
+   - Click "Import"
+   - Choose the CSV file
+   - Set format to CSV
+   - Configure import settings:
+     - Columns separated with: ","
+     - Columns enclosed with: '"'
+     - Lines terminated with: "\n"
+     - First line contains column names: Yes
 
-### Gravity Data Import
-The `import_gravity_data` procedure loads gravity station data from CSV files:
-```sql
-CALL import_gravity_data('path/to/gravity_data.csv');
-```
+3. Process the imported data using the provided SQL scripts in `06_data_import.sql`
 
-Features:
-- Imports gravity observations and measurements
-- Links stations to their locations
-- Records observation dates and accuracy
-- Maintains encoder information
+### Known Issues
+- MySQL/XAMPP security settings may prevent direct file loading
+- Some CSV files may require preprocessing for proper import
+- Date formats may need standardization
+- Coordinate systems may need conversion
 
 ## Data Validation
 
@@ -74,9 +105,11 @@ Features:
 
 ### Data Import
 1. Prepare CSV files with required columns
-2. Run appropriate import procedure
-3. Check validation views for issues
-4. Review and correct any identified problems
+2. Create temporary tables using provided SQL
+3. Import data using phpMyAdmin
+4. Process data using import procedures
+5. Check validation views for issues
+6. Review and correct any identified problems
 
 ### Data Maintenance
 1. Regular validation checks using provided views
@@ -101,4 +134,5 @@ Features:
 
 ## Version History
 - 1.0 (2024-04-11): Initial release
-- 1.1 (2024-04-12): Added data import procedures and updated documentation 
+- 1.1 (2024-04-12): Added data import procedures
+- 1.2 (2024-04-12): Updated import procedures and documentation for XAMPP compatibility 

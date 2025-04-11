@@ -1,19 +1,19 @@
--- Data Cleaning and Validation Scripts
--- Version 1.0
--- Created: 2024-04-12
+-- Data Cleaning Procedures
+-- Version 1.2
+-- Created: 2024-04-11
+-- Updated: 2024-04-12
+
+DELIMITER //
 
 -- Function to clean station names
-DELIMITER //
 CREATE FUNCTION clean_station_name(station_name VARCHAR(100)) 
 RETURNS VARCHAR(100)
 DETERMINISTIC
 BEGIN
     DECLARE cleaned_name VARCHAR(100);
     SET cleaned_name = TRIM(station_name);
-    -- Remove multiple spaces
     SET cleaned_name = REGEXP_REPLACE(cleaned_name, '\\s+', ' ');
-    -- Remove special characters except hyphens and parentheses
-    SET cleaned_name = REGEXP_REPLACE(cleaned_name, '[^a-zA-Z0-9\\s\\(\\)\\-]', '');
+    SET cleaned_name = REGEXP_REPLACE(cleaned_name, '[^a-zA-Z0-9\\s\\-\\.]', '');
     RETURN cleaned_name;
 END //
 
@@ -21,25 +21,33 @@ END //
 CREATE FUNCTION validate_coordinates(
     lat_dms VARCHAR(20),
     lon_dms VARCHAR(20),
-    lat_decimal DECIMAL(10,8),
-    lon_decimal DECIMAL(11,8)
+    lat_dec DECIMAL(10,8),
+    lon_dec DECIMAL(11,8),
+    northing DECIMAL(12,3),
+    easting DECIMAL(12,3),
+    zone VARCHAR(10)
 ) 
 RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
-    -- Check if at least one format is provided
-    IF (lat_dms IS NULL AND lat_decimal IS NULL) OR 
-       (lon_dms IS NULL AND lon_decimal IS NULL) THEN
+    -- Check if at least one coordinate format is provided
+    IF (lat_dms IS NULL AND lat_dec IS NULL) OR 
+       (lon_dms IS NULL AND lon_dec IS NULL) THEN
         RETURN FALSE;
     END IF;
     
-    -- Validate decimal coordinates
-    IF lat_decimal IS NOT NULL AND (lat_decimal < -90 OR lat_decimal > 90) THEN
-        RETURN FALSE;
+    -- Validate decimal coordinates if provided
+    IF lat_dec IS NOT NULL AND lon_dec IS NOT NULL THEN
+        IF lat_dec < -90 OR lat_dec > 90 OR lon_dec < -180 OR lon_dec > 180 THEN
+            RETURN FALSE;
+        END IF;
     END IF;
     
-    IF lon_decimal IS NOT NULL AND (lon_decimal < -180 OR lon_decimal > 180) THEN
-        RETURN FALSE;
+    -- Validate UTM coordinates if provided
+    IF northing IS NOT NULL AND easting IS NOT NULL AND zone IS NOT NULL THEN
+        IF northing < 0 OR easting < 0 OR zone NOT REGEXP '^[0-9]{1,2}[A-Z]$' THEN
+            RETURN FALSE;
+        END IF;
     END IF;
     
     RETURN TRUE;
@@ -50,179 +58,299 @@ CREATE FUNCTION validate_date(date_str VARCHAR(20))
 RETURNS DATE
 DETERMINISTIC
 BEGIN
-    DECLARE result DATE;
-    SET result = NULL;
+    DECLARE parsed_date DATE;
     
     -- Try different date formats
-    IF date_str IS NOT NULL THEN
-        BEGIN
-            DECLARE CONTINUE HANDLER FOR SQLEXCEPTION BEGIN END;
-            SET result = STR_TO_DATE(date_str, '%m/%d/%Y');
-        END;
-        
-        IF result IS NULL THEN
-            BEGIN
-                DECLARE CONTINUE HANDLER FOR SQLEXCEPTION BEGIN END;
-                SET result = STR_TO_DATE(date_str, '%Y-%m-%d');
-            END;
-        END IF;
+    SET parsed_date = STR_TO_DATE(date_str, '%Y-%m-%d');
+    IF parsed_date IS NOT NULL THEN
+        RETURN parsed_date;
     END IF;
     
-    RETURN result;
+    SET parsed_date = STR_TO_DATE(date_str, '%m/%d/%Y');
+    IF parsed_date IS NOT NULL THEN
+        RETURN parsed_date;
+    END IF;
+    
+    SET parsed_date = STR_TO_DATE(date_str, '%Y');
+    IF parsed_date IS NOT NULL THEN
+        RETURN parsed_date;
+    END IF;
+    
+    RETURN NULL;
 END //
 
 -- Procedure to clean and insert GCP data
 CREATE PROCEDURE clean_and_insert_gcp(
+    IN p_station_code VARCHAR(50),
     IN p_station_name VARCHAR(100),
     IN p_region VARCHAR(100),
     IN p_province VARCHAR(100),
-    IN p_municipal VARCHAR(100),
+    IN p_municipality VARCHAR(100),
     IN p_barangay VARCHAR(100),
-    IN p_date_est VARCHAR(20),
-    IN p_date_las_r VARCHAR(20),
-    IN p_island VARCHAR(50),
-    IN p_d_lat INT,
-    IN p_m_lat INT,
-    IN p_s_lat DECIMAL(10,6),
-    IN p_d_long INT,
-    IN p_m_long INT,
-    IN p_s_long DECIMAL(10,6),
+    IN p_latitude_dms VARCHAR(20),
+    IN p_longitude_dms VARCHAR(20),
+    IN p_latitude_decimal DECIMAL(10,8),
+    IN p_longitude_decimal DECIMAL(11,8),
     IN p_northing DECIMAL(12,3),
     IN p_easting DECIMAL(12,3),
     IN p_zone VARCHAR(10),
-    IN p_ell_hgt DECIMAL(10,3),
-    IN p_mark_stat INT,
-    IN p_mark_type INT,
-    IN p_mark_const INT,
+    IN p_ellipsoidal_height DECIMAL(10,3),
+    IN p_orthometric_height DECIMAL(10,3),
+    IN p_accuracy_class VARCHAR(10),
+    IN p_horizontal_error DECIMAL(10,3),
+    IN p_vertical_error DECIMAL(10,3),
+    IN p_observation_date VARCHAR(20),
+    IN p_monument_type VARCHAR(50),
+    IN p_monument_status VARCHAR(20),
+    IN p_monument_construction VARCHAR(100),
     IN p_authority VARCHAR(100),
-    IN p_description TEXT,
-    IN p_encoder VARCHAR(100),
-    IN p_status INT,
-    IN p_date_updated VARCHAR(20)
+    IN p_remarks TEXT
 )
 BEGIN
     DECLARE v_station_id VARCHAR(50);
     DECLARE v_cleaned_name VARCHAR(100);
-    DECLARE v_est_date DATE;
-    DECLARE v_last_obs_date DATE;
-    DECLARE v_update_date DATE;
+    DECLARE v_valid_date DATE;
+    DECLARE v_coordinates_valid BOOLEAN;
+    DECLARE v_psgc_code VARCHAR(20);
     
-    -- Clean station name and generate ID
+    -- Clean station name
     SET v_cleaned_name = clean_station_name(p_station_name);
-    SET v_station_id = CONCAT(SUBSTRING(p_region, 1, 2), '-', 
-                            REGEXP_REPLACE(v_cleaned_name, '[^a-zA-Z0-9]', ''));
     
-    -- Validate dates
-    SET v_est_date = validate_date(p_date_est);
-    SET v_last_obs_date = validate_date(p_date_las_r);
-    SET v_update_date = validate_date(p_date_updated);
+    -- Validate date
+    SET v_valid_date = validate_date(p_observation_date);
     
-    -- Insert into stations table
+    -- Validate coordinates
+    SET v_coordinates_valid = validate_coordinates(
+        p_latitude_dms, p_longitude_dms,
+        p_latitude_decimal, p_longitude_decimal,
+        p_northing, p_easting, p_zone
+    );
+    
+    -- Get PSGC code
+    SELECT psgc_code INTO v_psgc_code
+    FROM administrative_regions
+    WHERE region_name = p_region
+    AND province = p_province
+    AND municipality = p_municipality
+    AND barangay = p_barangay
+    LIMIT 1;
+    
+    -- Insert or update station
     INSERT INTO stations (
-        station_id,
-        station_name,
-        establishment_date,
-        monument_type,
-        monument_status,
-        monument_construction,
-        authority,
-        remarks
+        station_id, station_name, psgc_code,
+        monument_type, monument_status, monument_construction,
+        authority, remarks
     ) VALUES (
-        v_station_id,
-        v_cleaned_name,
-        v_est_date,
-        p_mark_type,
-        CASE p_mark_stat 
-            WHEN 1 THEN 'ACTIVE'
-            WHEN 5 THEN 'LOST'
-            ELSE 'UNKNOWN'
-        END,
-        p_mark_const,
-        p_authority,
-        p_description
+        p_station_code, v_cleaned_name, v_psgc_code,
+        p_monument_type, p_monument_status, p_monument_construction,
+        p_authority, p_remarks
     ) ON DUPLICATE KEY UPDATE
         station_name = v_cleaned_name,
-        establishment_date = v_est_date,
-        monument_type = p_mark_type,
-        monument_status = CASE p_mark_stat 
-            WHEN 1 THEN 'ACTIVE'
-            WHEN 5 THEN 'LOST'
-            ELSE 'UNKNOWN'
-        END,
-        monument_construction = p_mark_const,
+        psgc_code = v_psgc_code,
+        monument_type = p_monument_type,
+        monument_status = p_monument_status,
+        monument_construction = p_monument_construction,
         authority = p_authority,
-        remarks = p_description,
-        updated_at = CURRENT_TIMESTAMP;
+        remarks = p_remarks;
     
-    -- Insert into station_locations
+    -- Insert or update location
     INSERT INTO station_locations (
-        station_id,
-        island,
-        region,
-        province,
-        municipality,
-        barangay,
-        description
+        station_id, region, province, municipality, barangay
     ) VALUES (
-        v_station_id,
-        p_island,
-        p_region,
-        p_province,
-        p_municipal,
-        p_barangay,
-        p_description
+        p_station_code, p_region, p_province, p_municipality, p_barangay
     ) ON DUPLICATE KEY UPDATE
-        island = p_island,
         region = p_region,
         province = p_province,
-        municipality = p_municipal,
-        barangay = p_barangay,
-        description = p_description,
-        updated_at = CURRENT_TIMESTAMP;
+        municipality = p_municipality,
+        barangay = p_barangay;
     
-    -- Insert into station_coordinates
-    INSERT INTO station_coordinates (
-        station_id,
-        latitude_dms,
-        longitude_dms,
-        northing,
-        easting,
-        zone,
-        ellipsoidal_height,
-        observation_date
-    ) VALUES (
-        v_station_id,
-        CONCAT(p_d_lat, '°', p_m_lat, '''', p_s_lat, '"'),
-        CONCAT(p_d_long, '°', p_m_long, '''', p_s_long, '"'),
-        p_northing,
-        p_easting,
-        p_zone,
-        p_ell_hgt,
-        v_last_obs_date
-    ) ON DUPLICATE KEY UPDATE
-        latitude_dms = CONCAT(p_d_lat, '°', p_m_lat, '''', p_s_lat, '"'),
-        longitude_dms = CONCAT(p_d_long, '°', p_m_long, '''', p_s_long, '"'),
-        northing = p_northing,
-        easting = p_easting,
-        zone = p_zone,
-        ellipsoidal_height = p_ell_hgt,
-        observation_date = v_last_obs_date,
-        updated_at = CURRENT_TIMESTAMP;
-    
-    -- Insert into station_history if there's a status change
-    IF p_status = 5 THEN
-        INSERT INTO station_history (
-            station_id,
-            event_type,
-            event_date,
-            description
+    -- Insert or update coordinates if valid
+    IF v_coordinates_valid THEN
+        INSERT INTO station_coordinates (
+            station_id, latitude_dms, longitude_dms,
+            latitude_decimal, longitude_decimal,
+            northing, easting, zone,
+            ellipsoidal_height, orthometric_height,
+            accuracy_class, horizontal_error, vertical_error,
+            observation_date
         ) VALUES (
-            v_station_id,
-            'STATUS_CHANGE',
-            v_update_date,
-            CONCAT('Station marked as LOST on ', v_update_date)
-        );
+            p_station_code, p_latitude_dms, p_longitude_dms,
+            p_latitude_decimal, p_longitude_decimal,
+            p_northing, p_easting, p_zone,
+            p_ellipsoidal_height, p_orthometric_height,
+            p_accuracy_class, p_horizontal_error, p_vertical_error,
+            v_valid_date
+        ) ON DUPLICATE KEY UPDATE
+            latitude_dms = p_latitude_dms,
+            longitude_dms = p_longitude_dms,
+            latitude_decimal = p_latitude_decimal,
+            longitude_decimal = p_longitude_decimal,
+            northing = p_northing,
+            easting = p_easting,
+            zone = p_zone,
+            ellipsoidal_height = p_ellipsoidal_height,
+            orthometric_height = p_orthometric_height,
+            accuracy_class = p_accuracy_class,
+            horizontal_error = p_horizontal_error,
+            vertical_error = p_vertical_error,
+            observation_date = v_valid_date;
     END IF;
+END //
+
+-- Procedure to clean and insert benchmark data
+CREATE PROCEDURE clean_and_insert_benchmark(
+    IN p_station_code VARCHAR(50),
+    IN p_station_name VARCHAR(100),
+    IN p_region VARCHAR(100),
+    IN p_province VARCHAR(100),
+    IN p_municipality VARCHAR(100),
+    IN p_barangay VARCHAR(100),
+    IN p_latitude_dms VARCHAR(20),
+    IN p_longitude_dms VARCHAR(20),
+    IN p_latitude_decimal DECIMAL(10,8),
+    IN p_longitude_decimal DECIMAL(11,8),
+    IN p_northing DECIMAL(12,3),
+    IN p_easting DECIMAL(12,3),
+    IN p_zone VARCHAR(10),
+    IN p_orthometric_height DECIMAL(10,3),
+    IN p_accuracy_class VARCHAR(10),
+    IN p_vertical_error DECIMAL(10,3),
+    IN p_observation_date VARCHAR(20),
+    IN p_monument_type VARCHAR(50),
+    IN p_monument_status VARCHAR(20),
+    IN p_monument_construction VARCHAR(100),
+    IN p_authority VARCHAR(100),
+    IN p_remarks TEXT
+)
+BEGIN
+    DECLARE v_station_id VARCHAR(50);
+    DECLARE v_cleaned_name VARCHAR(100);
+    DECLARE v_valid_date DATE;
+    DECLARE v_coordinates_valid BOOLEAN;
+    DECLARE v_psgc_code VARCHAR(20);
+    
+    -- Clean station name
+    SET v_cleaned_name = clean_station_name(p_station_name);
+    
+    -- Validate date
+    SET v_valid_date = validate_date(p_observation_date);
+    
+    -- Validate coordinates
+    SET v_coordinates_valid = validate_coordinates(
+        p_latitude_dms, p_longitude_dms,
+        p_latitude_decimal, p_longitude_decimal,
+        p_northing, p_easting, p_zone
+    );
+    
+    -- Get PSGC code
+    SELECT psgc_code INTO v_psgc_code
+    FROM administrative_regions
+    WHERE region_name = p_region
+    AND province = p_province
+    AND municipality = p_municipality
+    AND barangay = p_barangay
+    LIMIT 1;
+    
+    -- Insert or update station
+    INSERT INTO stations (
+        station_id, station_name, psgc_code,
+        monument_type, monument_status, monument_construction,
+        authority, remarks
+    ) VALUES (
+        p_station_code, v_cleaned_name, v_psgc_code,
+        p_monument_type, p_monument_status, p_monument_construction,
+        p_authority, p_remarks
+    ) ON DUPLICATE KEY UPDATE
+        station_name = v_cleaned_name,
+        psgc_code = v_psgc_code,
+        monument_type = p_monument_type,
+        monument_status = p_monument_status,
+        monument_construction = p_monument_construction,
+        authority = p_authority,
+        remarks = p_remarks;
+    
+    -- Insert or update location
+    INSERT INTO station_locations (
+        station_id, region, province, municipality, barangay
+    ) VALUES (
+        p_station_code, p_region, p_province, p_municipality, p_barangay
+    ) ON DUPLICATE KEY UPDATE
+        region = p_region,
+        province = p_province,
+        municipality = p_municipality,
+        barangay = p_barangay;
+    
+    -- Insert or update coordinates if valid
+    IF v_coordinates_valid THEN
+        INSERT INTO station_coordinates (
+            station_id, latitude_dms, longitude_dms,
+            latitude_decimal, longitude_decimal,
+            northing, easting, zone,
+            orthometric_height,
+            accuracy_class, vertical_error,
+            observation_date
+        ) VALUES (
+            p_station_code, p_latitude_dms, p_longitude_dms,
+            p_latitude_decimal, p_longitude_decimal,
+            p_northing, p_easting, p_zone,
+            p_orthometric_height,
+            p_accuracy_class, p_vertical_error,
+            v_valid_date
+        ) ON DUPLICATE KEY UPDATE
+            latitude_dms = p_latitude_dms,
+            longitude_dms = p_longitude_dms,
+            latitude_decimal = p_latitude_decimal,
+            longitude_decimal = p_longitude_decimal,
+            northing = p_northing,
+            easting = p_easting,
+            zone = p_zone,
+            orthometric_height = p_orthometric_height,
+            accuracy_class = p_accuracy_class,
+            vertical_error = p_vertical_error,
+            observation_date = v_valid_date;
+    END IF;
+END //
+
+-- Procedure to clean and insert gravity data
+CREATE PROCEDURE clean_and_insert_gravity(
+    IN p_station_code VARCHAR(50),
+    IN p_station_name VARCHAR(100),
+    IN p_observed_value DECIMAL(15,6),
+    IN p_year_measured VARCHAR(20),
+    IN p_order_class VARCHAR(10),
+    IN p_encoder VARCHAR(100),
+    IN p_date_last_updated VARCHAR(20)
+)
+BEGIN
+    DECLARE v_cleaned_name VARCHAR(100);
+    DECLARE v_valid_date DATE;
+    
+    -- Clean station name
+    SET v_cleaned_name = clean_station_name(p_station_name);
+    
+    -- Validate date
+    SET v_valid_date = validate_date(p_year_measured);
+    
+    -- Insert or update station
+    INSERT INTO stations (
+        station_id, station_name
+    ) VALUES (
+        p_station_code, v_cleaned_name
+    ) ON DUPLICATE KEY UPDATE
+        station_name = v_cleaned_name;
+    
+    -- Insert or update observation
+    INSERT INTO station_observations (
+        station_id, observation_type, observed_value,
+        observation_date, order_class, encoder
+    ) VALUES (
+        p_station_code, 'GRAVITY', p_observed_value,
+        v_valid_date, p_order_class, p_encoder
+    ) ON DUPLICATE KEY UPDATE
+        observed_value = p_observed_value,
+        observation_date = v_valid_date,
+        order_class = p_order_class,
+        encoder = p_encoder;
 END //
 
 DELIMITER ; 

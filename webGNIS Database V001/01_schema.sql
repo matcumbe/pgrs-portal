@@ -1,5 +1,5 @@
 -- webGNIS Database Schema
--- Version 1.1
+-- Version 1.2
 -- Created: 2024-04-11
 -- Updated: 2024-04-12
 -- MySQL Compatible Version
@@ -43,7 +43,7 @@ CREATE TABLE stations (
     establishment_date DATE,
     psgc_code VARCHAR(20),
     original_psgc_code VARCHAR(20),
-    monument_type VARCHAR(50),
+    monument_type ENUM('BRASS_ROD', 'COPPER_NAIL', 'CONCRETE_MONUMENT', 'OTHER') DEFAULT 'OTHER',
     monument_status ENUM('ACTIVE', 'LOST', 'DESTROYED', 'UNKNOWN') DEFAULT 'ACTIVE',
     monument_construction VARCHAR(100),
     authority VARCHAR(100),
@@ -101,6 +101,9 @@ CREATE TABLE station_observations (
     order_class VARCHAR(10),
     authority VARCHAR(100),
     encoder VARCHAR(100),
+    accuracy_class VARCHAR(10),
+    error_ellipse DECIMAL(10,3),
+    height_error DECIMAL(10,3),
     remarks TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
