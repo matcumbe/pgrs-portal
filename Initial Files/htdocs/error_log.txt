@@ -1,0 +1,323 @@
+[25-May-2024 15:29:47 America/New_York] PDF generation successful
+[25-May-2024 15:30:19 America/New_York] PDF generation successful
+[25-May-2024 15:39:22 America/New_York] PDF generation successful
+[25-May-2024 15:40:43 America/New_York] PDF generation successful
+[25-May-2024 15:43:07 America/New_York] PDF generation successful
+[25-May-2024 15:46:39 America/New_York] PDF generation successful
+[25-May-2024 15:49:32 America/New_York] PDF generation successful
+[25-May-2024 15:53:19 America/New_York] PDF generation successful
+[25-May-2024 15:53:19 America/New_York] Content of result_array: Array
+(
+    [0] => Array
+        (
+            [MMA-105 REOBS 2020.99] => Array
+                (
+                    [ID] => 38117
+                    [stat_name] => MMA-105 REOBS 2020.99
+                    [status] => 
+                    [island] => LUZON
+                    [region] => NCR
+                    [province] => NCR - SECOND DISTRICT
+                    [municipal] => QUEZON CITY
+                    [barangay] => PASONG TAMO
+                    [N84dd] => 14.6737
+                    [E84dd] => 121.043
+                    [order_acc] => 1
+                    [N92d] => 14
+                    [N92m] => 40
+                    [N92s] => 30.84
+                    [E92d] => 121
+                    [E92m] => 2
+                    [E92s] => 31.69203
+                    [H92] => 40.22171
+                    [N92ptm] => 1622874.558
+                    [E92ptm] => 504538.421
+                    [Z92] => 3
+                    [N84d] => 121
+                    [N84m] => 2
+                    [N84s] => 36.5794
+                    [E84d] => 14
+                    [E84m] => 40
+                    [E84s] => 25.40821
+                    [H84] => 83.65
+                    [descripts] => The station is located at the 1st island S from the intersection of Tandang Sora Ave. and Visayas Ave. From the Elliptical road it is approximately 2.30 km. It is S 75? E from  the main gate of Far East Asia Village and N 5? W from the Visayas Ave. Market Wet and Dry. Station mark is the center of the head of a stainless steel bolt drilled to the gutter of the road island.
+                    [E92utm] => 289162
+                    [N92utm] => 1623220
+                    [Z92utm] => 51
+                    [E84utm] => 289310
+                    [N84utm] => 1623150
+                    [Z84utm] => 51
+                )
+
+        )
+
+    [1] => Array
+        (
+            [MMA-202 (MMSP-13)] => Array
+                (
+                    [ID] => 38165
+                    [stat_name] => MMA-202 (MMSP-13)
+                    [status] => 1
+                    [island] => LUZON
+                    [region] => NCR
+                    [province] => NCR - SECOND DISTRICT
+                    [municipal] => QUEZON CITY
+                    [barangay] => TANDANG SORA
+                    [N84dd] => 14.6749
+                    [E84dd] => 121.032
+                    [order_acc] => 2
+                    [N92d] => 14
+                    [N92m] => 40
+                    [N92s] => 35.18358
+                    [E92d] => 121
+                    [E92m] => 1
+                    [E92s] => 51.05764
+                    [H92] => 36.41966
+                    [N92ptm] => 1623007.847
+                    [E92ptm] => 503322.677
+                    [Z92] => 3
+                    [N84d] => 121
+                    [N84m] => 1
+                    [N84s] => 55.94497
+                    [E84d] => 14
+                    [E84m] => 40
+                    [E84s] => 29.7506
+                    [H84] => 79.817
+                    [descripts] => MMSP-13
+
+ACCESS: From Dr. Montano Ramos Genral  Hospital, travel N along Mindanao ave. for about 430 meters until reaching the CHP Marketing Corp. The station is situated along the road between the center island and U-turn slot beside Shell. It is about 100m SW of Petron and Jollibee.
+
+STATION MARK: Mark is the head of a copper nail embedded and centred in a 20cm x 20cm cement putty with inscriptions ?MMSP-13 JDT?.
+
+                    [E92utm] => 287947
+                    [N92utm] => 1623360
+                    [Z92utm] => 51
+                    [E84utm] => 288095
+                    [N84utm] => 1623290
+                    [Z84utm] => 51
+                )
+
+        )
+
+    [2] => Array
+        (
+            [MMA-3272A REOBS 2020.99] => Array
+                (
+                    [ID] => 38538
+                    [stat_name] => MMA-3272A REOBS 2020.99
+                    [status] => 1
+                    [island] => LUZON
+                    [region] => NCR
+                    [province] => NCR - SECOND DISTRICT
+                    [municipal] => QUEZON CITY
+                    [barangay] => COMMONWEALTH
+                    [N84dd] => 14.7221
+                    [E84dd] => 121.113
+                    [order_acc] => 1
+                    [N92d] => 14
+                    [N92m] => 43
+                    [N92s] => 25.06574
+                    [E92d] => 121
+                    [E92m] => 6
+                    [E92s] => 41.20097
+                    [H92] => 97.72348
+                    [N92ptm] => 1628231.349
+                    [E92ptm] => 512000.755
+                    [Z92] => 3
+                    [N84d] => 121
+                    [N84m] => 6
+                    [N84s] => 46.0838
+                    [E84d] => 14
+                    [E84m] => 43
+                    [E84s] => 19.62836
+                    [H84] => 141.182
+                    [descripts] => From Commonwealth Avenue go to Batasan Road and turn left to Payatas road, travel straight to reach the staion. the station is located at the sidewalk gutter about 7 m NE mango tree, 4 m North concrete fence of Lamesa Dam, and 8 meters from the centerline.
+
+The station was marked with a head of a 4" stainless steel bolt embedded on the center of a 20cm. x 20cm. cement putty with inscriptions that read "MMA 3272-A; 2010 ; LMS-NCR".
+                    [E92utm] => 296673
+                    [N92utm] => 1628510
+                    [Z92utm] => 51
+                    [E84utm] => 296820
+                    [N84utm] => 1628440
+                    [Z84utm] => 51
+                )
+
+        )
+
+    [3] => Array
+        (
+            [MMA-3275] => Array
+                (
+                    [ID] => 38541
+                    [stat_name] => MMA-3275
+                    [status] => 1
+                    [island] => LUZON
+                    [region] => NCR
+                    [province] => NCR - SECOND DISTRICT
+                    [municipal] => QUEZON CITY
+                    [barangay] => NOVALICHES PROPER
+                    [N84dd] => 14.7244
+                    [E84dd] => 121.041
+                    [order_acc] => 3
+                    [N92d] => 14
+                    [N92m] => 43
+                    [N92s] => 33.24465
+                    [E92d] => 121
+                    [E92m] => 2
+                    [E92s] => 24.22668
+                    [H92] => 47.825
+                    [N92ptm] => 1628480.118
+                    [E92ptm] => 504314.073
+                    [Z92] => 3
+                    [N84d] => 121
+                    [N84m] => 2
+                    [N84s] => 29.10969
+                    [E84d] => 14
+                    [E84m] => 43
+                    [E84s] => 27.80096
+                    [H84] => 91.103
+                    [descripts] => Access:
+
+
+
+The station is located at the sidewalk in front of Puregold Supermarket along Quirino Highway. From SM Fairview take Quirino Highway going to Novaliches, stop and look in front of Puregold Supermarket / Jordan Comm'l Complex before Gen. Luis St where you will see the GCP of LMS-NCR.
+
+
+The station was marked with a head of a 4" stainless steel bolt embedded on the center of a 20cm. x 20cm. cement putty with inscriptions that read "MMA 3275; 2010 ; LMS-NCR".
+                    [E92utm] => 288987
+                    [N92utm] => 1628830
+                    [Z92utm] => 51
+                    [E84utm] => 289135
+                    [N84utm] => 1628760
+                    [Z84utm] => 51
+                )
+
+        )
+
+)
+
+[25-May-2024 15:55:25 America/New_York] PDF generation successful
+[25-May-2024 16:01:02 America/New_York] PDF generation successful
+[25-May-2024 16:03:59 America/New_York] PDF generation successful
+[25-May-2024 16:08:01 America/New_York] PDF generation successful
+[25-May-2024 16:11:02 America/New_York] PDF generation successful
+[25-May-2024 16:12:03 America/New_York] PDF generation successful
+[25-May-2024 16:13:52 America/New_York] PDF generation successful
+[25-May-2024 16:28:15 America/New_York] PDF generation successful
+[25-May-2024 16:30:14 America/New_York] PDF generation successful
+[25-May-2024 16:33:24 America/New_York] PDF generation successful
+[25-May-2024 16:35:39 America/New_York] PDF generation successful
+[25-May-2024 16:36:23 America/New_York] PDF generation successful
+[25-May-2024 16:38:10 America/New_York] PDF generation successful
+[25-May-2024 16:39:08 America/New_York] PDF generation successful
+[25-May-2024 16:42:53 America/New_York] PDF generation successful
+[25-May-2024 16:46:20 America/New_York] PDF generation successful
+[25-May-2024 16:49:04 America/New_York] PDF generation successful
+[25-May-2024 16:50:49 America/New_York] PDF generation successful
+[25-May-2024 16:51:49 America/New_York] PDF generation successful
+[25-May-2024 16:53:58 America/New_York] PDF generation successful
+[25-May-2024 16:55:05 America/New_York] PDF generation successful
+[25-May-2024 16:56:04 America/New_York] PDF generation successful
+[25-May-2024 17:00:17 America/New_York] PDF generation successful
+[25-May-2024 17:01:49 America/New_York] PDF generation successful
+[25-May-2024 17:02:45 America/New_York] PDF generation successful
+[25-May-2024 17:03:46 America/New_York] PDF generation successful
+[25-May-2024 17:04:27 America/New_York] PDF generation successful
+[25-May-2024 17:06:40 America/New_York] PDF generation successful
+[25-May-2024 17:07:14 America/New_York] PDF generation successful
+[26-May-2024 06:42:33 America/New_York] PDF generation successful
+[26-May-2024 12:15:14 America/New_York] PDF generation successful
+[27-May-2024 20:49:22 America/New_York] PDF generation successful
+[27-May-2024 20:49:41 America/New_York] PDF generation successful
+[27-May-2024 21:30:21 America/New_York] PDF generation successful
+[27-May-2024 21:31:55 America/New_York] PDF generation successful
+[27-May-2024 21:33:55 America/New_York] PDF generation successful
+[27-May-2024 21:35:06 America/New_York] PDF generation successful
+[27-May-2024 21:36:45 America/New_York] PDF generation successful
+[27-May-2024 21:37:37 America/New_York] PDF generation successful
+[27-May-2024 21:38:44 America/New_York] PDF generation successful
+[27-May-2024 21:41:54 America/New_York] PDF generation successful
+[27-May-2024 21:43:19 America/New_York] PDF generation successful
+[27-May-2024 22:27:02 America/New_York] PDF generation successful
+[29-May-2024 13:27:36 Asia/Manila] PDF generation successful
+[29-May-2024 14:38:59 Asia/Manila] PDF generation successful
+[30-May-2024 01:58:40 Asia/Manila] PDF generation successful
+[30-May-2024 02:26:53 Asia/Manila] PDF generation successful
+[30-May-2024 02:30:44 Asia/Manila] PDF generation successful
+[30-May-2024 02:34:20 Asia/Manila] PDF generation successful
+[30-May-2024 02:35:31 Asia/Manila] PDF generation successful
+[30-May-2024 02:39:57 Asia/Manila] PDF generation successful
+[30-May-2024 02:40:30 Asia/Manila] PDF generation successful
+[30-May-2024 02:45:31 Asia/Manila] PDF generation successful
+[30-May-2024 02:54:42 Asia/Manila] PDF generation successful
+[30-May-2024 03:04:39 Asia/Manila] PDF generation successful
+[30-May-2024 03:28:06 Asia/Manila] PDF generation successful
+[30-May-2024 03:30:55 Asia/Manila] PDF generation successful
+[30-May-2024 03:38:11 Asia/Manila] PDF generation successful
+[30-May-2024 03:41:12 Asia/Manila] PDF generation successful
+[30-May-2024 03:43:03 Asia/Manila] PDF generation successful
+[30-May-2024 03:45:28 Asia/Manila] PDF generation successful
+[30-May-2024 03:55:29 Asia/Manila] PDF generation successful
+[30-May-2024 04:01:48 Asia/Manila] PDF generation successful
+[30-May-2024 04:04:02 Asia/Manila] PDF generation successful
+[30-May-2024 04:07:17 Asia/Manila] PDF generation successful
+[30-May-2024 04:08:25 Asia/Manila] PDF generation successful
+[30-May-2024 04:09:53 Asia/Manila] PDF generation successful
+[30-May-2024 04:28:47 Asia/Manila] PDF generation successful
+[30-May-2024 04:31:43 Asia/Manila] PDF generation successful
+[30-May-2024 13:07:19 Asia/Manila] PDF generation successful
+[30-May-2024 13:09:07 Asia/Manila] PDF generation successful
+[31-May-2024 14:24:30 Asia/Manila] PDF generation successful
+[31-May-2024 14:26:00 Asia/Manila] PDF generation successful
+[31-May-2024 19:06:36 Asia/Manila] PDF generation successful
+[31-May-2024 19:07:41 Asia/Manila] PDF generation successful
+[31-May-2024 19:18:48 Asia/Manila] PDF generation successful
+[31-May-2024 19:27:49 Asia/Manila] PDF generation successful
+[31-May-2024 19:58:08 Asia/Manila] PDF generation successful
+[31-May-2024 19:59:32 Asia/Manila] PDF generation successful
+[31-May-2024 19:59:38 Asia/Manila] PDF generation successful
+[31-May-2024 21:45:32 Asia/Manila] PDF generation successful
+[02-Jun-2024 11:27:39 Asia/Manila] PDF generation successful
+[02-Jun-2024 11:30:48 Asia/Manila] PDF generation successful
+[02-Jun-2024 11:33:29 Asia/Manila] PDF generation successful
+[02-Jun-2024 11:33:30 Asia/Manila] PDF generation successful
+[02-Jun-2024 11:36:32 Asia/Manila] PDF generation successful
+[02-Jun-2024 14:03:06 Asia/Manila] PDF generation successful
+[02-Jun-2024 14:39:23 Asia/Manila] PDF generation successful
+[03-Jun-2024 08:57:47 Asia/Manila] PDF generation successful
+[03-Jun-2024 08:58:37 Asia/Manila] PDF generation successful
+[03-Jun-2024 10:17:21 Asia/Manila] PDF generation successful
+[03-Jun-2024 10:17:24 Asia/Manila] PDF generation successful
+[03-Jun-2024 10:17:27 Asia/Manila] PDF generation successful
+[03-Jun-2024 10:17:29 Asia/Manila] PDF generation successful
+[03-Jun-2024 10:17:30 Asia/Manila] PDF generation successful
+[03-Jun-2024 10:17:32 Asia/Manila] PDF generation successful
+[03-Jun-2024 15:19:19 Asia/Manila] PDF generation successful
+[03-Jun-2024 15:30:26 Asia/Manila] PDF generation successful
+[03-Jun-2024 15:31:33 Asia/Manila] PDF generation successful
+[03-Jun-2024 21:07:50 Asia/Manila] PDF generation successful
+[03-Jun-2024 23:42:39 Asia/Manila] PDF generation successful
+[04-Jun-2024 07:35:34 Asia/Manila] PDF generation successful
+[04-Jun-2024 14:10:21 Asia/Manila] PDF generation successful
+[07-Jun-2024 13:01:31 Asia/Manila] PDF generation successful
+[11-Jun-2024 00:02:47 Asia/Manila] PDF generation successful
+[11-Jun-2024 00:17:02 Asia/Manila] PDF generation successful
+[11-Jun-2024 00:17:08 Asia/Manila] PDF generation successful
+[13-Jun-2024 07:05:00 Asia/Manila] PDF generation successful
+[13-Jun-2024 07:05:05 Asia/Manila] PDF generation successful
+[13-Jun-2024 07:11:04 Asia/Manila] PDF generation successful
+[13-Jun-2024 07:11:08 Asia/Manila] PDF generation successful
+[13-Jun-2024 13:00:56 Asia/Manila] PDF generation successful
+[07-Jul-2024 23:28:49 Asia/Manila] PDF generation successful
+[07-Jul-2024 23:28:50 Asia/Manila] PDF generation successful
+[07-Jul-2024 23:28:53 Asia/Manila] PDF generation successful
+[07-Jul-2024 23:28:54 Asia/Manila] PDF generation successful
+[07-Jul-2024 23:28:56 Asia/Manila] PDF generation successful
+[14-Aug-2024 11:23:27 Asia/Manila] PDF generation successful
+[14-Aug-2024 11:23:48 Asia/Manila] PDF generation successful
+[25-Aug-2024 23:35:07 Asia/Manila] PDF generation successful
+[29-Aug-2024 11:12:18 Asia/Manila] PDF generation successful
+[11-Sep-2024 22:18:11 Asia/Manila] PDF generation successful
+[20-Sep-2024 13:26:24 Asia/Manila] PDF generation successful
+[05-Dec-2024 14:16:03 Asia/Manila] PDF generation successful
+[06-Feb-2025 13:23:46 Asia/Manila] PDF generation successful
