@@ -1,0 +1,39 @@
+station_id|station_name|island_group|region|province|city|barangay|latitude|longitude|description|gravity_value|standard_deviation|date_measured|order|encoder|date_last_updated|reference_file|station_code
+10001|MMA-115||NCR|NCR - MANILA, FIRST DISTRICT|Port Area|BARANGAY 653|15|121|update|978345|||1|Gravity Section|||
+10002|BM-66||NCR|NCR - MANILA, FIRST DISTRICT|Ermita|Barangay 666|15|121|Benchmark is set about 4.9 cm from the edge of the first concrete step near the S end of the stairway to the Bureau of Customs, Port Area, Manila. Mark is a rounded top of a 3/4 inches diameter brass rod protruding about 6.75 mm above the concrete step surface.|978343|||1|Gravity Section|||
+10005|MMGS-5||NCR|NCR - SECOND DISTRICT|Quezon City|BALINGASA|15|121|update|978358|||1|Gravity Section|||
+10086|MMGS-7||NCR|NCR - FOURTH DISTRICT|City of Muntinlupa|NAMRIA-MAGNETIC|14|121|update|978348|||1|Gravity Section|||
+20032|GM-6E||NCR|NCR - MANILA, FIRST DISTRICT|Tondo I/II|Barangay 163|15|121||978348|||2||||
+20033|560-4A||NCR|NCR - THIRD DISTRICT|City of Caloocan|Barangay 80|15|121||978350|||2||||
+20034|BB-15||NCR|NCR - THIRD DISTRICT|City of Malabon|Concepcion|15|121||978345|||2||||
+20035|MM-83||NCR|NCR - THIRD DISTRICT|City of Valenzuela|Karuhatan|15|121||978353|||2||||
+20036|MM-129||NCR|NCR - SECOND DISTRICT|Quezon City|Talipapa|15|121||978367|||2||||
+20037|MM-133||NCR|NCR - SECOND DISTRICT|Quezon City|Holy Spirit|15|121||978384|||2||||
+20038|W-2A||NCR|NCR - SECOND DISTRICT|Quezon City|U.P. Campus|15|121||978377|||2||||
+20039|BL-80||NCR|NCR - THIRD DISTRICT|City of Valenzuela|Malanday|15|121||978355|||2||||
+20045|MM-21||NCR|NCR - THIRD DISTRICT|City of Caloocan|Barangay 181|15|121||978394|||2||||
+20046|MM-137||NCR|NCR - SECOND DISTRICT|Quezon City|Pasong Putik Proper|15|121||978383|||2||||
+20047|MM-28||NCR|NCR - SECOND DISTRICT|Quezon City|Nagkaisang Nayon|15|121||978378|||2||||
+20048|MM-30||NCR|NCR - THIRD DISTRICT|City of Caloocan|Barangay 165|15|121||978363|||2||||
+20049|MM-137A||NCR|NCR - FOURTH DISTRICT|City of Parañaque|San Martin de Porres|15|121||978370|||2||||
+20050|BEACH A||NCR|NCR - FOURTH DISTRICT|City of Parañaque|San Dionisio|14|121||978349|||2||||
+20051|MMA-115(LMS)||NCR|NCR - FOURTH DISTRICT|City of Las Piñas|Almanza Uno|14|121||978351|||2||||
+20052|MM-16||NCR|NCR - FOURTH DISTRICT|City of Muntinlupa|Alabang|14|121||978364|||2||||
+20053|MM-98||NCR|NCR - FOURTH DISTRICT|City of Makati|Pembo|15|121||978381|||2||||
+20054|MM-95||NCR|NCR - SECOND DISTRICT|Quezon City|Ugong Norte|15|121||978411|||2||||
+20055|MM-105||NCR|NCR - SECOND DISTRICT|City of Pasig|Dela Paz|15|121||978419|||2||||
+20056|MM-108||NCR|NCR - FOURTH DISTRICT|Pateros|Martires Del 96|15|121||978396|||2||||
+20057|GM 42M||NCR|NCR - FOURTH DISTRICT|City of Taguig|Lower Bicutan|15|121||978394|||2||||
+20058|MM-144||NCR|NCR - FOURTH DISTRICT|City of Muntinlupa|Alabang|14|121||978371|||2||||
+20059|MM-72||NCR|NCR - FOURTH DISTRICT|City of Makati|Guadalupe Nuevo|15|121||978376|||2||||
+20060|MM-70||NCR|NCR - SECOND DISTRICT|City of Mandaluyong|Wack-Wack Greenhills|15|121||978379|||2||||
+20061|CIMA-18A||NCR|NCR - MANILA, FIRST DISTRICT|Sampaloc|Barangay 634|15|121||978356|||2||||
+20062|MM-60||NCR|NCR - FOURTH DISTRICT|Pasay City|Barangay 41|15|121||978353|||2||||
+20063|GM-12M||NCR|NCR - FOURTH DISTRICT|Pasay City|Barangay 76|15|121||978351|||2||||
+20064|MM-50||NCR|NCR - MANILA, FIRST DISTRICT|Sampaloc|Barangay 395|15|121||978350|||2||||
+20065|MM-45||NCR|NCR - SECOND DISTRICT|Quezon City|South Triangle|15|121||978366|||2||||
+20066|MM-132||NCR|NCR - SECOND DISTRICT|Quezon City|Culiat|15|121||978383|||2||||
+20067|MM-91||NCR|NCR - SECOND DISTRICT|Quezon City|Mangga|15|121||978379|||2||||
+90001|MAKATI-FGS||NCR|NCR - FOURTH DISTRICT|City of Makati|NAMRIA-FT. BONIFACIO|15|121|update|978371|||1||||
+90002|CGSD||NCR|NCR - MANILA, FIRST DISTRICT|Binondo|NAMRIA-BINONDO|15|121|update|978346|||1||||
+90003|MMGS-3/UP||NCR|NCR - SECOND DISTRICT|Quezon City|U.P. CAMPUS|15|121|update|978382|||1||||
