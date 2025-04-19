@@ -251,3 +251,189 @@
 )
 
 [19-Apr-2025 03:43:43 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:42:24 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:42:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:42:24 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:43:16 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:43:16 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:43:16 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:43:29 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:43:29 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:43:29 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:43:46 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:43:46 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:43:46 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:44:16 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:44:16 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:44:16 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:44:44 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:44:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:44:44 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:46:23 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:46:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:46:23 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:46:30 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:46:30 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:46:30 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:46:42 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:46:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:46:42 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:47:24 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:47:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:47:24 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:48:48 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:48:48 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:48:48 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:49:52 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:49:52 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:49:52 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:51:49 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:51:49 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:51:49 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:51:53 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 14:51:53 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:51:53 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 14:51:54 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 14:51:54 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:51:54 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 14:51:57 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 14:51:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:51:57 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 14:51:59 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:51:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:51:59 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:55:58 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:55:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:55:58 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:58:49 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:58:49 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:58:49 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 14:59:23 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 14:59:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 14:59:23 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:00:38 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:00:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:00:38 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:00:45 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:00:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:00:45 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:00:46 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 15:00:46 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:00:46 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 15:00:48 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:00:48 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:00:48 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:00:49 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:00:49 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:00:49 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:02:30 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:02:30 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:02:30 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:04:07 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:04:07 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:04:07 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:06:48 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:06:48 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:06:48 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:09:23 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:09:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:09:23 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:11:49 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:11:49 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:11:49 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:12:36 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:12:36 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:12:36 Asia/Manila] Fetching stations for type: horizontal

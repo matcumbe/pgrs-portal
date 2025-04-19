@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geodetic Network Information System (GNIS)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -20,15 +21,20 @@
     </header>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
-            <div class="navbar-nav">
-                <a class="nav-link active" href="#"><i class="fas fa-home"></i> GNIS Home</a>
-                <a class="nav-link" href="#"><i class="fas fa-search"></i> Explorer</a>
-                <a class="nav-link" href="#"><i class="fas fa-map-marker"></i> Tracker</a>
-                <a class="nav-link" href="#"><i class="fas fa-cog"></i> Simulator</a>
-                <a class="nav-link" href="#"><i class="fas fa-tasks"></i> Management</a>
-                <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> About Us</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="#"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link active" href="#"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="#"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link" href="#"><i class="fas fa-cog"></i> Simulator</a>
+                    <a class="nav-link" href="#"><i class="fas fa-tasks"></i> Management</a>
+                    <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -37,10 +43,10 @@
     <div class="container-fluid mt-3">
         <div class="row">
             <!-- Filter Panel -->
-            <div class="col-md-3">
+            <div class="col-md-3" style="padding-right: 0px;">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Filter/Search Panel</h5>
+                    <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                        <h5 class="mb-0" style="color: white;">Filter/Search Panel</h5>
                     </div>
                     <div class="card-body">
                         <!-- Error Messages -->
@@ -49,17 +55,28 @@
                         <!-- GCP Type Filter -->
                         <div class="mb-3">
                             <label class="form-label">GCP Type:</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gcpType" id="verticalType" value="vertical" checked>
-                                <label class="form-check-label">Vertical</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gcpType" id="horizontalType" value="horizontal">
-                                <label class="form-check-label">Horizontal</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gcpType" id="gravityType" value="gravity">
-                                <label class="form-check-label">Gravity</label>
+                            <div class="gcp-type-group">
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical" checked>
+                                    <label class="gcp-type-label" for="verticalType">
+                                        <i class="fas fa-arrows-alt-v"></i>
+                                        <span>Vertical</span>
+                                    </label>
+                                </div>
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="horizontalType" value="horizontal">
+                                    <label class="gcp-type-label" for="horizontalType">
+                                        <i class="fas fa-arrows-alt-h"></i>
+                                        <span>Horizontal</span>
+                                    </label>
+                                </div>
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="gravityType" value="gravity">
+                                    <label class="gcp-type-label" for="gravityType">
+                                        <i class="fas fa-weight-hanging"></i>
+                                        <span>Gravity</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -140,12 +157,12 @@
                 <!-- Tables Row -->
                 <div class="row">
                     <!-- Search Results Table -->
-                    <div class="col-md-8">
+                    <div class="col-md-8" style="padding-right: 0px;">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="mb-0">Search Results</h5>
+                            <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                                <h5 class="mb-0" style="color: white;">Search Results</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="padding: 0;">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -168,10 +185,10 @@
                     <!-- Selected Points Table -->
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="mb-0">Selected Points</h5>
+                            <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                                <h5 class="mb-0" style="color: white;">Selected Points</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="padding: 0;">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
