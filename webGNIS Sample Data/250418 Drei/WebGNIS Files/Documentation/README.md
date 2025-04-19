@@ -4,7 +4,7 @@
 
 WebGNIS is a comprehensive web application designed for managing, visualizing, and querying geodetic control point data. It provides tools for both public users to explore geodetic data and administrative users to manage the underlying dataset.
 
-![WebGNIS Logo](../assets/images/logo.png)
+![WebGNIS Logo](../Assets/gnis_logo.png)
 
 ## Features
 
