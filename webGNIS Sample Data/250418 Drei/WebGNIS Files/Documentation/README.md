@@ -24,10 +24,11 @@ The GNIS is designed to provide a comprehensive platform for:
 - Filtering by GCP type (Vertical, Horizontal, Gravity)
 - Location-based filtering (Region, Province, City, Barangay)
 - Order and accuracy class filtering
-- Search by station name
-- Radius-based search
-- Real-time map updates
-- Responsive design
+- **Client-side, real-time search** by station name (case/format insensitive) from Search Results table
+- **Dynamic Search Results Table:** Elevation column header and content adapt to selected GCP type (Elevation/Ell. Height/Grav. Value)
+- Radius-based search from filter panel
+- Real-time map updates based on filters and search
+- Responsive design with a **green color theme**
 - Multiple point selection ("Add to Cart" functionality)
 - Selected points management
 
@@ -35,15 +36,14 @@ The GNIS is designed to provide a comprehensive platform for:
 1. Map bounds error (Fixed)
 2. API endpoint duplication (Fixed)
 3. Error handling improvements (In Progress)
-4. "Add to Cart" functionality (Fixed)
+4. Performance for very large datasets (Needs further optimization)
 
 ### Required Fixes
 1. ~~Map bounds error in updateMap function~~
 2. ~~API endpoint cleanup and standardization~~
-3. ~~"Add to Cart" functionality for multiple point selection~~
-4. Enhanced error handling and user feedback
-5. Performance optimizations for large datasets
-6. Security improvements
+3. Enhanced error handling and user feedback
+4. Performance optimizations for large datasets
+5. Security improvements
 
 ## Technical Stack
 
@@ -52,6 +52,7 @@ The GNIS is designed to provide a comprehensive platform for:
 - Bootstrap 5.3.2
 - Leaflet.js 1.9.4
 - Font Awesome icons
+- **Client-side search implementation** (replacing previous API search)
 
 ### Backend
 - PHP
@@ -92,6 +93,7 @@ The GNIS is designed to provide a comprehensive platform for:
 - Error handling improvements
 - Performance optimizations
 - Documentation updates
+- **Refinement of UI/UX elements**
 
 ### Planned
 - User authentication
@@ -117,4 +119,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For any questions or concerns, please contact the development team.
 
 ## Last Updated
-May 1, 2024 
+April 19, 2025 

@@ -173,18 +173,14 @@ header {
 }
 
 .gcp-type-label {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 12px 8px;
-    background-color: #f8f9fa;
-    border: 2px solid #dee2e6;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-    gap: 8px;
+    transition: all 0.3s ease;
 }
 
 .gcp-type-label i {
@@ -200,22 +196,23 @@ header {
 }
 
 .gcp-type-input:checked + .gcp-type-label {
-    background-color: #e7f5ff;
-    border-color: #0d6efd;
+    background-color: rgb(25, 135, 84);
+    color: white;
+    border-color: rgb(25, 135, 84);
 }
 
 .gcp-type-input:checked + .gcp-type-label i,
 .gcp-type-input:checked + .gcp-type-label span {
-    color: #0d6efd;
+    color: white;
 }
 
 .gcp-type-label:hover {
-    background-color: #e9ecef;
-    transform: translateY(-1px);
+    background-color: rgba(25, 135, 84, 0.1);
+    border-color: rgb(25, 135, 84);
 }
 
 .gcp-type-input:checked + .gcp-type-label:hover {
-    background-color: #dbeeff;
+    background-color: rgb(20, 108, 67);
 }
 
 @media (max-width: 576px) {
@@ -232,4 +229,47 @@ header {
     .gcp-type-label i {
         margin-right: 8px;
     }
+}
+
+.btn-primary {
+    background-color: rgb(25, 135, 84) !important;
+    border-color: rgb(25, 135, 84) !important;
+}
+
+.btn-primary:hover {
+    background-color: rgb(20, 108, 67) !important;
+    border-color: rgb(20, 108, 67) !important;
+}
+
+.btn-primary:active {
+    background-color: rgb(15, 81, 50) !important;
+    border-color: rgb(15, 81, 50) !important;
+}
+
+/* Style for Add to Cart buttons */
+.btn-add-to-cart {
+    background-color: rgb(25, 135, 84) !important;
+    border-color: rgb(25, 135, 84) !important;
+    color: white !important;
+}
+
+.btn-add-to-cart:hover {
+    background-color: rgb(20, 108, 67) !important;
+    border-color: rgb(20, 108, 67) !important;
+}
+
+/* Style for map popup */
+.leaflet-popup-content-wrapper {
+    border-left: 4px solid rgb(25, 135, 84);
+}
+
+.leaflet-popup .btn {
+    background-color: rgb(25, 135, 84) !important;
+    border-color: rgb(25, 135, 84) !important;
+    color: white !important;
+}
+
+.leaflet-popup .btn:hover {
+    background-color: rgb(20, 108, 67) !important;
+    border-color: rgb(20, 108, 67) !important;
 } 

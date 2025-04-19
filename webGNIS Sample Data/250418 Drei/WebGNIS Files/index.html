@@ -111,15 +111,6 @@
                             </select>
                         </div>
 
-                        <!-- Search by Name -->
-                        <div class="mb-3">
-                            <label class="form-label">Search by Name:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="stationNameSearch" placeholder="Enter station name">
-                                <button class="btn btn-primary" type="button" id="searchByNameBtn">Search</button>
-                            </div>
-                        </div>
-
                         <!-- Pin and Radius -->
                         <div class="mb-3">
                             <label class="form-label">Add Pin and Radius:</label>
@@ -160,7 +151,15 @@
                     <div class="col-md-8" style="padding-right: 0px;">
                         <div class="card">
                             <div class="card-header" style="background-color: rgb(25, 135, 84);">
-                                <h5 class="mb-0" style="color: white;">Search Results</h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0" style="color: white;">Search Results</h5>
+                                    <div class="input-group" style="width: 300px;">
+                                        <input type="text" class="form-control" id="stationNameSearch" placeholder="Search station name...">
+                                        <button class="btn btn-light" type="button" id="searchByNameBtn">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body" style="padding: 0;">
                                 <table class="table table-striped table-hover">
@@ -175,7 +174,17 @@
                                         </tr>
                                     </thead>
                                     <tbody id="searchResults">
-                                        <!-- Results will be populated here -->
+                                        <!-- Example row to show styling -->
+                                        <tr>
+                                            <td>Example Station</td>
+                                            <td>14.123456</td>
+                                            <td>121.123456</td>
+                                            <td>100.123</td>
+                                            <td>1</td>
+                                            <td>
+                                                <button class="btn btn-add-to-cart">Add to Cart</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

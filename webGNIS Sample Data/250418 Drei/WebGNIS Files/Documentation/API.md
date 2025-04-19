@@ -94,10 +94,9 @@ GET /api/station/{id}
 }
 ```
 
-### 3. Search Stations
-```
-GET /api/search
-```
+### 3. ~~Search Stations~~
+~~GET /api/search~~
+// Note: This endpoint might be deprecated or unused as search functionality is now primarily client-side.
 
 **Query Parameters:**
 - `type` (required): Station type
@@ -133,6 +132,7 @@ GET /api/search
 ### 4. Search by Radius
 ```
 GET /api/radius-search
+// Note: Ensure path consistency. API might use `/api/stations/radius` as seen in script.js.
 ```
 
 **Query Parameters:**
@@ -329,13 +329,21 @@ GET /api/selected-points-info
 
 ## Error Codes
 
-- `400`: Bad Request - Invalid parameters
-- `404`: Not Found - Resource not found
-- `500`: Internal Server Error - Server-side error
+- **400 Bad Request:** Missing or invalid parameters
+- **404 Not Found:** Endpoint or resource not found
+- **500 Internal Server Error:** Server-side error
 
 ## Rate Limiting
 
-API requests are limited to 100 requests per minute per IP address. Exceeding this limit will result in a 429 Too Many Requests response.
+(Not currently implemented, but planned for future versions)
+
+## Changelog
+
+- **April 19, 2025:** Noted potential deprecation of `/api/search` due to client-side search implementation. Reviewed other endpoints.
+- **May 1, 2024:** Initial documentation.
+
+## Last Updated
+April 19, 2025
 
 ## API Usage Examples
 

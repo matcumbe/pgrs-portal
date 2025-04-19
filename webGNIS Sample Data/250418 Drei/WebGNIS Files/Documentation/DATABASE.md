@@ -10,7 +10,7 @@ The GNIS database stores information about geodetic control points, specifically
 
 ```sql
 CREATE TABLE `grav_stations` (
-  `station_id` varchar(20) DEFAULT NULL,
+  `station_id` INT AUTO_INCREMENT PRIMARY KEY,
   `station_name` varchar(100) DEFAULT NULL,
   `island_group` varchar(50) DEFAULT NULL,
   `region` varchar(100) DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `grav_stations` (
 **Description:** Stores information about gravity measurement stations.
 
 **Columns:**
-*   `station_id`: Unique identifier for the station (VARCHAR).
+*   `station_id`: Unique identifier for the station (INT AUTO_INCREMENT PRIMARY KEY).
 *   `station_name`: Name of the station (VARCHAR).
 *   `island_group`: Island group location (VARCHAR).
 *   `region`: Region location (VARCHAR).
@@ -57,7 +57,7 @@ CREATE TABLE `grav_stations` (
 
 ```sql
 CREATE TABLE `hgcp_stations` (
-  `station_id` varchar(20) DEFAULT NULL,
+  `station_id` INT AUTO_INCREMENT PRIMARY KEY,
   `station_name` varchar(100) DEFAULT NULL,
   `region` varchar(100) DEFAULT NULL,
   `province` varchar(100) DEFAULT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `hgcp_stations` (
 
 ## Relationships
 
-*   Relationships between `grav_stations` and `hgcp_stations` or with other potential tables are not explicitly defined by foreign keys in the provided `webgnis_db.sql` schema.
+*   Relationships between `grav_stations`, `hgcp_stations`, and `vgcp_stations` (if exists) are typically based on `station_id`.
 
 ## Indexes
 
@@ -153,6 +153,9 @@ CREATE TABLE `hgcp_stations` (
 
 *   No explicit primary key or foreign key constraints are defined in the provided `CREATE TABLE` statements for `grav_stations` and `hgcp_stations`.
 *   `DEFAULT NULL` is used for most columns, indicating they can store NULL values.
+*   `station_id` in `hgcp_stations` and `vgcp_stations` (if exists) has been updated to be an `INT AUTO_INCREMENT PRIMARY KEY` (as of April 19, 2025).
+*   `station_id` in `grav_stations` currently remains `VARCHAR(20)`. It's recommended to update this similarly if possible.
+*   Data integrity relies on application logic for tables where `station_id` is not a primary key.
 
 ## Views
 
@@ -165,4 +168,4 @@ CREATE TABLE `hgcp_stations` (
 
 ## Last Updated
 
-(Please update with the current date when finalizing)
+April 19, 2025

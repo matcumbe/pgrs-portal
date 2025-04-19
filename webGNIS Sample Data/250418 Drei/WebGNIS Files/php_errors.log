@@ -437,3 +437,620 @@
 )
 
 [19-Apr-2025 15:12:36 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:22:56 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:22:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:22:56 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:23:04 Asia/Manila] Request received: GET /api/stations/search?name=mma
+[19-Apr-2025 15:23:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:23:04 Asia/Manila] Fetching stations for type: search
+[19-Apr-2025 15:23:04 Asia/Manila] API Error: Invalid station type
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(66): getStationsByType('search')
+#1 {main}
+[19-Apr-2025 15:23:38 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:23:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:23:38 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:26:24 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:26:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:26:24 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:26:25 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:26:25 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:26:27 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 15:26:27 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:26:27 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 15:29:50 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:29:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:29:50 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:29:57 Asia/Manila] Request received: GET /api/stations/search?name=mma
+[19-Apr-2025 15:29:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:29:57 Asia/Manila] Fetching stations for type: search
+[19-Apr-2025 15:29:57 Asia/Manila] API Error: Invalid station type
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(66): getStationsByType('search')
+#1 {main}
+[19-Apr-2025 15:30:13 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:30:13 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:30:13 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:30:20 Asia/Manila] Request received: GET /api/stations/search?name=example
+[19-Apr-2025 15:30:20 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:30:20 Asia/Manila] Fetching stations for type: search
+[19-Apr-2025 15:30:20 Asia/Manila] API Error: Invalid station type
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(66): getStationsByType('search')
+#1 {main}
+[19-Apr-2025 15:30:52 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:30:52 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:30:52 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:31:03 Asia/Manila] Request received: GET /api/stations/search?name=mma-39
+[19-Apr-2025 15:31:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:31:03 Asia/Manila] Fetching stations for type: search
+[19-Apr-2025 15:31:03 Asia/Manila] API Error: Invalid station type
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(66): getStationsByType('search')
+#1 {main}
+[19-Apr-2025 15:33:37 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:33:37 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:33:37 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:34:09 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:34:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:34:09 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:34:11 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:34:11 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:34:11 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:36:42 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:36:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:36:42 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:37:02 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:37:02 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:37:02 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:39:27 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 15:39:27 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:39:27 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 15:39:30 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:39:30 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:39:30 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:39:33 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:39:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:39:33 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:39:35 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:39:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:39:35 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:39:46 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:39:46 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:39:46 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:40:48 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 15:40:48 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:40:48 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 15:41:03 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:41:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:41:03 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:41:38 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:41:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:41:38 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:41:56 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:41:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:41:56 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:44:27 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:44:27 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:44:27 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:47:32 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:47:32 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:47:32 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:49:22 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:49:22 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:49:22 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:49:49 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:49:49 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:49:49 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:55:29 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:55:29 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:55:29 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:58:14 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:58:14 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:58:14 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:58:14 Asia/Manila] Exception: Undefined constant "ESSENTIAL_FIELDS" in C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php on line 186
+[19-Apr-2025 15:59:37 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 15:59:37 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 15:59:37 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 15:59:37 Asia/Manila] API Error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'order, accuracy_class FROM vgcp_stations WHERE station_id IS NOT NULL' at line 1
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(192): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('vertical')
+#2 {main}
+[19-Apr-2025 16:00:57 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:00:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:00:57 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:00:57 Asia/Manila] API Error: Unknown column 'order' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(192): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('vertical')
+#2 {main}
+[19-Apr-2025 16:02:59 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:02:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:02:59 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:03:53 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:03:53 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:03:53 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:03:53 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('horizontal')
+#2 {main}
+[19-Apr-2025 16:03:57 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:03:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:03:57 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:03:57 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('gravity')
+#2 {main}
+[19-Apr-2025 16:03:58 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:03:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:03:58 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:03:58 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('horizontal')
+#2 {main}
+[19-Apr-2025 16:03:58 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:03:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:03:58 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:04:01 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:04:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:04:01 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:04:01 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('horizontal')
+#2 {main}
+[19-Apr-2025 16:04:01 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:04:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:04:01 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:04:01 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('gravity')
+#2 {main}
+[19-Apr-2025 16:04:03 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:04:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:04:03 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:04:03 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('horizontal')
+#2 {main}
+[19-Apr-2025 16:04:12 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:04:12 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:04:12 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:04:16 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:04:16 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:04:16 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:04:16 Asia/Manila] API Error: Unknown column 'elevation' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(199): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('horizontal')
+#2 {main}
+[19-Apr-2025 16:07:17 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:07:17 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:07:17 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:07:19 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:07:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:07:19 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:07:36 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:07:36 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:07:36 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:07:36 Asia/Manila] API Error: Unknown column 'accuracy_class' in 'field list'
+#0 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(205): mysqli->query('SELECT station_...')
+#1 C:\Users\cumbe\OneDrive\Desktop\PGRS Portal\webGNIS Sample Data\250418 Drei\WebGNIS Files\api.php(81): getStationsByType('gravity')
+#2 {main}
+[19-Apr-2025 16:08:23 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:08:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:08:23 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:08:26 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:08:26 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:08:26 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:08:28 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:08:28 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:08:28 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:09:30 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:09:30 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:30 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:09:35 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:09:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:35 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:09:37 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:09:37 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:37 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:09:39 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:09:39 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:39 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:09:42 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:09:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:42 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:09:43 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:09:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:43 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:09:44 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:09:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:44 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:09:54 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:09:54 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:09:54 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:10:06 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:10:06 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:10:06 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:10:08 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:10:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:10:08 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:10:09 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:10:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:10:09 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:12:57 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:12:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:12:57 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:23:35 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:23:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:23:35 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:23:42 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:23:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:23:42 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:23:43 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:23:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:23:43 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:23:47 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:23:47 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:23:47 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:23:54 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:23:54 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:23:54 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:23:58 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:23:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:23:58 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:24:03 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:24:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:24:03 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:24:08 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:24:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:24:08 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:27:58 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:27:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:27:58 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:30:06 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:30:06 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:30:06 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:31:13 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:31:13 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:31:13 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:31:18 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:31:18 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:31:18 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:31:20 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:31:20 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:31:20 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:32:09 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:32:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:32:09 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:32:20 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:32:20 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:32:20 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:34:41 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:34:41 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:34:41 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:34:57 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:34:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:34:57 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 16:35:01 Asia/Manila] Request received: GET /api/stations/gravity
+[19-Apr-2025 16:35:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:35:01 Asia/Manila] Fetching stations for type: gravity
+[19-Apr-2025 16:37:12 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:37:12 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:37:12 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:47:03 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:47:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:47:03 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:47:07 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:47:07 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:47:07 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:47:55 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:47:55 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:47:55 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:53:21 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:53:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:53:21 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:54:15 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:54:15 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:54:15 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:56:45 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:56:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:56:45 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:59:25 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 16:59:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:59:25 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 16:59:34 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 16:59:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 16:59:34 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 17:00:54 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 17:00:54 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 17:00:54 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 17:05:34 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 17:05:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 17:05:34 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 17:06:07 Asia/Manila] Request received: GET /api/stations/horizontal
+[19-Apr-2025 17:06:07 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 17:06:07 Asia/Manila] Fetching stations for type: horizontal
+[19-Apr-2025 17:06:12 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 17:06:12 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 17:06:12 Asia/Manila] Fetching stations for type: vertical
+[19-Apr-2025 17:06:17 Asia/Manila] Request received: GET /api/stations/vertical
+[19-Apr-2025 17:06:17 Asia/Manila] Query parameters: Array
+(
+)
+
+[19-Apr-2025 17:06:17 Asia/Manila] Fetching stations for type: vertical

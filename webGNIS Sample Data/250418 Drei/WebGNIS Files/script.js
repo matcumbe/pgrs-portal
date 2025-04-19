@@ -73,7 +73,7 @@ function initializeApplication() {
     // Update map markers with colors
     function updateMap(stations) {
         try {
-            console.log('Updating map with stations:', stations);
+            console.log(`Updating map with ${stations.length} stations`);
             
             // Clear existing markers
             if (markersLayer) {
@@ -94,17 +94,9 @@ function initializeApplication() {
 
             stations.forEach(station => {
                 if (station.latitude && station.longitude) {
-                    let order = '';
-                    // Get the correct order based on station type
-                    if (station.hasOwnProperty('elevation_order')) {
-                        order = station.elevation_order;
-                    } else if (station.hasOwnProperty('horizontal_order')) {
-                        order = station.horizontal_order;
-                    } else if (station.hasOwnProperty('order')) {
-                        order = station.order;
-                    }
-                    
+                    let order = station.order || station.elevation_order || station.horizontal_order || '';
                     const color = orderColors[order] || '#999999'; // Default gray for unknown order
+                    
                     const marker = L.marker([station.latitude, station.longitude], {
                         icon: createCustomIcon(color)
                     }).bindPopup(`
@@ -118,10 +110,7 @@ function initializeApplication() {
                         </button>
                     `);
                     
-                    if (markersLayer) {
-                        markersLayer.addLayer(marker);
-                    }
-                    
+                    markersLayer.addLayer(marker);
                     bounds.extend([station.latitude, station.longitude]);
                     hasValidCoordinates = true;
                 }
@@ -144,23 +133,50 @@ function initializeApplication() {
     function updateSearchResults(stations) {
         try {
             const tbody = document.getElementById('searchResults');
+            const thead = tbody.closest('table').querySelector('thead tr'); // Get the header row
             if (!tbody) {
                 throw new Error('Search results table body not found');
             }
+            if (!thead) {
+                throw new Error('Search results table header not found');
+            }
             tbody.innerHTML = '';
+
+            // Determine current GCP type
+            const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'vertical';
+
+            // Get the header cell for the dynamic column (4th column, index 3)
+            const dynamicHeaderCell = thead.cells[3];
+            let elevationHeader = 'Elevation';
+            let elevationKey = 'elevation';
+
+            if (gcpType === 'horizontal') {
+                elevationHeader = 'Ell. Height';
+                elevationKey = 'ellipsoidal_height';
+            } else if (gcpType === 'gravity') {
+                elevationHeader = 'Grav. Value';
+                elevationKey = 'gravity_value';
+            }
+
+            // Update the header text
+            dynamicHeaderCell.textContent = elevationHeader;
 
             stations.forEach(station => {
                 const row = document.createElement('tr');
                 row.dataset.stationId = station.station_id;
+
+                // Get the correct value based on GCP type
+                const elevationValue = station[elevationKey] || 'N/A';
+                const orderValue = station.order || station.elevation_order || station.horizontal_order || 'N/A';
                 
                 row.innerHTML = `
                     <td>${station.station_name || ''}</td>
                     <td>${station.latitude || ''}</td>
                     <td>${station.longitude || ''}</td>
-                    <td>${station.elevation || 'N/A'}</td>
-                    <td>${station.order || station.elevation_order || station.horizontal_order || 'N/A'}</td>
+                    <td>${elevationValue}</td>
+                    <td>${orderValue}</td>
                     <td>
-                        <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_name}', '${station.station_name || ''}')">
+                        <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}')">
                             Add to Cart
                         </button>
                     </td>
@@ -497,22 +513,73 @@ function initializeApplication() {
 
     // Set up search by name
     const searchInput = document.getElementById('stationNameSearch');
-    const searchBtn = document.getElementById('searchByNameBtn');
-    if (searchInput && searchBtn) {
-        searchBtn.addEventListener('click', async () => {
-            clearError();
-            toggleLoading(true);
-            try {
-                const response = await fetch(`api.php?path=/api/stations/search?name=${encodeURIComponent(searchInput.value)}`);
-                if (!response.ok) throw new Error('Search failed');
-                const data = await response.json();
-                updateSearchResults(data);
-            } catch (error) {
-                showError('Failed to search stations: ' + error.message);
-            } finally {
-                toggleLoading(false);
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            // Get the current stations from the table
+            const tableRows = document.getElementById('searchResults').getElementsByTagName('tr');
+            const currentStations = [];
+            
+            // Convert table rows to station objects
+            for (let row of tableRows) {
+                const cells = row.getElementsByTagName('td');
+                if (cells.length >= 5) {
+                    currentStations.push({
+                        station_name: cells[0].textContent,
+                        latitude: parseFloat(cells[1].textContent),
+                        longitude: parseFloat(cells[2].textContent),
+                        elevation: parseFloat(cells[3].textContent),
+                        order: cells[4].textContent
+                    });
+                }
             }
-        });
+
+            if (currentStations.length === 0) {
+                console.log('No stations in table to search through');
+                return;
+            }
+
+            // If search is empty, show all current stations
+            if (searchTerm === '') {
+                updateSearchResults(currentStations);
+                updateMap(currentStations);
+                return;
+            }
+
+            // Filter current stations based on search term
+            const filteredStations = currentStations.filter(station => {
+                const stationName = (station.station_name || '').toLowerCase();
+                // Remove special characters and spaces for comparison
+                const normalizedStationName = stationName.replace(/[\s-_()]/g, '');
+                const normalizedSearchTerm = searchTerm.replace(/[\s-_()]/g, '');
+                return normalizedStationName.includes(normalizedSearchTerm);
+            });
+
+            console.log(`Found ${filteredStations.length} matches for "${searchTerm}"`);
+
+            // Update only the table rows visibility instead of recreating them
+            for (let row of tableRows) {
+                const stationName = row.cells[0].textContent.toLowerCase();
+                const normalizedStationName = stationName.replace(/[\s-_()]/g, '');
+                const normalizedSearchTerm = searchTerm.replace(/[\s-_()]/g, '');
+                
+                if (normalizedStationName.includes(normalizedSearchTerm)) {
+                    row.style.display = ''; // Show matching rows
+                } else {
+                    row.style.display = 'none'; // Hide non-matching rows
+                }
+            }
+
+            // Update map with filtered stations
+            updateMap(filteredStations);
+        }, 300));
+    }
+
+    // Remove the search button since we're using real-time search
+    const searchBtn = document.getElementById('searchByNameBtn');
+    if (searchBtn) {
+        searchBtn.remove();
     }
 
     // Set up search by radius
@@ -682,4 +749,180 @@ function updateSelectedPointsTable() {
         `;
         tableBody.appendChild(row);
     }
-} 
+}
+
+// Global variables to store markers and data
+let map;
+let markers = [];
+let allPoints = []; // Store all points data
+
+// Initialize map
+function initMap() {
+    map = L.map('map').setView([14.5995, 120.9842], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+}
+
+// Initialize the application
+function init() {
+    initMap();
+    setupSearchListener();
+    // Add other initialization code here
+}
+
+// Setup search functionality
+function setupSearchListener() {
+    const searchInput = document.getElementById('stationNameSearch');
+    
+    // Add input event listener for real-time filtering
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        filterTableAndMap(searchTerm);
+    });
+}
+
+// Filter table and map based on search term
+function filterTableAndMap(searchTerm) {
+    // Filter the data
+    const filteredPoints = allPoints.filter(point => {
+        // Case insensitive search on station name
+        // Also handle different formats (remove spaces, special characters)
+        const searchableText = point.stationName.toLowerCase()
+            .replace(/[\s-_()]/g, ''); // Remove spaces, hyphens, underscores, parentheses
+        const processedSearchTerm = searchTerm
+            .replace(/[\s-_()]/g, '');
+        
+        return searchableText.includes(processedSearchTerm);
+    });
+
+    // Update table
+    updateTable(filteredPoints);
+    
+    // Update map markers
+    updateMapMarkers(filteredPoints);
+}
+
+// Update table with filtered data
+function updateTable(points) {
+    const tbody = document.getElementById('searchResults');
+    tbody.innerHTML = '';
+
+    points.forEach(point => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${point.stationName}</td>
+            <td>${point.latitude}</td>
+            <td>${point.longitude}</td>
+            <td>${point.elevation}</td>
+            <td>${point.order}</td>
+            <td>
+                <button class="btn btn-add-to-cart" onclick="addToCart('${point.stationName}')">
+                    Add to Cart
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Update map markers based on filtered data
+function updateMapMarkers(points) {
+    // Clear existing markers
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+
+    // Add new markers
+    points.forEach(point => {
+        const marker = L.marker([point.latitude, point.longitude])
+            .bindPopup(`
+                <strong>${point.stationName}</strong><br>
+                Lat: ${point.latitude}<br>
+                Long: ${point.longitude}<br>
+                Order: ${point.order}<br>
+                Accuracy Class: ${point.accuracyClass}<br>
+                <button class="btn btn-add-to-cart mt-2" onclick="addToCart('${point.stationName}')">
+                    Add to Cart
+                </button>
+            `);
+        
+        markers.push(marker);
+        marker.addTo(map);
+    });
+
+    // Adjust map view if there are markers
+    if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.1));
+    }
+}
+
+// Add point to selected points
+function addToCart(stationName) {
+    const selectedPointsTable = document.getElementById('selectedPoints');
+    
+    // Check if point is already in cart
+    const existingRows = selectedPointsTable.getElementsByTagName('tr');
+    for (let row of existingRows) {
+        if (row.cells[0].textContent === stationName) {
+            return; // Point already in cart
+        }
+    }
+
+    // Add new row to selected points
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${stationName}</td>
+        <td>
+            <button class="btn btn-danger btn-sm" onclick="removeFromCart(this)">
+                Remove
+            </button>
+        </td>
+    `;
+    selectedPointsTable.appendChild(row);
+}
+
+// Remove point from selected points
+function removeFromCart(button) {
+    const row = button.closest('tr');
+    row.remove();
+}
+
+// Add a point to the dataset
+function addPoint(point) {
+    allPoints.push(point);
+    updateTable(allPoints);
+    updateMapMarkers(allPoints);
+}
+
+// Sample data loading (replace with actual data loading)
+function loadSampleData() {
+    // Sample points - replace with actual data loading
+    const samplePoints = [
+        {
+            stationName: "MM-747 (MBM-2)",
+            latitude: 14.369178,
+            longitude: 121.050353,
+            elevation: 5.123,
+            order: 1,
+            accuracyClass: "3CM FROM M"
+        },
+        {
+            stationName: "MMA-4269 (GM-3HA)",
+            latitude: 14.632944,
+            longitude: 121.008861,
+            elevation: 6.042,
+            order: 2,
+            accuracyClass: "2CM FROM M"
+        }
+        // Add more sample points as needed
+    ];
+
+    samplePoints.forEach(point => addPoint(point));
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    loadSampleData();
+}); 

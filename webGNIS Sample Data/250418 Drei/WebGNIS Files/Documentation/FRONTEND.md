@@ -16,7 +16,7 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 
 ### 1. Navigation Bar
 - Application logo
-- Search bar
+- Links (GNIS Home, Explorer, Tracker, etc.)
 - User menu (future implementation)
 - Help/About links
 
@@ -26,8 +26,9 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Map controls (zoom, fullscreen, etc.)
 - Layer controls for different station types
 - "Add to Cart" functionality for station selection
+- Consistent green theme applied to interactive elements (buttons, popups)
 
-### 3. Search Panel
+### 3. Filter/Search Panel
 - Station type selector
 - Filter options:
   - Order
@@ -38,10 +39,16 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
   - Barangay
 - Search radius control
 - Search button
+- Search by Lat/Lon/Radius controls
 
-### 4. Results Panel
+### 4. Search Results Panel
+- Inline Search Bar: Located in the header for quick filtering of results.
 - Tabular view of search results
-- Sortable columns
+- Dynamic Elevation Column: Header and content change based on GCP type:
+  - Vertical: "Elevation" (uses `elevation` data)
+  - Horizontal: "Ell. Height" (uses `ellipsoidal_height` data)
+  - Gravity: "Grav. Value" (uses `gravity_value` data)
+- Sortable columns (future implementation)
 - Pagination controls
 - Export options (CSV, JSON)
 - "Add to Cart" buttons for station selection
@@ -67,10 +74,11 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Map bounds auto-adjustment
 - Station selection directly from map
 
-### 2. Advanced Search
-- Multi-criteria filtering
-- Real-time search suggestions
-- Radius-based search
+### 2. Advanced Search & Filtering
+- Multi-criteria filtering via the filter panel
+- Real-time, Client-Side Search: Search bar in the results panel filters the *currently displayed* table data and map markers instantly.
+- Search is case-insensitive and format-insensitive (ignores spaces, hyphens, etc.).
+- Radius-based search via the filter panel
 - Search history (future implementation)
 
 ### 3. Multiple Station Selection
@@ -103,10 +111,10 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Right-click for context menu
 
 ### 2. Search Interactions
-- Type to filter dropdowns
-- Click to select filters
-- Drag to adjust radius
-- Enter to submit search
+- Type in the filter panel dropdowns to filter options
+- Click to select filters in the filter panel
+- Enter Lat/Lon/Radius and click search button in filter panel
+- Type in the Search Results search bar to filter displayed results in real-time
 
 ### 3. Results Interactions
 - Click column headers to sort
@@ -201,4 +209,4 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Data export formats for selected points
 
 ## Last Updated
-May 1, 2024 
+April 19, 2025 
