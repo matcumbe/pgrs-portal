@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNIS | Home</title>
+    <link rel="icon" href="Assets/gnis_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles specific to home page */
+        .feature-box {
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            height: 100%; /* Make boxes equal height */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to top */
+        }
+        .feature-box i {
+            font-size: 3rem; /* Larger icons */
+            color: #198754; /* Bootstrap success green */
+            margin-bottom: 15px;
+        }
+        .feature-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .feature-box p {
+            font-size: 0.9rem;
+            color: #6c757d; /* Bootstrap secondary text color */
+            text-align: center; /* Center align text */
+        }
+        .content-section {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1000px; /* Adjust max-width as needed */
+            margin: 30px auto; /* Center the content */
+        }
+         .navbar .nav-link.active {
+            font-weight: bold; /* Make active link bold */
+         }
+         .navbar .nav-link {
+            padding-left: 15px;
+            padding-right: 15px;
+         }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <!-- Assuming namria_logo.png is in the same directory -->
+                <img src="Assets/gnis_logo.png" alt="NAMRIA Logo" class="me-2" style="height: 40px;">
+                <h1 class="mb-0 h3 flex-grow-1 text-center">Geodetic Network Information System (GNIS)</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mx-auto">
+                    <a class="nav-link active" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.html"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="#"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link" href="admin.html"><i class="fas fa-cog"></i> Management</a>
+                    <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container content-section">
+        <h2 class="text-center mb-4" style="color: #198754;">Welcome to Web GNIS</h2>
+        <p class="text-center mb-4">At NAMRIA, the Geodetic Network Information System (GNIS) is a specialized database designed to support geodetic and mapping activities in the Philippines. The GNIS contains detailed descriptions of each Geodetic Control Point (GCP), including its geographic location and precise geographic coordinates such as latitude, longitude, and elevation. GNIS maintains extensive records for each GCP, including geographic coordinates such as latitude, longitude, and elevation.</p>
+
+        <!-- Feature Boxes -->
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Surveying and Mapping</h3>
+                    <p>Ensures high accuracy in geographic referencing for various surveying and mapping projects.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <i class="fas fa-building"></i>
+                    <h3>Infrastructure Development</h3>
+                    <p>Supports precise planning and construction by providing accurate geographic data.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                     <i class="fas fa-tree"></i>
+                    <h3>Land Management</h3>
+                    <p>Assists in land classification, land use planning, and property boundary delineation.</p>
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="feature-box">
+                   <i class="fas fa-globe-asia"></i>
+                    <h3>Environmental Monitoring</h3>
+                    <p>Aids in tracking changes in the environment and planning conservation efforts.</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-4 text-center">By providing reliable geographic coordinates, GNIS ensures that all mapping and surveying activities in the Philippines are based on consistent and accurate data. This is essential for various applications including land development, infrastructure planning, and environmental management.</p>
+        <p class="text-center">The system is designed to be user-friendly, allowing easy access to GCP information. This ensures that surveyors and mappers can quickly find the data they need to carry out their work efficiently.</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Removed leaflet and specific script.js as they might not be needed for the home page -->
+    <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
+    <!-- <script src="script.js"></script> -->
+</body>
+</html> 

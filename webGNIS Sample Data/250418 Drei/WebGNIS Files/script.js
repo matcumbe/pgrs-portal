@@ -54,11 +54,19 @@ function initializeApplication() {
     // Create custom marker icons for different orders
     function createCustomIcon(color) {
         try {
+            // Unique mask ID to avoid conflicts if called multiple times quickly
+            const maskId = `pinHoleMask-${Math.random().toString(36).substr(2, 9)}`;
             return L.divIcon({
                 className: 'custom-marker',
                 html: `<svg width="24" height="36" viewBox="0 0 24 36">
-                    <path fill="${color}" d="M12 0C5.4 0 0 5.4 0 12c0 7.2 12 24 12 24s12-16.8 12-24c0-6.6-5.4-12-12-12z"/>
-                    <circle fill="white" cx="12" cy="12" r="4"/>
+                    <defs>
+                        <mask id="${maskId}">
+                            <rect width="100%" height="100%" fill="white"/>
+                            <circle cx="12" cy="12" r="4" fill="black"/>
+                        </mask>
+                    </defs>
+                    <path fill="${color}" d="M12 0C5.4 0 0 5.4 0 12c0 7.2 12 24 12 24s12-16.8 12-24c0-6.6-5.4-12-12-12z" mask="url(#${maskId})" stroke="#000000" stroke-width="1"/>
+                    <circle cx="12" cy="12" r="4" fill="transparent" stroke="#000000" stroke-width="1"/>
                 </svg>`,
                 iconSize: [24, 36],
                 iconAnchor: [12, 36],

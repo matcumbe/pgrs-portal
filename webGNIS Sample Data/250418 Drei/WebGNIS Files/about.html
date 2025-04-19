@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNIS | About Us</title>
+    <link rel="icon" href="Assets/gnis_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reusing styles from home.html for consistency */
+        .content-section {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1000px; /* Adjust max-width as needed */
+            margin: 30px auto; /* Center the content */
+        }
+         .navbar .nav-link.active {
+            font-weight: bold; /* Make active link bold */
+         }
+         .navbar .nav-link {
+            padding-left: 15px;
+            padding-right: 15px;
+         }
+         .content-section h3 {
+            color: #198754; /* Bootstrap success green */
+            margin-top: 20px;
+            margin-bottom: 10px;
+         }
+         .content-section p {
+            text-align: justify;
+            line-height: 1.6;
+         }
+        /* Styles for profile cards */
+        /* REMOVED profile card styles */
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center">
+                <!-- Assuming namria_logo.png is in the same directory -->
+                <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-2" style="height: 40px;">
+                <h1 class="mb-0 h3 flex-grow-1 text-center">Geodetic Network Information System (GNIS)</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <div class="navbar-nav">
+                    <!-- Set About Us as active -->
+                    <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.html"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="#"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link" href="admin.html"><i class="fas fa-cog"></i> Management</a>
+                    <a class="nav-link active" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container content-section">
+        <h2 class="text-center mb-4" style="color: #198754;">About NAMRIA and the Geodetic Network Information System (GNIS)</h2>
+
+        <p>The National Mapping and Resource Information Authority (NAMRIA), under the Department of Environment and Natural Resources, is the central mapping agency of the Philippine government. NAMRIA is responsible for providing map-making services and acting as the central repository for natural resources and mapping data.</p>
+
+        <h3>Philippine Geodetic Reference System (PGRS)</h3>
+        <p>A key function of NAMRIA involves establishing and maintaining the national geodetic control network. This includes the Philippine Reference System 92 (PRS92) and the ongoing modernization efforts related to the Philippine Geodetic Reference System (PGRS). These efforts are crucial for ensuring accurate and consistent geospatial referencing across the country, supporting various applications from surveying and mapping to infrastructure development and disaster management. NAMRIA has published strategic plans, such as the "Modernization of the PHILIPPINE GEODETIC REFERENCE SYSTEM STRATEGIC PLAN 2016-2020," and developed resources like the "PGM2016: A new geoid model for the Philippines," highlighting its commitment to improving the national geodetic framework. The goal is to align with and contribute to the sustainability of the Global Geodetic Reference Frame (Source: <a href="https://www.namria.gov.ph/downloads.aspx" target="_blank">NAMRIA Downloads</a>).</p>
+
+        <h3>Towards Online Geospatial Information Access</h3>
+        <p>NAMRIA is actively working towards making geospatial information more accessible. While specific details on a "GNIS Online" system aren't explicitly mentioned in the available resources, NAMRIA manages the <strong>Philippine Geoportal</strong>, offering online access to various geospatial datasets. They also provide downloadable resources, including topographic maps, hazard maps, publications like the <em>Infomapper</em>, and applications such as the <strong>Philippine Geoid Model</strong>. These initiatives demonstrate NAMRIA's direction towards enhancing online access to critical geodetic and resource information, which aligns with the objectives of providing systems like the Geodetic Network Information System (GNIS) to users (Source: <a href="https://www.namria.gov.ph/downloads.aspx" target="_blank">NAMRIA Downloads</a>).</p>
+
+        <!-- Team Section -->
+        <!-- REMOVED team section -->
+        <!-- End Team Section -->
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html> 

@@ -2,17 +2,23 @@
 
 ## Overview
 
-The GNIS API provides endpoints for accessing and managing geodetic control point data. All endpoints return JSON responses and follow RESTful conventions.
+The GNIS API provides endpoints for accessing and managing geodetic control point data. All endpoints return JSON responses and follow RESTful conventions. The API is split into two main sections: the public API (`api.php`) and the admin API (`gcp_admin_api.php`).
 
-## Base URL
+## Base URLs
 
+### Public API
 ```
 /api.php?path=
 ```
 
+### Admin API
+```
+/gcp_admin_api.php?path=
+```
+
 ## Authentication
 
-Currently, the API does not require authentication. Future versions will implement JWT-based authentication.
+Currently, the public API does not require authentication. The admin API uses a simple username/password login system. Future versions will implement JWT-based authentication.
 
 ## Response Format
 
@@ -34,7 +40,7 @@ Currently, the API does not require authentication. Future versions will impleme
 }
 ```
 
-## Endpoints
+## Public API Endpoints
 
 ### 1. Get Stations by Type
 ```
@@ -94,45 +100,9 @@ GET /api/station/{id}
 }
 ```
 
-### 3. ~~Search Stations~~
-~~GET /api/search~~
-// Note: This endpoint might be deprecated or unused as search functionality is now primarily client-side.
-
-**Query Parameters:**
-- `type` (required): Station type
-- `order` (optional): Order filter
-- `accuracy` (optional): Accuracy class filter
-- `region` (optional): Region filter
-- `province` (optional): Province filter
-- `city` (optional): City filter
-- `barangay` (optional): Barangay filter
-
-**Response:**
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "station_id": "string",
-            "station_name": "string",
-            "latitude": "number",
-            "longitude": "number",
-            "elevation": "number",
-            "order": "string",
-            "accuracy_class": "string",
-            "region": "string",
-            "province": "string",
-            "city": "string",
-            "barangay": "string"
-        }
-    ]
-}
-```
-
-### 4. Search by Radius
+### 3. Search by Radius
 ```
 GET /api/radius-search
-// Note: Ensure path consistency. API might use `/api/stations/radius` as seen in script.js.
 ```
 
 **Query Parameters:**
@@ -157,7 +127,7 @@ GET /api/radius-search
 }
 ```
 
-### 5. Get Regions
+### 4. Get Regions
 ```
 GET /api/regions
 ```
@@ -174,7 +144,7 @@ GET /api/regions
 }
 ```
 
-### 6. Get Provinces
+### 5. Get Provinces
 ```
 GET /api/provinces
 ```
@@ -194,7 +164,7 @@ GET /api/provinces
 }
 ```
 
-### 7. Get Cities
+### 6. Get Cities
 ```
 GET /api/cities
 ```
@@ -214,7 +184,7 @@ GET /api/cities
 }
 ```
 
-### 8. Get Barangays
+### 7. Get Barangays
 ```
 GET /api/barangays
 ```
@@ -234,7 +204,7 @@ GET /api/barangays
 }
 ```
 
-### 9. Get Orders
+### 8. Get Orders
 ```
 GET /api/orders
 ```
@@ -254,7 +224,7 @@ GET /api/orders
 }
 ```
 
-### 10. Get Accuracy Classes
+### 9. Get Accuracy Classes
 ```
 GET /api/accuracy-classes
 ```
@@ -271,43 +241,15 @@ GET /api/accuracy-classes
 }
 ```
 
-### 11. Submit Selected Points (Future Implementation)
+## Admin API Endpoints
+
+### 1. Get Stations by Type (Admin)
 ```
-POST /api/selected-points
+GET /api/admin/stations/{type}
 ```
 
-**Request Body:**
-```json
-{
-    "station_ids": ["string", "string", ...],
-    "user_info": {
-        "name": "string",
-        "email": "string",
-        "organization": "string"
-    },
-    "purpose": "string"
-}
-```
-
-**Response:**
-```json
-{
-    "success": true,
-    "data": {
-        "request_id": "string",
-        "status": "string",
-        "timestamp": "string"
-    }
-}
-```
-
-### 12. Get Selected Points Info (Future Implementation)
-```
-GET /api/selected-points-info
-```
-
-**Query Parameters:**
-- `station_ids` (required): Comma-separated list of station IDs
+**Parameters:**
+- `type` (required): Type of station (vertical, horizontal, gravity)
 
 **Response:**
 ```json
@@ -321,8 +263,198 @@ GET /api/selected-points-info
             "longitude": "number",
             "elevation": "number",
             "order": "string",
-            "accuracy_class": "string"
+            "accuracy_class": "string",
+            "region": "string",
+            "province": "string",
+            "city": "string",
+            "barangay": "string"
         }
+    ]
+}
+```
+
+### 2. Get Station by ID (Admin)
+```
+GET /api/admin/station/{id}
+```
+
+**Parameters:**
+- `id` (required): Station ID
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": {
+        "station_id": "string",
+        "station_name": "string",
+        "latitude": "number",
+        "longitude": "number",
+        "elevation": "number",
+        "order": "string",
+        "accuracy_class": "string",
+        "region": "string",
+        "province": "string",
+        "city": "string",
+        "barangay": "string"
+    }
+}
+```
+
+### 3. Create Station
+```
+POST /api/admin/station
+```
+
+**Request Body:**
+```json
+{
+    "type": "string", // vertical, horizontal, gravity
+    "station_name": "string",
+    "station_code": "string",
+    "latitude": "number",
+    "longitude": "number",
+    // Common fields
+    "mark_type": "string",
+    "mark_status": "string",
+    "mark_const": "string",
+    "authority": "string",
+    "region": "string",
+    "province": "string",
+    "city": "string",
+    "barangay": "string",
+    // Type-specific fields (examples)
+    "elevation": "number", // For vertical
+    "accuracy_class": "string", // For vertical
+    "ellipsoidal_height": "number", // For horizontal
+    "gravity_value": "number", // For gravity
+    // Other fields based on type...
+}
+```
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": {
+        "id": "string"
+    }
+}
+```
+
+### 4. Update Station
+```
+PUT /api/admin/station/{id}
+```
+
+**Parameters:**
+- `id` (required): Station ID
+
+**Request Body:** Same as Create Station
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": {
+        "id": "string",
+        "affected_rows": "number"
+    }
+}
+```
+
+### 5. Delete Station
+```
+DELETE /api/admin/station/{id}
+```
+
+**Parameters:**
+- `id` (required): Station ID
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": {
+        "id": "string",
+        "status": "deleted"
+    }
+}
+```
+
+### 6. Get Admin Regions
+```
+GET /api/admin/regions
+```
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {"name": "Region 1"},
+        {"name": "Region 2"},
+        ...
+    ]
+}
+```
+
+### 7. Get Admin Provinces
+```
+GET /api/admin/provinces
+```
+
+**Query Parameters:**
+- `region` (optional): Filter by region
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {"name": "Province 1"},
+        {"name": "Province 2"},
+        ...
+    ]
+}
+```
+
+### 8. Get Admin Cities
+```
+GET /api/admin/cities
+```
+
+**Query Parameters:**
+- `province` (optional): Filter by province
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {"name": "City 1"},
+        {"name": "City 2"},
+        ...
+    ]
+}
+```
+
+### 9. Get Admin Barangays
+```
+GET /api/admin/barangays
+```
+
+**Query Parameters:**
+- `city` (optional): Filter by city
+
+**Response:**
+```json
+{
+    "success": true,
+    "data": [
+        {"name": "Barangay 1"},
+        {"name": "Barangay 2"},
+        ...
     ]
 }
 ```
@@ -333,17 +465,31 @@ GET /api/selected-points-info
 - **404 Not Found:** Endpoint or resource not found
 - **500 Internal Server Error:** Server-side error
 
-## Rate Limiting
+## API Implementation Notes
 
-(Not currently implemented, but planned for future versions)
+### Station Type Handling
+The API handles three different types of stations, each with their own database table:
+- `vertical`: Stored in the `vgcp_stations` table
+- `horizontal`: Stored in the `hgcp_stations` table
+- `gravity`: Stored in the `grav_stations` table
 
-## Changelog
+### Field Mappings
+Different types of stations have different field requirements:
 
-- **April 19, 2025:** Noted potential deprecation of `/api/search` due to client-side search implementation. Reviewed other endpoints.
-- **May 1, 2024:** Initial documentation.
+**Vertical Stations:**
+- `elevation`: Required
+- `accuracy_class`: Required
+- `elevation_order`: Optional
 
-## Last Updated
-April 19, 2025
+**Horizontal Stations:**
+- `ellipsoidal_height`: Required
+- `horizontal_order`: Required
+- `utm_northing`, `utm_easting`, `utm_zone`: Optional
+
+**Gravity Stations:**
+- `gravity_value`: Required
+- `standard_deviation`: Optional
+- `gravity_order`: Optional
 
 ## API Usage Examples
 
@@ -352,9 +498,20 @@ April 19, 2025
 GET /api.php?path=/api/stations/vertical
 ```
 
-### Example 2: Search by Region and Province
+### Example 2: Create a New Horizontal Station (Admin)
 ```
-GET /api.php?path=/api/search?type=horizontal&region=Region%20IV-A&province=Cavite
+POST /gcp_admin_api.php?path=/api/admin/station
+```
+```json
+{
+    "type": "horizontal",
+    "station_name": "Test Horizontal Station",
+    "latitude": 14.6590,
+    "longitude": 121.0640,
+    "ellipsoidal_height": 20.456,
+    "horizontal_order": "2",
+    "mark_type": "2"
+}
 ```
 
 ### Example 3: Search by Radius
@@ -362,17 +519,11 @@ GET /api.php?path=/api/search?type=horizontal&region=Region%20IV-A&province=Cavi
 GET /api.php?path=/api/radius-search?lat=14.5995&lng=120.9842&radius=10
 ```
 
-## Future Endpoints
+## Changelog
 
-1. User authentication and authorization
-2. Data export endpoints (CSV, JSON, Shapefile)
-3. Bulk operations on selected points
-4. Custom filtering options
-
-## Version History
-
-- v1.0 (April 2024): Initial release
-- v1.1 (May 2024): Added station selection and cart functionality
+- **April 20, 2025:** Added documentation for admin API endpoints.
+- **April 19, 2025:** Noted deprecation of `/api/search` due to client-side search implementation.
+- **May 1, 2024:** Initial documentation.
 
 ## Last Updated
-May 1, 2024 
+April 20, 2025 

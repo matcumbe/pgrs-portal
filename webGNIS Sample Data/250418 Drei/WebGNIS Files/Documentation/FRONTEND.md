@@ -2,25 +2,26 @@
 
 ## Overview
 
-The GNIS frontend is a web-based interface for interacting with the Geodetic Network Information System. It provides a user-friendly way to search, view, and analyze geodetic control point data.
+The GNIS frontend is a web-based interface for interacting with the Geodetic Network Information System. It provides a user-friendly way to search, view, and analyze geodetic control point data, as well as an administrative interface for managing station data.
 
 ## Technologies Used
 
 - HTML5
-- CSS3 (Bootstrap 5)
+- CSS3 (Bootstrap 5.3.2)
 - JavaScript (ES6+)
-- Leaflet.js (for map functionality)
-- Chart.js (for data visualization)
+- Leaflet.js 1.9.4 (for map functionality)
+- Font Awesome 5.15.4 (for icons)
+- Bootstrap Icons 1.11.1 (for additional icons)
 
 ## User Interface Components
 
 ### 1. Navigation Bar
-- Application logo
-- Links (GNIS Home, Explorer, Tracker, etc.)
-- User menu (future implementation)
-- Help/About links
+- Application logo (NAMRIA logo)
+- Links (GNIS Home, Explorer, Tracker, Management, About Us)
+- User menu (Admin Panel)
+- Centered navigation with `mx-auto` class for proper alignment
 
-### 2. Map Interface
+### 2. Map Interface (Explorer)
 - Interactive map using OpenStreetMap tiles
 - Station markers with popups
 - Map controls (zoom, fullscreen, etc.)
@@ -29,46 +30,49 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Consistent green theme applied to interactive elements (buttons, popups)
 
 ### 3. Filter/Search Panel
-- Station type selector
+- Station type selector with custom styled radio buttons
 - Filter options:
   - Order
-  - Accuracy class
+  - Accuracy class (shown/hidden based on station type)
   - Region
   - Province
   - City
   - Barangay
 - Search radius control
-- Search button
-- Search by Lat/Lon/Radius controls
+- Coordinates input for pinpoint searches
 
 ### 4. Search Results Panel
 - Inline Search Bar: Located in the header for quick filtering of results.
 - Tabular view of search results
 - Dynamic Elevation Column: Header and content change based on GCP type:
-  - Vertical: "Elevation" (uses `elevation` data)
-  - Horizontal: "Ell. Height" (uses `ellipsoidal_height` data)
-  - Gravity: "Grav. Value" (uses `gravity_value` data)
-- Sortable columns (future implementation)
-- Pagination controls
-- Export options (CSV, JSON)
+  - Vertical: "Elevation (m)" (uses `elevation` data)
+  - Horizontal: "Ellip. Height (m)" (uses `ellipsoidal_height` data)
+  - Gravity: "Gravity (mGal)" (uses `gravity_value` data)
 - "Add to Cart" buttons for station selection
 
 ### 5. Selected Points Panel
 - List of user-selected stations
 - Remove functionality for individual stations
-- Actions for selected points (future implementation)
 
-### 6. Station Details Panel
-- Station information display
-- Historical data visualization
-- Related stations
-- Edit/Delete options (future implementation)
+### 6. Admin Interface
+- Login panel with username/password authentication
+- Station type selector (Vertical, Horizontal, Gravity)
+- Station management table with pagination
+- CRUD operations (Add, Edit, View, Delete)
+- Bootstrap tabbed form interface with sections:
+  - Common fields
+  - Type-specific fields (Vertical, Horizontal, Gravity)
+  - Location fields
+- Advanced form handling:
+  - DMS (Degrees, Minutes, Seconds) input with automatic conversion
+  - Type-specific fields visibility management
+  - Dynamic accuracy class dropdown with option creation
+  - Proper error handling and validation
 
 ## Key Features
 
 ### 1. Interactive Map
 - Display of geodetic control points
-- Marker clustering for dense areas
 - Custom marker icons for different station types
 - Popup information on marker click
 - Map bounds auto-adjustment
@@ -79,26 +83,20 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Real-time, Client-Side Search: Search bar in the results panel filters the *currently displayed* table data and map markers instantly.
 - Search is case-insensitive and format-insensitive (ignores spaces, hyphens, etc.).
 - Radius-based search via the filter panel
-- Search history (future implementation)
 
 ### 3. Multiple Station Selection
 - "Add to Cart" functionality from both map and search results
 - Selected points management
 - Individual station removal
-- Selected points persistence
-- Future batch operations on selected points
 
-### 4. Data Visualization
-- Station distribution heatmap
-- Elevation profile
-- Accuracy class distribution
-- Historical data trends
-
-### 5. Data Export
-- CSV export
-- JSON export
-- Print view
-- PDF export (future implementation)
+### 4. Administrative Interface
+- Complete CRUD operations for all station types
+- Form with tabbed interface for better organization
+- Type-specific form fields that show/hide based on selected station type
+- Proper handling of coordinates in both decimal and DMS formats
+- Special handling for accuracy class values from various data sources
+- Dynamic location dropdown population (Region → Province → City → Barangay)
+- Confirmation dialogs for delete operations
 
 ## User Interactions
 
@@ -108,7 +106,6 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Drag to pan
 - Scroll to zoom
 - Double-click to center
-- Right-click for context menu
 
 ### 2. Search Interactions
 - Type in the filter panel dropdowns to filter options
@@ -117,17 +114,22 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Type in the Search Results search bar to filter displayed results in real-time
 
 ### 3. Results Interactions
-- Click column headers to sort
 - Click rows to view details
 - Click "Add to Cart" to select station
-- Use pagination controls
-- Click export buttons
 
 ### 4. Selected Points Interactions
 - View all selected stations
 - Click "Remove" to remove individual stations
-- Future: Batch operations on selected points
-- Future: Export selected points only
+
+### 5. Admin Interactions
+- Login with username/password
+- Filter/search stations by various criteria
+- Add new stations with the Add button
+- Edit existing stations with the Edit button
+- View station details with the View button
+- Delete stations with the Delete button
+- Navigate form sections using tabs
+- Submit form data with validation
 
 ## Error Handling
 
@@ -135,7 +137,7 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Loading indicators
 - Error messages
 - Success notifications
-- Warning prompts
+- Confirmation dialogs
 
 ### 2. Error Types
 - Network errors
@@ -143,26 +145,24 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Validation errors
 - Map errors
 - Selection errors
+- Form submission errors
 
 ## Performance Optimizations
 
 ### 1. Data Loading
 - Lazy loading of markers
-- Pagination of results
 - Caching of frequent queries
 - Debounced search input
 
 ### 2. Map Performance
-- Marker clustering
 - Viewport-based rendering
 - Tile caching
 - Smooth animations
 
 ### 3. UI Performance
-- Virtual scrolling for large datasets
 - Optimized DOM updates
 - CSS transitions
-- Image optimization
+- Bootstrap components for responsive design
 
 ## Browser Compatibility
 
@@ -178,35 +178,60 @@ The GNIS frontend is a web-based interface for interacting with the Geodetic Net
 - Mobile-optimized map controls
 - Adaptive layout for different screen sizes
 
-## Future Enhancements
+## Implementation Notes
 
-### 1. User Features
-- User authentication
-- Saved searches
-- Custom markers
-- Personal preferences
-- Saved station selections
+### 1. Form Field Visibility
+The admin interface uses JavaScript to control the visibility of form fields based on the selected station type:
+```javascript
+function updateFormFieldsVisibility(type) {
+    // Show/hide tabs based on station type
+    const verticalTabs = document.querySelectorAll('.vertical-type-tab');
+    const horizontalTabs = document.querySelectorAll('.horizontal-type-tab');
+    const gravityTabs = document.querySelectorAll('.gravity-type-tab');
+    
+    // Hide all type-specific tabs first
+    verticalTabs.forEach(tab => tab.style.display = 'none');
+    horizontalTabs.forEach(tab => tab.style.display = 'none');
+    gravityTabs.forEach(tab => tab.style.display = 'none');
+    
+    // Show only tabs relevant to the current station type
+    if (type === 'vertical') {
+        verticalTabs.forEach(tab => tab.style.display = '');
+    } else if (type === 'horizontal') {
+        horizontalTabs.forEach(tab => tab.style.display = '');
+    } else if (type === 'gravity') {
+        gravityTabs.forEach(tab => tab.style.display = '');
+    }
+}
+```
 
-### 2. Analysis Tools
-- Distance measurement
-- Area calculation
-- Elevation profile
-- Network analysis
-- Batch operations on selected points
+### 2. Accuracy Class Handling
+The admin interface handles accuracy class values specially to accommodate values that might not be in the predefined dropdown:
+```javascript
+// Handle accuracy class with special logic
+const accuracyClass = station.accuracy_class || '';
+const accuracySelect = document.getElementById('accuracyClass');
 
-### 3. Visualization
-- 3D terrain view
-- Time-based animations
-- Custom themes
-- Advanced charts
-- Visual representation of selected points
+// Check if the value exists in the dropdown
+let valueExists = false;
+for (let i = 0; i < accuracySelect.options.length; i++) {
+    if (accuracySelect.options[i].value === accuracyClass) {
+        valueExists = true;
+        break;
+    }
+}
 
-### 4. Integration
-- External data sources
-- API integration
-- Mobile app
-- Desktop application
-- Data export formats for selected points
+// If the value doesn't exist and isn't empty, add it
+if (!valueExists && accuracyClass !== '') {
+    const newOption = document.createElement('option');
+    newOption.value = accuracyClass;
+    newOption.text = accuracyClass;
+    accuracySelect.add(newOption);
+}
+
+// Set the value
+accuracySelect.value = accuracyClass;
+```
 
 ## Last Updated
-April 19, 2025 
+April 20, 2025 
