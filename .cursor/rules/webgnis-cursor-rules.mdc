@@ -1,0 +1,19 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- Always check for existing functionality before implementing new features - The codebase already has well-structured implementations (like the login function in users_api.php).
+- Follow the established API structure with proper error responses using the returnResponse() function and consistent HTTP status codes.
+- Maintain security practices like password hashing, JWT token validation, and proper input validation shown in the validateUserData() function.
+- Preserve the database connection pattern using the connectDB() function from users_config.php.
+- Follow existing coding conventions including:
+    - Using prepared statements for all database operations
+    - Comprehensive error handling with try/catch blocks
+    - Setting appropriate HTTP headers for CORS and content types
+    - Using consistent function and variable naming
+- Ensure backward compatibility with the existing JWT implementation and authentication flow.
+- Maintain the existing project architecture where configuration is separated (users_config.php) from implementation logic (users_api.php).

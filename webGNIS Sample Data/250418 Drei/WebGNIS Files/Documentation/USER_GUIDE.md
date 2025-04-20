@@ -15,18 +15,26 @@
 4. [Tracker Interface](#tracker-interface)
    - [Tracking Changes](#tracking-changes)
    - [Generating Reports](#generating-reports)
-5. [Admin Panel](#admin-panel)
+5. [Data Request System](#data-request-system)
+   - [Selecting Points of Interest](#selecting-points-of-interest)
+   - [Creating a Data Request](#creating-a-data-request)
+   - [Making Payment](#making-payment)
+   - [Uploading Payment Proof](#uploading-payment-proof)
+   - [Tracking Request Status](#tracking-request-status)
+6. [Admin Panel](#admin-panel)
    - [User Management](#user-management)
    - [Station Management](#station-management)
    - [Adding a New Station](#adding-a-new-station)
    - [Editing Station Information](#editing-station-information)
    - [Deleting Stations](#deleting-stations)
-6. [Account Management](#account-management)
+   - [Managing Data Requests](#managing-data-requests)
+   - [Verifying Payments](#verifying-payments)
+7. [Account Management](#account-management)
    - [Updating Your Profile](#updating-your-profile)
    - [Changing Your Password](#changing-your-password)
-7. [Frequently Asked Questions](#frequently-asked-questions)
-8. [Troubleshooting](#troubleshooting)
-9. [Glossary](#glossary)
+8. [Frequently Asked Questions](#frequently-asked-questions)
+9. [Troubleshooting](#troubleshooting)
+10. [Glossary](#glossary)
 
 ## Introduction
 
@@ -206,6 +214,118 @@ The Tracker interface allows you to monitor changes made to the geodetic network
    - Specify delivery method (email, download link)
    - Click "Save Schedule" to automate the report generation
 
+## Data Request System
+
+The WebGNIS Data Request System allows you to request access to specific geodetic control points for your projects. This section guides you through the process of selecting points, creating a request, making payment, and tracking your request status.
+
+### Selecting Points of Interest
+
+1. **Navigate to the Explorer Interface**:
+   - Access the map interface where you can view all geodetic control points
+   - Use the search and filter tools to find points relevant to your project
+
+2. **Select Points for Request**:
+   - Click on a station marker to view its details
+   - In the station details panel, click "Add to Request" to select this point
+   - The point will be added to your selected points list in the sidebar
+   - A counter will show how many points you've selected
+
+3. **Review Selected Points**:
+   - Open the "Selected Points" panel by clicking on the counter or the "Selected Points" button
+   - Review the list of points you've selected
+   - You can remove individual points by clicking the "Remove" button next to each point
+   - To clear all selections, click "Clear All"
+
+### Creating a Data Request
+
+1. **Initiate Request Creation**:
+   - Once you've selected all the points you need, click "Create Request" in the Selected Points panel
+   - You must be logged in to create a request; if not logged in, you will be prompted to do so
+
+2. **Complete Request Form**:
+   - Enter the purpose of your request (e.g., "Survey for Municipal Project")
+   - Review the list of selected points and their associated costs
+   - The system will calculate and display the total cost of your request
+   - Read and accept the terms and conditions
+
+3. **Submit Request**:
+   - Click "Submit Request" to create your data access ticket
+   - The system will generate a unique ticket ID for your request
+   - You will receive an email confirmation with your request details
+   - You will be redirected to the payment page
+
+### Making Payment
+
+1. **Review Payment Information**:
+   - On the payment page, verify your request details
+   - Note the total amount due
+   - Read the payment instructions carefully
+
+2. **Process Payment via LinkBiz**:
+   - The system will display the necessary information for processing payment via LinkBiz
+   - Note the merchant account information and the amount
+   - Access the LinkBiz portal or mobile app
+   - Complete the payment transaction
+   - Save the reference number provided by LinkBiz
+   - Take a screenshot or save the payment receipt
+
+### Uploading Payment Proof
+
+1. **Return to the Payment Page**:
+   - After completing your payment, return to the WebGNIS payment page
+   - If you closed the page, you can access it again by going to "My Requests" in your user menu
+
+2. **Upload Payment Evidence**:
+   - Enter the reference number from your LinkBiz transaction
+   - Click "Choose File" to select the screenshot or receipt image
+   - The accepted file formats are JPG, PNG, and PDF, with a maximum size of 2MB
+   - Optionally, add notes regarding your payment
+   - Click "Submit Payment Proof"
+
+3. **Confirmation**:
+   - The system will confirm receipt of your payment proof
+   - The status of your request will change to "Payment Uploaded"
+   - You'll receive an email confirmation of the payment upload
+
+### Tracking Request Status
+
+1. **Access My Requests**:
+   - Click on your username in the top navigation bar
+   - Select "My Requests" from the dropdown menu
+   - This will display a list of all your submitted requests
+
+2. **Request Status Information**:
+   - Each request will show:
+     - Ticket ID
+     - Submission date
+     - Number of points requested
+     - Total amount
+     - Current status
+     - Last update date
+
+3. **Understanding Status Codes**:
+   - **Pending**: Initial status when request is first created
+   - **Awaiting Payment**: Request created but payment not yet uploaded
+   - **Payment Uploaded**: Payment proof submitted, awaiting verification
+   - **Verified**: Payment has been verified by an administrator
+   - **Processing**: Request is being processed and data is being prepared
+   - **Completed**: Request has been fulfilled and data is ready for download
+   - **Rejected**: Request was rejected (check notes for reason)
+
+4. **Viewing Request Details**:
+   - Click on any request to view its complete details
+   - The details page shows:
+     - All requested points with coordinates and types
+     - Payment information and verification status
+     - History of status changes
+     - Administrator notes
+     - Download links (if status is "Completed")
+
+5. **Downloading Data**:
+   - When a request reaches "Completed" status, download links will appear
+   - Click "Download Data" to receive your requested geodetic control point information
+   - The data will be provided in standardized formats with complete metadata
+
 ## Admin Panel
 
 The Admin Panel provides tools for managing users, stations, and system settings. This section is only accessible to users with administrative privileges.
@@ -328,6 +448,28 @@ The Admin Panel provides tools for managing users, stations, and system settings
    - Deleted stations are not permanently removed from the database
    - They are marked as deleted and no longer appear in regular searches
    - Administrators can view deleted stations by enabling the "Show Deleted" filter
+
+### Managing Data Requests
+
+1. **Access Data Request Management**:
+   - Navigate to the Admin Panel from the navigation bar
+   - Click the "Data Requests" tab
+   - View a list of all submitted data requests
+
+2. **Request Details**:
+   - Click on any request to view its complete details
+   - The details page shows:
+     - Ticket ID
+     - Submission date
+     - Number of points requested
+     - Total amount
+     - Current status
+     - Last update date
+
+3. **Verifying Payments**:
+   - Click the "Verify Payment" button for a request to verify the payment
+   - Enter the payment verification details
+   - Click "Confirm Verification" to complete the process
 
 ## Account Management
 

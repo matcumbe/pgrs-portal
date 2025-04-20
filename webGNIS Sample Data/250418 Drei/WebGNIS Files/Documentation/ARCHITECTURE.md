@@ -12,20 +12,26 @@ The Geodetic Network Information System (GNIS) is a web-based application for ma
 - **Home Page** (`index.html`): Landing page with introduction to the system.
 - **Explorer Interface** (`home.html`): Map-based interface for viewing and filtering geodetic control points.
 - **Tracker**: Component for tracking selected points (embedded in Explorer).
+- **Payment Upload Page** (`payment.html`): Interface for uploading payment proof for data requests.
 
 #### 1.2 Administrative Interface
 - **Admin Panel** (`admin.html`): Interface for managing station data (CRUD operations).
 - **Authentication**: Simple login system to restrict access to admin functionalities.
+- **Ticket Management**: Interface for handling user requests for GCP data.
 
 ### 2. Backend Components
 
 #### 2.1 API Endpoints
 - **Public API** (`api.php`): Endpoints for public access to geodetic data.
 - **Admin API** (`gcp_admin_api.php`): Secured endpoints for administrative operations.
+- **Users API** (`users_api.php`): Endpoints for user account management.
+- **Tickets API** (`tickets_api.php`): Endpoints for handling data access requests and payments.
 
 #### 2.2 Database
 - **MySQL Database**: Stores all geodetic control point data and related metadata.
 - **Tables**: Separate tables for different types of stations (vertical, horizontal, gravity).
+- **User Database** (`webgnis_users`): Stores user account information.
+- **Tickets Database** (`webgnis_tickets`): Manages data access requests and payment information.
 
 ## Architectural Patterns
 
@@ -40,12 +46,15 @@ The frontend follows a component-based architecture with these key features:
 - **Results Panel**: Displays search results in a tabular format.
 - **Station Detail Panel**: Shows detailed information about selected stations.
 - **Admin Form**: Tabbed interface for station data entry/editing.
+- **Point Selection Interface**: Allows users to select multiple points for data requests.
+- **Payment Form**: Interface for uploading payment proof.
 
 #### 1.2 Data Flow
 - Client-side data filtering and manipulation.
 - Dynamic UI updates without full page reloads.
 - Real-time search on the client side.
 - Form data validation before submission.
+- Selected points tracking for data request creation.
 
 ### 2. Server-Side Architecture
 
@@ -58,8 +67,14 @@ The server-side follows a simple API-based architecture:
 - Simple error handling with appropriate HTTP status codes.
 
 #### 2.2 Authentication
-- Basic username/password authentication for administrative functions.
+- JWT-based authentication for user-specific functions.
 - Session-based authorization (maintained in browser's local storage).
+
+### 2.3 Multi-Database Structure
+- Separation of concerns with different databases for:
+  - GCP data (main GNIS database)
+  - User management (webgnis_users)
+  - Ticket system (webgnis_tickets)
 
 ## Key Implementation Aspects
 
@@ -218,6 +233,23 @@ The admin form uses a Bootstrap tabbed interface to organize fields by category:
 </ul>
 ```
 
+### 5. Ticket System
+
+The ticket system allows users to request access to specific GCP stations with the following flow:
+
+```
+User selects points → Creates request → Uploads payment → Admin verifies → Admin processes → User accesses data
+```
+
+Key components include:
+
+- Point selection interface on the map
+- Payment upload system using LinkBiz reference numbers
+- Admin verification workflow
+- Audit trail of all transactions and status changes
+
+The ticket database maintains relationships to both user accounts and the requested GCP stations.
+
 ## Technology Stack
 
 ### Frontend
@@ -230,6 +262,7 @@ The admin form uses a Bootstrap tabbed interface to organize fields by category:
 ### Backend
 - **PHP**: Server-side logic and API endpoints.
 - **MySQL**: Relational database for data storage.
+- **JWT**: JSON Web Tokens for authentication.
 
 ### Development & Deployment
 - **Version Control**: Git (GitHub).
@@ -248,8 +281,14 @@ The admin form uses a Bootstrap tabbed interface to organize fields by category:
    - Admin submits form data.
    - Frontend validates data and sends API request.
    - Backend validates data server-side.
-   - Backend updates database and returns success/error response.
-   - Frontend updates UI based on response.
+   - Database is updated with new information.
+
+3. **Ticket Request Flow**
+   - User selects points on map and submits request.
+   - Backend creates ticket and calculates total cost.
+   - User uploads payment proof via payment page.
+   - Admin verifies payment and processes the request.
+   - User receives notification when data is ready.
 
 ## Security Considerations
 
@@ -268,4 +307,4 @@ The admin form uses a Bootstrap tabbed interface to organize fields by category:
    - API request rate limiting.
 
 ## Last Updated
-April 20, 2025 
+May 1, 2025 

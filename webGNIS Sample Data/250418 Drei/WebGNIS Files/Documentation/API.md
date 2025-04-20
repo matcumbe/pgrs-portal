@@ -2,7 +2,7 @@
 
 ## Overview
 
-The GNIS API provides endpoints for accessing and managing geodetic control point data. All endpoints return JSON responses and follow RESTful conventions. The API is split into two main sections: the public API (`api.php`) and the admin API (`gcp_admin_api.php`).
+The GNIS API provides endpoints for accessing and managing geodetic control point data. All endpoints return JSON responses and follow RESTful conventions. The API is split into several main sections: the public API (`api.php`), the admin API (`gcp_admin_api.php`), the users API (`users_api.php`), and the new tickets API (`tickets_api.php`).
 
 ## Base URLs
 
@@ -16,27 +16,50 @@ The GNIS API provides endpoints for accessing and managing geodetic control poin
 /gcp_admin_api.php?path=
 ```
 
+### Users API
+```
+/users_api.php?action=
+```
+
+### Tickets API
+```
+/tickets_api.php?action=
+```
+
 ## Authentication
 
-Currently, the public API does not require authentication. The admin API uses a simple username/password login system. Future versions will implement JWT-based authentication.
+The public API does not require authentication. The admin API uses a simple username/password login system. The users API and tickets API use JWT-based authentication.
+
+### JWT Authentication
+
+To access protected endpoints, include a Bearer token in the Authorization header:
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+You can obtain a JWT token by calling the login endpoint:
+
+```
+POST /users_api.php?action=login
+```
 
 ## Response Format
 
 ### Success Response
 ```json
 {
-    "success": true,
-    "data": [...],
-    "timestamp": "YYYY-MM-DD HH:MM:SS"
+    "status": 200,
+    "message": "Success message",
+    "data": {...}
 }
 ```
 
 ### Error Response
 ```json
 {
-    "error": "Error message",
-    "details": "Additional error details",
-    "timestamp": "YYYY-MM-DD HH:MM:SS"
+    "status": 400,
+    "message": "Error message"
 }
 ```
 
@@ -459,6 +482,317 @@ GET /api/admin/barangays
 }
 ```
 
+## Users API Endpoints
+
+### 1. Login
+```
+POST /users_api.php?action=login
+```
+
+**Request Body:**
+```json
+{
+    "username": "string",
+    "password": "string"
+}
+```
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Login successful",
+    "data": {
+        "token": "string",
+        "user": {
+            "user_id": "number",
+            "username": "string",
+            "email": "string",
+            "user_type": "string",
+            "details": {...}
+        }
+    }
+}
+```
+
+### 2. Get Current User
+```
+GET /users_api.php?action=users/me
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>`
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Current user retrieved successfully",
+    "data": {
+        "user_id": "number",
+        "username": "string",
+        "email": "string",
+        "user_type": "string",
+        "details": {...}
+    }
+}
+```
+
+### 3. Create User
+```
+POST /users_api.php?action=users
+```
+
+**Request Body:**
+```json
+{
+    "username": "string",
+    "password": "string",
+    "email": "string",
+    "contact_number": "string",
+    "user_type": "company|individual",
+    "name_on_certificate": "string",
+    "sex_id": "number",
+    // Other fields based on user_type
+}
+```
+
+**Response:**
+```json
+{
+    "status": 201,
+    "message": "User created successfully",
+    "data": {...}
+}
+```
+
+## Tickets API Endpoints
+
+### 1. Create Ticket
+```
+POST /tickets_api.php?action=create
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>`
+
+**Request Body:**
+```json
+{
+    "purpose": "string",
+    "points": [
+        {
+            "gcp_id": "string",
+            "gcp_type": "string",
+            "coordinates": "string",
+            "price": "number"
+        }
+    ]
+}
+```
+
+**Response:**
+```json
+{
+    "status": 201,
+    "message": "Ticket created successfully",
+    "data": {
+        "ticket_id": "number",
+        "total_amount": "number",
+        "status": "string"
+    }
+}
+```
+
+### 2. Get User Tickets
+```
+GET /tickets_api.php?action=tickets
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>`
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Tickets retrieved successfully",
+    "data": [
+        {
+            "ticket_id": "number",
+            "request_date": "string",
+            "status": "string",
+            "purpose": "string",
+            "total_amount": "number",
+            "item_count": "number"
+        }
+    ]
+}
+```
+
+### 3. Get Ticket Details
+```
+GET /tickets_api.php?action=tickets/{ticket_id}
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>`
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Ticket retrieved successfully",
+    "data": {
+        "ticket_id": "number",
+        "user": {
+            "user_id": "number",
+            "username": "string",
+            "email": "string"
+        },
+        "request_date": "string",
+        "status": "string",
+        "purpose": "string",
+        "total_amount": "number",
+        "items": [
+            {
+                "item_id": "number",
+                "gcp_id": "string",
+                "gcp_type": "string",
+                "coordinates": "string",
+                "price": "number"
+            }
+        ],
+        "payment": {
+            "payment_id": "number",
+            "reference_number": "string",
+            "amount": "number",
+            "payment_date": "string",
+            "verification_status": "string"
+        }
+    }
+}
+```
+
+### 4. Upload Payment
+```
+POST /tickets_api.php?action=payment/{ticket_id}
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>`
+- `Content-Type: multipart/form-data`
+
+**Form Fields:**
+- `reference_number`: String
+- `receipt_image`: File (image)
+- `notes`: String (optional)
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Payment proof uploaded successfully",
+    "data": {
+        "ticket_id": "number",
+        "status": "string",
+        "payment_id": "number"
+    }
+}
+```
+
+### 5. Admin: Get All Tickets
+```
+GET /tickets_api.php?action=admin/tickets
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>` (admin user)
+
+**Query Parameters:**
+- `status`: String (optional) - Filter by status
+- `from_date`: String (optional) - Filter by request date range start
+- `to_date`: String (optional) - Filter by request date range end
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Tickets retrieved successfully",
+    "data": [
+        {
+            "ticket_id": "number",
+            "user": {
+                "user_id": "number",
+                "username": "string"
+            },
+            "request_date": "string",
+            "status": "string",
+            "purpose": "string",
+            "total_amount": "number",
+            "payment_status": "string"
+        }
+    ]
+}
+```
+
+### 6. Admin: Update Ticket Status
+```
+PUT /tickets_api.php?action=admin/tickets/{ticket_id}/status
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>` (admin user)
+
+**Request Body:**
+```json
+{
+    "status": "string",
+    "notes": "string"
+}
+```
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Ticket status updated successfully",
+    "data": {
+        "ticket_id": "number",
+        "status": "string"
+    }
+}
+```
+
+### 7. Admin: Verify Payment
+```
+PUT /tickets_api.php?action=admin/payments/{payment_id}/verify
+```
+
+**Headers:**
+- `Authorization: Bearer <jwt_token>` (admin user)
+
+**Request Body:**
+```json
+{
+    "verification_status": "verified|rejected",
+    "notes": "string"
+}
+```
+
+**Response:**
+```json
+{
+    "status": 200,
+    "message": "Payment verification updated successfully",
+    "data": {
+        "payment_id": "number",
+        "ticket_id": "number",
+        "verification_status": "string"
+    }
+}
+```
+
 ## Error Codes
 
 - **400 Bad Request:** Missing or invalid parameters
@@ -526,4 +860,4 @@ GET /api.php?path=/api/radius-search?lat=14.5995&lng=120.9842&radius=10
 - **May 1, 2024:** Initial documentation.
 
 ## Last Updated
-April 20, 2025 
+May 1, 2025 

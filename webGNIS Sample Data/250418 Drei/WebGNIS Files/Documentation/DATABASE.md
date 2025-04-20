@@ -2,9 +2,11 @@
 
 ## Overview
 
-The GNIS database stores information about three types of geodetic control points: vertical stations (VGCP), horizontal control points (HGCP), and gravity stations. Each type is stored in its own dedicated table with specific fields relevant to that type of station.
+The GNIS database ecosystem consists of multiple databases that store information about geodetic control points, user accounts, and data access requests. This document outlines the structure of these databases and their relationships.
 
-## Database Schema
+## Main GNIS Database
+
+The main GNIS database stores information about three types of geodetic control points: vertical stations (VGCP), horizontal control points (HGCP), and gravity stations. Each type is stored in its own dedicated table with specific fields relevant to that type of station.
 
 ### 1. Vertical Stations Table (`vgcp_stations`)
 
@@ -222,6 +224,198 @@ The database design follows a segregated approach where each station type has it
 - Decimal fields use appropriate precision for coordinates and measurements
 - The `accuracy_class` field uses VARCHAR to accommodate various formats
 
+## User Management Database (webgnis_users)
+
+The `webgnis_users` database stores user account information, authentication details, and user profiles.
+
+### 1. Users Table
+```sql
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    contact_number VARCHAR(50) NOT NULL,
+    user_type ENUM('individual', 'company', 'admin') NOT NULL,
+    sex_id INT,
+    name_on_certificate VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    is_active TINYINT(1) DEFAULT 1,
+    FOREIGN KEY (sex_id) REFERENCES sexes(id)
+);
+```
+
+### 2. Individual Details Table
+```sql
+CREATE TABLE individual_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL UNIQUE,
+    full_name VARCHAR(255) NOT NULL,
+    address TEXT NOT NULL,
+    birth_date DATE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+```
+
+### 3. Company Details Table
+```sql
+CREATE TABLE company_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL UNIQUE,
+    company_name VARCHAR(255) NOT NULL,
+    sector_id INT NOT NULL,
+    company_address TEXT NOT NULL,
+    authorized_representative VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (sector_id) REFERENCES sectors(id)
+);
+```
+
+### 4. Sectors Table
+```sql
+CREATE TABLE sectors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sector_name VARCHAR(100) NOT NULL UNIQUE
+);
+```
+
+### 5. Sexes Table
+```sql
+CREATE TABLE sexes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sex_name VARCHAR(50) NOT NULL UNIQUE
+);
+```
+
+## Ticket System Database (webgnis_tickets)
+
+The `webgnis_tickets` database manages data access requests, payments, and processing status.
+
+### 1. Tickets Table
+```sql
+CREATE TABLE tickets (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    request_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending', 'awaiting_payment', 'payment_uploaded', 'verified', 'processing', 'completed', 'rejected') DEFAULT 'pending',
+    purpose VARCHAR(255) NOT NULL,
+    total_amount DECIMAL(10, 2) DEFAULT 0.00,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES webgnis_users.users(user_id) ON DELETE CASCADE
+);
+```
+
+**Description:** Main table for tracking data requests.
+
+**Key Columns:**
+* `ticket_id`: Unique identifier for the ticket.
+* `user_id`: Reference to the user who created the request.
+* `request_date`: When the request was submitted.
+* `status`: Current status of the request.
+* `purpose`: Why the data is being requested.
+* `total_amount`: Total cost of the requested data.
+* `notes`: Additional information about the request.
+
+### 2. Ticket Items Table
+```sql
+CREATE TABLE ticket_items (
+    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    gcp_id VARCHAR(50) NOT NULL,
+    gcp_type VARCHAR(50) NOT NULL,
+    coordinates VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) DEFAULT 0.00,
+    CONSTRAINT fk_ticket_id FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id) ON DELETE CASCADE
+);
+```
+
+**Description:** Stores information about the specific GCP stations requested.
+
+**Key Columns:**
+* `item_id`: Unique identifier for the ticket item.
+* `ticket_id`: Reference to the parent ticket.
+* `gcp_id`: Reference to the station ID.
+* `gcp_type`: Type of GCP (vertical, horizontal, gravity).
+* `coordinates`: Geographic coordinates of the station.
+* `price`: Price for this specific item.
+
+### 3. Payments Table
+```sql
+CREATE TABLE payments (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    reference_number VARCHAR(100),
+    payment_method VARCHAR(50) DEFAULT 'LinkBiz',
+    amount DECIMAL(10, 2) NOT NULL,
+    receipt_image VARCHAR(255), /* Path to uploaded receipt image */
+    payment_date DATETIME,
+    verification_status ENUM('unverified', 'verified', 'rejected') DEFAULT 'unverified',
+    verified_by VARCHAR(100),
+    verification_date DATETIME,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_payment_ticket_id FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id) ON DELETE CASCADE
+);
+```
+
+**Description:** Tracks payment information for ticket requests.
+
+**Key Columns:**
+* `payment_id`: Unique identifier for the payment.
+* `ticket_id`: Reference to the ticket being paid for.
+* `reference_number`: Payment reference from LinkBiz.
+* `receipt_image`: Path to the uploaded receipt image.
+* `verification_status`: Whether the payment has been verified.
+* `verified_by`: Admin who verified the payment.
+
+### 4. Ticket History Table
+```sql
+CREATE TABLE ticket_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    notes TEXT,
+    changed_by VARCHAR(100),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_history_ticket_id FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id) ON DELETE CASCADE
+);
+```
+
+**Description:** Maintains an audit trail of status changes for tickets.
+
+**Key Columns:**
+* `history_id`: Unique identifier for the history entry.
+* `ticket_id`: Reference to the ticket.
+* `status`: Status value that was set.
+* `changed_by`: User who made the change.
+* `notes`: Any notes associated with the status change.
+
+## Database Relationships
+
+### Cross-Database Relationships
+
+The system uses cross-database foreign key relationships to maintain data integrity:
+
+1. The `tickets` table in `webgnis_tickets` references the `users` table in `webgnis_users` via the `user_id` field.
+2. The `ticket_items` table references GCP stations in the main GNIS database via the `gcp_id` and `gcp_type` fields (logical relationship, not enforced by FK constraints).
+
+### Key Workflow Relationships
+
+- Each user (from `webgnis_users.users`) can have multiple tickets (in `webgnis_tickets.tickets`).
+- Each ticket can have multiple ticket items (GCP stations).
+- Each ticket can have one payment record.
+- Each ticket can have multiple history entries tracking status changes.
+
+## Implementation Notes
+
+- The `webgnis_tickets` database relies on cross-database foreign key references, which requires proper permissions.
+- File uploads for receipt images are stored in a designated directory with references in the database.
+- All financial transactions are tracked with appropriate audit trails.
+- Status changes are logged to maintain a complete history of request processing.
+
 ## Last Updated
 
-April 20, 2025
+May 1, 2025

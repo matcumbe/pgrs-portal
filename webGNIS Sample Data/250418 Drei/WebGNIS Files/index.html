@@ -193,6 +193,25 @@
 
                     <!-- Selected Points Table -->
                     <div class="col-md-4">
+                        
+                        <!-- Request Certificates Button -->
+                        <div class="mb-3">
+                            <button id="requestCertBtn" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#authModal">
+                                <i class="fas fa-certificate"></i> Request Certificates
+                            </button>
+                        </div>
+
+                        <!-- User Info Section (hidden by default) -->
+                        <div id="userInfoSection" class="mb-3 d-none" style="margin-top:-1rem">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="fas fa-user"></i> <span id="userDisplayName">User</span></h6>
+                                    <p class="card-text small mb-2"><span id="userType">Account</span></p>
+                                    <button id="logoutBtn" class="btn btn-sm btn-outline-danger">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                
                         <div class="card">
                             <div class="card-header" style="background-color: rgb(25, 135, 84);">
                                 <h5 class="mb-0" style="color: white;">Selected Points</h5>
@@ -217,9 +236,148 @@
         </div>
     </div>
 
+    <!-- Auth Modal (Login/Register) -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="authModalLabel">Login or Register</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 0;">
+                    <ul class="nav nav-tabs" id="authTabs" role="tablist" style="margin-top: 1rem;">
+                        <li class="nav-item" role="presentation" style="margin-left: 1rem;">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-tab-pane" type="button" role="tab" aria-controls="register-tab-pane" aria-selected="false">Register</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="authTabContent">
+                        <!-- Login Tab -->
+                        <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab">
+                            <div id="loginAlert" class="alert alert-danger d-none"></div>
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="loginUsername" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Register Tab -->
+                        <div class="tab-pane fade" id="register-tab-pane" role="tabpanel" aria-labelledby="register-tab">
+                            <div id="registerAlert" class="alert alert-danger d-none"></div>
+                            <form id="registerForm">
+                                <!-- User Type Selection -->
+                                <div class="mb-3">
+                                    <label class="form-label">Account Type</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="userType" id="individualType" value="individual" checked>
+                                        <label class="form-check-label" for="individualType">Individual</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="userType" id="companyType" value="company">
+                                        <label class="form-check-label" for="companyType">Company</label>
+                                    </div>
+                                </div>
+
+                                <!-- Common Fields -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerUsername" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="registerUsername" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="registerPassword" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="registerEmail" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerContact" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="registerContact" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerSex" class="form-label">Sex</label>
+                                        <select class="form-select" id="registerSex" required>
+                                            <option value="">Select Sex</option>
+                                            <!-- Will be populated from API -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerNameOnCert" class="form-label">Name on Certificate</label>
+                                        <input type="text" class="form-control" id="registerNameOnCert" required>
+                                    </div>
+                                </div>
+
+                                <!-- Individual Fields -->
+                                <div id="individualFields">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerFullName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="registerFullName">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerAddress" class="form-label">Address</label>
+                                            <input type="text" class="form-control" id="registerAddress">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Company Fields -->
+                                <div id="companyFields" class="d-none">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerCompanyName" class="form-label">Company Name</label>
+                                            <input type="text" class="form-control" id="registerCompanyName">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerCompanyAddress" class="form-label">Company Address</label>
+                                            <input type="text" class="form-control" id="registerCompanyAddress">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerSector" class="form-label">Sector</label>
+                                            <select class="form-select" id="registerSector">
+                                                <option value="">Select Sector</option>
+                                                <!-- Will be populated from API -->
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerRepresentative" class="form-label">Authorized Representative</label>
+                                            <input type="text" class="form-control" id="registerRepresentative">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="users.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
