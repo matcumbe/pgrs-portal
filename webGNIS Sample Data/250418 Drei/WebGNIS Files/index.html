@@ -14,9 +14,15 @@
     <!-- Header -->
     <header class="bg-success text-white p-3">
         <div class="container-fluid">
-            <div class="d-flex align-items-center">
-                <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-2" style="height: 40px;">
-                <h1 class="mb-0 h3 flex-grow-1 text-center">Geodetic Network Information System (GNIS)</h1>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-2" style="height: 40px;">
+                    <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
+                </div>
+                <div>
+                    <button id="loginBtn" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-light d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
             </div>
         </div>
     </header>
@@ -32,7 +38,9 @@
                     <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
                     <a class="nav-link active" href="index.html"><i class="fas fa-search"></i> Explorer</a>
                     <a class="nav-link" href="#"><i class="fas fa-map-marker"></i> Tracker</a>
-                    <a class="nav-link" href="admin.html"><i class="fas fa-cog"></i> Management</a>
+                    <a class="nav-link admin-only d-none" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link admin-only d-none" href="#"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link admin-only d-none" href="#"><i class="fas fa-users"></i> Users Management</a>
                     <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
                 </div>
             </div>
@@ -48,7 +56,7 @@
                     <div class="card-header" style="background-color: rgb(25, 135, 84);">
                         <h5 class="mb-0" style="color: white;">Filter/Search Panel</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="max-height: 100vh; overflow-y: auto;">
                         <!-- Error Messages -->
                         <div id="errorMessages" class="alert alert-danger d-none"></div>
                         
@@ -57,17 +65,17 @@
                             <label class="form-label">GCP Type:</label>
                             <div class="gcp-type-group">
                                 <div class="gcp-type-option">
-                                    <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical" checked>
-                                    <label class="gcp-type-label" for="verticalType">
-                                        <i class="fas fa-arrows-alt-v"></i>
-                                        <span>Vertical</span>
-                                    </label>
-                                </div>
-                                <div class="gcp-type-option">
                                     <input class="gcp-type-input" type="radio" name="gcpType" id="horizontalType" value="horizontal">
                                     <label class="gcp-type-label" for="horizontalType">
                                         <i class="fas fa-arrows-alt-h"></i>
                                         <span>Horizontal</span>
+                                    </label>
+                                </div>
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical" checked>
+                                    <label class="gcp-type-label" for="verticalType">
+                                        <i class="fas fa-arrows-alt-v"></i>
+                                        <span>Benchmark</span>
                                     </label>
                                 </div>
                                 <div class="gcp-type-option">
@@ -77,20 +85,6 @@
                                         <span>Gravity</span>
                                     </label>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Order and Accuracy Class Filter -->
-                        <div class="mb-3">
-                            <label class="form-label">Order:</label>
-                            <select class="form-select mb-2" id="orderFilter">
-                                <option value="">Select Order</option>
-                            </select>
-                            <div id="accuracyClassContainer">
-                                <label class="form-label">Accuracy Class:</label>
-                                <select class="form-select" id="accuracyFilter">
-                                    <option value="">Select Accuracy Class</option>
-                                </select>
                             </div>
                         </div>
 
@@ -108,6 +102,14 @@
                             </select>
                             <select class="form-select" id="barangay">
                                 <option value="">Select Barangay</option>
+                            </select>
+                        </div>
+
+                        <!-- Order and Accuracy Class Filter -->
+                        <div class="mb-3">
+                            <label class="form-label">Order:</label>
+                            <select class="form-select mb-2" id="orderFilter">
+                                <option value="">Select Order</option>
                             </select>
                         </div>
 
@@ -182,7 +184,7 @@
                                             <td>100.123</td>
                                             <td>1</td>
                                             <td>
-                                                <button class="btn btn-add-to-cart">Add to Cart</button>
+                                                <button class="btn btn-add-to-cart" onclick="addToCart('Example Station')">Add to Cart</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -196,7 +198,7 @@
                         
                         <!-- Request Certificates Button -->
                         <div class="mb-3">
-                            <button id="requestCertBtn" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#authModal">
+                            <button id="requestCertBtn" class="btn btn-success w-100">
                                 <i class="fas fa-certificate"></i> Request Certificates
                             </button>
                         </div>
@@ -315,7 +317,6 @@
                                         <label for="registerSex" class="form-label">Sex</label>
                                         <select class="form-select" id="registerSex" required>
                                             <option value="">Select Sex</option>
-                                            <!-- Will be populated from API -->
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -355,7 +356,6 @@
                                             <label for="registerSector" class="form-label">Sector</label>
                                             <select class="form-select" id="registerSector">
                                                 <option value="">Select Sector</option>
-                                                <!-- Will be populated from API -->
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
@@ -377,7 +377,31 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="users.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="users.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/utils.js" type="module"></script>
+    <script src="js/map.js" type="module"></script>
+    <script src="js/stations.js" type="module"></script>
+    <script src="js/search.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <script type="module">
+        import { updateNavigation } from './js/users/auth.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavigation();
+            
+            // Add event listener to remove backdrop when modal is hidden
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.addEventListener('hidden.bs.modal', function () {
+                    // Remove modal backdrop
+                    document.body.classList.remove('modal-open');
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html> 

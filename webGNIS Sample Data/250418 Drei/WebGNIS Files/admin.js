@@ -1,11 +1,10 @@
 // Admin Panel JavaScript
 
+// Import authentication module
+import { checkAuthStatus, hasRole } from './js/users/auth.js';
+
 // Configuration and Constants
 const API_ENDPOINT = 'gcp_admin_api.php';
-const AUTH_CREDENTIALS = {
-    username: 'admin',
-    password: '12345'
-};
 const ITEMS_PER_PAGE = 10;
 
 // Development settings
@@ -25,72 +24,30 @@ let currentStationType = 'vertical';
 let selectedStation = null;
 
 // Initialize application when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle authentication
-    const loginForm = document.getElementById('loginForm');
-    loginForm.addEventListener('submit', handleLogin);
-
-    // Set up logout functionality
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-
-    // Initialize event listeners for main functionality
-    initializeEventListeners();
+document.addEventListener('DOMContentLoaded', async function() {
+    // Check authentication and role
+    const authStatus = await checkAuthStatus();
+    
+    if (!authStatus.authenticated) {
+        // Redirect to login page if not authenticated
+        window.location.href = 'index.html';
+        return;
+    }
+    
+    if (!hasRole('admin')) {
+        // Show access denied message if not an admin
+        document.getElementById('accessDenied').classList.remove('hidden');
+        document.getElementById('adminInterface').classList.add('hidden');
+        return;
+    }
+    
+    // User is authenticated and is an admin, show admin interface
+    document.getElementById('accessDenied').classList.add('hidden');
+    document.getElementById('adminInterface').classList.remove('hidden');
+    
+    // Initialize admin interface
+    initializeAdminInterface();
 });
-
-// Authentication Functions
-function handleLogin(event) {
-    event.preventDefault();
-    console.log("Login attempt...");
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const loginError = document.getElementById('loginError');
-    
-    console.log("Credentials entered:", { username, password: "***" });
-    console.log("Expected credentials:", { username: AUTH_CREDENTIALS.username, password: "***" });
-    
-    // Simple client-side authentication for demonstration
-    if (username === AUTH_CREDENTIALS.username && password === AUTH_CREDENTIALS.password) {
-        console.log("Login successful");
-        // Hide login form and show admin interface
-        document.getElementById('loginContainer').classList.add('hidden');
-        document.getElementById('adminInterface').classList.remove('hidden');
-        
-        // Store auth state in sessionStorage
-        sessionStorage.setItem('authenticated', 'true');
-        
-        // Initialize admin interface
-        initializeAdminInterface();
-    } else {
-        console.log("Login failed");
-        // Show error message
-        loginError.textContent = 'Invalid username or password';
-        loginError.classList.remove('hidden');
-    }
-}
-
-function handleLogout() {
-    // Clear auth state
-    sessionStorage.removeItem('authenticated');
-    
-    // Hide admin interface and show login form
-    document.getElementById('adminInterface').classList.add('hidden');
-    document.getElementById('loginContainer').classList.remove('hidden');
-    
-    // Clear login form
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-    document.getElementById('loginError').classList.add('hidden');
-}
-
-function checkAuthState() {
-    // Check if user is already authenticated
-    if (sessionStorage.getItem('authenticated') === 'true') {
-        document.getElementById('loginContainer').classList.add('hidden');
-        document.getElementById('adminInterface').classList.remove('hidden');
-        initializeAdminInterface();
-    }
-}
 
 // Initialize Admin Interface
 function initializeAdminInterface() {
@@ -99,6 +56,9 @@ function initializeAdminInterface() {
     
     // Fetch location data for dropdowns
     fetchLocationData();
+    
+    // Initialize event listeners
+    initializeEventListeners();
 }
 
 // Initialize Event Listeners
@@ -273,9 +233,6 @@ function initializeEventListeners() {
     
     // Setup DMS conversion
     setupDMSConversion();
-    
-    // Check authentication state on load
-    checkAuthState();
 }
 
 // API Functions
