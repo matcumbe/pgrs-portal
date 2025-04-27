@@ -1,0 +1,51 @@
+# WebGNIS v0.1.3 Troubleshooting
+
+## Explorer
+### Filter/Search Panel
+1. Filtering by location
+	a. The filters does not cascade properly.
+	b. The filtered points on the map/table remain as the subset available.
+	c. Convoluted filtering system, maybe should be revisited again to be revamped or fixed when it comes to communicating with the API.
+	d. Dropdowns should be dynamically updating based on the level of location (region, province, city/municipality, barangay).
+	e. Dropdowns on the last level selected should display all options available on the level of location, but the next lower level should only display locations within the level higher.
+
+## GCP Management
+### Filter GCP Stations
+1. Filtering by location
+	a. Seems like the dropdown options are hardcoded into the HTML file in some cases.
+	b. Dropdowns should be dynamically updating based on the level of location (region, province, city/municipality, barangay).
+	c. Dropdowns on the last level selected should display all options available on the level of location, but the next lower level should only display locations within the level higher.
+	d. Can also be a case of convoluted API requests and faulty referencing on HTML and JS script.
+
+### Add/Edit GCP Station
+#### Add
+1. General
+	a. Does not work.
+2. Input dropdown issues similar with Edit tab. Check details on Edit tab
+
+#### View
+1. Double order category ("Order" & "Elevation Order").
+2. Double description category ("Benchmark Description" & "Site Description")
+
+#### Edit 
+1. General
+	a. Does not work or communicate well with the database.
+1. "Station Code" form input
+2. "Common" tab 
+	a. Seems like options are hard-coded on HTML
+	b. "Order" form input 
+	c. Missing "Status" form input, maybe replace the redundant "Order" form input
+3. "Vertical" tab
+	a. Seems like options are hard-coded on HTML
+	b. Duplicate "Authority" form input
+4. "Horizontal" tab
+	a. More specificity on the initial "Latitude" and "Longitude" fields on what they're asking for.
+	b. Must also display the decimal lat/long.
+	c. "ITRF Coordinates" fields must follow the initial "Lat." & "Long." fields.
+4. "Location" tab
+	a. "Province" input has "NCR - MANILA" and "NCR - MANILA, FIRST DISTRICT" options
+		i. Might be an issue of delimiter issue in the database, or in API communication.
+	b. "NCR - MANILA, FIRST DISTRICT" will display barangays that might not even be within the first district.
+	c. Remove "Active Station" checkbox. Merge with "Status" input on "Common" tab.
+
+

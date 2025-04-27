@@ -5,6 +5,20 @@ require_once 'config.php';
 ini_set('log_errors', 1);
 ini_set('error_log', 'php_errors.log');
 
+// Set CORS headers
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+// Set content type to JSON
+header('Content-Type: application/json');
+
 // Set up error handler to return JSON instead of HTML
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
     error_log("Error [$errno]: $errstr in $errfile on line $errline");
@@ -229,12 +243,12 @@ function getStationById($id) {
     throw new Exception('Station not found');
 }
 
-// Create new station with improved error handling
+// Create new station with improved error handling and data validation
 function createStation($data) {
     global $db;
     
     if (!$data || !isset($data['type']) || !isset($data['station_name'])) {
-        throw new Exception('Invalid station data');
+        throw new Exception('Invalid station data: Missing required fields (type, station_name)');
     }
     
     $type = strtolower($data['type']);
@@ -259,64 +273,97 @@ function createStation($data) {
         $data['station_id'] = generateStationId($type);
     }
     
-    // Build SQL INSERT statement dynamically based on provided fields
-    $columns = [];
-    $placeholders = [];
-    $types = '';
-    $values = [];
+    // Start transaction
+    $db->begin_transaction();
     
-    foreach ($data as $key => $value) {
-        // Skip type field as it's not in the database
-        if ($key === 'type') continue;
+    try {
+        // Build SQL INSERT statement dynamically based on provided fields
+        $columns = [];
+        $placeholders = [];
+        $values = [];
+        $types = '';
         
-        $columns[] = $key;
-        $placeholders[] = '?';
+        // Get table columns to validate field names
+        $columnsResult = $db->query("DESCRIBE $table");
+        $validColumns = [];
         
-        // Determine parameter type
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } else {
-            $types .= 's';
+        while ($column = $columnsResult->fetch_assoc()) {
+            $validColumns[] = $column['Field'];
         }
         
-        $values[] = $value;
+        foreach ($data as $key => $value) {
+            // Skip type field as it's not in the database
+            if ($key === 'type') continue;
+            
+            // Skip invalid columns
+            if (!in_array($key, $validColumns)) {
+                error_log("Skipping invalid column: $key");
+                continue;
+            }
+            
+            // Skip null values
+            if ($value === null) continue;
+            
+            $columns[] = "`$key`";
+            $placeholders[] = '?';
+            $values[] = $value;
+            
+            // Determine parameter type
+            if (is_int($value)) {
+                $types .= 'i';
+            } elseif (is_float($value) || is_numeric($value)) {
+                $types .= 'd';
+            } else {
+                $types .= 's';
+            }
+        }
+        
+        if (empty($columns)) {
+            throw new Exception('No valid fields provided for insertion');
+        }
+        
+        $sql = "INSERT INTO `$table` (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $placeholders) . ")";
+        
+        error_log("SQL: " . $sql);
+        error_log("Types: " . $types);
+        error_log("Values: " . print_r($values, true));
+        
+        $stmt = $db->prepare($sql);
+        
+        if (!$stmt) {
+            throw new Exception('Database error: ' . $db->error);
+        }
+        
+        // Create reference array for bind_param
+        $params = array();
+        $params[] = $types;
+        
+        for ($i = 0; $i < count($values); $i++) {
+            $params[] = &$values[$i];
+        }
+        
+        // Call bind_param with dynamic parameters
+        call_user_func_array(array($stmt, 'bind_param'), $params);
+        
+        if (!$stmt->execute()) {
+            throw new Exception('Database error: ' . $stmt->error);
+        }
+        
+        $db->commit();
+        
+        return ['id' => $data['station_id'], 'message' => 'Station created successfully'];
+    } catch (Exception $e) {
+        $db->rollback();
+        throw $e;
     }
-    
-    $sql = "INSERT INTO $table (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $placeholders) . ")";
-    
-    error_log("SQL: " . $sql);
-    error_log("Types: " . $types);
-    error_log("Values: " . print_r($values, true));
-    
-    $stmt = $db->prepare($sql);
-    
-    if (!$stmt) {
-        throw new Exception('Database error: ' . $db->error);
-    }
-    
-    // Bind parameters dynamically
-    $bindParams = array($types);
-    foreach ($values as $key => $value) {
-        $bindParams[] = &$values[$key];
-    }
-    
-    call_user_func_array(array($stmt, 'bind_param'), $bindParams);
-    
-    if (!$stmt->execute()) {
-        throw new Exception('Database error: ' . $stmt->error);
-    }
-    
-    return ['id' => $data['station_id']];
 }
 
-// Update existing station with improved error handling
+// Update existing station with improved error handling and data validation
 function updateStation($id, $data) {
     global $db;
     
     if (!$data || !isset($data['type'])) {
-        throw new Exception('Invalid station data');
+        throw new Exception('Invalid station data: Missing type field');
     }
     
     $type = strtolower($data['type']);
@@ -344,61 +391,97 @@ function updateStation($id, $data) {
     $result = $checkStmt->get_result();
     
     if ($result->num_rows === 0) {
-        throw new Exception('Station not found');
+        throw new Exception("Station not found with ID: $id");
     }
     
-    // Build SQL UPDATE statement dynamically based on provided fields
-    $updates = [];
-    $types = '';
-    $values = [];
+    // Start transaction
+    $db->begin_transaction();
     
-    foreach ($data as $key => $value) {
-        // Skip type field and station_id as they shouldn't be updated
-        if ($key === 'type' || $key === 'station_id') continue;
+    try {
+        // Get table columns to validate field names
+        $columnsResult = $db->query("DESCRIBE $table");
+        $validColumns = [];
         
-        $updates[] = "$key = ?";
-        
-        // Determine parameter type
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } else {
-            $types .= 's';
+        while ($column = $columnsResult->fetch_assoc()) {
+            $validColumns[] = $column['Field'];
         }
         
-        $values[] = $value;
+        // Build SQL UPDATE statement dynamically based on provided fields
+        $updates = [];
+        $values = [];
+        $types = '';
+        
+        foreach ($data as $key => $value) {
+            // Skip type field and station_id as they shouldn't be updated
+            if ($key === 'type' || $key === 'station_id') continue;
+            
+            // Skip invalid columns
+            if (!in_array($key, $validColumns)) {
+                error_log("Skipping invalid column: $key");
+                continue;
+            }
+            
+            // Handle null values properly
+            if ($value === null) {
+                $updates[] = "`$key` = NULL";
+                continue;
+            }
+            
+            $updates[] = "`$key` = ?";
+            $values[] = $value;
+            
+            // Determine parameter type
+            if (is_int($value)) {
+                $types .= 'i';
+            } elseif (is_float($value) || is_numeric($value)) {
+                $types .= 'd';
+            } else {
+                $types .= 's';
+            }
+        }
+        
+        if (empty($updates)) {
+            throw new Exception('No valid fields provided for update');
+        }
+        
+        // Add id as last parameter
+        $types .= 's';
+        $values[] = $id;
+        
+        $sql = "UPDATE `$table` SET " . implode(', ', $updates) . " WHERE station_id = ?";
+        
+        error_log("SQL: " . $sql);
+        error_log("Types: " . $types);
+        error_log("Values: " . print_r($values, true));
+        
+        $stmt = $db->prepare($sql);
+        
+        if (!$stmt) {
+            throw new Exception('Database error: ' . $db->error);
+        }
+        
+        // Create reference array for bind_param
+        $params = array();
+        $params[] = $types;
+        
+        for ($i = 0; $i < count($values); $i++) {
+            $params[] = &$values[$i];
+        }
+        
+        // Call bind_param with dynamic parameters
+        call_user_func_array(array($stmt, 'bind_param'), $params);
+        
+        if (!$stmt->execute()) {
+            throw new Exception('Database error: ' . $stmt->error);
+        }
+        
+        $db->commit();
+        
+        return ['id' => $id, 'affected_rows' => $stmt->affected_rows, 'message' => 'Station updated successfully'];
+    } catch (Exception $e) {
+        $db->rollback();
+        throw $e;
     }
-    
-    // Add id as last parameter
-    $types .= 's';
-    $values[] = $id;
-    
-    $sql = "UPDATE $table SET " . implode(', ', $updates) . " WHERE station_id = ?";
-    
-    error_log("SQL: " . $sql);
-    error_log("Types: " . $types);
-    error_log("Values: " . print_r($values, true));
-    
-    $stmt = $db->prepare($sql);
-    
-    if (!$stmt) {
-        throw new Exception('Database error: ' . $db->error);
-    }
-    
-    // Bind parameters dynamically
-    $bindParams = array($types);
-    foreach ($values as $key => $value) {
-        $bindParams[] = &$values[$key];
-    }
-    
-    call_user_func_array(array($stmt, 'bind_param'), $bindParams);
-    
-    if (!$stmt->execute()) {
-        throw new Exception('Database error: ' . $stmt->error);
-    }
-    
-    return ['id' => $id, 'affected_rows' => $stmt->affected_rows];
 }
 
 // Delete station with improved error handling
