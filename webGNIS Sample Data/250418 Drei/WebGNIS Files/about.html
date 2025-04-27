@@ -25,8 +25,8 @@
             padding-left: 15px;
             padding-right: 15px;
          }
-         .content-section h3 {
-            color: #198754; /* Bootstrap success green */
+         .content-section h2, h3 {
+            color: var(--secondary-color); /* Bootstrap success green */
             margin-top: 20px;
             margin-bottom: 10px;
          }
@@ -45,12 +45,16 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
-                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-2" style="height: 40px;">
+                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
                     <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
                 </div>
-                <div>
-                    <button id="loginBtn" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
-                    <button id="logoutBtn" class="btn btn-outline-light d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
             </div>
         </div>
@@ -78,7 +82,7 @@
 
     <!-- Main Content -->
     <div class="container content-section">
-        <h2 class="text-center mb-4" style="color: #198754;">About NAMRIA and the Geodetic Network Information System (GNIS)</h2>
+        <h2 class="text-center mb-4 mt-0">About NAMRIA and the Geodetic Network Information System (GNIS)</h2>
 
         <p>The National Mapping and Resource Information Authority (NAMRIA), under the Department of Environment and Natural Resources, is the central mapping agency of the Philippine government. NAMRIA is responsible for providing map-making services and acting as the central repository for natural resources and mapping data.</p>
 

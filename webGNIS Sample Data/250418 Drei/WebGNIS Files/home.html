@@ -23,7 +23,6 @@
         }
         .feature-box i {
             font-size: 3rem; /* Larger icons */
-            color: #198754; /* Bootstrap success green */
             margin-bottom: 15px;
         }
         .feature-box h3 {
@@ -43,6 +42,11 @@
             max-width: 1000px; /* Adjust max-width as needed */
             margin: 30px auto; /* Center the content */
         }
+
+        .content-section h2  {
+            color: var(--secondary-color);
+        }
+
          .navbar .nav-link.active {
             font-weight: bold; /* Make active link bold */
          }
@@ -59,12 +63,16 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
-                    <img src="Assets/gnis_logo.png" alt="NAMRIA Logo" class="me-2" style="height: 40px;">
+                    <img src="Assets/gnis_logo.png" alt="NAMRIA Logo" class="me-4" style="height: 40px;">
                     <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
                 </div>
-                <div>
-                    <button id="loginBtn" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
-                    <button id="logoutBtn" class="btn btn-outline-light d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
             </div>
         </div>
@@ -92,7 +100,7 @@
 
     <!-- Main Content -->
     <div class="container content-section">
-        <h2 class="text-center mb-4" style="color: #198754;">Welcome to Web GNIS</h2>
+        <h2 class="text-center mb-4">Welcome to Web GNIS</h2>
         <p class="text-center mb-4">At NAMRIA, the Geodetic Network Information System (GNIS) is a specialized database designed to support geodetic and mapping activities in the Philippines. The GNIS contains detailed descriptions of each Geodetic Control Point (GCP), including its geographic location and precise geographic coordinates such as latitude, longitude, and elevation. GNIS maintains extensive records for each GCP, including geographic coordinates such as latitude, longitude, and elevation.</p>
 
         <!-- Feature Boxes -->

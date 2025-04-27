@@ -148,6 +148,15 @@ class UsersAPI {
         return await this.request('users/me', 'GET');
     }
 
+    // Update password
+    async updatePassword(userId, currentPassword, newPassword) {
+        return await this.request('change_password', 'POST', {
+            user_id: userId,
+            current_password: currentPassword,
+            new_password: newPassword
+        });
+    }
+
     // Request certificates
     async requestCertificate(pointIds, requestDetails) {
         return await this.request('certificates/request', 'POST', {

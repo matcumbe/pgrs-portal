@@ -16,12 +16,16 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
-                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-2" style="height: 40px;">
+                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
                     <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
                 </div>
-                <div>
-                    <button id="loginBtn" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
-                    <button id="logoutBtn" class="btn btn-outline-light d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
             </div>
         </div>
@@ -204,15 +208,7 @@
                         </div>
 
                         <!-- User Info Section (hidden by default) -->
-                        <div id="userInfoSection" class="mb-3 d-none" style="margin-top:-1rem">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h6 class="card-title"><i class="fas fa-user"></i> <span id="userDisplayName">User</span></h6>
-                                    <p class="card-text small mb-2"><span id="userType">Account</span></p>
-                                    <button id="logoutBtn" class="btn btn-sm btn-outline-danger">Logout</button>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Removed userInfoSection from here, as account details are now in the header -->
                 
                         <div class="card">
                             <div class="card-header" style="background-color: rgb(25, 135, 84);">

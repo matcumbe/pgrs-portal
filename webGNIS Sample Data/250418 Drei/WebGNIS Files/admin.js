@@ -1,7 +1,7 @@
 // Admin Panel JavaScript
 
 // Import authentication module
-import { checkAuthStatus, hasRole } from './js/users/auth.js';
+import { checkAuthStatus, hasRole, getCurrentUser } from './js/users/auth.js';
 
 // Configuration and Constants
 const API_ENDPOINT = 'gcp_admin_api.php';
@@ -27,21 +27,26 @@ let selectedStation = null;
 document.addEventListener('DOMContentLoaded', async function() {
     // Check authentication and role
     const authStatus = await checkAuthStatus();
+    const currentUser = getCurrentUser();
+    
+    console.log('Auth Status:', authStatus);
+    console.log('Current User:', currentUser);
     
     if (!authStatus.authenticated) {
-        // Redirect to login page if not authenticated
+        console.log('User not authenticated, redirecting to index.html');
         window.location.href = 'index.html';
         return;
     }
     
-    if (!hasRole('admin')) {
-        // Show access denied message if not an admin
+    if (!currentUser || currentUser.user_type !== 'admin') {
+        console.log('User is not an admin, showing access denied');
         document.getElementById('accessDenied').classList.remove('hidden');
         document.getElementById('adminInterface').classList.add('hidden');
         return;
     }
     
     // User is authenticated and is an admin, show admin interface
+    console.log('User is authenticated admin, showing admin interface');
     document.getElementById('accessDenied').classList.add('hidden');
     document.getElementById('adminInterface').classList.remove('hidden');
     
@@ -1241,15 +1246,15 @@ function showEditForm(station) {
         document.getElementById('utmZone').value = station.utm_zone || '';
         
         // ITRF coordinates
-        document.getElementById('itrfLatDd').value = station.itrf_lat_dd || '';
-        document.getElementById('itrfLatMm').value = station.itrf_lat_mm || '';
-        document.getElementById('itrfLatSs').value = station.itrf_lat_ss || '';
-        document.getElementById('itrfLonDd').value = station.itrf_lon_dd || '';
-        document.getElementById('itrfLonMm').value = station.itrf_lon_mm || '';
-        document.getElementById('itrfLonSs').value = station.itrf_lon_ss || '';
-        document.getElementById('itrfEllHgt').value = station.itrf_ell_hgt || '';
-        document.getElementById('itrfEllErr').value = station.itrf_ell_err || '';
-        document.getElementById('itrfHgtErr').value = station.itrf_hgt_err || '';
+        document.getElementById('itrfLatDd').value = parseInt(document.getElementById('itrfLatDd').value) || null;
+        document.getElementById('itrfLatMm').value = parseInt(document.getElementById('itrfLatMm').value) || null;
+        document.getElementById('itrfLatSs').value = parseFloat(document.getElementById('itrfLatSs').value) || null;
+        document.getElementById('itrfLonDd').value = parseInt(document.getElementById('itrfLonDd').value) || null;
+        document.getElementById('itrfLonMm').value = parseInt(document.getElementById('itrfLonMm').value) || null;
+        document.getElementById('itrfLonSs').value = parseFloat(document.getElementById('itrfLonSs').value) || null;
+        document.getElementById('itrfEllHgt').value = parseFloat(document.getElementById('itrfEllHgt').value) || null;
+        document.getElementById('itrfEllErr').value = parseFloat(document.getElementById('itrfEllErr').value) || null;
+        document.getElementById('itrfHgtErr').value = parseFloat(document.getElementById('itrfHgtErr').value) || null;
     } else if (currentStationType === 'gravity') {
         document.getElementById('gravityValue').value = station.gravity_value || '';
         document.getElementById('standardDeviation').value = station.standard_deviation || '';
@@ -1304,7 +1309,6 @@ async function handleFormSubmit(event) {
         type: currentStationType,
         station_id: document.getElementById('stationId').value,
         station_name: document.getElementById('stationName').value,
-        station_code: document.getElementById('stationCode').value,
         latitude: parseFloat(document.getElementById('latitude').value) || null,
         longitude: parseFloat(document.getElementById('longitude').value) || null,
         
@@ -1325,7 +1329,7 @@ async function handleFormSubmit(event) {
         date_last_updated: document.getElementById('dateLastUpdated').value || null,
         encoder: document.getElementById('encoder').value || null,
         island_group: document.getElementById('islandGroup').value || null,
-        order: document.getElementById('orderInput').value || null,
+        order: parseInt(document.getElementById('orderInput').value) || null,
         site_description: document.getElementById('siteDescription').value || null,
         description: document.getElementById('siteDescription').value || null,  // Duplicate for different field names
         access_instructions: document.getElementById('accessInstructions').value || null,
@@ -1339,17 +1343,22 @@ async function handleFormSubmit(event) {
         barangay: document.getElementById('barangayInput').value,
     };
     
+    // Add station_code only for gravity stations
+    if (currentStationType === 'gravity') {
+        formData.station_code = document.getElementById('stationCode').value || null;
+    }
+    
     // Add type-specific fields
     if (currentStationType === 'vertical') {
         formData.elevation = parseFloat(document.getElementById('elevation').value) || null;
         formData.bm_plus = parseFloat(document.getElementById('bmPlus').value) || null;
-        formData.elevation_order = document.getElementById('elevationOrder').value;
+        formData.elevation_order = parseInt(document.getElementById('elevationOrder').value) || null;
         formData.accuracy_class = document.getElementById('accuracyClass').value;
         formData.elevation_datum = document.getElementById('verticalDatum').value;
         formData.elevation_authority = document.getElementById('elevationAuthority').value;
     } else if (currentStationType === 'horizontal') {
         formData.ellipsoidal_height = parseFloat(document.getElementById('ellipsoidalHeight').value) || null;
-        formData.horizontal_order = document.getElementById('horizontalOrder').value;
+        formData.horizontal_order = parseInt(document.getElementById('horizontalOrder').value) || null;
         formData.horizontal_datum = document.getElementById('horizontalDatum').value;
         
         // UTM coordinates
@@ -1373,7 +1382,7 @@ async function handleFormSubmit(event) {
         formData.gravity_value = parseFloat(document.getElementById('gravityValue').value) || null;
         formData.standard_deviation = parseFloat(document.getElementById('standardDeviation').value) || null;
         formData.date_measured = document.getElementById('dateMeasured').value || null;
-        formData.gravity_order = document.getElementById('gravityOrder').value;
+        formData.gravity_order = parseInt(document.getElementById('gravityOrder').value) || null;
         formData.gravity_datum = document.getElementById('gravityDatum').value;
         formData.gravity_meter = document.getElementById('gravityMeter').value;
     }

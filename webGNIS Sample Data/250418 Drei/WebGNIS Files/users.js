@@ -171,24 +171,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update UI for logged in user
     function showUserInfo(userData) {
-        if (requestCertBtn && userInfoSection) {
-            requestCertBtn.classList.add('d-none');
-            userInfoSection.classList.remove('d-none');
-            
-            // Display user name
-            userDisplayName.textContent = userData.username || userData.full_name || 'User';
-            
-            // Display account type
+        // Update header account details
+        const headerAccountDetails = document.getElementById('headerAccountDetails');
+        const headerUserDisplayName = document.getElementById('headerUserDisplayName');
+        const headerUserType = document.getElementById('headerUserType');
+        if (headerAccountDetails && headerUserDisplayName && headerUserType) {
+            headerAccountDetails.classList.remove('d-none');
+            headerUserDisplayName.textContent = userData.username || userData.full_name || 'User';
             const accountType = userData.user_type || 'individual';
-            userType.textContent = (accountType === 'company') ? 'Company Account' : 'Individual Account';
+            headerUserType.textContent = (accountType === 'company') ? 'Company Account' : (accountType === 'admin' ? 'Admin Account' : 'Individual Account');
         }
     }
     
     // Update UI for logged out state
     function hideUserInfo() {
-        if (requestCertBtn && userInfoSection) {
-            requestCertBtn.classList.remove('d-none');
-            userInfoSection.classList.add('d-none');
+        // Hide header account details
+        const headerAccountDetails = document.getElementById('headerAccountDetails');
+        if (headerAccountDetails) {
+            headerAccountDetails.classList.add('d-none');
         }
     }
     
@@ -210,20 +210,12 @@ document.addEventListener('DOMContentLoaded', function() {
         showLoading(loginForm);
         
         try {
-            // Call the API for login
-            const result = await usersApi.login(username, password);
+            // Use the auth module's login function
+            const result = await login(username, password);
             
-            if (result.status === 200 && result.data) {
-                // Store user data
-                const userData = result.data.user || result.data;
-                localStorage.setItem('gnisUser', JSON.stringify(userData));
-                
-                // Log user type to console
-                console.log('User logged in:', userData);
-                console.log('User type:', userData.user_type || 'Not specified');
-                
+            if (result.success && result.user) {
                 // Update UI
-                showUserInfo(userData);
+                showUserInfo(result.user);
                 
                 // Close modal and remove backdrop
                 const authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
@@ -239,9 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Reset form
                 loginForm.reset();
-                
-                // Update navigation buttons
-                updateNavigationButtons(true);
                 
                 // Refresh the page after a short delay
                 setTimeout(() => {
@@ -297,27 +286,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await usersApi.createUser(userData);
             
             if (result.status === 201 && result.data) {
-                // Now login with the created credentials
-                const loginResult = await usersApi.login(userData.username, userData.password);
+                // Now login with the created credentials using auth module
+                const loginResult = await login(userData.username, userData.password);
                 
-                if (loginResult.status === 200 && loginResult.data) {
-                    // Store user data
-                    localStorage.setItem('gnisUser', JSON.stringify(loginResult.data.user || loginResult.data));
-                    
+                if (loginResult.success && loginResult.user) {
                     // Update UI
-                    showUserInfo(loginResult.data.user || loginResult.data);
+                    showUserInfo(loginResult.user);
                     
                     // Close modal
                     const authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
                     if (authModal) {
                         authModal.hide();
+                        // Remove modal backdrop
+                        document.body.classList.remove('modal-open');
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
                     }
                     
                     // Reset form
                     registerForm.reset();
                     
-                    // Show success message
+                    // Show success message and refresh
                     alert('Registration successful! You are now logged in.');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 500);
                 } else {
                     // Registration succeeded but login failed
                     alert('Registration successful! Please login with your credentials.');

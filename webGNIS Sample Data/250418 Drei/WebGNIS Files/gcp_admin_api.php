@@ -269,7 +269,16 @@ function createStation($data) {
         // Skip type field as it's not in the database
         if ($key === 'type') continue;
         
-        $columns[] = $key;
+        // Skip station_code for non-gravity stations
+        if ($key === 'station_code' && $type !== 'gravity') continue;
+        
+        // Handle the order field specially
+        if ($key === 'order' || $key === 'station_order') {
+            $columns[] = '`order`';
+        } else {
+            $columns[] = $key;
+        }
+        
         $placeholders[] = '?';
         
         // Determine parameter type
@@ -355,6 +364,9 @@ function updateStation($id, $data) {
     foreach ($data as $key => $value) {
         // Skip type field and station_id as they shouldn't be updated
         if ($key === 'type' || $key === 'station_id') continue;
+        
+        // Skip station_code for non-gravity stations
+        if ($key === 'station_code' && $type !== 'gravity') continue;
         
         $updates[] = "$key = ?";
         

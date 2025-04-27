@@ -147,6 +147,14 @@ try {
             }
             break;
             
+        case 'change_password':
+            if ($method === 'POST') {
+                changePassword($db);
+            } else {
+                returnResponse(405, "Method not allowed", null);
+            }
+            break;
+            
         case '':
             // No endpoint specified - show API info
             returnResponse(200, "WebGNIS Users API", [
@@ -846,4 +854,82 @@ function returnResponse($statusCode, $message, $data) {
     
     echo json_encode($response);
     exit;
+}
+
+// Add the changePassword function after other existing functions
+function changePassword($db) {
+    // Verify user is authenticated first
+    $token = verifyToken(null, false);
+    
+    if (!$token) {
+        returnResponse(401, "Unauthorized", null);
+        return;
+    }
+    
+    // Get request body data
+    $data = json_decode(file_get_contents("php://input"));
+    
+    // Validate input
+    if (!isset($data->current_password) || !isset($data->new_password)) {
+        returnResponse(400, "Current password and new password are required", null);
+        return;
+    }
+    
+    if (strlen($data->new_password) < 6) {
+        returnResponse(400, "New password must be at least 6 characters", null);
+        return;
+    }
+    
+    // Get user ID from token or request
+    $userId = $token->user_id;
+    if (isset($data->user_id) && $data->user_id != $userId) {
+        // If user is trying to change someone else's password, check if they're an admin
+        if ($token->user_type !== 'admin') {
+            returnResponse(403, "You are not authorized to change another user's password", null);
+            return;
+        }
+        $userId = $data->user_id;
+    }
+    
+    try {
+        // Get current user password
+        $sql = "SELECT password FROM users WHERE user_id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+        
+        if ($stmt->rowCount() === 0) {
+            returnResponse(404, "User not found", null);
+            return;
+        }
+        
+        $user = $stmt->fetch();
+        
+        // Mock verification for demo purposes
+        // In a real environment, you would use: password_verify($data->current_password, $user['password'])
+        // For this implementation, we're just checking if a current password was provided
+        // if (isset($data->current_password) && !empty($data->current_password)) {
+        if (password_verify($data->current_password, $user['password'])) {
+            // Hash the new password
+            // Again, in a real environment you would use: $newPasswordHash = password_hash($data->new_password, PASSWORD_DEFAULT);
+            // $newPasswordHash = $data->new_password;
+            $newPasswordHash = password_hash($data->new_password, PASSWORD_DEFAULT);
+            
+            // Update the user's password
+            $updateSql = "UPDATE users SET password = :password WHERE user_id = :id";
+            $updateStmt = $db->prepare($updateSql);
+            $updateStmt->bindParam(':password', $newPasswordHash);
+            $updateStmt->bindParam(':id', $userId);
+            if ($updateStmt->execute()) {
+                returnResponse(200, "Password updated successfully", null);
+            } else {
+                returnResponse(500, "Failed to update password", null);
+            }
+        } else {
+            returnResponse(400, "Current password is incorrect", null);
+        }
+    } catch (PDOException $e) {
+        error_log("Change password error: " . $e->getMessage());
+        returnResponse(500, "Failed to update password", null);
+    }
 } 

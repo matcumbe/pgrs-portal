@@ -12,17 +12,21 @@ let currentUser = null;
 async function login(username, password) {
     try {
         const result = await usersApi.login(username, password);
-        if (result.status === 'success') {
-            // Map user_type to role in the user data
-            currentUser = {
-                ...result.data.user,
-                role: result.data.user.user_type
-            };
+        if (result.status === 'success' || result.status === 200) {
+            // Store user data consistently
+            currentUser = result.data.user || result.data;
+            
+            // Store in localStorage for persistence
+            localStorage.setItem('gnisUser', JSON.stringify(currentUser));
+            
             // Trigger authentication event
             const event = new CustomEvent('webgnis:auth:login', { 
                 detail: { user: currentUser } 
             });
             document.dispatchEvent(event);
+            
+            // Update navigation
+            updateNavigation();
             
             return { success: true, user: currentUser };
         }
@@ -38,9 +42,15 @@ async function logout() {
         await usersApi.logout();
         currentUser = null;
         
+        // Clear localStorage
+        localStorage.removeItem('gnisUser');
+        
         // Trigger logout event
         const event = new CustomEvent('webgnis:auth:logout');
         document.dispatchEvent(event);
+        
+        // Update navigation
+        updateNavigation();
         
         return { success: true };
     } catch (error) {
@@ -50,7 +60,20 @@ async function logout() {
 }
 
 async function checkAuthStatus() {
+    // First check localStorage
+    const storedUser = localStorage.getItem('gnisUser');
+    if (storedUser) {
+        try {
+            currentUser = JSON.parse(storedUser);
+        } catch (e) {
+            console.error('Failed to parse stored user:', e);
+            localStorage.removeItem('gnisUser');
+        }
+    }
+    
     if (!usersApi.isAuthenticated()) {
+        currentUser = null;
+        localStorage.removeItem('gnisUser');
         return { authenticated: false };
     }
     
@@ -58,12 +81,15 @@ async function checkAuthStatus() {
         const userData = await usersApi.getCurrentUser();
         if (userData && userData.data) {
             currentUser = userData.data;
+            localStorage.setItem('gnisUser', JSON.stringify(currentUser));
             return { authenticated: true, user: currentUser };
         }
         return { authenticated: false };
     } catch (error) {
         console.error('Auth check error:', error);
         usersApi.clearToken();
+        localStorage.removeItem('gnisUser');
+        currentUser = null;
         return { authenticated: false, error: error.message };
     }
 }
@@ -75,7 +101,7 @@ function getCurrentUser() {
 // Redirect to login if not authenticated
 function requireAuth() {
     if (!usersApi.isAuthenticated()) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return false;
     }
     return true;
@@ -86,14 +112,27 @@ function updateNavigation() {
     const adminLinks = document.querySelectorAll('.admin-only');
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
+    const homeLink = document.querySelector('a[href="home.html"]');
+    const trackerLink = document.querySelector('a[href="#"]:has(i.fa-map-marker)');
+    const aboutLink = document.querySelector('a[href="about.html"]');
     
     if (currentUser) {
         // Show/hide admin links based on role
         adminLinks.forEach(link => {
             if (currentUser.user_type === 'admin') {
                 link.classList.remove('d-none');
+                
+                // Hide Home, Tracker, and About links for admin users
+                if (homeLink) homeLink.classList.add('d-none');
+                if (trackerLink) trackerLink.classList.add('d-none');
+                if (aboutLink) aboutLink.classList.add('d-none');
             } else {
                 link.classList.add('d-none');
+                
+                // Show Home, Tracker, and About links for non-admin users
+                if (homeLink) homeLink.classList.remove('d-none');
+                if (trackerLink) trackerLink.classList.remove('d-none');
+                if (aboutLink) aboutLink.classList.remove('d-none');
             }
         });
         
@@ -104,6 +143,11 @@ function updateNavigation() {
         // Hide all admin links
         adminLinks.forEach(link => link.classList.add('d-none'));
         
+        // Show Home, Tracker, and About links for non-authenticated users
+        if (homeLink) homeLink.classList.remove('d-none');
+        if (trackerLink) trackerLink.classList.remove('d-none');
+        if (aboutLink) aboutLink.classList.remove('d-none');
+        
         // Show login button, hide logout button
         if (loginBtn) loginBtn.classList.remove('d-none');
         if (logoutBtn) logoutBtn.classList.add('d-none');
@@ -112,9 +156,9 @@ function updateNavigation() {
 
 // Protect admin pages
 function protectAdminPage() {
-    if (!currentUser || currentUser.role !== 'admin') {
+    if (!currentUser || currentUser.user_type !== 'admin') {
         // Redirect to home page if not admin
-        window.location.href = 'home.html';
+        window.location.href = 'index.html';
         return false;
     }
     return true;

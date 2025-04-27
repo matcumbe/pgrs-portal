@@ -118,9 +118,19 @@
     <!-- Header -->
     <header class="bg-success text-white p-3">
         <div class="container-fluid">
-            <div class="d-flex align-items-center">
-                <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-2" style="height: 40px;">
-                <h1 class="mb-0 h3 flex-grow-1 text-center">Geodetic Network Information System (GNIS)</h1>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
+                    <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
+                </div>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
             </div>
         </div>
     </header>
@@ -141,16 +151,12 @@
                     <a class="nav-link admin-only" href="#"><i class="fas fa-users"></i> Users Management</a>
                     <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
                 </div>
-                <div class="navbar-nav ms-auto">
-                    <button id="loginBtn" class="btn btn-outline-light me-2 d-none"><i class="fas fa-sign-in-alt"></i> Login</button>
-                    <button id="logoutBtn" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3" style="padding: 0">
         <!-- Access Denied Message -->
         <div id="accessDenied" class="alert alert-danger text-center">
             <h4 class="alert-heading">Access Denied</h4>
@@ -162,7 +168,7 @@
         <!-- Admin Interface -->
         <div id="adminInterface" class="hidden">
             <!-- Main Content -->
-            <div class="container-fluid mt-3" style="margin-bottom: 1rem;">
+            <div class="container-fluid mt-3 mb-3">
                 <div class="row">
                     <!-- Left Column: Filter Panel -->
                     <div class="col-md-3" style="padding-right: 0px;">
@@ -201,51 +207,27 @@
                                     </div>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="stationNameSearch" placeholder="Enter station name">
-                                    <label for="stationNameSearch">Search by Name</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="orderFilter">
-                                        <option value="">Select Order</option>
-                                    </select>
-                                    <label for="orderFilter">Order</label>
-                                </div>
-
-                                <div class="form-floating mb-3" id="accuracyClassContainer">
-                                    <select class="form-select" id="accuracyFilter">
-                                        <option value="">Select Accuracy Class</option>
-                                    </select>
-                                    <label for="accuracyFilter">Accuracy Class</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="region">
+                                <div class="mb-3">
+                                    <label for="region" class="form-label">Location:</label>
+                                    <select class="form-select mb-2" id="region">
                                         <option value="">Select Region</option>
                                     </select>
-                                    <label for="region">Region</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="province">
+                                    <select class="form-select mb-2" id="province">
                                         <option value="">Select Province</option>
                                     </select>
-                                    <label for="province">Province</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="city">
+                                    <select class="form-select mb-2" id="city">
                                         <option value="">Select City/Municipality</option>
                                     </select>
-                                    <label for="city">City/Municipality</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
                                     <select class="form-select" id="barangay">
                                         <option value="">Select Barangay</option>
                                     </select>
-                                    <label for="barangay">Barangay</label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="orderFilter" class="form-label">Order:</label>
+                                    <select class="form-select" id="orderFilter">
+                                        <option value="">Select Order</option>
+                                    </select>
                                 </div>
 
                                 <button id="resetFiltersBtn" class="btn btn-secondary w-100 mb-3">Reset Filters</button>
@@ -307,53 +289,64 @@
                                     <input type="hidden" id="stationId">
                                     
                                     <!-- Basic Info Section -->
-                                    <div class="form-floating mb-3">
+                                    <div class="mb-3">
+                                        <label for="stationName" class="form-label">Station Name</label>
                                         <input type="text" class="form-control" id="stationName" placeholder="Station Name" required>
-                                        <label for="stationName">Station Name</label>
                                     </div>
-                                    
-                                    <div class="form-floating mb-3">
+                                    <div class="mb-3">
+                                        <label for="stationCode" class="form-label">Station Code</label>
                                         <input type="text" class="form-control" id="stationCode" placeholder="Station Code">
-                                        <label for="stationCode">Station Code</label>
                                     </div>
                                     
                                     <!-- Coordinate Fields with DMS Format -->
                                     <div class="mb-3">
                                         <label class="form-label">Latitude</label>
-                                        <div class="input-group dms-input-group">
-                                            <div class="form-floating">
-                                                <input type="number" class="form-control" id="latDegrees" min="-90" max="90" placeholder="Degrees" required>
-                                                <label for="latDegrees">°</label>
+                                        <div class="row g-2 align-items-end mb-1">
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="latDegrees" min="-90" max="90" placeholder="Degrees" required>
+                                                    <span class="input-group-text">&deg;</span>
+                                                </div>
                                             </div>
-                                            <div class="form-floating">
-                                                <input type="number" class="form-control" id="latMinutes" min="0" max="59" placeholder="Minutes">
-                                                <label for="latMinutes">'</label>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="latMinutes" min="0" max="59" placeholder="Minutes">
+                                                    <span class="input-group-text">&prime;</span>
+                                                </div>
                                             </div>
-                                            <div class="form-floating">
-                                                <input type="number" class="form-control" id="latSeconds" min="0" max="59.999" step="0.001" placeholder="Seconds">
-                                                <label for="latSeconds">"</label>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="latSeconds" min="0" max="59.999" step="0.001" placeholder="Seconds">
+                                                    <span class="input-group-text">&Prime;</span>
+                                                </div>
                                             </div>
-                                            <input type="hidden" id="latitude" name="latitude">
                                         </div>
+                                        <input type="hidden" id="latitude" name="latitude">
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">Longitude</label>
-                                        <div class="input-group dms-input-group">
-                                            <div class="form-floating">
-                                                <input type="number" class="form-control" id="lngDegrees" min="-180" max="180" placeholder="Degrees" required>
-                                                <label for="lngDegrees">°</label>
+                                        <div class="row g-2 align-items-end mb-1">
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="lngDegrees" min="-180" max="180" placeholder="Degrees" required>
+                                                    <span class="input-group-text">&deg;</span>
+                                                </div>
                                             </div>
-                                            <div class="form-floating">
-                                                <input type="number" class="form-control" id="lngMinutes" min="0" max="59" placeholder="Minutes">
-                                                <label for="lngMinutes">'</label>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="lngMinutes" min="0" max="59" placeholder="Minutes">
+                                                    <span class="input-group-text">&prime;</span>
+                                                </div>
                                             </div>
-                                            <div class="form-floating">
-                                                <input type="number" class="form-control" id="lngSeconds" min="0" max="59.999" step="0.001" placeholder="Seconds">
-                                                <label for="lngSeconds">"</label>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="lngSeconds" min="0" max="59.999" step="0.001" placeholder="Seconds">
+                                                    <span class="input-group-text">&Prime;</span>
+                                                </div>
                                             </div>
-                                            <input type="hidden" id="longitude" name="longitude">
                                         </div>
+                                        <input type="hidden" id="longitude" name="longitude">
                                     </div>
 
                                     <!-- Type-specific sections as tabs -->
@@ -379,8 +372,9 @@
                                         <!-- Common Fields -->
                                         <div class="tab-pane fade show active" id="common-fields" role="tabpanel" aria-labelledby="common-tab">
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="markType">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-markType">Mark Type</span>
+                                                    <select class="form-select" id="markType" aria-describedby="label-markType">
                                                         <option value="">Select Mark Type</option>
                                                         <option value="1">Concrete</option>
                                                         <option value="2">Steel</option>
@@ -389,13 +383,12 @@
                                                         <option value="5">Stainless Steel</option>
                                                         <option value="6">Other</option>
                                                     </select>
-                                                    <label for="markType">Mark Type</label>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="markStatus">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-markStatus">Mark Status</span>
+                                                    <select class="form-select" id="markStatus" aria-describedby="label-markStatus">
                                                         <option value="">Select Mark Status</option>
                                                         <option value="1">Good Condition</option>
                                                         <option value="2">Damaged</option>
@@ -403,13 +396,12 @@
                                                         <option value="4">Not Found</option>
                                                         <option value="5">Restricted Access</option>
                                                     </select>
-                                                    <label for="markStatus">Mark Status</label>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="markConstruction">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-markConstruction">Construction</span>
+                                                    <select class="form-select" id="markConstruction" aria-describedby="label-markConstruction">
                                                         <option value="">Select Construction</option>
                                                         <option value="1">Pillar</option>
                                                         <option value="2">Disk</option>
@@ -418,53 +410,47 @@
                                                         <option value="5">Marker</option>
                                                         <option value="6">Other</option>
                                                     </select>
-                                                    <label for="markConstruction">Construction</label>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="authority" placeholder="Authority">
-                                                    <label for="authority">Authority</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-authority">Authority</span>
+                                                    <input type="text" class="form-control" id="authority" placeholder="Authority" aria-describedby="label-authority">
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="date" class="form-control" id="dateEstablished" placeholder="Date Established">
-                                                    <label for="dateEstablished">Date Established</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-dateEstablished">Date Established</span>
+                                                    <input type="date" class="form-control" id="dateEstablished" placeholder="Date Established" aria-describedby="label-dateEstablished">
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="date" class="form-control" id="dateLastUpdated" placeholder="Date Last Updated">
-                                                    <label for="dateLastUpdated">Last Updated</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-dateLastUpdated">Last Updated</span>
+                                                    <input type="date" class="form-control" id="dateLastUpdated" placeholder="Date Last Updated" aria-describedby="label-dateLastUpdated">
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="encoder" placeholder="Encoder">
-                                                    <label for="encoder">Encoder</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-encoder">Encoder</span>
+                                                    <input type="text" class="form-control" id="encoder" placeholder="Encoder" aria-describedby="label-encoder">
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="islandGroup">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-islandGroup">Island Group</span>
+                                                    <select class="form-select" id="islandGroup" aria-describedby="label-islandGroup">
                                                         <option value="">Select Island Group</option>
                                                         <option value="Luzon">Luzon</option>
                                                         <option value="Visayas">Visayas</option>
                                                         <option value="Mindanao">Mindanao</option>
                                                     </select>
-                                                    <label for="islandGroup">Island Group</label>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="orderInput" required>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-orderInput">Order</span>
+                                                    <select class="form-select" id="orderInput" required aria-describedby="label-orderInput">
                                                         <option value="">Select Order</option>
                                                         <option value="0">0</option>
                                                         <option value="1">1</option>
@@ -472,7 +458,6 @@
                                                         <option value="3">3</option>
                                                         <option value="4">4</option>
                                                     </select>
-                                                    <label for="orderInput">Order</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -480,303 +465,230 @@
                                         <!-- Vertical GCP Fields -->
                                         <div class="tab-pane fade" id="vertical-fields" role="tabpanel" aria-labelledby="vertical-tab">
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="elevation" step="0.001" placeholder="Elevation">
-                                                    <label for="elevation">Elevation (m)</label>
-                                                </div>
+                                                <label for="elevation" class="form-label">Elevation (m)</label>
+                                                <input type="number" class="form-control" id="elevation" step="0.001" placeholder="Elevation">
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="bmPlus" step="0.001" placeholder="BM Plus">
-                                                    <label for="bmPlus">BM Plus (m)</label>
-                                                </div>
+                                                <label for="bmPlus" class="form-label">BM Plus (m)</label>
+                                                <input type="number" class="form-control" id="bmPlus" step="0.001" placeholder="BM Plus">
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="accuracyClass">
-                                                        <option value="">Select Accuracy Class</option>
-                                                        <option value="1CM">1CM</option>
-                                                        <option value="2CM">2CM</option>
-                                                        <option value="3CM">3CM</option>
-                                                        <option value="5CM">5CM</option>
-                                                        <option value="10CM">10CM</option>
-                                                        <option value="2CM FROM M">2CM FROM M</option>
-                                                        <option value="3CM FROM M">3CM FROM M</option>
-                                                        <option value="5CM FROM M">5CM FROM M</option>
-                                                        <option value="0 CM">0 CM</option>
-                                                    </select>
-                                                    <label for="accuracyClass">Accuracy Class</label>
-                                                </div>
+                                                <label for="accuracyClass" class="form-label">Accuracy Class</label>
+                                                <select class="form-select" id="accuracyClass">
+                                                    <option value="">Select Accuracy Class</option>
+                                                    <option value="1CM">1CM</option>
+                                                    <option value="2CM">2CM</option>
+                                                    <option value="3CM">3CM</option>
+                                                    <option value="5CM">5CM</option>
+                                                    <option value="10CM">10CM</option>
+                                                    <option value="2CM FROM M">2CM FROM M</option>
+                                                    <option value="3CM FROM M">3CM FROM M</option>
+                                                    <option value="5CM FROM M">5CM FROM M</option>
+                                                    <option value="0 CM">0 CM</option>
+                                                </select>
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="elevationOrder">
-                                                        <option value="">Select Order</option>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                    </select>
-                                                    <label for="elevationOrder">Elevation Order</label>
-                                                </div>
+                                                <label for="elevationOrder" class="form-label">Elevation Order</label>
+                                                <select class="form-select" id="elevationOrder">
+                                                    <option value="">Select Order</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="verticalDatum">
-                                                        <option value="">Select Datum</option>
-                                                        <option value="MSL">Mean Sea Level</option>
-                                                        <option value="GEOID">Geoid Model</option>
-                                                        <option value="ELLIPSOID">Ellipsoid</option>
-                                                    </select>
-                                                    <label for="verticalDatum">Vertical Datum</label>
-                                                </div>
+                                                <label for="verticalDatum" class="form-label">Vertical Datum</label>
+                                                <select class="form-select" id="verticalDatum">
+                                                    <option value="">Select Datum</option>
+                                                    <option value="MSL">Mean Sea Level</option>
+                                                    <option value="GEOID">Geoid Model</option>
+                                                    <option value="ELLIPSOID">Ellipsoid</option>
+                                                </select>
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="elevationAuthority" placeholder="Authority">
-                                                    <label for="elevationAuthority">Authority</label>
-                                                </div>
+                                                <label for="elevationAuthority" class="form-label">Authority</label>
+                                                <input type="text" class="form-control" id="elevationAuthority" placeholder="Authority">
                                             </div>
                                         </div>
                                         
                                         <!-- Horizontal GCP Fields -->
                                         <div class="tab-pane fade" id="horizontal-fields" role="tabpanel" aria-labelledby="horizontal-tab">
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="ellipsoidalHeight" step="0.001" placeholder="Ellipsoidal Height">
-                                                    <label for="ellipsoidalHeight">Ellipsoidal Height (m)</label>
-                                                </div>
+                                                <label for="ellipsoidalHeight" class="form-label">Ellipsoidal Height (m)</label>
+                                                <input type="number" class="form-control" id="ellipsoidalHeight" step="0.001" placeholder="Ellipsoidal Height">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="horizontalOrder">
-                                                        <option value="">Select Order</option>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                    </select>
-                                                    <label for="horizontalOrder">Horizontal Order</label>
-                                                </div>
+                                                <label for="horizontalOrder" class="form-label">Horizontal Order</label>
+                                                <select class="form-select" id="horizontalOrder">
+                                                    <option value="">Select Order</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="horizontalDatum">
-                                                        <option value="">Select Datum</option>
-                                                        <option value="PRS92">PRS92</option>
-                                                        <option value="WGS84">WGS84</option>
-                                                        <option value="ITRF">ITRF</option>
-                                                    </select>
-                                                    <label for="horizontalDatum">Horizontal Datum</label>
-                                                </div>
+                                                <label for="horizontalDatum" class="form-label">Horizontal Datum</label>
+                                                <select class="form-select" id="horizontalDatum">
+                                                    <option value="">Select Datum</option>
+                                                    <option value="PRS92">PRS92</option>
+                                                    <option value="WGS84">WGS84</option>
+                                                    <option value="ITRF">ITRF</option>
+                                                </select>
                                             </div>
-
                                             <h6 class="mt-4 mb-3">UTM Coordinates</h6>
-                                            
                                             <div class="mb-3">
-                                                <div class="form-floating">
+                                                <div class="input-group">
+                                                    <span for="northingValue" class="input-group-text">N</span>
                                                     <input type="number" class="form-control" id="northingValue" step="0.001" placeholder="Northing">
-                                                    <label for="northingValue">Northing</label>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
+                                                <div class="input-group">
+                                                    <span for="eastingValue" class="input-group-text">E</span>
                                                     <input type="number" class="form-control" id="eastingValue" step="0.001" placeholder="Easting">
-                                                    <label for="eastingValue">Easting</label>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="utmZone" placeholder="UTM Zone">
-                                                    <label for="utmZone">UTM Zone</label>
-                                                </div>
+                                                <label for="utmZone" class="form-label">UTM Zone</label>
+                                                <input type="text" class="form-control" id="utmZone" placeholder="UTM Zone">
                                             </div>
-
                                             <h6 class="mt-4 mb-3">ITRF Coordinates</h6>
-                                            
                                             <label class="form-label mb-2">ITRF Latitude (DMS)</label>
-                                            <div class="row mb-3">
+                                            <div class="row g-2 align-items-end mb-1">
                                                 <div class="col-4">
-                                                    <div class="form-floating">
+                                                    <div class="input-group">
                                                         <input type="number" class="form-control" id="itrfLatDd" placeholder="Degrees">
-                                                        <label for="itrfLatDd">Degrees</label>
+                                                        <span class="input-group-text">&deg;</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div class="form-floating">
+                                                    <div class="input-group">
                                                         <input type="number" class="form-control" id="itrfLatMm" placeholder="Minutes">
-                                                        <label for="itrfLatMm">Minutes</label>
+                                                        <span class="input-group-text">&prime;</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div class="form-floating">
+                                                    <div class="input-group">
                                                         <input type="number" class="form-control" id="itrfLatSs" step="0.001" placeholder="Seconds">
-                                                        <label for="itrfLatSs">Seconds</label>
+                                                        <span class="input-group-text">&Prime;</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
                                             <label class="form-label mb-2">ITRF Longitude (DMS)</label>
-                                            <div class="row mb-3">
+                                            <div class="row g-2 align-items-end mb-1">
                                                 <div class="col-4">
-                                                    <div class="form-floating">
+                                                    <div class="input-group">
                                                         <input type="number" class="form-control" id="itrfLonDd" placeholder="Degrees">
-                                                        <label for="itrfLonDd">Degrees</label>
+                                                        <span class="input-group-text">&deg;</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div class="form-floating">
+                                                    <div class="input-group">
                                                         <input type="number" class="form-control" id="itrfLonMm" placeholder="Minutes">
-                                                        <label for="itrfLonMm">Minutes</label>
+                                                        <span class="input-group-text">&prime;</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div class="form-floating">
+                                                    <div class="input-group">
                                                         <input type="number" class="form-control" id="itrfLonSs" step="0.001" placeholder="Seconds">
-                                                        <label for="itrfLonSs">Seconds</label>
+                                                        <span class="input-group-text">&Prime;</span>
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="itrfEllHgt" step="0.001" placeholder="ITRF Ellipsoidal Height">
-                                                    <label for="itrfEllHgt">ITRF Ellipsoidal Height</label>
-                                                </div>
+                                                <label for="itrfEllHgt" class="form-label">ITRF Ellipsoidal Height</label>
+                                                <input type="number" class="form-control" id="itrfEllHgt" step="0.001" placeholder="ITRF Ellipsoidal Height">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="itrfEllErr" step="0.001" placeholder="Ellipsoid Error">
-                                                    <label for="itrfEllErr">Ellipsoid Error</label>
-                                                </div>
+                                                <label for="itrfEllErr" class="form-label">Ellipsoid Error</label>
+                                                <input type="number" class="form-control" id="itrfEllErr" step="0.001" placeholder="Ellipsoid Error">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="itrfHgtErr" step="0.001" placeholder="Height Error">
-                                                    <label for="itrfHgtErr">Height Error</label>
-                                                </div>
+                                                <label for="itrfHgtErr" class="form-label">Height Error</label>
+                                                <input type="number" class="form-control" id="itrfHgtErr" step="0.001" placeholder="Height Error">
                                             </div>
                                         </div>
                                         
                                         <!-- Gravity GCP Fields -->
                                         <div class="tab-pane fade" id="gravity-fields" role="tabpanel" aria-labelledby="gravity-tab">
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="gravityValue" step="0.001" placeholder="Gravity Value">
-                                                    <label for="gravityValue">Gravity Value (mGal)</label>
-                                                </div>
+                                                <label for="gravityValue" class="form-label">Gravity Value (mGal)</label>
+                                                <input type="number" class="form-control" id="gravityValue" step="0.001" placeholder="Gravity Value">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="standardDeviation" step="0.0001" placeholder="Standard Deviation">
-                                                    <label for="standardDeviation">Standard Deviation</label>
-                                                </div>
+                                                <label for="standardDeviation" class="form-label">Standard Deviation</label>
+                                                <input type="number" class="form-control" id="standardDeviation" step="0.0001" placeholder="Standard Deviation">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="gravityOrder">
-                                                        <option value="">Select Order</option>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                    </select>
-                                                    <label for="gravityOrder">Gravity Order</label>
-                                                </div>
+                                                <label for="gravityOrder" class="form-label">Gravity Order</label>
+                                                <select class="form-select" id="gravityOrder">
+                                                    <option value="">Select Order</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="date" class="form-control" id="dateMeasured" placeholder="Date Measured">
-                                                    <label for="dateMeasured">Date Measured</label>
-                                                </div>
+                                                <label for="dateMeasured" class="form-label">Date Measured</label>
+                                                <input type="date" class="form-control" id="dateMeasured" placeholder="Date Measured">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="gravityMeter" placeholder="Gravity Meter">
-                                                    <label for="gravityMeter">Gravity Meter</label>
-                                                </div>
+                                                <label for="gravityMeter" class="form-label">Gravity Meter</label>
+                                                <input type="text" class="form-control" id="gravityMeter" placeholder="Gravity Meter">
                                             </div>
-
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="gravityDatum">
-                                                        <option value="">Select Datum</option>
-                                                        <option value="IGSN71">IGSN71</option>
-                                                        <option value="PGRS">PGRS</option>
-                                                    </select>
-                                                    <label for="gravityDatum">Gravity Datum</label>
-                                                </div>
+                                                <label for="gravityDatum" class="form-label">Gravity Datum</label>
+                                                <select class="form-select" id="gravityDatum">
+                                                    <option value="">Select Datum</option>
+                                                    <option value="IGSN71">IGSN71</option>
+                                                    <option value="PGRS">PGRS</option>
+                                                </select>
                                             </div>
                                         </div>
                                         
                                         <!-- Location Fields -->
                                         <div class="tab-pane fade" id="location-fields" role="tabpanel" aria-labelledby="location-tab">
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="regionInput" required>
-                                                        <option value="">Select Region</option>
-                                                    </select>
-                                                    <label for="regionInput">Region</label>
-                                                </div>
+                                                <label for="regionInput" class="form-label">Region</label>
+                                                <select class="form-select" id="regionInput" required>
+                                                    <option value="">Select Region</option>
+                                                </select>
                                             </div>
-                                            
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="provinceInput" required>
-                                                        <option value="">Select Province</option>
-                                                    </select>
-                                                    <label for="provinceInput">Province</label>
-                                                </div>
+                                                <label for="provinceInput" class="form-label">Province</label>
+                                                <select class="form-select" id="provinceInput" required>
+                                                    <option value="">Select Province</option>
+                                                </select>
                                             </div>
-                                            
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="cityInput" required>
-                                                        <option value="">Select City/Municipality</option>
-                                                    </select>
-                                                    <label for="cityInput">City/Municipality</label>
-                                                </div>
+                                                <label for="cityInput" class="form-label">City/Municipality</label>
+                                                <select class="form-select" id="cityInput" required>
+                                                    <option value="">Select City/Municipality</option>
+                                                </select>
                                             </div>
-                                            
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <select class="form-select" id="barangayInput">
-                                                        <option value="">Select Barangay</option>
-                                                    </select>
-                                                    <label for="barangayInput">Barangay</label>
-                                                </div>
+                                                <label for="barangayInput" class="form-label">Barangay</label>
+                                                <select class="form-select" id="barangayInput">
+                                                    <option value="">Select Barangay</option>
+                                                </select>
                                             </div>
-                                            
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <textarea class="form-control" id="siteDescription" style="height: 100px" placeholder="Site Description"></textarea>
-                                                    <label for="siteDescription">Site Description</label>
-                                                </div>
+                                                <label for="siteDescription" class="form-label">Site Description</label>
+                                                <textarea class="form-control" id="siteDescription" style="height: 100px" placeholder="Site Description"></textarea>
                                             </div>
-                                            
                                             <div class="mb-3">
-                                                <div class="form-floating">
-                                                    <textarea class="form-control" id="accessInstructions" style="height: 100px" placeholder="Access Instructions"></textarea>
-                                                    <label for="accessInstructions">Access Instructions</label>
-                                                </div>
+                                                <label for="accessInstructions" class="form-label">Access Instructions</label>
+                                                <textarea class="form-control" id="accessInstructions" style="height: 100px" placeholder="Access Instructions"></textarea>
                                             </div>
-                                            
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" type="checkbox" id="isActive" checked>
                                                 <label class="form-check-label" for="isActive">
