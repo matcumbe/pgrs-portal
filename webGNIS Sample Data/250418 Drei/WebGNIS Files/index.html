@@ -375,6 +375,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="users.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/cart-service.js"></script>
     <script src="js/utils.js" type="module"></script>
     <script src="js/map.js" type="module"></script>
     <script src="js/stations.js" type="module"></script>
@@ -394,6 +395,38 @@
                     const backdrop = document.querySelector('.modal-backdrop');
                     if (backdrop) {
                         backdrop.remove();
+                    }
+                });
+            }
+            
+            // Handle login with cart persistence
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('loginUsername').value;
+                    const password = document.getElementById('loginPassword').value;
+                    const alertBox = document.getElementById('loginAlert');
+                    
+                    try {
+                        alertBox.classList.add('d-none');
+                        
+                        // Use the cart-aware login function
+                        const userData = await loginWithCart(username, password);
+                        
+                        // Close the modal
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
+                        if (modal) {
+                            modal.hide();
+                        }
+                        
+                        // Update UI for logged in user
+                        updateNavigation();
+                        
+                    } catch (error) {
+                        alertBox.textContent = error.message || 'Login failed. Please try again.';
+                        alertBox.classList.remove('d-none');
                     }
                 });
             }

@@ -6,7 +6,7 @@ if (!window.selectedPointsList) {
 }
 
 // Add a point to the selected points list
-function directAddToSelected(stationId, stationName) {
+function directAddToSelected(stationId, stationName, stationType) {
     // Check if this ID is already in the list
     for (let i = 0; i < window.selectedPointsList.length; i++) {
         if (window.selectedPointsList[i].id === stationId) {
@@ -15,14 +15,41 @@ function directAddToSelected(stationId, stationName) {
         }
     }
     
-    // Add to the list
+    // Determine station type from radio button if not provided
+    if (!stationType) {
+        const horizontalRadio = document.getElementById('horizontalType');
+        const verticalRadio = document.getElementById('verticalType');
+        const gravityRadio = document.getElementById('gravityType');
+        
+        if (horizontalRadio && horizontalRadio.checked) {
+            stationType = 'horizontal';
+        } else if (verticalRadio && verticalRadio.checked) {
+            stationType = 'benchmark';
+        } else if (gravityRadio && gravityRadio.checked) {
+            stationType = 'gravity';
+        } else {
+            stationType = 'horizontal'; // Default
+        }
+    }
+    
+    // Add to the in-memory list
     window.selectedPointsList.push({
         id: stationId,
-        name: stationName
+        name: stationName,
+        type: stationType
     });
     
     // Refresh the table
     updateSelectedPointsTable();
+    
+    // Also add to the persistent cart via the cart service
+    if (window.cartService) {
+        window.cartService.addToCart({
+            id: stationId,
+            name: stationName,
+            type: stationType
+        });
+    }
     
     console.log("Added to cart:", stationId);
     console.log("Current list:", window.selectedPointsList);
@@ -30,9 +57,12 @@ function directAddToSelected(stationId, stationName) {
 
 // Remove a point from the selected points list
 function removeFromSelected(stationId) {
-    // Find and remove
+    let removedItem = null;
+    
+    // Find and remove from in-memory list
     for (let i = 0; i < window.selectedPointsList.length; i++) {
         if (window.selectedPointsList[i].id === stationId) {
+            removedItem = window.selectedPointsList[i];
             window.selectedPointsList.splice(i, 1);
             break;
         }
@@ -40,6 +70,15 @@ function removeFromSelected(stationId) {
     
     // Refresh the table
     updateSelectedPointsTable();
+    
+    // Also remove from the persistent cart
+    if (window.cartService && removedItem) {
+        // Find the cart item with matching station_id
+        const cartItem = window.cartService.items.find(item => item.station_id === stationId);
+        if (cartItem) {
+            window.cartService.removeFromCart(cartItem.cart_id);
+        }
+    }
     
     console.log("Removed from cart:", stationId);
     console.log("Current list:", window.selectedPointsList);
@@ -58,6 +97,9 @@ function updateSelectedPointsTable() {
     
     // If no list, nothing to show
     if (!window.selectedPointsList || window.selectedPointsList.length === 0) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = '<td colspan="2" class="text-center">Your cart is empty</td>';
+        tableBody.appendChild(emptyRow);
         return;
     }
     
@@ -74,6 +116,12 @@ function updateSelectedPointsTable() {
             </td>
         `;
         tableBody.appendChild(row);
+    }
+    
+    // Update the Request Certificates button state
+    const requestBtn = document.getElementById('requestCertBtn');
+    if (requestBtn) {
+        requestBtn.disabled = window.selectedPointsList.length === 0;
     }
 }
 
@@ -120,7 +168,59 @@ function removeFromCart(button) {
 
 // Initialize the cart when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-    updateSelectedPointsTable();
+    // Check if the persistent cart service is available
+    if (window.cartService) {
+        // Load items from the persistent cart
+        window.cartService.loadCart().then(items => {
+            // Convert cart items to the format expected by selectedPointsList
+            window.selectedPointsList = items.map(item => ({
+                id: item.station_id,
+                name: item.station_name,
+                type: item.station_type
+            }));
+            
+            // Update the UI
+            updateSelectedPointsTable();
+        });
+    } else {
+        // Fallback to local memory only
+        updateSelectedPointsTable();
+    }
+    
+    // Add event listener to the Request Certificates button
+    const requestBtn = document.getElementById('requestCertBtn');
+    if (requestBtn) {
+        requestBtn.addEventListener('click', function() {
+            if (!localStorage.getItem('auth_token')) {
+                alert('Please log in to request certificates.');
+                
+                // Show the login modal
+                const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+                authModal.show();
+                return;
+            }
+            
+            if (window.selectedPointsList.length === 0) {
+                alert('Please select at least one station.');
+                return;
+            }
+            
+            // If using cart service, create request
+            if (window.cartService) {
+                window.cartService.createRequest().then(result => {
+                    if (result) {
+                        console.log('Request created:', result);
+                        
+                        // Clear the in-memory cart too
+                        window.selectedPointsList = [];
+                        updateSelectedPointsTable();
+                    }
+                });
+            } else {
+                alert('Request system is not available. Please try again later.');
+            }
+        });
+    }
 });
 
 // Expose functions to global scope for inline event handlers

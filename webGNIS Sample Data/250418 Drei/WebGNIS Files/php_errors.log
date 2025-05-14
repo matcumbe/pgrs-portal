@@ -14442,3 +14442,708 @@
 )
 
 [28-Apr-2025 06:12:32 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 04:51:37 Europe/Berlin] Database connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[10-May-2025 10:51:37 Asia/Manila] Database connection error: No connection could be made because the target machine actively refused it
+[10-May-2025 04:51:40 Europe/Berlin] Database connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[10-May-2025 10:52:00 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:52:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:00 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:52:32 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:52:32 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:32 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:52:53 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:52:53 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:53 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching stations for type: vertical
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching regions
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching provinces for region: 
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching regions
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching cities for province: 
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching provinces for region: 
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching barangays for city: 
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching cities for province: 
+[10-May-2025 10:52:59 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[10-May-2025 10:52:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:52:59 Asia/Manila] Admin: Fetching barangays for city: 
+[10-May-2025 10:53:01 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[10-May-2025 10:53:01 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[10-May-2025 10:53:01 Asia/Manila] Query parameters: Array
+(
+    [city] => QUEZON CITY
+)
+
+[10-May-2025 10:53:01 Asia/Manila] Query parameters: Array
+(
+    [province] => NCR - SECOND DISTRICT
+)
+
+[10-May-2025 10:53:01 Asia/Manila] Admin: Fetching barangays for city: QUEZON CITY
+[10-May-2025 10:53:01 Asia/Manila] Admin: Fetching cities for province: NCR - SECOND DISTRICT
+[10-May-2025 10:53:01 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[10-May-2025 10:53:01 Asia/Manila] Query parameters: Array
+(
+    [region] => NCR
+)
+
+[10-May-2025 10:53:01 Asia/Manila] Admin: Fetching provinces for region: NCR
+[10-May-2025 10:53:51 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:53:51 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:53:51 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:54:21 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:54:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:54:21 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:54:28 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:54:28 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:54:28 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:54:33 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:54:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:54:33 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:56:32 Asia/Manila] Request received: GET /api/stations/horizontal
+[10-May-2025 10:56:32 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:56:32 Asia/Manila] Fetching stations for type: horizontal
+[10-May-2025 10:56:33 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 10:56:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:56:33 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 10:56:36 Asia/Manila] Request received: GET /api/stations/horizontal
+[10-May-2025 10:56:36 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 10:56:36 Asia/Manila] Fetching stations for type: horizontal
+[10-May-2025 11:02:39 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 11:02:39 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:02:39 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 11:04:36 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 11:04:36 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:04:36 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 11:05:08 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 11:05:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:08 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching stations for type: vertical
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching regions
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching regions
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching provinces for region: 
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching provinces for region: 
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching cities for province: 
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching cities for province: 
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching barangays for city: 
+[10-May-2025 11:05:21 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[10-May-2025 11:05:21 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:21 Asia/Manila] Admin: Fetching barangays for city: 
+[10-May-2025 11:05:30 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[10-May-2025 11:05:30 Asia/Manila] Query parameters: Array
+(
+    [province] => NCR - SECOND DISTRICT
+)
+
+[10-May-2025 11:05:30 Asia/Manila] Admin: Fetching cities for province: NCR - SECOND DISTRICT
+[10-May-2025 11:05:30 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[10-May-2025 11:05:30 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[10-May-2025 11:05:30 Asia/Manila] Query parameters: Array
+(
+    [region] => NCR
+)
+
+[10-May-2025 11:05:30 Asia/Manila] Query parameters: Array
+(
+    [city] => QUEZON CITY
+)
+
+[10-May-2025 11:05:30 Asia/Manila] Admin: Fetching provinces for region: NCR
+[10-May-2025 11:05:30 Asia/Manila] Admin: Fetching barangays for city: QUEZON CITY
+[10-May-2025 11:05:41 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 11:05:41 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:05:41 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 11:16:43 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 11:16:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:16:43 Asia/Manila] Fetching stations for type: vertical
+[10-May-2025 11:39:42 Asia/Manila] Request received: GET /api/stations/vertical
+[10-May-2025 11:39:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[10-May-2025 11:39:42 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:04:09 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:04:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:04:09 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:12:13 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:12:13 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:12:13 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:15:12 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:15:12 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:15:12 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:27:43 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[14-May-2025 04:27:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:43 Asia/Manila] Admin: Fetching regions
+[14-May-2025 04:27:43 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[14-May-2025 04:27:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:43 Asia/Manila] Admin: Fetching stations for type: vertical
+[14-May-2025 04:27:43 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[14-May-2025 04:27:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:43 Asia/Manila] Admin: Fetching provinces for region: 
+[14-May-2025 04:27:43 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[14-May-2025 04:27:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:43 Asia/Manila] Admin: Fetching cities for province: 
+[14-May-2025 04:27:43 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[14-May-2025 04:27:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:43 Asia/Manila] Admin: Fetching barangays for city: 
+[14-May-2025 04:27:43 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[14-May-2025 04:27:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:43 Asia/Manila] Admin: Fetching regions
+[14-May-2025 04:27:44 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[14-May-2025 04:27:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:44 Asia/Manila] Admin: Fetching provinces for region: 
+[14-May-2025 04:27:44 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[14-May-2025 04:27:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:44 Asia/Manila] Admin: Fetching cities for province: 
+[14-May-2025 04:27:44 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[14-May-2025 04:27:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:27:44 Asia/Manila] Admin: Fetching barangays for city: 
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching regions
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching stations for type: vertical
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching provinces for region: 
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching cities for province: 
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching barangays for city: 
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching regions
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching provinces for region: 
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching cities for province: 
+[14-May-2025 04:38:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[14-May-2025 04:38:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:23 Asia/Manila] Admin: Fetching barangays for city: 
+[13-May-2025 22:38:24 Europe/Berlin] Requests database connection failed: SQLSTATE[HY000] [1049] Unknown database 'webgnis_requests'
+[14-May-2025 04:38:24 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:38:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:24 Asia/Manila] Fetching stations for type: vertical
+[13-May-2025 22:38:31 Europe/Berlin] Requests database connection failed: SQLSTATE[HY000] [1049] Unknown database 'webgnis_requests'
+[14-May-2025 04:38:31 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:38:31 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:38:31 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:42:20 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:42:20 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:42:20 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:43:01 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:43:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:43:01 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:44:35 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:44:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:44:35 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:45:41 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:45:41 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:45:41 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:49:12 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:49:12 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:49:12 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:52:37 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:52:37 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:52:37 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:53:06 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:53:06 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:53:06 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 04:57:59 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 04:57:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 04:57:59 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:01:03 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:01:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:01:03 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:06:01 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:06:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:06:01 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:06:05 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:06:05 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:06:05 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:06:16 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:06:16 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:06:16 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:08:27 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:08:27 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:08:27 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:12:24 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:12:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:12:24 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:12:28 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:12:28 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:12:28 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:12:33 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:12:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:12:33 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:16:38 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:16:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:16:38 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:19:28 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:19:28 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:19:28 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:19:39 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:19:39 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:19:39 Asia/Manila] Fetching stations for type: vertical
+[13-May-2025 23:19:45 Europe/Berlin] requests_api.php DEBUG: Array
+(
+    [debug_message] => Checking action parameter in requests_api.php
+    [timestamp] => 2025-05-13 23:19:45
+    [request_method] => POST
+    [query_string] => action=login
+    [get_params] => Array
+        (
+            [action] => login
+        )
+
+    [action_param] => login
+    [derived_endpoint] => login
+    [derived_mainEndpoint] => login
+)
+
+[14-May-2025 05:19:46 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:19:46 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:19:46 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:25:03 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:25:03 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:25:03 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:32:28 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:32:28 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:32:28 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:35:52 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:35:52 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:35:52 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:38:38 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:38:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:38:38 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:40:40 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:40:40 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:40:40 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:42:01 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:42:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:42:01 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:43:24 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:43:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:43:24 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:44:00 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:44:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:44:00 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:44:08 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:44:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:44:08 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:45:48 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:45:48 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:45:48 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:47:52 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:47:52 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:47:52 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:52:11 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:52:11 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:52:11 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:52:25 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:52:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:52:25 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:54:57 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:54:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:54:57 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:55:04 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:55:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:55:04 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:55:07 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:55:07 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:55:07 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:55:09 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:55:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:55:09 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:55:14 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:55:14 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:55:14 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:55:17 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:55:17 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:55:17 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:55:26 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:55:26 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:55:26 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:56:51 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:56:51 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:56:51 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 05:58:33 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 05:58:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 05:58:33 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:00:31 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:00:31 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:00:31 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:07:10 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:07:10 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:07:10 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:07:14 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:07:14 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:07:14 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:07:25 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:07:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:07:25 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:08:35 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:08:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:08:35 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:09:57 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:09:57 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:09:57 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:10:01 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:10:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:10:01 Asia/Manila] Fetching stations for type: vertical
+[14-May-2025 06:13:04 Asia/Manila] Request received: GET /api/stations/vertical
+[14-May-2025 06:13:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[14-May-2025 06:13:04 Asia/Manila] Fetching stations for type: vertical

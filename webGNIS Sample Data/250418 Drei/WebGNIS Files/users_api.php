@@ -248,81 +248,63 @@ function handleLogin() {
     
     // Connect to database
     $db = connectDB();
+    
     if (!$db) {
-        returnResponse(500, "Database connection failed", null);
+        returnResponse(500, "Database connection error", null);
         return;
     }
     
-    try {
-        // Query user
-        $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Query for user
+    $sql = "SELECT user_id, username, password, user_type, is_active 
+            FROM users 
+            WHERE (username = :username OR email = :username)";
+    
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    
+    if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch();
         
-        if (!$user || !password_verify($password, $user['password'])) {
-            returnResponse(401, "Invalid username or password", null);
-            return;
-        }
-        
-        // Check if user is active
-        if (!$user['is_active']) {
-            returnResponse(403, "Account is not active", null);
-            return;
-        }
-        
-        // Get additional user details based on user type
-        $details = null;
-        if ($user['user_type'] === 'company') {
-            $detailsStmt = $db->prepare("SELECT c.*, s.sector_name 
-                                        FROM company_details c
-                                        JOIN sectors s ON c.sector_id = s.id
-                                        WHERE c.user_id = :user_id");
-            $detailsStmt->bindParam(':user_id', $user['user_id']);
-            $detailsStmt->execute();
-            $details = $detailsStmt->fetch(PDO::FETCH_ASSOC);
-        } else if ($user['user_type'] === 'individual') {
-            $detailsStmt = $db->prepare("SELECT * FROM individual_details 
-                                        WHERE user_id = :user_id");
-            $detailsStmt->bindParam(':user_id', $user['user_id']);
-            $detailsStmt->execute();
-            $details = $detailsStmt->fetch(PDO::FETCH_ASSOC);
-        }
-        
-        // Get sex information
-        $sexName = null;
-        if ($user['sex_id']) {
-            $sexStmt = $db->prepare("SELECT sex_name FROM sexes WHERE id = :sex_id");
-            $sexStmt->bindParam(':sex_id', $user['sex_id']);
-            $sexStmt->execute();
-            $sex = $sexStmt->fetch(PDO::FETCH_ASSOC);
-            if ($sex) {
-                $sexName = $sex['sex_name'];
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            
+            // Check if account is active
+            if ($user['is_active'] != 1) {
+                returnResponse(401, "Account is disabled", null);
+                return;
             }
+            
+            // Generate JWT token
+            $token = generateJWT($user);
+            
+            // Check if there's a session cart to merge
+            $sessionId = isset($data['session_id']) ? $data['session_id'] : null;
+            $cartMerged = false;
+            
+            if ($sessionId) {
+                // Merge the anonymous cart with the user's cart
+                require_once 'requests_api.php';
+                $reqDb = connectRequestsDB();
+                if ($reqDb) {
+                    $cartMerged = mergeCartsAfterLogin($reqDb, $user['user_id'], $sessionId);
+                }
+            }
+            
+            returnResponse(200, "Login successful", [
+                'token' => $token,
+                'user' => [
+                    'user_id' => $user['user_id'],
+                    'username' => $user['username'],
+                    'user_type' => $user['user_type']
+                ],
+                'cart_merged' => $cartMerged
+            ]);
+        } else {
+            returnResponse(401, "Invalid username or password", null);
         }
-        
-        // Create token
-        $token = generateJWT($user);
-        
-        // Create response with user data
-        $userData = [
-            'user_id' => $user['user_id'],
-            'username' => $user['username'],
-            'email' => $user['email'],
-            'contact_number' => $user['contact_number'],
-            'user_type' => $user['user_type'],
-            'name_on_certificate' => $user['name_on_certificate'],
-            'sex_name' => $sexName,
-            'details' => $details
-        ];
-        
-        returnResponse(200, "Login successful", [
-            'token' => $token,
-            'user' => $userData
-        ]);
-        
-    } catch (PDOException $e) {
-        returnResponse(500, "Database error: " . $e->getMessage(), null);
+    } else {
+        returnResponse(401, "Invalid username or password", null);
     }
 }
 
