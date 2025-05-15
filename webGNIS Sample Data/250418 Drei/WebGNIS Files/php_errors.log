@@ -15147,3 +15147,21 @@
 )
 
 [14-May-2025 06:13:04 Asia/Manila] Fetching stations for type: vertical
+[15-May-2025 14:06:27 Asia/Manila] Request received: GET /api/stations/vertical
+[15-May-2025 14:06:27 Asia/Manila] Query parameters: Array
+(
+)
+
+[15-May-2025 14:06:27 Asia/Manila] Fetching stations for type: vertical
+[15-May-2025 14:07:48 Asia/Manila] Request received: GET /api/stations/vertical
+[15-May-2025 14:07:48 Asia/Manila] Query parameters: Array
+(
+)
+
+[15-May-2025 14:07:48 Asia/Manila] Fetching stations for type: vertical
+[15-May-2025 14:08:34 Asia/Manila] Request received: GET /api/stations/vertical
+[15-May-2025 14:08:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[15-May-2025 14:08:34 Asia/Manila] Fetching stations for type: vertical
