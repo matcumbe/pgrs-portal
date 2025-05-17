@@ -255,6 +255,41 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get form values
         const formData = extractFormData(registerForm);
         
+        // Fix validation: Map HTML IDs to expected property names
+        if (!formData.username && document.getElementById('registerUsername')) {
+            formData.username = document.getElementById('registerUsername').value;
+        }
+        if (!formData.password && document.getElementById('registerPassword')) {
+            formData.password = document.getElementById('registerPassword').value;
+        }
+        if (!formData.email && document.getElementById('registerEmail')) {
+            formData.email = document.getElementById('registerEmail').value;
+        }
+        if (!formData.contact_number && document.getElementById('registerContact')) {
+            formData.contact_number = document.getElementById('registerContact').value;
+        }
+        if (!formData.sex_id && document.getElementById('registerSex')) {
+            formData.sex_id = document.getElementById('registerSex').value;
+        }
+        if (!formData.name_on_certificate && document.getElementById('registerNameOnCert')) {
+            formData.name_on_certificate = document.getElementById('registerNameOnCert').value;
+        }
+        if (!formData.full_name && document.getElementById('registerFullName')) {
+            formData.full_name = document.getElementById('registerFullName').value;
+        }
+        if (!formData.address && document.getElementById('registerAddress')) {
+            formData.address = document.getElementById('registerAddress').value;
+        }
+        if (!formData.company_name && document.getElementById('registerCompanyName')) {
+            formData.company_name = document.getElementById('registerCompanyName').value;
+        }
+        if (!formData.company_address && document.getElementById('registerCompanyAddress')) {
+            formData.company_address = document.getElementById('registerCompanyAddress').value;
+        }
+        if (!formData.sector_id && document.getElementById('registerSector')) {
+            formData.sector_id = document.getElementById('registerSector').value;
+        }
+        
         // Validate required fields
         if (!formData.username || !formData.password || !formData.email || !formData.contact_number || 
             !formData.sex_id || !formData.name_on_certificate) {
@@ -293,16 +328,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Update UI
                     showUserInfo(loginResult.user);
                     
-                    // Close modal
+                    // Close modal properly
                     const authModal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
                     if (authModal) {
                         authModal.hide();
-                        // Remove modal backdrop
-                        document.body.classList.remove('modal-open');
-                        const backdrop = document.querySelector('.modal-backdrop');
-                        if (backdrop) {
-                            backdrop.remove();
-                        }
+                    }
+                    
+                    // Remove modal backdrop and fix body class
+                    document.body.classList.remove('modal-open');
+                    document.body.style.paddingRight = '';
+                    document.body.style.overflow = '';
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
                     }
                     
                     // Reset form
@@ -310,6 +348,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Show success message and refresh
                     alert('Registration successful! You are now logged in.');
+                    
+                    // Refresh page after a short delay
                     setTimeout(() => {
                         window.location.reload();
                     }, 500);

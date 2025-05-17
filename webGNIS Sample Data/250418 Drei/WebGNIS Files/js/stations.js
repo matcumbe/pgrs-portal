@@ -60,7 +60,7 @@ function updateSearchResults(stations) {
                 <td>${elevationValue}</td>
                 <td>${orderValue}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}')">
+                    <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}', '${gcpType}')">
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                     </button>
                 </td>
@@ -220,7 +220,7 @@ function updateTable(points) {
             <td>${point.elevation}</td>
             <td>${point.order}</td>
             <td>
-                <button class="btn btn-add-to-cart" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}')">
+                <button class="btn btn-add-to-cart" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}', '${document.querySelector('input[name="gcpType"]:checked').value}')">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                 </button>
             </td>

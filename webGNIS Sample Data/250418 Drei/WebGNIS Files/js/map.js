@@ -94,6 +94,9 @@ function updateMap(stations) {
         const bounds = L.latLngBounds([]);
         let hasValidCoordinates = false;
 
+        // Get selected GCP type
+        const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'vertical';
+
         stations.forEach(station => {
             if (station.latitude && station.longitude) {
                 let order = station.order || station.elevation_order || station.horizontal_order || '';
@@ -107,7 +110,7 @@ function updateMap(stations) {
                     Long: ${station.longitude || ''}<br>
                     ${order ? `Order: ${order}<br>` : ''}
                     ${station.accuracy_class ? `Accuracy Class: ${station.accuracy_class}<br>` : ''}
-                    <button onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}')" class="btn btn-sm btn-primary mt-2">
+                    <button onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}', '${gcpType}')" class="btn btn-sm btn-primary mt-2">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                     </button>
                 `);
@@ -138,6 +141,9 @@ function updateMapMarkers(points) {
         markersLayer.clearLayers();
     }
 
+    // Get selected GCP type
+    const gcpType = document.querySelector('input[name="gcpType"]:checked').value;
+
     // Add new markers
     points.forEach(point => {
         if (point.latitude && point.longitude) {
@@ -152,7 +158,7 @@ function updateMapMarkers(points) {
                 Long: ${point.longitude}<br>
                 Order: ${point.order}<br>
                 ${point.accuracyClass ? `Accuracy Class: ${point.accuracyClass}<br>` : ''}
-                <button class="btn btn-add-to-cart mt-2" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}')">
+                <button class="btn btn-add-to-cart mt-2" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}', '${gcpType}')">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                 </button>
             `);

@@ -354,11 +354,16 @@ function getAllUsers($db) {
 }
 
 function getUserById($db, $id) {
-    verifyToken(null, false);
+    // Check if ID is valid
+    if (!is_numeric($id) || $id <= 0) {
+        returnResponse(400, "Invalid user ID", null);
+        return;
+    }
     
     try {
+        // First get user base data
         $sql = "SELECT u.user_id, u.username, u.email, u.contact_number, u.user_type, 
-                u.name_on_certificate, u.created_at, u.is_active, s.sex_name
+                u.name_on_certificate, u.created_at, u.is_active, s.sex_name 
                 FROM users u
                 LEFT JOIN sexes s ON u.sex_id = s.id
                 WHERE u.user_id = :id";
@@ -367,37 +372,44 @@ function getUserById($db, $id) {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         
-        if ($stmt->rowCount() > 0) {
-            $user = $stmt->fetch();
-            
-            // Get additional details based on user type
-            if ($user['user_type'] === 'company') {
-                $companySql = "SELECT c.*, s.sector_name 
-                              FROM company_details c
-                              JOIN sectors s ON c.sector_id = s.id
-                              WHERE c.user_id = :user_id";
-                $companyStmt = $db->prepare($companySql);
-                $companyStmt->bindParam(':user_id', $id);
-                $companyStmt->execute();
-                
-                if ($companyStmt->rowCount() > 0) {
-                    $user['company_details'] = $companyStmt->fetch();
-                }
-            } elseif ($user['user_type'] === 'individual') {
-                $individualSql = "SELECT * FROM individual_details WHERE user_id = :user_id";
-                $individualStmt = $db->prepare($individualSql);
-                $individualStmt->bindParam(':user_id', $id);
-                $individualStmt->execute();
-                
-                if ($individualStmt->rowCount() > 0) {
-                    $user['individual_details'] = $individualStmt->fetch();
-                }
-            }
-            
-            returnResponse(200, "User retrieved successfully", $user);
-        } else {
+        if ($stmt->rowCount() === 0) {
             returnResponse(404, "User not found", null);
+            return;
         }
+        
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Get additional details based on user type
+        if ($user['user_type'] === 'company') {
+            $companySQL = "SELECT c.*, s.sector_name FROM company_details c
+                           LEFT JOIN sectors s ON c.sector_id = s.id
+                           WHERE c.user_id = :user_id";
+            
+            $companyStmt = $db->prepare($companySQL);
+            $companyStmt->bindParam(':user_id', $id);
+            $companyStmt->execute();
+            
+            if ($companyStmt->rowCount() > 0) {
+                $companyDetails = $companyStmt->fetch(PDO::FETCH_ASSOC);
+                $user = array_merge($user, $companyDetails);
+            }
+        } 
+        else if ($user['user_type'] === 'individual') {
+            $individualSQL = "SELECT * FROM individual_details WHERE user_id = :user_id";
+            
+            $individualStmt = $db->prepare($individualSQL);
+            $individualStmt->bindParam(':user_id', $id);
+            $individualStmt->execute();
+            
+            if ($individualStmt->rowCount() > 0) {
+                $individualDetails = $individualStmt->fetch(PDO::FETCH_ASSOC);
+                $user = array_merge($user, $individualDetails);
+            }
+        }
+        
+        // Return user data
+        returnResponse(200, "User retrieved successfully", $user);
+        
     } catch (PDOException $e) {
         error_log("getUserById error: " . $e->getMessage());
         returnResponse(500, "Database error retrieving user", null);

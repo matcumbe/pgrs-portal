@@ -14442,3 +14442,539 @@
 )
 
 [28-Apr-2025 06:12:32 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:22:28 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:22:28 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:22:28 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:22:36 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:22:36 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:22:36 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:22:42 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:22:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:22:42 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:22:55 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:22:55 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:22:55 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:23:09 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:23:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:23:09 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:23:40 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:23:40 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:23:40 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:46:38 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:46:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:46:38 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:46:40 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:46:40 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:46:40 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:58:06 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:58:07 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:58:07 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 15:58:42 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 15:58:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 15:58:42 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:02:51 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:02:51 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:02:51 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:05:38 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:05:38 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:05:38 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:05:44 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:05:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:05:44 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:06:09 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:06:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:06:09 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:06:31 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:06:31 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:06:31 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:11:55 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:11:55 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:11:55 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:13:18 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:13:18 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:13:18 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:13:44 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:13:44 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:13:44 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:17:24 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:17:24 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:17:24 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:17:59 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:17:59 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:17:59 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:20:56 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:20:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:20:56 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:38:09 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:38:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:38:09 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 16:38:56 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:38:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:38:56 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 10:45:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:45:05 Europe/Berlin] Invalid token signature
+[17-May-2025 10:45:05 Europe/Berlin] Authentication failed: Invalid token signature
+[17-May-2025 16:45:05 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:45:05 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:45:05 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 10:45:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:45:05 Europe/Berlin] Invalid token signature
+[17-May-2025 10:45:05 Europe/Berlin] Authentication failed: Invalid token signature
+[17-May-2025 10:45:07 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:45:07 Europe/Berlin] Invalid token signature
+[17-May-2025 10:45:07 Europe/Berlin] Authentication failed: Invalid token signature
+[17-May-2025 10:45:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:45:21 Europe/Berlin] Invalid token signature
+[17-May-2025 10:45:21 Europe/Berlin] Authentication failed: Invalid token signature
+[17-May-2025 10:45:21 Europe/Berlin] Getting cart for user_id: NULL, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:45:21 Europe/Berlin] Creating new cart for user_id: NULL, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:45:21 Europe/Berlin] Created new cart ID: 2
+[17-May-2025 10:45:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:45:21 Europe/Berlin] Invalid token signature
+[17-May-2025 10:45:21 Europe/Berlin] Authentication failed: Invalid token signature
+[17-May-2025 10:45:21 Europe/Berlin] Getting cart for user_id: NULL, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:45:21 Europe/Berlin] Found existing cart ID: 2
+[17-May-2025 10:45:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:45:22 Europe/Berlin] Invalid token signature
+[17-May-2025 10:45:22 Europe/Berlin] Authentication failed: Invalid token signature
+[17-May-2025 10:45:22 Europe/Berlin] Getting cart for user_id: NULL, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:45:22 Europe/Berlin] Found existing cart ID: 2
+[17-May-2025 10:54:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:01 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 16:54:01 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:54:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:54:01 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 10:54:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:02 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:02 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:02 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 10:54:02 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 10:54:02 Europe/Berlin] Found guest cart ID: 2
+[17-May-2025 10:54:02 Europe/Berlin] Created new user cart ID: 3
+[17-May-2025 10:54:02 Europe/Berlin] Found 3 items to sync from guest cart to user cart
+[17-May-2025 10:54:02 Europe/Berlin] Added item: 1 (type: vertical) to user cart
+[17-May-2025 10:54:02 Europe/Berlin] Added item: 2 (type: vertical) to user cart
+[17-May-2025 10:54:02 Europe/Berlin] Added item: 3 (type: vertical) to user cart
+[17-May-2025 10:54:02 Europe/Berlin] Deleted items from guest cart ID: 2
+[17-May-2025 10:54:02 Europe/Berlin] Deleted guest cart ID: 2
+[17-May-2025 10:54:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:02 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:23 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:23 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:24 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:24 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:25 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:25 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:54:26 Europe/Berlin] Found existing user cart ID: 3
+[17-May-2025 10:54:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:27 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:27 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:54:27 Europe/Berlin] Found existing user cart ID: 3
+[17-May-2025 10:54:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:27 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:27 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:54:27 Europe/Berlin] Found existing user cart ID: 3
+[17-May-2025 10:54:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:30 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 16:54:30 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 16:54:30 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 16:54:30 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 10:54:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:31 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 10:54:31 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 10:54:31 Europe/Berlin] No guest cart found for session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 10:54:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 10:54:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 10:54:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:10 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:03:10 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:03:10 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:03:10 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:03:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:14 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:14 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:14 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:03:14 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 11:03:14 Europe/Berlin] No guest cart found for session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:03:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:15 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:24 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:24 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:03:24 Europe/Berlin] Creating new cart for user_id: 1
+[17-May-2025 11:03:24 Europe/Berlin] Created new user cart ID: 1
+[17-May-2025 11:03:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:26 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:26 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:03:26 Europe/Berlin] Found existing user cart ID: 1
+[17-May-2025 11:03:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:26 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:26 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:03:26 Europe/Berlin] Found existing user cart ID: 1
+[17-May-2025 11:03:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:29 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:03:29 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:03:29 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:03:29 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:03:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:30 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:30 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:03:30 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:03:30 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 11:03:30 Europe/Berlin] No guest cart found for session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:03:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:03:30 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:04:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:04:18 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:04:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:04:19 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:04:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:04:19 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:04:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:04:22 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:04:22 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:04:22 Europe/Berlin] Found existing user cart ID: 1
+[17-May-2025 11:14:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:29 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:14:29 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:14:29 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:14:29 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:14:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:31 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:14:31 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 11:14:31 Europe/Berlin] No guest cart found for session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:14:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:31 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:33 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => cart_1h3ae251wfon5f2o9r0mzh
+)
+
+[17-May-2025 11:14:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:33 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:33 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:14:33 Europe/Berlin] Found existing user cart ID: 1
+[17-May-2025 11:14:34 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => cart_1h3ae251wfon5f2o9r0mzh
+)
+
+[17-May-2025 11:14:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:34 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:34 Europe/Berlin] Getting cart for user_id: 1, session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:14:34 Europe/Berlin] Found existing user cart ID: 1
+[17-May-2025 11:14:55 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:55 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:14:56 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:14:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:14:56 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:14:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:57 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:57 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:14:57 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:14:57 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 11:14:57 Europe/Berlin] No guest cart found for session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:14:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:14:57 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:20:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:20:34 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:20:34 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:20:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:20:34 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:20:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:20:35 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:20:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:20:36 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:20:36 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:20:36 Europe/Berlin] Syncing from guest session: cart_1h3ae251wfon5f2o9r0mzh to user: 1
+[17-May-2025 11:20:36 Europe/Berlin] No guest cart found for session_id: cart_1h3ae251wfon5f2o9r0mzh
+[17-May-2025 11:20:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:20:36 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:20:40 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:20:40 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:20:40 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:20:40 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:20:51 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:20:51 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:20:51 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:20:51 Europe/Berlin] Creating new guest cart for session: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:20:51 Europe/Berlin] Created new guest cart ID: 2
+[17-May-2025 11:20:52 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:20:52 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:20:52 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:20:52 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:00 Europe/Berlin] No authentication token provided in request
+[17-May-2025 17:21:01 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:21:01 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:21:01 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:21:05 Europe/Berlin] No authentication token provided in request
+[17-May-2025 17:21:05 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:21:05 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:21:05 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:21:09 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 4
+    [station_type] => vertical
+    [station_name] => MM-519 (MMA-4440)
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:21:09 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:09 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:21:09 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:10 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 6
+    [station_type] => vertical
+    [station_name] => MM-10A
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:21:10 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:10 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:21:10 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:12 Europe/Berlin] No authentication token provided in request
+[17-May-2025 17:21:12 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:21:12 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:21:12 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:21:21 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:21 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:22 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:22 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:39 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:21:39 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:39 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:21:39 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:41 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 7
+    [station_type] => vertical
+    [station_name] => MM-554
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:21:41 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:41 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:21:41 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:44 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 10
+    [station_type] => vertical
+    [station_name] => MM-820 (PT-2)
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:21:44 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:44 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:21:44 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:45 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 11
+    [station_type] => vertical
+    [station_name] => MM-822 (PT-4)
+    [session_id] => guest_1747473638983_evatdysqd3g
+)
+
+[17-May-2025 11:21:45 Europe/Berlin] No authentication token provided in request
+[17-May-2025 11:21:45 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:21:45 Europe/Berlin] Found existing guest cart ID: 2
+[17-May-2025 11:21:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:21:53 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:21:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:21:53 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:21:53 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:21:53 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:21:53 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:21:54 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:21:54 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:21:54 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:21:54 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:21:54 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:21:54 Europe/Berlin] Syncing from guest session: guest_1747473638983_evatdysqd3g to user: 1
+[17-May-2025 11:21:54 Europe/Berlin] Found guest cart ID: 2
+[17-May-2025 11:21:54 Europe/Berlin] Found existing user cart ID: 1
+[17-May-2025 11:21:54 Europe/Berlin] Found 3 items to sync from guest cart to user cart
+[17-May-2025 11:21:54 Europe/Berlin] Added item: 7 (type: vertical) to user cart
+[17-May-2025 11:21:54 Europe/Berlin] Added item: 10 (type: vertical) to user cart
+[17-May-2025 11:21:54 Europe/Berlin] Added item: 11 (type: vertical) to user cart
+[17-May-2025 11:21:54 Europe/Berlin] Deleted items from guest cart ID: 2
+[17-May-2025 11:21:54 Europe/Berlin] Deleted guest cart ID: 2
+[17-May-2025 11:21:55 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:21:55 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:24 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:25 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:25 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:25 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:25 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:32 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:32 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 17:22:32 Asia/Manila] Request received: GET /api/stations/vertical
+[17-May-2025 17:22:32 Asia/Manila] Query parameters: Array
+(
+)
+
+[17-May-2025 17:22:32 Asia/Manila] Fetching stations for type: vertical
+[17-May-2025 11:22:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:33 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:34 Europe/Berlin] Token belongs to user_id: 1
+[17-May-2025 11:22:34 Europe/Berlin] Starting cart sync for user_id: 1
+[17-May-2025 11:22:34 Europe/Berlin] Syncing from guest session: guest_1747473638983_evatdysqd3g to user: 1
+[17-May-2025 11:22:34 Europe/Berlin] No guest cart found for session_id: guest_1747473638983_evatdysqd3g
+[17-May-2025 11:22:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[17-May-2025 11:22:34 Europe/Berlin] Token belongs to user_id: 1
