@@ -1,4 +1,8 @@
 <?php
+// Set timezone for all date/time operations
+date_default_timezone_set('Asia/Manila');
+
+// Include config and authentication
 require_once 'users_config.php';
 
 // Set headers to allow cross-origin requests and specify content type
@@ -65,11 +69,28 @@ try {
             
         case 'view':
             if ($method === 'GET') {
-                if ($id) {
-                    getRequestById($db, $id);
-                } else if (isset($_GET['reference'])) {
+                // Check for ID in different locations
+                $requestId = null;
+                
+                // Check if ID is in the URL path (view/123)
+                if (count($parts) > 1 && is_numeric($parts[1])) {
+                    $requestId = intval($parts[1]);
+                } 
+                // Check if ID is a direct query parameter (?action=view&id=123)
+                else if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                    $requestId = intval($_GET['id']);
+                }
+                // Check for reference parameter
+                else if (isset($_GET['reference'])) {
                     getRequestByReference($db, $_GET['reference']);
+                    return;
+                }
+                
+                if ($requestId) {
+                    error_log("[" . date('Y-m-d H:i:s') . "] Fetching request ID: " . $requestId . " from action: " . $endpoint);
+                    getRequestById($db, $requestId);
                 } else {
+                    error_log("[" . date('Y-m-d H:i:s') . "] Missing request ID in request. Action: " . $endpoint . ", GET params: " . print_r($_GET, true));
                     returnResponse(400, "Request ID or reference number required", null);
                 }
             } else {
@@ -119,8 +140,13 @@ function createRequest($db) {
     $token = verifyToken(null, true);
     $userId = $token->user_id;
     
+    // Debug log for token and user ID verification
+    error_log("createRequest called with token user_id: " . var_export($userId, true) . " (type: " . gettype($userId) . ")");
+    error_log("Full token object: " . var_export($token, true));
+    
     // Get JSON data
     $data = json_decode(file_get_contents("php://input"));
+    error_log("Request data: " . print_r($data, true));
     
     if (!isset($data->items) || !is_array($data->items) || count($data->items) == 0) {
         returnResponse(400, "No items provided for request", null);
@@ -145,37 +171,80 @@ function createRequest($db) {
         
         $statusId = $statusResult['status_id'];
         
-        // Generate unique reference number
-        $referenceNumber = 'REQ-' . date('YmdHis') . '-' . rand(1000, 9999);
-        
         // Create new request
         $totalAmount = 0; // Will be calculated based on items
         
-        $sql = "INSERT INTO requests (reference_number, user_id, status_id, total_amount, expiry_date) 
-                VALUES (:reference_number, :user_id, :status_id, :total_amount, DATE_ADD(NOW(), INTERVAL 15 DAY))";
+        // Generate transaction code
+        $transactionCode = generateTransactionCode($db, $userId);
+        
+        // Log the generated transaction code and user ID for debugging
+        error_log("Generated transaction code: $transactionCode for user_id: $userId");
+        
+        $sql = "INSERT INTO requests (user_id, status_id, total_amount, transaction_code, exp_date) 
+                VALUES (:user_id, :status_id, :total_amount, :transaction_code, DATE_ADD(NOW(), INTERVAL 15 DAY))";
         
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':reference_number', $referenceNumber);
         $stmt->bindParam(':user_id', $userId);
         $stmt->bindParam(':status_id', $statusId);
         $stmt->bindParam(':total_amount', $totalAmount);
+        $stmt->bindParam(':transaction_code', $transactionCode);
         $stmt->execute();
         
+        // Verify the insert worked
         $requestId = $db->lastInsertId();
+        error_log("Inserted request with ID: $requestId, user_id: $userId, transaction_code: $transactionCode");
+        
+        // Double-check the inserted values
+        $checkSql = "SELECT user_id, transaction_code FROM requests WHERE request_id = :request_id";
+        $checkStmt = $db->prepare($checkSql);
+        $checkStmt->bindParam(':request_id', $requestId);
+        $checkStmt->execute();
+        $checkResult = $checkStmt->fetch();
+        error_log("Verification of request record - user_id: " . $checkResult['user_id'] . ", transaction_code: " . $checkResult['transaction_code']);
         
         // Add items to request
-        $itemSql = "INSERT INTO request_items (request_id, station_id, station_type, price) 
-                   VALUES (:request_id, :station_id, :station_type, :price)";
+        $itemSql = "INSERT INTO request_items (request_id, station_id, station_name, station_type, price) 
+                   VALUES (:request_id, :station_id, :station_name, :station_type, :price)";
         $itemStmt = $db->prepare($itemSql);
         
         foreach ($data->items as $item) {
-            // Calculate price based on station type (placeholder logic - replace with actual pricing)
-            $price = getPriceForStationType($item->station_type);
+            // Log the received item data for debugging
+            error_log("[createRequest] Processing item: " . print_r($item, true));
+
+            // Calculate price based on station type
+            // Ensure station_type is present and valid
+            $stationType = $item->station_type ?? 'horizontal'; // Default if null, though it shouldn\'t be
+            $price = getPriceForStationType($stationType);
             $totalAmount += $price;
             
+            // Use the properties as sent by the corrected payment.js
+            // station_id from client should be the actual ID (e.g., from item.id)
+            // station_name from client should be the name (e.g., from item.name)
+            // station_type from client should be the type (e.g., from item.type)
+
+            $clientStationId = $item->station_id ?? null;
+            $clientStationName = $item->station_name ?? null;
+            $clientStationType = $item->station_type ?? 'unknown'; // Default if not provided
+
+            if ($clientStationId === null) {
+                error_log("[createRequest] CRITICAL: clientStationId is null. Item: " . print_r($item, true));
+                // Potentially skip this item or throw an error, as a null ID is problematic
+                // For now, we\'ll try to use station_name as a fallback for ID if name is not null.
+                // This is not ideal and suggests client-side data issues.
+                $clientStationId = $clientStationName ?? ('ERR-' . substr(md5(time() . rand()), 0, 8));
+            }
+            
+            if ($clientStationName === null) {
+                // If name is null, try to use the ID as name, or a placeholder
+                $clientStationName = $clientStationId ?? 'Unknown Station';
+            }
+
+            error_log("[createRequest] DB Insert Values: ID='{$clientStationId}', Name='{$clientStationName}', Type='{$clientStationType}', Price='{$price}'");
+
             $itemStmt->bindParam(':request_id', $requestId);
-            $itemStmt->bindParam(':station_id', $item->station_id);
-            $itemStmt->bindParam(':station_type', $item->station_type);
+            $itemStmt->bindParam(':station_id', $clientStationId); // Use client-provided ID
+            $itemStmt->bindParam(':station_name', $clientStationName); // Use client-provided Name
+            $itemStmt->bindParam(':station_type', $clientStationType); // Use client-provided Type
             $itemStmt->bindParam(':price', $price);
             $itemStmt->execute();
         }
@@ -189,10 +258,21 @@ function createRequest($db) {
         
         // Remove items from cart if they were cart items
         if (isset($data->clear_cart) && $data->clear_cart) {
-            $cartSql = "DELETE FROM cart_items WHERE user_id = :user_id";
+            // Corrected SQL: Delete from cart_items by joining with carts table or using a subquery
+            // Using a subquery to get cart_id(s) for the user
+            $cartSql = "DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)";
+            error_log("Attempting to clear cart items for user_id: $userId using query: $cartSql"); // Debug log
             $cartStmt = $db->prepare($cartSql);
             $cartStmt->bindParam(':user_id', $userId);
             $cartStmt->execute();
+            error_log("Cart items cleared for user_id: $userId. Rows affected: " . $cartStmt->rowCount()); // Debug log
+        
+            // Optionally, if you also want to delete the cart record itself from 'carts' table (not just items):
+            // $cartMasterSql = "DELETE FROM carts WHERE user_id = :user_id";
+            // $cartMasterStmt = $db->prepare($cartMasterSql);
+            // $cartMasterStmt->bindParam(':user_id', $userId);
+            // $cartMasterStmt->execute();
+            // error_log("Cart master record deleted for user_id: $userId. Rows affected: " . $cartMasterStmt->rowCount());
         }
         
         // Commit transaction
@@ -200,9 +280,9 @@ function createRequest($db) {
         
         returnResponse(201, "Request created successfully", [
             'request_id' => $requestId,
-            'reference_number' => $referenceNumber,
+            'transaction_code' => $transactionCode,
             'total_amount' => $totalAmount,
-            'expiry_date' => date('Y-m-d H:i:s', strtotime('+15 days'))
+            'exp_date' => date('Y-m-d H:i:s', strtotime('+15 days'))
         ]);
     } catch (Exception $e) {
         // Roll back transaction on error
@@ -266,10 +346,21 @@ function getAllRequests($db) {
  * Get requests for a specific user
  */
 function getUserRequests($db, $userId) {
-    // Verify user is logged in and is either admin or the user themselves
-    $token = verifyToken(null, true);
+    // Debug: Log the requested userId and token information
+    error_log("getUserRequests called with userId: " . var_export($userId, true));
     
-    if ($token->user_type !== 'admin' && $token->user_id !== $userId) {
+    // Verify user is logged in
+    $token = verifyToken(null, true);
+    error_log("Token user_id: " . var_export($token->user_id, true) . ", type: " . gettype($token->user_id));
+    error_log("Requested user_id: " . var_export($userId, true) . ", type: " . gettype($userId));
+    
+    // Compare user_id values properly, ensuring type conversion
+    $tokenUserId = intval($token->user_id);
+    $requestedUserId = intval($userId);
+    
+    // Check permissions
+    if ($token->user_type !== 'admin' && $tokenUserId !== $requestedUserId) {
+        error_log("Access denied: Token user_id ($tokenUserId) does not match requested user_id ($requestedUserId) and not admin");
         returnResponse(403, "Access denied", null);
         return;
     }
@@ -279,43 +370,49 @@ function getUserRequests($db, $userId) {
     $perPage = isset($_GET['per_page']) ? min(100, max(1, intval($_GET['per_page']))) : 10;
     $offset = ($page - 1) * $perPage;
     
-    // Get requests with status name
-    $sql = "SELECT r.*, rs.status_name, rs.color_code, COUNT(ri.item_id) as item_count
-            FROM requests r
-            JOIN request_statuses rs ON r.status_id = rs.status_id
-            LEFT JOIN request_items ri ON r.request_id = ri.request_id
-            WHERE r.user_id = :user_id
-            GROUP BY r.request_id
-            ORDER BY r.request_date DESC
-            LIMIT :offset, :per_page";
-    
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-    $stmt->bindParam(':per_page', $perPage, PDO::PARAM_INT);
-    $stmt->execute();
-    
-    $requests = $stmt->fetchAll();
-    
-    // Get total count
-    $countSql = "SELECT COUNT(*) as count FROM requests WHERE user_id = :user_id";
-    $countStmt = $db->prepare($countSql);
-    $countStmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-    $countStmt->execute();
-    $countResult = $countStmt->fetch();
-    $totalCount = $countResult['count'];
-    
-    $totalPages = ceil($totalCount / $perPage);
-    
-    returnResponse(200, "User requests retrieved successfully", [
-        'requests' => $requests,
-        'pagination' => [
-            'total' => $totalCount,
-            'per_page' => $perPage,
-            'current_page' => $page,
-            'last_page' => $totalPages
-        ]
-    ]);
+    try {
+        // Get requests with status name
+        $sql = "SELECT r.*, rs.status_name, rs.color_code, COUNT(ri.item_id) as item_count
+                FROM requests r
+                JOIN request_statuses rs ON r.status_id = rs.status_id
+                LEFT JOIN request_items ri ON r.request_id = ri.request_id
+                WHERE r.user_id = :user_id
+                GROUP BY r.request_id
+                ORDER BY r.request_date DESC
+                LIMIT :offset, :per_page";
+        
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':user_id', $requestedUserId, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':per_page', $perPage, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $requests = $stmt->fetchAll();
+        error_log("Found " . count($requests) . " requests for user $requestedUserId");
+        
+        // Get total count
+        $countSql = "SELECT COUNT(*) as count FROM requests WHERE user_id = :user_id";
+        $countStmt = $db->prepare($countSql);
+        $countStmt->bindParam(':user_id', $requestedUserId, PDO::PARAM_INT);
+        $countStmt->execute();
+        $countResult = $countStmt->fetch();
+        $totalCount = $countResult['count'];
+        
+        $totalPages = ceil($totalCount / $perPage);
+        
+        returnResponse(200, "User requests retrieved successfully", [
+            'requests' => $requests,
+            'pagination' => [
+                'total' => $totalCount,
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'last_page' => $totalPages
+            ]
+        ]);
+    } catch (Exception $e) {
+        error_log("Error in getUserRequests: " . $e->getMessage());
+        returnResponse(500, "Error retrieving requests: " . $e->getMessage(), null);
+    }
 }
 
 /**
@@ -373,22 +470,20 @@ function getRequestsByStatus($db, $statusId) {
 }
 
 /**
- * Get request by ID with items
+ * Get a request by ID with its items
  */
 function getRequestById($db, $requestId) {
     // Verify user is logged in
     $token = verifyToken(null, true);
     
-    // Get request details
-    $sql = "SELECT r.*, rs.status_name, rs.color_code, 
-            u.username, u.email, u.contact_number
+    // Get the request with status name
+    $sql = "SELECT r.*, rs.status_name, rs.color_code 
             FROM requests r
             JOIN request_statuses rs ON r.status_id = rs.status_id
-            JOIN users u ON r.user_id = u.user_id
             WHERE r.request_id = :request_id";
-    
+            
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':request_id', $requestId, PDO::PARAM_INT);
+    $stmt->bindParam(':request_id', $requestId);
     $stmt->execute();
     
     if ($stmt->rowCount() == 0) {
@@ -398,35 +493,50 @@ function getRequestById($db, $requestId) {
     
     $request = $stmt->fetch();
     
-    // Check if user has access to this request (must be owner or admin)
-    if ($token->user_type !== 'admin' && $token->user_id !== $request['user_id']) {
+    // Verify user has access to this request
+    if ($token->user_type !== 'admin' && $request['user_id'] != $token->user_id) {
         returnResponse(403, "Access denied", null);
         return;
     }
     
     // Get request items
-    $itemSql = "SELECT * FROM request_items WHERE request_id = :request_id";
-    $itemStmt = $db->prepare($itemSql);
-    $itemStmt->bindParam(':request_id', $requestId, PDO::PARAM_INT);
-    $itemStmt->execute();
-    $items = $itemStmt->fetchAll();
+    $itemsSql = "SELECT * FROM request_items WHERE request_id = :request_id";
+    $itemsStmt = $db->prepare($itemsSql);
+    $itemsStmt->bindParam(':request_id', $requestId);
+    $itemsStmt->execute();
+    $items = $itemsStmt->fetchAll();
     
-    // Get payment transactions
-    $transactionSql = "SELECT t.*, pm.method_name 
-                       FROM transactions t
-                       JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
-                       WHERE t.request_id = :request_id
-                       ORDER BY t.transaction_date DESC";
-    $transactionStmt = $db->prepare($transactionSql);
-    $transactionStmt->bindParam(':request_id', $requestId, PDO::PARAM_INT);
-    $transactionStmt->execute();
-    $transactions = $transactionStmt->fetchAll();
+    // Get user info - Fixed query to avoid non-existent columns
+    $userSql = "SELECT user_id, username, email, contact_number 
+                FROM users WHERE user_id = :user_id";
+    $userStmt = $db->prepare($userSql);
+    $userStmt->bindParam(':user_id', $request['user_id']);
+    $userStmt->execute();
+    $userInfo = $userStmt->fetch();
     
-    // Add items and transactions to request data
-    $request['items'] = $items;
-    $request['transactions'] = $transactions;
+    // Format response
+    $response = [
+        'request_id' => $request['request_id'],
+        'user_id' => $request['user_id'],
+        'status' => [
+            'id' => $request['status_id'],
+            'name' => $request['status_name'],
+            'color' => $request['color_code']
+        ],
+        'request_date' => $request['request_date'],
+        'exp_date' => $request['exp_date'],
+        'total_amount' => $request['total_amount'],
+        'transaction_code' => $request['transaction_code'],
+        'items' => $items,
+        'user' => [
+            'user_id' => $userInfo['user_id'],
+            'username' => $userInfo['username'],
+            'email' => $userInfo['email'],
+            'contact_number' => $userInfo['contact_number']
+        ]
+    ];
     
-    returnResponse(200, "Request details retrieved", $request);
+    returnResponse(200, "Request details retrieved", $response);
 }
 
 /**
@@ -617,56 +727,65 @@ function getRequestStatuses($db) {
  * Check for expired requests and update their status
  */
 function checkExpiredRequests($db) {
-    // Get status IDs
-    $statusSql = "SELECT status_id FROM request_statuses WHERE status_name = :status_name";
-    $statusStmt = $db->prepare($statusSql);
-    
-    // Get "Not Paid" status ID
-    $statusStmt->bindValue(':status_name', 'Not Paid');
-    $statusStmt->execute();
-    $notPaidResult = $statusStmt->fetch();
-    
-    if (!$notPaidResult) {
-        return; // Can't proceed if status not found
+    try {
+        // Get status IDs
+        $notPaidSql = "SELECT status_id FROM request_statuses WHERE status_name = 'Not Paid'";
+        $notPaidStmt = $db->prepare($notPaidSql);
+        $notPaidStmt->execute();
+        $notPaidResult = $notPaidStmt->fetch();
+        
+        if (!$notPaidResult) {
+            return; // No Not Paid status found
+        }
+        
+        $notPaidStatusId = $notPaidResult['status_id'];
+        
+        $expiredSql = "SELECT status_id FROM request_statuses WHERE status_name = 'Expired'";
+        $expiredStmt = $db->prepare($expiredSql);
+        $expiredStmt->execute();
+        $expiredResult = $expiredStmt->fetch();
+        
+        if (!$expiredResult) {
+            return; // No Expired status found
+        }
+        
+        $expiredStatusId = $expiredResult['status_id'];
+        
+        // Find and update expired requests
+        $sql = "UPDATE requests 
+                SET status_id = :expired_status_id 
+                WHERE status_id = :not_paid_status_id 
+                AND exp_date < NOW()";
+        
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':expired_status_id', $expiredStatusId);
+        $stmt->bindParam(':not_paid_status_id', $notPaidStatusId);
+        $stmt->execute();
+        
+        // Log the number of updated requests
+        $count = $stmt->rowCount();
+        if ($count > 0) {
+            error_log("Marked {$count} expired requests");
+        }
+    } catch (Exception $e) {
+        error_log("Error checking expired requests: " . $e->getMessage());
     }
-    $notPaidStatusId = $notPaidResult['status_id'];
-    
-    // Get "Expired" status ID
-    $statusStmt->bindValue(':status_name', 'Expired');
-    $statusStmt->execute();
-    $expiredResult = $statusStmt->fetch();
-    
-    if (!$expiredResult) {
-        return; // Can't proceed if status not found
-    }
-    $expiredStatusId = $expiredResult['status_id'];
-    
-    // Update expired requests (not paid and past expiry date)
-    $sql = "UPDATE requests 
-            SET status_id = :expired_status_id 
-            WHERE status_id = :not_paid_status_id 
-            AND expiry_date < NOW()";
-    
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':expired_status_id', $expiredStatusId);
-    $stmt->bindParam(':not_paid_status_id', $notPaidStatusId);
-    $stmt->execute();
 }
 
 /**
  * Get price for station type (placeholder - replace with actual pricing logic)
  */
 function getPriceForStationType($stationType) {
-    // Simple placeholder pricing
+    // Use defined constants from config.php
     switch ($stationType) {
         case 'horizontal':
-            return 500.00;
+            return defined('PRICE_HORIZONTAL') ? PRICE_HORIZONTAL : 300.00;
         case 'vertical':
-            return 450.00;
+            return defined('PRICE_VERTICAL') ? PRICE_VERTICAL : 300.00;
         case 'gravity':
-            return 600.00;
+            return defined('PRICE_GRAVITY') ? PRICE_GRAVITY : 300.00;
         default:
-            return 500.00;
+            return defined('PRICE_HORIZONTAL') ? PRICE_HORIZONTAL : 300.00;
     }
 }
 
@@ -688,60 +807,135 @@ function returnResponse($statusCode, $message, $data) {
  */
 function verifyToken($requiredRole = null, $exitOnFail = true) {
     $headers = getallheaders();
-    $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : '';
+    $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : (isset($headers['authorization']) ? $headers['authorization'] : '');
     
-    if (!$authHeader || strpos($authHeader, 'Bearer ') !== 0) {
+    error_log("verifyToken called with requiredRole: " . ($requiredRole ?? 'null'));
+    error_log("Authorization header present: " . ($authHeader ? 'yes (' . substr($authHeader, 0, 15) . '...)' : 'no'));
+    
+    // Properly handle the authorization header
+    if (!$authHeader || stripos($authHeader, 'Bearer ') !== 0) {
+        error_log("Invalid auth header format or missing Bearer: " . substr($authHeader, 0, 20) . "...");
         if ($exitOnFail) {
-            returnResponse(401, "No authentication token provided", null);
+            returnResponse(401, "No or invalid authentication token provided", null);
         }
         return null;
     }
     
     $jwt = substr($authHeader, 7);
+    error_log("JWT token for verification (length: " . strlen($jwt) . "): " . substr($jwt, 0, 20) . "...");
+    
+    // DISABLED: Special case for admin authorization - use only for testing and only if the token matches exactly
+    // This was causing issues with normal users as their requests were being assigned to admin (user_id 1)
+    /*
+    if ($jwt === 'admin_token' && (!$requiredRole || $requiredRole === 'admin')) {
+        error_log("Admin token used for testing purposes");
+        // Return admin user object for admin_token
+        $adminUser = new stdClass();
+        $adminUser->user_id = 1;  // Default admin ID
+        $adminUser->username = 'admin';
+        $adminUser->user_type = 'admin';
+        return $adminUser;
+    }
+    */
     
     try {
         $tokenParts = explode('.', $jwt);
         if (count($tokenParts) != 3) {
+            error_log("Invalid token format: " . count($tokenParts) . " parts instead of 3");
             throw new Exception('Invalid token format');
         }
         
-        $header = base64_decode($tokenParts[0]);
-        $payload = base64_decode($tokenParts[1]);
+        // Get token parts (these are already Base64 encoded as per JWT standard)
+        $headerEncoded = $tokenParts[0];
+        $payloadEncoded = $tokenParts[1];
         $signatureProvided = $tokenParts[2];
         
-        // Check if token is expired
-        $payloadObj = json_decode($payload);
-        if (!$payloadObj) {
-            throw new Exception('Invalid token payload');
-        }
-        
-        if (isset($payloadObj->exp) && $payloadObj->exp < time()) {
-            throw new Exception('Token expired');
-        }
-        
-        // Verify signature
-        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
-        $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
-        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, JWT_SECRET, true);
-        $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
-        
-        if ($base64UrlSignature !== $signatureProvided) {
+        // Verify signature (aligning with users_api.php's verifyToken logic)
+        // The data to sign is the original Base64 encoded header and payload, concatenated with a dot.
+        $dataToSign = $headerEncoded . "." . $payloadEncoded;
+        $expectedSignature = base64_encode(hash_hmac('sha256', $dataToSign, JWT_SECRET, true));
+
+        // Important: JWT signatures are Base64URL encoded. 
+        // The generateJWT in users_api.php uses base64_encode, not base64url_encode.
+        // So we need to ensure we are comparing apples to apples.
+        // If generateJWT uses standard base64_encode for signature, then we compare with that.
+        // If it were using base64url, we'd convert $expectedSignature to base64url.
+        // Given users_api.php generateJWT: $signature = base64_encode(hash_hmac(...));
+        // We compare directly.
+
+        if ($signatureProvided !== $expectedSignature) {
+            error_log("Invalid token signature. Provided: " . $signatureProvided . " Expected: " . $expectedSignature);
+            error_log("Data that was signed: " . $dataToSign);
             throw new Exception('Invalid token signature');
         }
         
-        // Check if user has required role
-        if ($requiredRole && (!isset($payloadObj->user_type) || $payloadObj->user_type !== $requiredRole)) {
+        // Decode payload (standard base64_decode is fine here as json_decode handles it)
+        $payload = json_decode(base64_decode($payloadEncoded));
+        if (!$payload) {
+            error_log("Failed to parse payload JSON from: " . $payloadEncoded);
+            throw new Exception('Invalid token payload');
+        }
+        
+        // Log token information for debugging
+        error_log("Token payload decoded successfully. User ID: " . ($payload->user_id ?? 'N/A') . ", Type: " . ($payload->user_type ?? 'N/A'));
+
+        if (isset($payload->exp) && $payload->exp < time()) {
+            error_log("Token expired: " . date('Y-m-d H:i:s', $payload->exp));
+            throw new Exception('Token expired');
+        }
+        
+        if ($requiredRole && (!isset($payload->user_type) || $payload->user_type !== $requiredRole)) {
+            error_log("User lacks required role: {$requiredRole}, user has: " . ($payload->user_type ?? 'none'));
             if ($exitOnFail) {
                 returnResponse(403, "Access denied: Insufficient permissions", null);
             }
             return null;
         }
         
-        return $payloadObj;
+        // Ensure user_id is an integer
+        if (isset($payload->user_id) && is_numeric($payload->user_id)) {
+            $payload->user_id = intval($payload->user_id);
+        }
+        
+        return $payload;
     } catch (Exception $e) {
+        error_log("Token verification failed: " . $e->getMessage());
         if ($exitOnFail) {
             returnResponse(401, "Authentication failed: " . $e->getMessage(), null);
         }
         return null;
     }
+}
+
+// Generate transaction code with Manila timezone
+function generateTransactionCode($db, $userId) {
+    // Use Manila timezone for date
+    $date = new DateTime('now', new DateTimeZone('Asia/Manila'));
+    $dateStr = $date->format('Ymd');
+    
+    // Find the highest existing transaction number for this user and date
+    $sql = "SELECT transaction_code FROM requests 
+            WHERE user_id = :user_id 
+            AND transaction_code LIKE :pattern
+            ORDER BY transaction_code DESC
+            LIMIT 1";
+    
+    $stmt = $db->prepare($sql);
+    $pattern = "CSUMGB-{$dateStr}-{$userId}-%";
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->bindParam(':pattern', $pattern);
+    $stmt->execute();
+    
+    $nextNum = 1;
+    if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        // Extract the sequence number
+        $parts = explode('-', $row['transaction_code']);
+        $lastPart = end($parts);
+        $lastNum = intval($lastPart);
+        $nextNum = $lastNum + 1;
+    }
+    
+    // Format with leading zeros
+    $formattedNum = str_pad($nextNum, 3, '0', STR_PAD_LEFT);
+    return "CSUMGB-{$dateStr}-{$userId}-{$formattedNum}";
 } 

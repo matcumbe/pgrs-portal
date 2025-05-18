@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Tracker | GNIS</title>
+    <link rel="icon" href="Assets/gnis_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tracker-content {
+            padding: 20px;
+        }
+        .filter-panel {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .panel-title {
+            color: white;
+            background-color: #198754;
+            padding: 10px 15px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 0;
+        }
+        .panel-content {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        .request-summary-row {
+            transition: background-color 0.2s;
+        }
+        .request-summary-row:hover {
+            background-color: #f5f5f5;
+        }
+        .request-summary-row.expanded {
+            background-color: #e9f7fe !important;
+            border-bottom: none !important;
+        }
+        .request-details-row {
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .action-btn {
+            margin-right: 5px;
+        }
+        .expand-icon {
+            font-size: 14px;
+            margin-right: 8px;
+            transition: transform 0.3s;
+        }
+        .btn-add-payment {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .btn-add-payment:disabled {
+            background-color: #b0b0b0;
+            color: #f0f0f0;
+        }
+        .collapsible-content {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 10px;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .payment-modal .modal-header {
+            background-color: #f8f9fa;
+        }
+        .upload-box {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upload-box:hover {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
+        .card {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
+                    <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
+                </div>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mx-auto">
+                    <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.html"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link active" href="tracker.html"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link admin-only d-none" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link admin-only d-none" href="requests_management.html"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link admin-only d-none" href="#"><i class="fas fa-users"></i> Users Management</a>
+                    <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- Filter Panel -->
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                        <h5 class="mb-0" style="color: white;">Filter/Search Panel</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Filter by Status:</h6>
+                        <div id="statusFilterContainer" class="mb-3">
+                            <!-- Will be populated dynamically by tracker.js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requests Table -->
+            <div class="col-md-9 ps-0">
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                        <h5 class="mb-0" style="color: white;">Requests Table</h5>
+                    </div>
+                    <div class="card-body p-0 mh-100">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="requestsTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Date of Request</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Will be populated by tracker.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="loadingMessage" class="text-center my-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading your requests...</p>
+                        </div>
+                        <div id="noRequestsMessage" class="text-center my-4" style="display: none;">
+                            <p>You have no requests yet.</p>
+                        </div>
+                        
+                        <!-- Pagination Controls -->
+                        <nav aria-label="Requests pagination" class="mt-2 mb-2 d-flex justify-content-center">
+                            <ul class="pagination mt-0" id="paginationControls">
+                                <!-- Will be populated by tracker.js -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content rounded-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Process</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Station ID</th>
+                                    <th>Station Name</th>
+                                    <th>Station Type</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentStationsList">
+                                <!-- Will be populated by tracker.js, example rows below -->
+                                <tr>
+                                    <td>01</td>
+                                    <td>MMA-39</td>
+                                    <td>Horizontal GCP</td>
+                                    <td>₱300.00</td>
+                                    <td><button class="btn btn-danger btn-sm">X</button></td>
+                                </tr>
+                                <tr>
+                                    <td>03</td>
+                                    <td>MMA-36</td>
+                                    <td>Vertical Benchmark</td>
+                                    <td>₱300.00</td>
+                                    <td><button class="btn btn-danger btn-sm">X</button></td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td colspan="2">Total</td>
+                                    <td>2</td>
+                                    <td colspan="2">₱600.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <form id="trackerPaymentForm">
+                        <input type="hidden" id="modalRequestId" name="request_id">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="trackerPaidAmount" class="form-label">Paid Amount:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" id="trackerPaidAmount" name="paid_amount" min="600" value="600" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Payment Method:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="methodLinkBiz" value="linkbiz">
+                                    <label class="form-check-label" for="methodLinkBiz">LinkBiz</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="methodBankTransfer" value="bank_transfer">
+                                    <label class="form-check-label" for="methodBankTransfer">Bank Transfer</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" id="methodCashDeposit" value="cash_deposit">
+                                    <label class="form-check-label" for="methodCashDeposit">Cash Deposit</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="transactionCodeDisplay" class="form-label">Transaction Code:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="transactionCodeDisplay" value="C SUMGB-YYYYMMDD-<userid>-001" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="trackerReferenceNumber" class="form-label">Reference No.:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="trackerReferenceNumber" name="reference_number" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="trackerProofFile" class="form-label">Upload Photo:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="upload-box" id="uploadBox">
+                                    <input type="file" class="form-control d-none" id="trackerProofFile" name="proof_file" accept="image/*,application/pdf">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-arrow-up fa-2x mb-2"></i>
+                                    </div>
+                                    <p class="mb-0">Click here to upload payment proof</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="trackerPaymentAlert" class="alert alert-danger d-none" role="alert"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="submitPaymentBtn" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login/Register) -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="authModalLabel">Login or Register</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 0;">
+                    <ul class="nav nav-tabs" id="authTabs" role="tablist" style="margin-top: 1rem;">
+                        <li class="nav-item" role="presentation" style="margin-left: 1rem;">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-tab-pane" type="button" role="tab" aria-controls="register-tab-pane" aria-selected="false">Register</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="authTabContent">
+                        <!-- Login Tab -->
+                        <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab">
+                            <div id="loginAlert" class="alert alert-danger d-none"></div>
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="loginUsername" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Register Tab -->
+                        <div class="tab-pane fade" id="register-tab-pane" role="tabpanel" aria-labelledby="register-tab">
+                            <div id="registerAlert" class="alert alert-danger d-none"></div>
+                            <form id="registerForm">
+                                <!-- User Type Selection -->
+                                <div class="mb-3">
+                                    <label class="form-label">Account Type</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="userType" id="individualType" value="individual" checked>
+                                        <label class="form-check-label" for="individualType">Individual</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="userType" id="companyType" value="company">
+                                        <label class="form-check-label" for="companyType">Company</label>
+                                    </div>
+                                </div>
+
+                                <!-- Common Fields -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerUsername" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="registerUsername" name="username" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="registerPassword" name="password" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="registerEmail" name="email" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerContact" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="registerContact" name="contact_number" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerSex" class="form-label">Sex</label>
+                                        <select class="form-select" id="registerSex" name="sex_id" required>
+                                            <option value="">Select Sex</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerNameOnCert" class="form-label">Name on Certificate</label>
+                                        <input type="text" class="form-control" id="registerNameOnCert" name="name_on_certificate" required>
+                                    </div>
+                                </div>
+
+                                <!-- Individual Fields -->
+                                <div id="individualFields">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerFullName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="registerFullName" name="full_name" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerAddress" class="form-label">Address</label>
+                                            <input type="text" class="form-control" id="registerAddress" name="address" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Company Fields -->
+                                <div id="companyFields" class="d-none">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerCompanyName" class="form-label">Company Name</label>
+                                            <input type="text" class="form-control" id="registerCompanyName" name="company_name">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerCompanyAddress" class="form-label">Company Address</label>
+                                            <input type="text" class="form-control" id="registerCompanyAddress" name="company_address">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="users.js" type="module"></script>
+    <script src="js/payment.js" type="module"></script>
+    <script src="js/tracker.js" type="module"></script>
+</body>
+</html> 

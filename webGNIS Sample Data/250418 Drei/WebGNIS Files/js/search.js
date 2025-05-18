@@ -1,7 +1,18 @@
 // search.js - Search functionality for the WebGNIS application
 import { logError, showError, debounce } from './utils.js';
 import { updateMapMarkers } from './map.js';
-import { updateTable } from './stations.js';
+import { updateTable, updateSearchResults } from './stations.js';
+
+// Global variables to work with pagination
+let allFilteredStations = [];
+
+// Reset pagination when search changes
+function resetPagination() {
+    // This function assumes there's a currentPage variable in stations.js
+    if (window.currentPage !== undefined) {
+        window.currentPage = 1;
+    }
+}
 
 // Setup search functionality
 function setupSearchListener() {
@@ -30,20 +41,27 @@ function setupSearchListener() {
                 }
             }
 
-            if (currentStations.length === 0) {
+            if (currentStations.length === 0 && window.allStations && window.allStations.length > 0) {
+                // If no stations in table but we have cached stations, use those
+                allFilteredStations = [...window.allStations];
+            } else if (currentStations.length === 0) {
                 console.log('No stations in table to search through');
                 return;
+            } else {
+                // Use the current stations in the table
+                allFilteredStations = currentStations;
             }
 
             // If search is empty, show all current stations
             if (searchTerm === '') {
-                updateTable(currentStations);
-                updateMapMarkers(currentStations);
+                resetPagination();
+                updateSearchResults(allFilteredStations);
+                updateMapMarkers(allFilteredStations);
                 return;
             }
 
             // Filter current stations based on search term
-            const filteredStations = currentStations.filter(station => {
+            const filteredStations = allFilteredStations.filter(station => {
                 const stationName = (station.station_name || '').toLowerCase();
                 // Remove special characters and spaces for comparison
                 const normalizedStationName = stationName.replace(/[\s-_()]/g, '');
@@ -53,19 +71,10 @@ function setupSearchListener() {
 
             console.log(`Found ${filteredStations.length} matches for "${searchTerm}"`);
 
-            // Update only the table rows visibility instead of recreating them
-            for (let row of tableRows) {
-                const stationName = row.cells[0].textContent.toLowerCase();
-                const normalizedStationName = stationName.replace(/[\s-_()]/g, '');
-                const normalizedSearchTerm = searchTerm.replace(/[\s-_()]/g, '');
-                
-                if (normalizedStationName.includes(normalizedSearchTerm)) {
-                    row.style.display = ''; // Show matching rows
-                } else {
-                    row.style.display = 'none'; // Hide non-matching rows
-                }
-            }
-
+            // Reset pagination and update the table with filtered results
+            resetPagination();
+            updateSearchResults(filteredStations);
+            
             // Update map with filtered stations
             updateMapMarkers(filteredStations);
         }, 300));
@@ -92,6 +101,9 @@ function setupRadiusSearch() {
                 const response = await fetch(`api.php?path=/api/stations/radius?lat=${pinLat.value}&lng=${pinLng.value}&radius=${searchRadius.value}`);
                 if (!response.ok) throw new Error('Radius search failed');
                 const data = await response.json();
+                
+                // Reset pagination for new search
+                resetPagination();
                 updateSearchResults(data);
             } catch (error) {
                 showError('Failed to search by radius: ' + error.message);
@@ -118,5 +130,6 @@ function initializeSearch() {
 export {
     setupSearchListener,
     setupRadiusSearch,
-    initializeSearch
+    initializeSearch,
+    resetPagination
 }; 

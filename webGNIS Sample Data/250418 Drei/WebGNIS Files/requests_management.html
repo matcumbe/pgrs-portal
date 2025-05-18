@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests Management | GNIS</title>
+    <link rel="icon" href="Assets/gnis_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tracker-content {
+            padding: 20px;
+        }
+        .filter-panel {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .panel-title {
+            color: white;
+            background-color: #198754;
+            padding: 10px 15px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 0;
+        }
+        .panel-content {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        .request-summary-row {
+            transition: background-color 0.2s;
+        }
+        .request-summary-row:hover {
+            background-color: #f5f5f5;
+        }
+        .request-summary-row.expanded {
+            background-color: #e9f7fe !important;
+            border-bottom: none !important;
+        }
+        .request-details-row {
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .action-btn {
+            margin-right: 5px;
+        }
+        .expand-icon {
+            font-size: 14px;
+            margin-right: 8px;
+            transition: transform 0.3s;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .preview-modal .modal-header {
+            background-color: #f8f9fa;
+        }
+        .card {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="Assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
+                    <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
+                </div>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mx-auto">
+                    <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.html"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="tracker.html"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link admin-only" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link active admin-only" href="requests_management.html"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link admin-only" href="#"><i class="fas fa-users"></i> Users Management</a>
+                    <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-3">
+        <!-- Access Denied Message -->
+        <div id="accessDenied" class="alert alert-danger text-center">
+            <h4 class="alert-heading">Access Denied</h4>
+            <p>You do not have permission to access this page. Only administrators can access the requests management interface.</p>
+            <hr>
+            <p class="mb-0">Please contact your system administrator if you believe this is an error.</p>
+        </div>
+
+        <!-- Admin Interface -->
+        <div id="adminInterface" class="hidden">
+            <div class="row">
+                <!-- Filter Panel -->
+                <div class="col-md-3">
+                    <div class="card mb-3">
+                        <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                            <h5 class="mb-0" style="color: white;">Filter/Search Panel</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Filter by Status:</h6>
+                            <div id="statusFilterContainer" class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterAll" value="all" checked>
+                                    <label class="form-check-label" for="filterAll">All</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterNotPaid" value="not_paid">
+                                    <label class="form-check-label" for="filterNotPaid">Not Paid</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterPaid" value="paid">
+                                    <label class="form-check-label" for="filterPaid">Paid</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterPending" value="pending">
+                                    <label class="form-check-label" for="filterPending">Pending</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterApproved" value="approved">
+                                    <label class="form-check-label" for="filterApproved">Approved</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterNotApproved" value="not_approved">
+                                    <label class="form-check-label" for="filterNotApproved">Not Approved</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statusFilter" id="filterExpired" value="expired">
+                                    <label class="form-check-label" for="filterExpired">Expired</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requests Table -->
+                <div class="col-md-9 ps-0">
+                    <div class="card">
+                        <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                            <h5 class="mb-0" style="color: white;">Requests Table</h5>
+                        </div>
+                        <div class="card-body p-0 mh-100">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="requestsTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Transaction ID</th>
+                                            <th>Date of Request</th>
+                                            <th>Status</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Will be populated by requests_management.js -->
+                                        <tr>
+                                            <td>Teresita Dimaguiba</td>
+                                            <td>CSUMGB-20250510-1-001</td>
+                                            <td>May 10, 2025</td>
+                                            <td><span class="badge bg-danger">Not Paid</span></td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-info action-btn" data-bs-toggle="modal" data-bs-target="#previewModal">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success action-btn btn-disabled">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger action-btn btn-disabled">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-secondary action-btn btn-disabled">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Juan Dela Cruz</td>
+                                            <td>CSUMGB-20250509-2-002</td>
+                                            <td>May 9, 2025</td>
+                                            <td><span class="badge bg-warning text-dark">Paid</span></td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-info action-btn" data-bs-toggle="modal" data-bs-target="#previewModal">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-success action-btn btn-disabled">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger action-btn btn-disabled">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-secondary action-btn btn-disabled">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="loadingMessage" class="text-center my-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Loading requests...</p>
+                            </div>
+                            <div id="noRequestsMessage" class="text-center my-4" style="display: none;">
+                                <p>No requests found.</p>
+                            </div>
+                            
+                            <!-- Pagination Controls -->
+                            <nav aria-label="Requests pagination" class="mt-2 mb-2 d-flex justify-content-center">
+                                <ul class="pagination mt-0" id="paginationControls">
+                                    <!-- Will be populated by requests_management.js -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div class="modal fade preview-modal" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content rounded-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Request Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h6>Request Information</h6>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Transaction ID:</div>
+                            <div class="col-md-8" id="modalTransactionId">CSUMGB-20250510-1-001</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Requester Name:</div>
+                            <div class="col-md-8" id="modalRequesterName">Teresita Dimaguiba</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Date Requested:</div>
+                            <div class="col-md-8" id="modalRequestDate">May 10, 2025</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Status:</div>
+                            <div class="col-md-8" id="modalStatus"><span class="badge bg-danger">Not Paid</span></div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mb-3">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Station ID</th>
+                                    <th>Station Name</th>
+                                    <th>Station Type</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalRequestItems">
+                                <!-- Will be populated by JS -->
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td colspan="2">Total</td>
+                                    <td id="modalItemsCount">2</td>
+                                    <td id="modalTotalAmount">₱600.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>Payment Details</h6>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Payment Amount:</div>
+                            <div class="col-md-8" id="modalPaymentAmount">₱600.00</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Payment Method:</div>
+                            <div class="col-md-8" id="modalPaymentMethod">Bank Transfer</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4 fw-bold">Reference Number:</div>
+                            <div class="col-md-8" id="modalReferenceNumber">REF123456789</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>Payment Proof</h6>
+                        <div id="paymentProofContainer" class="border p-2 text-center">
+                            <img id="paymentProofImage" src="Assets/sample_payment.jpg" class="img-fluid" style="max-height: 400px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger btn-disabled">Disapprove</button>
+                    <button type="button" class="btn btn-success btn-disabled">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="users.js" type="module"></script>
+    <script src="js/requests_management.js" type="module"></script>
+</body>
+</html> 

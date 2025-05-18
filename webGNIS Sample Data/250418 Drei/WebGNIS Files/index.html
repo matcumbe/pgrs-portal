@@ -41,9 +41,9 @@
                 <div class="navbar-nav mx-auto">
                     <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
                     <a class="nav-link active" href="index.html"><i class="fas fa-search"></i> Explorer</a>
-                    <a class="nav-link" href="#"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link" href="tracker.html"><i class="fas fa-map-marker"></i> Tracker</a>
                     <a class="nav-link admin-only d-none" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
-                    <a class="nav-link admin-only d-none" href="#"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link admin-only d-none" href="requests_management.html"><i class="fas fa-tasks"></i> Requests Management</a>
                     <a class="nav-link admin-only d-none" href="#"><i class="fas fa-users"></i> Users Management</a>
                     <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
                 </div>
@@ -167,7 +167,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body" style="padding: 0;">
+                            <div class="card-body p-0 mh-100" style="padding: 0;">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -193,6 +193,12 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <!-- Pagination Controls -->
+                                <nav aria-label="Search results pagination" class="mb-2 mt-2 d-flex justify-content-center">
+                                    <ul class="pagination mt-0" id="stationsPagination">
+                                        <!-- Will be populated by JavaScript -->
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -380,6 +386,7 @@
     <script src="js/map.js" type="module"></script>
     <script src="js/stations.js" type="module"></script>
     <script src="js/search.js" type="module"></script>
+    <script src="js/payment.js" type="module"></script>
     <script src="script.js" type="module"></script>
     <script type="module">
         import { updateNavigation } from './js/users/auth.js';

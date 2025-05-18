@@ -55,19 +55,19 @@ CREATE TABLE request_statuses (
 -- Table for requests
 CREATE TABLE requests (
     request_id INT AUTO_INCREMENT PRIMARY KEY,
-    reference_number VARCHAR(50) NOT NULL UNIQUE,
     user_id INT NOT NULL,
     request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status_id INT NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     remarks TEXT NULL,
-    expiry_date TIMESTAMP NULL, -- For tracking when a request expires (15 days after creation)
+    exp_date TIMESTAMP NULL, -- For tracking when a request expires (15 days after creation)
+    transaction_code VARCHAR(50) NULL, -- For tracking the transaction code
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (status_id) REFERENCES request_statuses(status_id),
     INDEX (user_id),
     INDEX (status_id),
     INDEX (request_date),
-    INDEX (expiry_date)
+    INDEX (exp_date)
 );
 
 -- Table for request items (stations requested)
@@ -75,6 +75,7 @@ CREATE TABLE request_items (
     item_id INT AUTO_INCREMENT PRIMARY KEY,
     request_id INT NOT NULL,
     station_id VARCHAR(50) NOT NULL,
+    station_name VARCHAR(100) NULL, -- Store station name for display
     station_type ENUM('horizontal', 'vertical', 'gravity') NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
@@ -84,28 +85,36 @@ CREATE TABLE request_items (
 -- Table for payment transactions
 CREATE TABLE transactions (
     transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_code VARCHAR(50) NOT NULL UNIQUE, -- Format: CSUMGB-YYYYMMDD-<userid>-001
     request_id INT NOT NULL,
+    user_id INT NOT NULL,
+    status_id INT NOT NULL,
     payment_method_id INT NOT NULL,
-    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    amount DECIMAL(10, 2) NOT NULL,
+    payment_amount DECIMAL(10, 2) NOT NULL,
+    paid_amount DECIMAL(10, 2) NOT NULL,
     payment_reference VARCHAR(100) NULL, -- For receipt numbers, transaction IDs, etc.
     payment_proof_file VARCHAR(255) NULL, -- Path to uploaded proof of payment
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of payment or transaction date
     verified BOOLEAN DEFAULT FALSE,
     verified_by INT NULL, -- Admin user ID who verified the payment
     verified_date TIMESTAMP NULL,
     remarks TEXT NULL,
     FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (status_id) REFERENCES request_statuses(status_id),
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods(payment_method_id),
     FOREIGN KEY (verified_by) REFERENCES users(user_id),
     INDEX (request_id),
-    INDEX (transaction_date)
+    INDEX (user_id),
+    INDEX (status_id),
+    INDEX (payment_date)
 );
 
 -- Insert initial payment methods
 INSERT INTO payment_methods (method_name, display_order) VALUES
-('Cash Deposit', 1),
-('Link Biz', 2),
-('Bank Transfer', 3);
+('Link Biz', 1),
+('Bank Transfer', 2),
+('Cash Deposit', 3);
 
 -- Insert initial request statuses
 INSERT INTO request_statuses (status_name, description, color_code) VALUES

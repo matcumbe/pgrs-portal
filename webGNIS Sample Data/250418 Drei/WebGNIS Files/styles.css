@@ -778,3 +778,31 @@ body {
     background-color: var(--primary-color) !important;
     border-color: var(--primary-dark) !important;
 }
+
+/* Upload box for payment proof */
+.upload-box {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 5px;
+}
+
+.upload-box:hover {
+    border-color: #007bff;
+    background-color: #f8f9ff;
+}
+
+.upload-box .upload-icon {
+    margin-bottom: 10px;
+    color: #6c757d;
+}
+
+.upload-box:hover .upload-icon {
+    color: #007bff;
+}
+
+.payment-modal .modal-header {
+    background-color: #f8f9fa;
+}
