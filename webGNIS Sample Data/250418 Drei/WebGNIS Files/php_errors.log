@@ -25663,3 +25663,1614 @@
                 ORDER BY t.payment_date DESC
                 LIMIT :offset, :per_page
 [19-May-2025 04:16:54 Asia/Manila] [2025-05-19 04:16:54] Found 1 transactions
+[21-May-2025 10:11:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:11:33 Europe/Berlin] Token expired: expiry = 2025-05-19 21:11:19, current = 2025-05-21 10:11:33
+[21-May-2025 10:11:33 Europe/Berlin] Authentication failed: Token expired
+[21-May-2025 16:11:33 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 10:11:41 Europe/Berlin] No authentication token provided in request
+[21-May-2025 16:11:41 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 16:11:43 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 10:11:43 Europe/Berlin] No authentication token provided in request
+[21-May-2025 16:11:52 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:11:52 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:11:52 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:11:52 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:11:52 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:11:52 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:11:52 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:11:52 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 16:11:53 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:11:53 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:11:53 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:11:53 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:11:53 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:11:53 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:11:53 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:11:53 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 16:11:53 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:11:53 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:11:53 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:11:53 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:11:53 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:11:53 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:11:53 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:11:53 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 16:11:54 Asia/Manila] [2025-05-21 16:11:54] Fetching request ID: 48 from action: view/48
+[21-May-2025 16:11:54 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:11:54 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:11:54 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:11:54 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching stations for type: vertical
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:08 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:08 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:08 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:09 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:09 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:09 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:09 Asia/Manila] [2025-05-21 16:12:09] getAllPayments called by user_id: 1
+[21-May-2025 16:12:09 Asia/Manila] [2025-05-21 16:12:09] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[21-May-2025 16:12:09 Asia/Manila] [2025-05-21 16:12:09] Found 1 transactions
+[21-May-2025 16:12:11 Asia/Manila] [2025-05-21 16:12:11] Fetching transaction ID: 20 from action: view
+[21-May-2025 16:12:11 Asia/Manila] [2025-05-21 16:12:11] getTransactionById called with ID: 20
+[21-May-2025 16:12:11 Asia/Manila] [2025-05-21 16:12:11] User verified: user_id=1, user_type=admin
+[21-May-2025 16:12:11 Asia/Manila] [2025-05-21 16:12:11] Executing query for transaction_id: 20
+[21-May-2025 16:12:11 Asia/Manila] [2025-05-21 16:12:11] Found transaction: 20, request_id: 48, user_id: 1
+[21-May-2025 16:12:11 Asia/Manila] [2025-05-21 16:12:11] Fetching request ID: 48 from action: view
+[21-May-2025 16:12:11 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:12:11 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:12:11 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:12:11 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:12:17 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 10:12:17 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:17 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:18 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:18 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:18 Europe/Berlin] Starting cart sync for user_id: 1
+[21-May-2025 10:12:18 Europe/Berlin] Syncing from guest session: guest_1747593774313_7jwrnnjzhlc to user: 1
+[21-May-2025 10:12:18 Europe/Berlin] No guest cart found for session_id: guest_1747593774313_7jwrnnjzhlc
+[21-May-2025 10:12:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:18 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching stations for type: vertical
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:19 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:19 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:19 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:19 Asia/Manila] [2025-05-21 16:12:19] getAllPayments called by user_id: 1
+[21-May-2025 16:12:19 Asia/Manila] [2025-05-21 16:12:19] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[21-May-2025 16:12:19 Asia/Manila] [2025-05-21 16:12:19] Found 1 transactions
+[21-May-2025 16:12:21 Asia/Manila] [2025-05-21 16:12:21] getAllPayments called by user_id: 1
+[21-May-2025 16:12:21 Asia/Manila] [2025-05-21 16:12:21] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[21-May-2025 16:12:21 Asia/Manila] [2025-05-21 16:12:21] Found 1 transactions
+[21-May-2025 16:12:21 Asia/Manila] [2025-05-21 16:12:21] getAllPayments called by user_id: 1
+[21-May-2025 16:12:21 Asia/Manila] [2025-05-21 16:12:21] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[21-May-2025 16:12:21 Asia/Manila] [2025-05-21 16:12:21] Found 1 transactions
+[21-May-2025 16:12:22 Asia/Manila] [2025-05-21 16:12:22] getAllPayments called by user_id: 1
+[21-May-2025 16:12:22 Asia/Manila] [2025-05-21 16:12:22] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[21-May-2025 16:12:22 Asia/Manila] [2025-05-21 16:12:22] Found 1 transactions
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching stations for type: vertical
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:23 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:23 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:12:23 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:12:23 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:12:23 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:12:23 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:12:23 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:12:23 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:12:23 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 16:12:23 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:12:23 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:12:23 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:12:23 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:12:23 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:12:23 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:12:23 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:12:23 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 10:12:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:31 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 16:12:31 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 10:12:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:31 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:32 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:32 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:32 Europe/Berlin] Starting cart sync for user_id: 1
+[21-May-2025 10:12:32 Europe/Berlin] Syncing from guest session: guest_1747593774313_7jwrnnjzhlc to user: 1
+[21-May-2025 10:12:32 Europe/Berlin] No guest cart found for session_id: guest_1747593774313_7jwrnnjzhlc
+[21-May-2025 10:12:32 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:32 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 16:12:33 Asia/Manila] [2025-05-21 16:12:33] getAllPayments called by user_id: 1
+[21-May-2025 16:12:33 Asia/Manila] [2025-05-21 16:12:33] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[21-May-2025 16:12:33 Asia/Manila] [2025-05-21 16:12:33] Found 1 transactions
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching stations for type: vertical
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching regions
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching provinces for region: 
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching cities for province: 
+[21-May-2025 16:12:43 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[21-May-2025 16:12:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[21-May-2025 16:12:43 Asia/Manila] Admin: Fetching barangays for city: 
+[21-May-2025 16:12:43 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:12:43 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:12:43 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:12:43 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:12:43 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:12:43 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:12:43 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:12:43 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 16:12:43 Asia/Manila] getUserRequests called with userId: 1
+[21-May-2025 16:12:43 Asia/Manila] verifyToken called with requiredRole: null
+[21-May-2025 16:12:43 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[21-May-2025 16:12:43 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[21-May-2025 16:12:43 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[21-May-2025 16:12:43 Asia/Manila] Token user_id: 1, type: integer
+[21-May-2025 16:12:43 Asia/Manila] Requested user_id: 1, type: integer
+[21-May-2025 16:12:43 Asia/Manila] Found 1 requests for user 1
+[21-May-2025 10:12:44 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:44 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 16:12:44 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 10:12:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:45 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:45 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 10:12:45 Europe/Berlin] Starting cart sync for user_id: 1
+[21-May-2025 10:12:45 Europe/Berlin] Syncing from guest session: guest_1747593774313_7jwrnnjzhlc to user: 1
+[21-May-2025 10:12:45 Europe/Berlin] No guest cart found for session_id: guest_1747593774313_7jwrnnjzhlc
+[21-May-2025 10:12:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[21-May-2025 10:12:45 Europe/Berlin] Token belongs to user_id: 1
+[21-May-2025 16:12:47 Asia/Manila] API Request: /api/stations/horizontal
+[21-May-2025 16:12:51 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 16:12:52 Asia/Manila] API Request: /api/stations/horizontal
+[21-May-2025 11:26:20 Europe/Berlin] No authentication token provided in request
+[21-May-2025 17:26:20 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 11:31:31 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 787
+    [station_type] => vertical
+    [station_name] => MMA-4239
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[21-May-2025 11:31:31 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:31:31 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:31:31 Europe/Berlin] Creating new guest cart for session: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:31:31 Europe/Berlin] Created new guest cart ID: 5
+[21-May-2025 11:31:44 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 902
+    [station_type] => vertical
+    [station_name] => MM-747 (MBM-2)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[21-May-2025 11:31:44 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:31:44 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:31:44 Europe/Berlin] Found existing guest cart ID: 5
+[21-May-2025 11:36:56 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:39:47 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:40:24 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:42:41 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:45:36 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:46:55 Europe/Berlin] No authentication token provided in request
+[21-May-2025 17:46:55 Asia/Manila] API Request: /api/stations/vertical
+[21-May-2025 11:47:04 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:04 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:26 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1201
+    [station_type] => vertical
+    [station_name] => MM-787 (QUCI-13A)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[21-May-2025 11:47:26 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:26 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:47:26 Europe/Berlin] Found existing guest cart ID: 5
+[21-May-2025 11:47:28 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 140
+    [station_type] => vertical
+    [station_name] => MM-787 (QUCI-13A)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[21-May-2025 11:47:28 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:28 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:47:28 Europe/Berlin] Found existing guest cart ID: 5
+[21-May-2025 11:47:36 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:37 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:38 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1201
+    [station_type] => vertical
+    [station_name] => MM-787 (QUCI-13A)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[21-May-2025 11:47:38 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:38 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:47:38 Europe/Berlin] Found existing guest cart ID: 5
+[21-May-2025 11:47:39 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 140
+    [station_type] => vertical
+    [station_name] => MM-787 (QUCI-13A)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[21-May-2025 11:47:39 Europe/Berlin] No authentication token provided in request
+[21-May-2025 11:47:39 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1747815353369_yjne75n0yec
+[21-May-2025 11:47:39 Europe/Berlin] Found existing guest cart ID: 5
+[27-May-2025 03:56:27 Europe/Berlin] No authentication token provided in request
+[27-May-2025 09:56:27 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 03:57:24 Europe/Berlin] No authentication token provided in request
+[27-May-2025 09:57:24 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:02:06 Europe/Berlin] No authentication token provided in request
+[27-May-2025 10:02:06 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:04:20 Europe/Berlin] No authentication token provided in request
+[27-May-2025 10:04:20 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:04:28 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:28 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:28 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:28 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 10:04:28 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:04:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:29 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:29 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:29 Europe/Berlin] Starting cart sync for user_id: 1
+[27-May-2025 04:04:29 Europe/Berlin] Syncing from guest session: guest_1748311044798_3mww40304pc to user: 1
+[27-May-2025 04:04:29 Europe/Berlin] No guest cart found for session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:04:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:29 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 10:04:33 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:04:33 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:04:33 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:04:33 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:04:33 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:04:33 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:04:33 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:04:33 Asia/Manila] Found 1 requests for user 1
+[27-May-2025 10:04:33 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:04:33 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:04:33 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:04:33 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:04:33 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:04:33 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:04:33 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:04:33 Asia/Manila] Found 1 requests for user 1
+[27-May-2025 10:04:34 Asia/Manila] [2025-05-27 10:04:34] getAllPayments called by user_id: 1
+[27-May-2025 10:04:34 Asia/Manila] [2025-05-27 10:04:34] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:04:34 Asia/Manila] [2025-05-27 10:04:34] Found 1 transactions
+[27-May-2025 10:04:36 Asia/Manila] [2025-05-27 10:04:36] getAllPayments called by user_id: 1
+[27-May-2025 10:04:36 Asia/Manila] [2025-05-27 10:04:36] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:04:36 Asia/Manila] [2025-05-27 10:04:36] Found 1 transactions
+[27-May-2025 10:04:36 Asia/Manila] [2025-05-27 10:04:36] getAllPayments called by user_id: 1
+[27-May-2025 10:04:36 Asia/Manila] [2025-05-27 10:04:36] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:04:36 Asia/Manila] [2025-05-27 10:04:36] Found 1 transactions
+[27-May-2025 10:04:37 Asia/Manila] [2025-05-27 10:04:37] getAllPayments called by user_id: 1
+[27-May-2025 10:04:37 Asia/Manila] [2025-05-27 10:04:37] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:04:37 Asia/Manila] [2025-05-27 10:04:37] Found 1 transactions
+[27-May-2025 04:04:38 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:38 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 10:04:38 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:04:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:39 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:39 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:39 Europe/Berlin] Starting cart sync for user_id: 1
+[27-May-2025 04:04:39 Europe/Berlin] Syncing from guest session: guest_1748311044798_3mww40304pc to user: 1
+[27-May-2025 04:04:39 Europe/Berlin] No guest cart found for session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:04:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:39 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:41 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => guest_1748311044798_3mww40304pc
+)
+
+[27-May-2025 04:04:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:41 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:41 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:04:41 Europe/Berlin] Found existing user cart ID: 2
+[27-May-2025 04:04:42 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => guest_1748311044798_3mww40304pc
+)
+
+[27-May-2025 04:04:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:42 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:42 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:04:42 Europe/Berlin] Found existing user cart ID: 2
+[27-May-2025 04:04:42 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 3
+    [station_type] => vertical
+    [station_name] => MM-603 (MMA-3857)
+    [session_id] => guest_1748311044798_3mww40304pc
+)
+
+[27-May-2025 04:04:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:04:42 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:04:42 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:04:42 Europe/Berlin] Found existing user cart ID: 2
+[27-May-2025 10:05:12 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:12 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:12 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:12 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:05:12 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[27-May-2025 10:05:12 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748311467,
+   'exp' => 1748397867,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[27-May-2025 10:05:12 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1
+                    [station_name] => MMA-4269 (GM-3HA)
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 2
+                    [station_name] => MM-604
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 3
+                    [station_name] => MM-603 (MMA-3857)
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[27-May-2025 10:05:12 Asia/Manila] Generated transaction code: CSUMGB-20250527-1-001 for user_id: 1
+[27-May-2025 10:05:12 Asia/Manila] Inserted request with ID: 49, user_id: 1, transaction_code: CSUMGB-20250527-1-001
+[27-May-2025 10:05:12 Asia/Manila] Verification of request record - user_id: 1, transaction_code: CSUMGB-20250527-1-001
+[27-May-2025 10:05:12 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 1
+    [station_name] => MMA-4269 (GM-3HA)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:05:12 Asia/Manila] [createRequest] DB Insert Values: ID='1', Name='MMA-4269 (GM-3HA)', Type='vertical', Price='300'
+[27-May-2025 10:05:12 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 2
+    [station_name] => MM-604
+    [station_type] => vertical
+)
+
+[27-May-2025 10:05:12 Asia/Manila] [createRequest] DB Insert Values: ID='2', Name='MM-604', Type='vertical', Price='300'
+[27-May-2025 10:05:12 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 3
+    [station_name] => MM-603 (MMA-3857)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:05:12 Asia/Manila] [createRequest] DB Insert Values: ID='3', Name='MM-603 (MMA-3857)', Type='vertical', Price='300'
+[27-May-2025 10:05:12 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[27-May-2025 10:05:12 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 3
+[27-May-2025 10:05:12 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 49
+    [paid_amount] => 900.00
+    [payment_method] => 1
+    [reference_number] => Sample reference
+)
+
+[27-May-2025 10:05:12 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Fil40_Portfolio-Page-2.jpg
+            [full_path] => Fil40_Portfolio-Page-2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpEF75.tmp
+            [error] => 0
+            [size] => 67749
+        )
+
+)
+
+[27-May-2025 10:05:19 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:05:19 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:19 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:19 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:19 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:05:19 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:05:19 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:05:19 Asia/Manila] Found 2 requests for user 1
+[27-May-2025 10:05:19 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:05:19 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:19 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:19 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:19 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:05:19 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:05:19 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:05:19 Asia/Manila] Found 2 requests for user 1
+[27-May-2025 04:05:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:34 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 10:05:34 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:05:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:35 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:05:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:35 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:05:35 Europe/Berlin] Starting cart sync for user_id: 1
+[27-May-2025 04:05:35 Europe/Berlin] Syncing from guest session: guest_1748311044798_3mww40304pc to user: 1
+[27-May-2025 04:05:35 Europe/Berlin] No guest cart found for session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:05:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:35 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:05:36 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => guest_1748311044798_3mww40304pc
+)
+
+[27-May-2025 04:05:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:36 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:05:36 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:05:36 Europe/Berlin] Found existing user cart ID: 2
+[27-May-2025 04:05:37 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => guest_1748311044798_3mww40304pc
+)
+
+[27-May-2025 04:05:37 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:37 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:05:37 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:05:37 Europe/Berlin] Found existing user cart ID: 2
+[27-May-2025 04:05:38 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 3
+    [station_type] => vertical
+    [station_name] => MM-603 (MMA-3857)
+    [session_id] => guest_1748311044798_3mww40304pc
+)
+
+[27-May-2025 04:05:38 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:05:38 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:05:38 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:05:38 Europe/Berlin] Found existing user cart ID: 2
+[27-May-2025 10:05:41 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:41 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:41 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:41 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:05:41 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[27-May-2025 10:05:41 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748311467,
+   'exp' => 1748397867,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[27-May-2025 10:05:41 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1
+                    [station_name] => MMA-4269 (GM-3HA)
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 2
+                    [station_name] => MM-604
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 3
+                    [station_name] => MM-603 (MMA-3857)
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[27-May-2025 10:05:41 Asia/Manila] Generated transaction code: CSUMGB-20250527-1-002 for user_id: 1
+[27-May-2025 10:05:41 Asia/Manila] Inserted request with ID: 50, user_id: 1, transaction_code: CSUMGB-20250527-1-002
+[27-May-2025 10:05:41 Asia/Manila] Verification of request record - user_id: 1, transaction_code: CSUMGB-20250527-1-002
+[27-May-2025 10:05:41 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 1
+    [station_name] => MMA-4269 (GM-3HA)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:05:41 Asia/Manila] [createRequest] DB Insert Values: ID='1', Name='MMA-4269 (GM-3HA)', Type='vertical', Price='300'
+[27-May-2025 10:05:41 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 2
+    [station_name] => MM-604
+    [station_type] => vertical
+)
+
+[27-May-2025 10:05:41 Asia/Manila] [createRequest] DB Insert Values: ID='2', Name='MM-604', Type='vertical', Price='300'
+[27-May-2025 10:05:41 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 3
+    [station_name] => MM-603 (MMA-3857)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:05:41 Asia/Manila] [createRequest] DB Insert Values: ID='3', Name='MM-603 (MMA-3857)', Type='vertical', Price='300'
+[27-May-2025 10:05:41 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[27-May-2025 10:05:41 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 3
+[27-May-2025 10:05:50 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:05:50 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:50 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:50 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:50 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:05:50 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:05:50 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:05:50 Asia/Manila] Found 3 requests for user 1
+[27-May-2025 10:05:50 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:05:50 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:50 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:50 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:50 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:05:50 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:05:50 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:05:50 Asia/Manila] Found 3 requests for user 1
+[27-May-2025 10:05:57 Asia/Manila] [2025-05-27 10:05:57] Fetching request ID: 50 from action: view/50
+[27-May-2025 10:05:57 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:05:57 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:05:57 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:05:57 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:06:05 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 50
+    [paid_amount] => 900.00
+    [payment_method] => linkbiz
+    [reference_number] => Sample reference
+)
+
+[27-May-2025 10:06:05 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Fil40_Portfolio-Page-2.jpg
+            [full_path] => Fil40_Portfolio-Page-2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpBB61.tmp
+            [error] => 0
+            [size] => 67749
+        )
+
+)
+
+[27-May-2025 10:06:05 Asia/Manila] Using fallback payment method ID: 1 for method: linkbiz
+[27-May-2025 10:06:06 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:06:06 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:06:06 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:06:06 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:06:06 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:06:06 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:06:06 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:06:06 Asia/Manila] Found 3 requests for user 1
+[27-May-2025 10:06:10 Asia/Manila] [2025-05-27 10:06:10] getAllPayments called by user_id: 1
+[27-May-2025 10:06:10 Asia/Manila] [2025-05-27 10:06:10] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:06:10 Asia/Manila] [2025-05-27 10:06:10] Found 3 transactions
+[27-May-2025 10:06:16 Asia/Manila] [2025-05-27 10:06:16] Fetching transaction ID: 21 from action: view
+[27-May-2025 10:06:16 Asia/Manila] [2025-05-27 10:06:16] getTransactionById called with ID: 21
+[27-May-2025 10:06:16 Asia/Manila] [2025-05-27 10:06:16] User verified: user_id=1, user_type=admin
+[27-May-2025 10:06:16 Asia/Manila] [2025-05-27 10:06:16] Executing query for transaction_id: 21
+[27-May-2025 10:06:16 Asia/Manila] [2025-05-27 10:06:16] Found transaction: 21, request_id: 49, user_id: 1
+[27-May-2025 10:06:16 Asia/Manila] [2025-05-27 10:06:16] Fetching request ID: 49 from action: view
+[27-May-2025 10:06:16 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:06:16 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:06:16 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:06:16 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:06:50 Asia/Manila] [2025-05-27 10:06:50] Updating transaction ID: 21 with data: Array
+(
+    [status] => not approved
+    [verified] => 0
+    [verified_by] => 1
+    [verified_date] => 2025-05-27 02:06:50
+    [remarks] => Incorrect payment amount
+)
+
+[27-May-2025 10:06:50 Asia/Manila] [2025-05-27 10:06:50] getAllPayments called by user_id: 1
+[27-May-2025 10:06:50 Asia/Manila] [2025-05-27 10:06:50] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:06:50 Asia/Manila] [2025-05-27 10:06:50] Found 3 transactions
+[27-May-2025 10:06:57 Asia/Manila] [2025-05-27 10:06:57] Fetching transaction ID: 22 from action: view
+[27-May-2025 10:06:57 Asia/Manila] [2025-05-27 10:06:57] getTransactionById called with ID: 22
+[27-May-2025 10:06:57 Asia/Manila] [2025-05-27 10:06:57] User verified: user_id=1, user_type=admin
+[27-May-2025 10:06:57 Asia/Manila] [2025-05-27 10:06:57] Executing query for transaction_id: 22
+[27-May-2025 10:06:57 Asia/Manila] [2025-05-27 10:06:57] Found transaction: 22, request_id: 50, user_id: 1
+[27-May-2025 10:06:57 Asia/Manila] [2025-05-27 10:06:57] Fetching request ID: 50 from action: view
+[27-May-2025 10:06:57 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:06:57 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:06:57 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:06:57 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:07:02 Asia/Manila] [2025-05-27 10:07:02] Updating transaction ID: 22 with data: Array
+(
+    [status] => approved
+    [verified] => 1
+    [verified_by] => 1
+    [verified_date] => 2025-05-27 02:07:02
+)
+
+[27-May-2025 10:07:03 Asia/Manila] [2025-05-27 10:07:03] getAllPayments called by user_id: 1
+[27-May-2025 10:07:03 Asia/Manila] [2025-05-27 10:07:03] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:07:03 Asia/Manila] [2025-05-27 10:07:03] Found 3 transactions
+[27-May-2025 10:07:08 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:07:08 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:07:08 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:07:08 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:07:08 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:07:08 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:07:08 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:07:08 Asia/Manila] Found 3 requests for user 1
+[27-May-2025 10:07:08 Asia/Manila] getUserRequests called with userId: 1
+[27-May-2025 10:07:08 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:07:08 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:07:08 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:07:08 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:07:08 Asia/Manila] Token user_id: 1, type: integer
+[27-May-2025 10:07:08 Asia/Manila] Requested user_id: 1, type: integer
+[27-May-2025 10:07:08 Asia/Manila] Found 3 requests for user 1
+[27-May-2025 10:07:18 Asia/Manila] [2025-05-27 10:07:18] Fetching request ID: 50 from action: view/50
+[27-May-2025 10:07:18 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:07:18 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:07:18 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:07:18 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:07:20 Asia/Manila] [2025-05-27 10:07:20] Fetching request ID: 49 from action: view/49
+[27-May-2025 10:07:20 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:07:20 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:07:20 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:07:20 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching regions
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching stations for type: vertical
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching provinces for region: 
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching regions
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching cities for province: 
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching provinces for region: 
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching barangays for city: 
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching cities for province: 
+[27-May-2025 10:07:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[27-May-2025 10:07:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[27-May-2025 10:07:23 Asia/Manila] Admin: Fetching barangays for city: 
+[27-May-2025 04:07:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 10:07:30 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:07:30 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:07:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:07:31 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:07:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:07:31 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:07:31 Europe/Berlin] Starting cart sync for user_id: 1
+[27-May-2025 04:07:31 Europe/Berlin] Syncing from guest session: guest_1748311044798_3mww40304pc to user: 1
+[27-May-2025 04:07:31 Europe/Berlin] No guest cart found for session_id: guest_1748311044798_3mww40304pc
+[27-May-2025 04:07:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:07:31 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:11:38 Europe/Berlin] No authentication token provided in request
+[27-May-2025 10:11:38 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:12:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:08 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:08 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 10:12:08 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:12:09 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:09 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:09 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:09 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:09 Europe/Berlin] Starting cart sync for user_id: 2
+[27-May-2025 04:12:09 Europe/Berlin] Syncing from guest session: guest_1748311896208_yubs7rl6x6 to user: 2
+[27-May-2025 04:12:09 Europe/Berlin] No guest cart found for session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:09 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:09 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:15 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => guest_1748311896208_yubs7rl6x6
+)
+
+[27-May-2025 04:12:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:15 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:15 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:15 Europe/Berlin] Found existing user cart ID: 3
+[27-May-2025 04:12:15 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => guest_1748311896208_yubs7rl6x6
+)
+
+[27-May-2025 04:12:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:15 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:15 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:15 Europe/Berlin] Found existing user cart ID: 3
+[27-May-2025 04:12:16 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 3
+    [station_type] => vertical
+    [station_name] => MM-603 (MMA-3857)
+    [session_id] => guest_1748311896208_yubs7rl6x6
+)
+
+[27-May-2025 04:12:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:16 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:16 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:16 Europe/Berlin] Found existing user cart ID: 3
+[27-May-2025 10:12:21 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:12:21 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:12:21 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:12:21 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:12:21 Asia/Manila] createRequest called with token user_id: 2 (type: integer)
+[27-May-2025 10:12:21 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748311928,
+   'exp' => 1748398328,
+   'user_id' => 2,
+   'username' => 'sample',
+   'user_type' => 'individual',
+)
+[27-May-2025 10:12:21 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1
+                    [station_name] => MMA-4269 (GM-3HA)
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 2
+                    [station_name] => MM-604
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 3
+                    [station_name] => MM-603 (MMA-3857)
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[27-May-2025 10:12:21 Asia/Manila] Generated transaction code: CSUMGB-20250527-2-001 for user_id: 2
+[27-May-2025 10:12:21 Asia/Manila] Inserted request with ID: 51, user_id: 2, transaction_code: CSUMGB-20250527-2-001
+[27-May-2025 10:12:21 Asia/Manila] Verification of request record - user_id: 2, transaction_code: CSUMGB-20250527-2-001
+[27-May-2025 10:12:21 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 1
+    [station_name] => MMA-4269 (GM-3HA)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:21 Asia/Manila] [createRequest] DB Insert Values: ID='1', Name='MMA-4269 (GM-3HA)', Type='vertical', Price='300'
+[27-May-2025 10:12:21 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 2
+    [station_name] => MM-604
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:21 Asia/Manila] [createRequest] DB Insert Values: ID='2', Name='MM-604', Type='vertical', Price='300'
+[27-May-2025 10:12:21 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 3
+    [station_name] => MM-603 (MMA-3857)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:21 Asia/Manila] [createRequest] DB Insert Values: ID='3', Name='MM-603 (MMA-3857)', Type='vertical', Price='300'
+[27-May-2025 10:12:21 Asia/Manila] Attempting to clear cart items for user_id: 2 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[27-May-2025 10:12:21 Asia/Manila] Cart items cleared for user_id: 2. Rows affected: 3
+[27-May-2025 04:12:25 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 4
+    [station_type] => vertical
+    [station_name] => MM-519 (MMA-4440)
+    [session_id] => guest_1748311896208_yubs7rl6x6
+)
+
+[27-May-2025 04:12:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:25 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:25 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:25 Europe/Berlin] Found existing user cart ID: 3
+[27-May-2025 04:12:26 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 5
+    [station_type] => vertical
+    [station_name] => MM-518
+    [session_id] => guest_1748311896208_yubs7rl6x6
+)
+
+[27-May-2025 04:12:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:26 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:26 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:26 Europe/Berlin] Found existing user cart ID: 3
+[27-May-2025 04:12:26 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 6
+    [station_type] => vertical
+    [station_name] => MM-10A
+    [session_id] => guest_1748311896208_yubs7rl6x6
+)
+
+[27-May-2025 04:12:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:12:26 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:12:26 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:12:26 Europe/Berlin] Found existing user cart ID: 3
+[27-May-2025 10:12:42 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:12:42 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:12:42 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:12:42 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:12:42 Asia/Manila] createRequest called with token user_id: 2 (type: integer)
+[27-May-2025 10:12:42 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748311928,
+   'exp' => 1748398328,
+   'user_id' => 2,
+   'username' => 'sample',
+   'user_type' => 'individual',
+)
+[27-May-2025 10:12:42 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1
+                    [station_name] => MMA-4269 (GM-3HA)
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 2
+                    [station_name] => MM-604
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 3
+                    [station_name] => MM-603 (MMA-3857)
+                    [station_type] => vertical
+                )
+
+            [3] => stdClass Object
+                (
+                    [station_id] => 4
+                    [station_name] => MM-519 (MMA-4440)
+                    [station_type] => vertical
+                )
+
+            [4] => stdClass Object
+                (
+                    [station_id] => 5
+                    [station_name] => MM-518
+                    [station_type] => vertical
+                )
+
+            [5] => stdClass Object
+                (
+                    [station_id] => 6
+                    [station_name] => MM-10A
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[27-May-2025 10:12:42 Asia/Manila] Generated transaction code: CSUMGB-20250527-2-002 for user_id: 2
+[27-May-2025 10:12:42 Asia/Manila] Inserted request with ID: 52, user_id: 2, transaction_code: CSUMGB-20250527-2-002
+[27-May-2025 10:12:42 Asia/Manila] Verification of request record - user_id: 2, transaction_code: CSUMGB-20250527-2-002
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 1
+    [station_name] => MMA-4269 (GM-3HA)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] DB Insert Values: ID='1', Name='MMA-4269 (GM-3HA)', Type='vertical', Price='300'
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 2
+    [station_name] => MM-604
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] DB Insert Values: ID='2', Name='MM-604', Type='vertical', Price='300'
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 3
+    [station_name] => MM-603 (MMA-3857)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] DB Insert Values: ID='3', Name='MM-603 (MMA-3857)', Type='vertical', Price='300'
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 4
+    [station_name] => MM-519 (MMA-4440)
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] DB Insert Values: ID='4', Name='MM-519 (MMA-4440)', Type='vertical', Price='300'
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 5
+    [station_name] => MM-518
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] DB Insert Values: ID='5', Name='MM-518', Type='vertical', Price='300'
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 6
+    [station_name] => MM-10A
+    [station_type] => vertical
+)
+
+[27-May-2025 10:12:42 Asia/Manila] [createRequest] DB Insert Values: ID='6', Name='MM-10A', Type='vertical', Price='300'
+[27-May-2025 10:12:42 Asia/Manila] Attempting to clear cart items for user_id: 2 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[27-May-2025 10:12:42 Asia/Manila] Cart items cleared for user_id: 2. Rows affected: 3
+[27-May-2025 10:12:42 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 52
+    [paid_amount] => 1800.00
+    [payment_method] => 1
+    [reference_number] => Sample reference
+)
+
+[27-May-2025 10:12:42 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Fil40_Portfolio-Page-2.jpg
+            [full_path] => Fil40_Portfolio-Page-2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpCC7B.tmp
+            [error] => 0
+            [size] => 67749
+        )
+
+)
+
+[27-May-2025 10:12:45 Asia/Manila] getUserRequests called with userId: 2
+[27-May-2025 10:12:45 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:12:45 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:12:45 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:12:45 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:12:45 Asia/Manila] Token user_id: 2, type: integer
+[27-May-2025 10:12:45 Asia/Manila] Requested user_id: 2, type: integer
+[27-May-2025 10:12:45 Asia/Manila] Found 2 requests for user 2
+[27-May-2025 10:12:45 Asia/Manila] getUserRequests called with userId: 2
+[27-May-2025 10:12:45 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:12:45 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:12:45 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:12:45 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:12:45 Asia/Manila] Token user_id: 2, type: integer
+[27-May-2025 10:12:45 Asia/Manila] Requested user_id: 2, type: integer
+[27-May-2025 10:12:45 Asia/Manila] Found 2 requests for user 2
+[27-May-2025 10:12:53 Asia/Manila] [2025-05-27 10:12:53] Fetching request ID: 52 from action: view/52
+[27-May-2025 10:12:53 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:12:53 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:12:53 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:12:53 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:12:58 Asia/Manila] [2025-05-27 10:12:58] Fetching request ID: 51 from action: view/51
+[27-May-2025 10:12:58 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:12:58 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:12:58 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:12:58 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:13:10 Asia/Manila] [2025-05-27 10:13:10] Fetching request ID: 51 from action: view/51
+[27-May-2025 10:13:10 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:13:10 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:13:10 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:13:10 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:13:16 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 51
+    [paid_amount] => 900.00
+    [payment_method] => linkbiz
+    [reference_number] => Sample reference
+)
+
+[27-May-2025 10:13:16 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Fil40_Portfolio-Page-2.jpg
+            [full_path] => Fil40_Portfolio-Page-2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php50A1.tmp
+            [error] => 0
+            [size] => 67749
+        )
+
+)
+
+[27-May-2025 10:13:16 Asia/Manila] Using fallback payment method ID: 1 for method: linkbiz
+[27-May-2025 10:13:18 Asia/Manila] getUserRequests called with userId: 2
+[27-May-2025 10:13:18 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:13:18 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:13:18 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:13:18 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:13:18 Asia/Manila] Token user_id: 2, type: integer
+[27-May-2025 10:13:18 Asia/Manila] Requested user_id: 2, type: integer
+[27-May-2025 10:13:18 Asia/Manila] Found 2 requests for user 2
+[27-May-2025 04:13:28 Europe/Berlin] No authentication token provided in request
+[27-May-2025 10:13:28 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:13:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:13:34 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 10:13:34 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:13:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:13:34 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:13:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:13:34 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:13:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:13:35 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 04:13:35 Europe/Berlin] Starting cart sync for user_id: 1
+[27-May-2025 04:13:35 Europe/Berlin] Syncing from guest session: guest_1748311896208_yubs7rl6x6 to user: 1
+[27-May-2025 04:13:35 Europe/Berlin] No guest cart found for session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:13:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:13:35 Europe/Berlin] Token belongs to user_id: 1
+[27-May-2025 10:13:35 Asia/Manila] [2025-05-27 10:13:35] getAllPayments called by user_id: 1
+[27-May-2025 10:13:35 Asia/Manila] [2025-05-27 10:13:35] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:13:35 Asia/Manila] [2025-05-27 10:13:35] Found 5 transactions
+[27-May-2025 10:13:57 Asia/Manila] [2025-05-27 10:13:57] Fetching transaction ID: 23 from action: view
+[27-May-2025 10:13:57 Asia/Manila] [2025-05-27 10:13:57] getTransactionById called with ID: 23
+[27-May-2025 10:13:57 Asia/Manila] [2025-05-27 10:13:57] User verified: user_id=1, user_type=admin
+[27-May-2025 10:13:57 Asia/Manila] [2025-05-27 10:13:57] Executing query for transaction_id: 23
+[27-May-2025 10:13:57 Asia/Manila] [2025-05-27 10:13:57] Found transaction: 23, request_id: 52, user_id: 2
+[27-May-2025 10:13:57 Asia/Manila] [2025-05-27 10:13:57] Fetching request ID: 52 from action: view
+[27-May-2025 10:13:57 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:13:57 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:13:57 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:13:57 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:14:26 Asia/Manila] [2025-05-27 10:14:26] Updating transaction ID: 23 with data: Array
+(
+    [status] => approved
+    [verified] => 1
+    [verified_by] => 1
+    [verified_date] => 2025-05-27 02:14:26
+)
+
+[27-May-2025 10:14:26 Asia/Manila] [2025-05-27 10:14:26] getAllPayments called by user_id: 1
+[27-May-2025 10:14:26 Asia/Manila] [2025-05-27 10:14:26] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:14:26 Asia/Manila] [2025-05-27 10:14:26] Found 5 transactions
+[27-May-2025 10:14:48 Asia/Manila] [2025-05-27 10:14:48] getAllPayments called by user_id: 1
+[27-May-2025 10:14:48 Asia/Manila] [2025-05-27 10:14:48] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:14:48 Asia/Manila] [2025-05-27 10:14:48] Found 5 transactions
+[27-May-2025 10:14:55 Asia/Manila] [2025-05-27 10:14:55] Fetching transaction ID: 24 from action: view
+[27-May-2025 10:14:55 Asia/Manila] [2025-05-27 10:14:55] getTransactionById called with ID: 24
+[27-May-2025 10:14:55 Asia/Manila] [2025-05-27 10:14:55] User verified: user_id=1, user_type=admin
+[27-May-2025 10:14:55 Asia/Manila] [2025-05-27 10:14:55] Executing query for transaction_id: 24
+[27-May-2025 10:14:55 Asia/Manila] [2025-05-27 10:14:55] Found transaction: 24, request_id: 51, user_id: 2
+[27-May-2025 10:14:55 Asia/Manila] [2025-05-27 10:14:55] Fetching request ID: 51 from action: view
+[27-May-2025 10:14:55 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:14:55 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:14:55 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:14:55 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[27-May-2025 10:15:11 Asia/Manila] [2025-05-27 10:15:11] Updating transaction ID: 24 with data: Array
+(
+    [status] => not approved
+    [verified] => 0
+    [verified_by] => 1
+    [verified_date] => 2025-05-27 02:15:11
+    [remarks] => Insufficient payment amount
+)
+
+[27-May-2025 10:15:11 Asia/Manila] [2025-05-27 10:15:11] getAllPayments called by user_id: 1
+[27-May-2025 10:15:11 Asia/Manila] [2025-05-27 10:15:11] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:15:11 Asia/Manila] [2025-05-27 10:15:11] Found 5 transactions
+[27-May-2025 10:15:15 Asia/Manila] [2025-05-27 10:15:15] getAllPayments called by user_id: 1
+[27-May-2025 10:15:15 Asia/Manila] [2025-05-27 10:15:15] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[27-May-2025 10:15:15 Asia/Manila] [2025-05-27 10:15:15] Found 5 transactions
+[27-May-2025 10:15:35 Asia/Manila] getUserRequests called with userId: 2
+[27-May-2025 10:15:35 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:15:35 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:15:35 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:15:35 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:15:35 Asia/Manila] Token user_id: 2, type: integer
+[27-May-2025 10:15:35 Asia/Manila] Requested user_id: 2, type: integer
+[27-May-2025 10:15:35 Asia/Manila] Found 2 requests for user 2
+[27-May-2025 10:15:35 Asia/Manila] getUserRequests called with userId: 2
+[27-May-2025 10:15:35 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:15:35 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:15:35 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:15:35 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:15:35 Asia/Manila] Token user_id: 2, type: integer
+[27-May-2025 10:15:35 Asia/Manila] Requested user_id: 2, type: integer
+[27-May-2025 10:15:35 Asia/Manila] Found 2 requests for user 2
+[27-May-2025 10:15:44 Asia/Manila] [2025-05-27 10:15:44] Fetching request ID: 51 from action: view/51
+[27-May-2025 10:15:44 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:15:44 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:15:44 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:15:44 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 10:15:47 Asia/Manila] [2025-05-27 10:15:47] Fetching request ID: 52 from action: view/52
+[27-May-2025 10:15:47 Asia/Manila] verifyToken called with requiredRole: null
+[27-May-2025 10:15:47 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[27-May-2025 10:15:47 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[27-May-2025 10:15:47 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[27-May-2025 04:16:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:16:35 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 10:16:35 Asia/Manila] API Request: /api/stations/vertical
+[27-May-2025 04:16:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:16:35 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:16:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:16:36 Europe/Berlin] Token belongs to user_id: 2
+[27-May-2025 04:16:36 Europe/Berlin] Starting cart sync for user_id: 2
+[27-May-2025 04:16:36 Europe/Berlin] Syncing from guest session: guest_1748311896208_yubs7rl6x6 to user: 2
+[27-May-2025 04:16:36 Europe/Berlin] No guest cart found for session_id: guest_1748311896208_yubs7rl6x6
+[27-May-2025 04:16:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[27-May-2025 04:16:36 Europe/Berlin] Token belongs to user_id: 2

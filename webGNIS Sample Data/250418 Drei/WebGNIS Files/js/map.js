@@ -13,12 +13,18 @@ const orderColors = {
     '7': '#4B0082'     // Indigo
 };
 
-// Map initialization
+// Map initialization variables
 let map;
 let markersLayer;
+let markersClusterGroup; // To store marker clusters
+let overlayLayers = {};  // To hold overlays for layer control
+let baseLayers = {};     // To hold base layers for layer control
+let layerControl;
+let adminBoundaryLayer = null; // Will be loaded from GeoJSON
+let hydroLayer;               // NAMRIA Hydrography WMS
 
 // Initialize map with default view
-function initializeMap() {
+async function initializeMap() {
     try {
         console.log('Initializing map...');
         const mapElement = document.getElementById('map');
@@ -26,17 +32,64 @@ function initializeMap() {
             throw new Error('Map element not found');
         }
 
-        map = L.map('map').setView([14.6, 121.0], 10); // Centered on Metro Manila
+        // Initialize map centered on Metro Manila
+        map = L.map('map').setView([14.6, 121.0], 10);
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://basemapserver.geoportal.gov.ph/tiles/v2/PGP/{z}/{x}/{y}.png', {
+        // NAMRIA base map (your original base)
+        const namriaBase = L.tileLayer('https://basemapserver.geoportal.gov.ph/tiles/v2/PGP/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: 'Map data &copy; <a href="https://www.geoportal.gov.ph/">NAMRIA</a> contributors',
-        }).addTo(map);
+        });
 
-        // Initialize markers layer group
+        // Esri Satellite base map
+        const esriSatellite = L.tileLayer(
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 19,
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and others'
+            });
+
+        baseLayers = {
+            "NAMRIA": namriaBase,
+            "Satellite (Esri)": esriSatellite
+        };
+
+        // Add NAMRIA as default
+        namriaBase.addTo(map);
+
+        // Initialize marker cluster group and layer group
+        markersClusterGroup = L.markerClusterGroup();
         markersLayer = L.layerGroup().addTo(map);
-        
+
+        // Initialize hydrography layer (NAMRIA WMS)
+        hydroLayer = L.tileLayer.wms('https://giswebservices.denr.gov.ph/geoserver/ows?', {
+            layers: 'NAMRIA:Hydrography',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Hydrography data &copy; NAMRIA'
+        });
+
+        overlayLayers = {
+            "Hydrography": hydroLayer,
+            "Markers": markersLayer
+            // Admin Boundary will be added once GeoJSON loaded
+        };
+
+        // Add layer control with base and overlay layers, collapsed to show layers icon
+        layerControl = L.control.layers(baseLayers, overlayLayers, {collapsed: true}).addTo(map);
+
+        // Fetch and load admin boundaries GeoJSON (replace with your path)
+        try {
+            const response = await fetch('Assets/Provinces.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const geojsonData = await response.json();
+            loadAdminBoundariesFromGeoJSON(geojsonData);
+        } catch (err) {
+            console.warn('Could not load admin boundaries GeoJSON:', err);
+            // Optionally show error to user
+        }
+
         return map;
     } catch (error) {
         logError('initializeMap', error);
@@ -45,10 +98,43 @@ function initializeMap() {
     }
 }
 
+// Load admin boundaries from GeoJSON data
+function loadAdminBoundariesFromGeoJSON(geojsonData) {
+    try {
+        if (adminBoundaryLayer) {
+            map.removeLayer(adminBoundaryLayer);
+        }
+
+        adminBoundaryLayer = L.geoJSON(geojsonData, {
+            style: {
+                color: '#3388ff',
+                weight: 2,
+                fillOpacity: 0.1
+            },
+            onEachFeature: function(feature, layer) {
+                if (feature.properties && feature.properties.name) {
+                    layer.bindPopup(`<strong>${feature.properties.name}</strong>`);
+                }
+            }
+        });
+
+        adminBoundaryLayer.addTo(map);
+
+        // Add or update overlayLayers control for admin boundaries
+        overlayLayers["Administrative Boundary"] = adminBoundaryLayer;
+        // Update layer control (remove and add again to refresh overlays) - keep collapsed true
+        map.removeControl(layerControl);
+        layerControl = L.control.layers(baseLayers, overlayLayers, {collapsed: true}).addTo(map);
+
+    } catch (error) {
+        console.error('Error loading admin boundaries:', error);
+        showError('Failed to load admin boundaries: ' + error.message);
+    }
+}
+
 // Create custom marker icons for different orders
 function createCustomIcon(color) {
     try {
-        // Unique mask ID to avoid conflicts if called multiple times quickly
         const maskId = `pinHoleMask-${Math.random().toString(36).substr(2, 9)}`;
         return L.divIcon({
             className: 'custom-marker',
@@ -76,10 +162,13 @@ function createCustomIcon(color) {
 function updateMap(stations) {
     try {
         console.log(`Updating map with ${stations.length} stations`);
-        
-        // Clear existing markers
-        if (markersLayer) {
-            markersLayer.clearLayers();
+
+        // Store full dataset globally so dropdowns can access all regions
+        window.allStations = stations;
+
+        // Clear existing markers and clusters
+        if (markersClusterGroup) {
+            markersClusterGroup.clearLayers();
         }
 
         if (!Array.isArray(stations) || stations.length === 0) {
@@ -87,15 +176,8 @@ function updateMap(stations) {
             return;
         }
 
-        // Store stations globally
-        window.allStations = stations;
-
-        // Initialize bounds
         const bounds = L.latLngBounds([]);
         let hasValidCoordinates = false;
-
-        // Get selected GCP type
-        const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'vertical';
 
         stations.forEach(station => {
             if (station.latitude && station.longitude) {
@@ -110,22 +192,24 @@ function updateMap(stations) {
                     Long: ${station.longitude || ''}<br>
                     ${order ? `Order: ${order}<br>` : ''}
                     ${station.accuracy_class ? `Accuracy Class: ${station.accuracy_class}<br>` : ''}
-                    <button onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}', '${gcpType}')" class="btn btn-sm btn-primary mt-2">
+                    <button onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}')" class="btn btn-sm btn-primary mt-2">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                     </button>
                 `);
-                
-                markersLayer.addLayer(marker);
+
+                markersClusterGroup.addLayer(marker);
                 bounds.extend([station.latitude, station.longitude]);
                 hasValidCoordinates = true;
             }
         });
 
-        // Only fit bounds if we have valid coordinates
+        markersLayer.clearLayers();
+        markersLayer.addLayer(markersClusterGroup);
+
         if (hasValidCoordinates && map) {
             map.fitBounds(bounds, { 
                 padding: [50, 50],
-                maxZoom: 15 // Prevent zooming in too close
+                maxZoom: 15
             });
         }
     } catch (error) {
@@ -136,20 +220,15 @@ function updateMap(stations) {
 
 // Update map markers based on filtered data
 function updateMapMarkers(points) {
-    // Clear existing markers
-    if (markersLayer) {
-        markersLayer.clearLayers();
+    if (markersClusterGroup) {
+        markersClusterGroup.clearLayers();
     }
 
-    // Get selected GCP type
-    const gcpType = document.querySelector('input[name="gcpType"]:checked').value;
-
-    // Add new markers
     points.forEach(point => {
         if (point.latitude && point.longitude) {
             let order = point.order || '';
-            const color = orderColors[order] || '#999999'; // Default gray for unknown order
-            
+            const color = orderColors[order] || '#999999';
+
             const marker = L.marker([point.latitude, point.longitude], {
                 icon: createCustomIcon(color)
             }).bindPopup(`
@@ -158,19 +237,24 @@ function updateMapMarkers(points) {
                 Long: ${point.longitude}<br>
                 Order: ${point.order}<br>
                 ${point.accuracyClass ? `Accuracy Class: ${point.accuracyClass}<br>` : ''}
-                <button class="btn btn-add-to-cart mt-2" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}', '${gcpType}')">
+                <button class="btn btn-add-to-cart mt-2" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}')">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                 </button>
             `);
-            
-            markersLayer.addLayer(marker);
+
+            markersClusterGroup.addLayer(marker);
         }
     });
 
-    // Adjust map view if there are markers
-    if (markersLayer.getLayers().length > 0) {
-        map.fitBounds(markersLayer.getBounds().pad(0.1));
-    }
+    markersLayer.clearLayers();
+    markersLayer.addLayer(markersClusterGroup);
+}
+
+// Helper: Get unique values from allStations (e.g., for Region dropdown)
+function getUniqueValuesFromAllStations(fieldName) {
+    if (!window.allStations) return [];
+    const values = window.allStations.map(s => s[fieldName]).filter(Boolean);
+    return [...new Set(values)].sort();
 }
 
 // Export map functionality
@@ -178,5 +262,7 @@ export {
     initializeMap,
     updateMap,
     updateMapMarkers,
-    orderColors
-}; 
+    loadAdminBoundariesFromGeoJSON,
+    orderColors,
+    getUniqueValuesFromAllStations
+};
