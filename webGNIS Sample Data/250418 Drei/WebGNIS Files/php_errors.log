@@ -27274,3 +27274,9 @@
 [27-May-2025 04:16:36 Europe/Berlin] No guest cart found for session_id: guest_1748311896208_yubs7rl6x6
 [27-May-2025 04:16:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
 [27-May-2025 04:16:36 Europe/Berlin] Token belongs to user_id: 2
+[28-May-2025 11:00:01 Europe/Berlin] No authentication token provided in request
+[28-May-2025 17:00:01 Asia/Manila] API Request: /api/stations/vertical
+[28-May-2025 11:06:28 Europe/Berlin] No authentication token provided in request
+[28-May-2025 17:06:28 Asia/Manila] API Request: /api/stations/vertical
+[28-May-2025 11:07:06 Europe/Berlin] No authentication token provided in request
+[28-May-2025 17:07:06 Asia/Manila] API Request: /api/stations/vertical
