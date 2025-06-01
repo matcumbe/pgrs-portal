@@ -27280,3 +27280,3186 @@
 [28-May-2025 17:06:28 Asia/Manila] API Request: /api/stations/vertical
 [28-May-2025 11:07:06 Europe/Berlin] No authentication token provided in request
 [28-May-2025 17:07:06 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:16:26 Europe/Berlin] No authentication token provided in request
+[31-May-2025 20:16:26 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:16:28 Europe/Berlin] No authentication token provided in request
+[31-May-2025 20:16:29 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:16:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:39 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:16:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:39 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:16:39 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:16:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:40 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:16:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:40 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:16:40 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:16:40 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:16:40 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:16:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:40 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:16:42 Asia/Manila] [2025-05-31 20:16:42] getAllPayments called by user_id: 1
+[31-May-2025 20:16:42 Asia/Manila] [2025-05-31 20:16:42] No transactions found, creating test data
+[31-May-2025 20:16:42 Asia/Manila] [2025-05-31 20:16:42] Error creating test transaction: SQLSTATE[HY093]: Invalid parameter number
+[31-May-2025 20:16:42 Asia/Manila] [2025-05-31 20:16:42] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:16:42 Asia/Manila] [2025-05-31 20:16:42] Found 0 transactions
+[31-May-2025 14:16:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:58 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 20:16:58 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:16:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:59 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:16:59 Europe/Berlin] Starting cart sync for user_id: 2
+[31-May-2025 14:16:59 Europe/Berlin] Syncing from guest session: guest_1748692891984_psi30pq43jj to user: 2
+[31-May-2025 14:16:59 Europe/Berlin] No guest cart found for session_id: guest_1748692891984_psi30pq43jj
+[31-May-2025 14:16:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:16:59 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:10 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 20:21:10 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:21:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:11 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:11 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:11 Europe/Berlin] Starting cart sync for user_id: 2
+[31-May-2025 14:21:11 Europe/Berlin] Syncing from guest session: guest_1748692891984_psi30pq43jj to user: 2
+[31-May-2025 14:21:11 Europe/Berlin] No guest cart found for session_id: guest_1748692891984_psi30pq43jj
+[31-May-2025 14:21:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:11 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:14 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 4
+    [station_type] => vertical
+    [station_name] => MM-519 (MMA-4440)
+    [session_id] => guest_1748692891984_psi30pq43jj
+)
+
+[31-May-2025 14:21:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:14 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:14 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748692891984_psi30pq43jj
+[31-May-2025 14:21:14 Europe/Berlin] Found existing user cart ID: 8
+[31-May-2025 14:21:15 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 5
+    [station_type] => vertical
+    [station_name] => MM-518
+    [session_id] => guest_1748692891984_psi30pq43jj
+)
+
+[31-May-2025 14:21:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:15 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:15 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748692891984_psi30pq43jj
+[31-May-2025 14:21:15 Europe/Berlin] Found existing user cart ID: 8
+[31-May-2025 14:21:15 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 6
+    [station_type] => vertical
+    [station_name] => MM-10A
+    [session_id] => guest_1748692891984_psi30pq43jj
+)
+
+[31-May-2025 14:21:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:21:15 Europe/Berlin] Token belongs to user_id: 2
+[31-May-2025 14:21:15 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748692891984_psi30pq43jj
+[31-May-2025 14:21:15 Europe/Berlin] Found existing user cart ID: 8
+[31-May-2025 20:21:17 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:17 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:17 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:17 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:17 Asia/Manila] createRequest called with token user_id: 2 (type: integer)
+[31-May-2025 20:21:17 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748693212,
+   'exp' => 1748779612,
+   'user_id' => 2,
+   'username' => 'sample',
+   'user_type' => 'individual',
+)
+[31-May-2025 20:21:17 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 4
+                    [station_name] => MM-519 (MMA-4440)
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 5
+                    [station_name] => MM-518
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 6
+                    [station_name] => MM-10A
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[31-May-2025 20:21:17 Asia/Manila] Generated transaction code: CSUMGB-20250531-2-002 for user_id: 2
+[31-May-2025 20:21:17 Asia/Manila] Inserted request with ID: 63, user_id: 2, transaction_code: CSUMGB-20250531-2-002
+[31-May-2025 20:21:17 Asia/Manila] Verification of request record - user_id: 2, transaction_code: CSUMGB-20250531-2-002
+[31-May-2025 20:21:17 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 4
+    [station_name] => MM-519 (MMA-4440)
+    [station_type] => vertical
+)
+
+[31-May-2025 20:21:17 Asia/Manila] [createRequest] DB Insert Values: ID='4', Name='MM-519 (MMA-4440)', Type='vertical', Price='300'
+[31-May-2025 20:21:17 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 5
+    [station_name] => MM-518
+    [station_type] => vertical
+)
+
+[31-May-2025 20:21:17 Asia/Manila] [createRequest] DB Insert Values: ID='5', Name='MM-518', Type='vertical', Price='300'
+[31-May-2025 20:21:17 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 6
+    [station_name] => MM-10A
+    [station_type] => vertical
+)
+
+[31-May-2025 20:21:17 Asia/Manila] [createRequest] DB Insert Values: ID='6', Name='MM-10A', Type='vertical', Price='300'
+[31-May-2025 20:21:17 Asia/Manila] Attempting to clear cart items for user_id: 2 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[31-May-2025 20:21:17 Asia/Manila] Cart items cleared for user_id: 2. Rows affected: 3
+[31-May-2025 20:21:21 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:21 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:21 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:21 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:21 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:21 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:21 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:21 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:21 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:21 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:21 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:21 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:21 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:21 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:21 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:21 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:23 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:23 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:23 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:23 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:23 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:23 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:23 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:23 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:23 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:23 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:23 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:23 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:23 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:23 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:23 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:23 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:30 Asia/Manila] [2025-05-31 20:21:30] getAllPayments called by user_id: 1
+[31-May-2025 20:21:30 Asia/Manila] [2025-05-31 20:21:30] No transactions found, creating test data
+[31-May-2025 20:21:30 Asia/Manila] [2025-05-31 20:21:30] Error creating test transaction: SQLSTATE[HY093]: Invalid parameter number
+[31-May-2025 20:21:30 Asia/Manila] [2025-05-31 20:21:30] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:30 Asia/Manila] [2025-05-31 20:21:30] Found 0 transactions
+[31-May-2025 20:21:31 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:31 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:31 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:31 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:31 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:31 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:31 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:31 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:31 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:31 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:31 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:31 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:31 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:31 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:31 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:31 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:34 Asia/Manila] [2025-05-31 20:21:34] Fetching request ID: 63 from action: view/63
+[31-May-2025 20:21:34 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:34 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:34 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:34 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:40 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 63
+    [paid_amount] => 900.00
+    [payment_method] => linkbiz
+    [reference_number] => aa
+)
+
+[31-May-2025 20:21:40 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => David 2024-2 closeUp.jpg
+            [full_path] => David 2024-2 closeUp.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php130A.tmp
+            [error] => 0
+            [size] => 478245
+        )
+
+)
+
+[31-May-2025 20:21:40 Asia/Manila] Using fallback payment method ID: 1 for method: linkbiz
+[31-May-2025 20:21:41 Asia/Manila] getUserRequests called with userId: 2
+[31-May-2025 20:21:41 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:21:41 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:21:41 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:21:41 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[31-May-2025 20:21:41 Asia/Manila] Token user_id: 2, type: integer
+[31-May-2025 20:21:41 Asia/Manila] Requested user_id: 2, type: integer
+[31-May-2025 20:21:41 Asia/Manila] Found 2 requests for user 2
+[31-May-2025 20:21:44 Asia/Manila] [2025-05-31 20:21:44] getAllPayments called by user_id: 1
+[31-May-2025 20:21:44 Asia/Manila] [2025-05-31 20:21:44] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:44 Asia/Manila] [2025-05-31 20:21:44] Found 1 transactions
+[31-May-2025 20:21:56 Asia/Manila] [2025-05-31 20:21:56] getAllPayments called by user_id: 1
+[31-May-2025 20:21:56 Asia/Manila] [2025-05-31 20:21:56] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:56 Asia/Manila] [2025-05-31 20:21:56] Found 1 transactions
+[31-May-2025 20:21:57 Asia/Manila] [2025-05-31 20:21:57] getAllPayments called by user_id: 1
+[31-May-2025 20:21:57 Asia/Manila] [2025-05-31 20:21:57] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:57 Asia/Manila] [2025-05-31 20:21:57] Found 1 transactions
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] getAllPayments called by user_id: 1
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] Found 1 transactions
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] getAllPayments called by user_id: 1
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] Found 1 transactions
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] getAllPayments called by user_id: 1
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:58 Asia/Manila] [2025-05-31 20:21:58] Found 1 transactions
+[31-May-2025 20:21:59 Asia/Manila] [2025-05-31 20:21:59] getAllPayments called by user_id: 1
+[31-May-2025 20:21:59 Asia/Manila] [2025-05-31 20:21:59] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:21:59 Asia/Manila] [2025-05-31 20:21:59] Found 1 transactions
+[31-May-2025 20:22:00 Asia/Manila] [2025-05-31 20:22:00] getAllPayments called by user_id: 1
+[31-May-2025 20:22:00 Asia/Manila] [2025-05-31 20:22:00] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:22:00 Asia/Manila] [2025-05-31 20:22:00] Found 1 transactions
+[31-May-2025 20:22:01 Asia/Manila] [2025-05-31 20:22:01] getAllPayments called by user_id: 1
+[31-May-2025 20:22:01 Asia/Manila] [2025-05-31 20:22:01] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:22:01 Asia/Manila] [2025-05-31 20:22:01] Found 1 transactions
+[31-May-2025 20:22:01 Asia/Manila] [2025-05-31 20:22:01] getAllPayments called by user_id: 1
+[31-May-2025 20:22:01 Asia/Manila] [2025-05-31 20:22:01] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:22:01 Asia/Manila] [2025-05-31 20:22:01] Found 1 transactions
+[31-May-2025 20:23:15 Asia/Manila] [2025-05-31 20:23:15] getAllPayments called by user_id: 1
+[31-May-2025 20:23:15 Asia/Manila] [2025-05-31 20:23:15] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:15 Asia/Manila] [2025-05-31 20:23:15] Found 1 transactions
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] getAllPayments called by user_id: 1
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] Found 1 transactions
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] getAllPayments called by user_id: 1
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] Found 1 transactions
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] getAllPayments called by user_id: 1
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:37 Asia/Manila] [2025-05-31 20:23:37] Found 1 transactions
+[31-May-2025 20:23:38 Asia/Manila] [2025-05-31 20:23:38] getAllPayments called by user_id: 1
+[31-May-2025 20:23:38 Asia/Manila] [2025-05-31 20:23:38] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:38 Asia/Manila] [2025-05-31 20:23:38] Found 1 transactions
+[31-May-2025 20:23:38 Asia/Manila] [2025-05-31 20:23:38] getAllPayments called by user_id: 1
+[31-May-2025 20:23:38 Asia/Manila] [2025-05-31 20:23:38] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:38 Asia/Manila] [2025-05-31 20:23:38] Found 1 transactions
+[31-May-2025 20:23:39 Asia/Manila] [2025-05-31 20:23:39] getAllPayments called by user_id: 1
+[31-May-2025 20:23:39 Asia/Manila] [2025-05-31 20:23:39] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:39 Asia/Manila] [2025-05-31 20:23:39] Found 1 transactions
+[31-May-2025 20:23:39 Asia/Manila] [2025-05-31 20:23:39] getAllPayments called by user_id: 1
+[31-May-2025 20:23:39 Asia/Manila] [2025-05-31 20:23:39] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:39 Asia/Manila] [2025-05-31 20:23:39] Found 1 transactions
+[31-May-2025 20:23:40 Asia/Manila] [2025-05-31 20:23:40] getAllPayments called by user_id: 1
+[31-May-2025 20:23:40 Asia/Manila] [2025-05-31 20:23:40] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:40 Asia/Manila] [2025-05-31 20:23:40] Found 1 transactions
+[31-May-2025 20:23:40 Asia/Manila] [2025-05-31 20:23:40] getAllPayments called by user_id: 1
+[31-May-2025 20:23:40 Asia/Manila] [2025-05-31 20:23:40] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:40 Asia/Manila] [2025-05-31 20:23:40] Found 1 transactions
+[31-May-2025 20:23:41 Asia/Manila] [2025-05-31 20:23:41] getAllPayments called by user_id: 1
+[31-May-2025 20:23:41 Asia/Manila] [2025-05-31 20:23:41] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:41 Asia/Manila] [2025-05-31 20:23:41] Found 1 transactions
+[31-May-2025 20:23:41 Asia/Manila] [2025-05-31 20:23:41] getAllPayments called by user_id: 1
+[31-May-2025 20:23:41 Asia/Manila] [2025-05-31 20:23:41] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:41 Asia/Manila] [2025-05-31 20:23:41] Found 1 transactions
+[31-May-2025 20:23:42 Asia/Manila] [2025-05-31 20:23:42] getAllPayments called by user_id: 1
+[31-May-2025 20:23:42 Asia/Manila] [2025-05-31 20:23:42] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:42 Asia/Manila] [2025-05-31 20:23:42] Found 1 transactions
+[31-May-2025 20:23:42 Asia/Manila] [2025-05-31 20:23:42] getAllPayments called by user_id: 1
+[31-May-2025 20:23:42 Asia/Manila] [2025-05-31 20:23:42] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:42 Asia/Manila] [2025-05-31 20:23:42] Found 1 transactions
+[31-May-2025 20:23:43 Asia/Manila] [2025-05-31 20:23:43] getAllPayments called by user_id: 1
+[31-May-2025 20:23:43 Asia/Manila] [2025-05-31 20:23:43] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:43 Asia/Manila] [2025-05-31 20:23:43] Found 1 transactions
+[31-May-2025 20:23:43 Asia/Manila] [2025-05-31 20:23:43] getAllPayments called by user_id: 1
+[31-May-2025 20:23:43 Asia/Manila] [2025-05-31 20:23:43] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:43 Asia/Manila] [2025-05-31 20:23:43] Found 1 transactions
+[31-May-2025 20:23:44 Asia/Manila] [2025-05-31 20:23:44] getAllPayments called by user_id: 1
+[31-May-2025 20:23:44 Asia/Manila] [2025-05-31 20:23:44] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:44 Asia/Manila] [2025-05-31 20:23:44] Found 1 transactions
+[31-May-2025 20:23:44 Asia/Manila] [2025-05-31 20:23:44] getAllPayments called by user_id: 1
+[31-May-2025 20:23:44 Asia/Manila] [2025-05-31 20:23:44] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:23:44 Asia/Manila] [2025-05-31 20:23:44] Found 1 transactions
+[31-May-2025 20:24:13 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:24:13 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:13 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:13 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:13 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:13 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:24:13 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:24:13 Asia/Manila] Found 0 requests for user 1
+[31-May-2025 20:24:13 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:24:13 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:13 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:13 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:13 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:13 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:24:13 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:24:13 Asia/Manila] Found 0 requests for user 1
+[31-May-2025 14:24:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:15 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:24:15 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:24:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:16 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:24:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:16 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:24:16 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:24:16 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:24:16 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:24:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:16 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:24:18 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1
+    [station_type] => vertical
+    [station_name] => MMA-4269 (GM-3HA)
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:24:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:24:18 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:24:18 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:24:18 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:24:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:24:18 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:24:18 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:24:19 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 3
+    [station_type] => vertical
+    [station_name] => MM-603 (MMA-3857)
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:24:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:24:19 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:24:19 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:24:19 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 20:24:22 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:22 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:22 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:22 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:22 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[31-May-2025 20:24:22 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748693798,
+   'exp' => 1748780198,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[31-May-2025 20:24:22 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1
+                    [station_name] => MMA-4269 (GM-3HA)
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 2
+                    [station_name] => MM-604
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 3
+                    [station_name] => MM-603 (MMA-3857)
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[31-May-2025 20:24:22 Asia/Manila] Generated transaction code: CSUMGB-20250531-1-001 for user_id: 1
+[31-May-2025 20:24:22 Asia/Manila] Inserted request with ID: 65, user_id: 1, transaction_code: CSUMGB-20250531-1-001
+[31-May-2025 20:24:22 Asia/Manila] Verification of request record - user_id: 1, transaction_code: CSUMGB-20250531-1-001
+[31-May-2025 20:24:22 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 1
+    [station_name] => MMA-4269 (GM-3HA)
+    [station_type] => vertical
+)
+
+[31-May-2025 20:24:22 Asia/Manila] [createRequest] DB Insert Values: ID='1', Name='MMA-4269 (GM-3HA)', Type='vertical', Price='300'
+[31-May-2025 20:24:22 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 2
+    [station_name] => MM-604
+    [station_type] => vertical
+)
+
+[31-May-2025 20:24:22 Asia/Manila] [createRequest] DB Insert Values: ID='2', Name='MM-604', Type='vertical', Price='300'
+[31-May-2025 20:24:22 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 3
+    [station_name] => MM-603 (MMA-3857)
+    [station_type] => vertical
+)
+
+[31-May-2025 20:24:22 Asia/Manila] [createRequest] DB Insert Values: ID='3', Name='MM-603 (MMA-3857)', Type='vertical', Price='300'
+[31-May-2025 20:24:22 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[31-May-2025 20:24:22 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 3
+[31-May-2025 20:24:27 Asia/Manila] [2025-05-31 20:24:27] getAllPayments called by user_id: 1
+[31-May-2025 20:24:27 Asia/Manila] [2025-05-31 20:24:27] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:24:27 Asia/Manila] [2025-05-31 20:24:27] Found 1 transactions
+[31-May-2025 20:24:29 Asia/Manila] [2025-05-31 20:24:29] getAllPayments called by user_id: 1
+[31-May-2025 20:24:29 Asia/Manila] [2025-05-31 20:24:29] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:24:29 Asia/Manila] [2025-05-31 20:24:29] Found 1 transactions
+[31-May-2025 20:24:34 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:24:34 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:34 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:34 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:34 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:34 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:24:34 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:24:34 Asia/Manila] Found 1 requests for user 1
+[31-May-2025 20:24:34 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:24:34 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:34 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:34 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:34 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:34 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:24:34 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:24:34 Asia/Manila] Found 1 requests for user 1
+[31-May-2025 20:24:39 Asia/Manila] [2025-05-31 20:24:39] Fetching request ID: 65 from action: view/65
+[31-May-2025 20:24:39 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:39 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:39 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:39 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:47 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 65
+    [paid_amount] => 900.00
+    [payment_method] => linkbiz
+    [reference_number] => aa
+)
+
+[31-May-2025 20:24:47 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => David 2024-2 closeUp.jpg
+            [full_path] => David 2024-2 closeUp.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpF10D.tmp
+            [error] => 0
+            [size] => 478245
+        )
+
+)
+
+[31-May-2025 20:24:48 Asia/Manila] Using fallback payment method ID: 1 for method: linkbiz
+[31-May-2025 20:24:49 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:24:49 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:49 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:49 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:49 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:24:49 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:24:49 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:24:49 Asia/Manila] Found 1 requests for user 1
+[31-May-2025 20:24:51 Asia/Manila] [2025-05-31 20:24:51] getAllPayments called by user_id: 1
+[31-May-2025 20:24:51 Asia/Manila] [2025-05-31 20:24:51] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:24:51 Asia/Manila] [2025-05-31 20:24:51] Found 2 transactions
+[31-May-2025 20:24:54 Asia/Manila] [2025-05-31 20:24:54] Fetching transaction ID: 28 from action: view
+[31-May-2025 20:24:54 Asia/Manila] [2025-05-31 20:24:54] getTransactionById called with ID: 28
+[31-May-2025 20:24:54 Asia/Manila] [2025-05-31 20:24:54] User verified: user_id=1, user_type=admin
+[31-May-2025 20:24:54 Asia/Manila] [2025-05-31 20:24:54] Executing query for transaction_id: 28
+[31-May-2025 20:24:54 Asia/Manila] [2025-05-31 20:24:54] Found transaction: 28, request_id: 65, user_id: 1
+[31-May-2025 20:24:54 Asia/Manila] [2025-05-31 20:24:54] Fetching request ID: 65 from action: view
+[31-May-2025 20:24:54 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:24:54 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:24:54 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:24:54 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:25:01 Asia/Manila] [2025-05-31 20:25:01] Fetching transaction ID: 27 from action: view
+[31-May-2025 20:25:01 Asia/Manila] [2025-05-31 20:25:01] getTransactionById called with ID: 27
+[31-May-2025 20:25:01 Asia/Manila] [2025-05-31 20:25:01] User verified: user_id=1, user_type=admin
+[31-May-2025 20:25:01 Asia/Manila] [2025-05-31 20:25:01] Executing query for transaction_id: 27
+[31-May-2025 20:25:01 Asia/Manila] [2025-05-31 20:25:01] Found transaction: 27, request_id: 63, user_id: 2
+[31-May-2025 20:25:01 Asia/Manila] [2025-05-31 20:25:01] Fetching request ID: 63 from action: view
+[31-May-2025 20:25:01 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:25:01 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:25:01 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:25:01 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:00 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:26:00 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:00 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:00 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:00 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:00 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:26:00 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:26:00 Asia/Manila] Found 1 requests for user 1
+[31-May-2025 20:26:00 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:26:00 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:00 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:00 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:00 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:00 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:26:00 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:26:00 Asia/Manila] Found 1 requests for user 1
+[31-May-2025 20:26:02 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:26:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:02 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:03 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:03 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:03 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:26:03 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:26:03 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:03 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:05 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 2
+    [station_type] => vertical
+    [station_name] => MM-604
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:26:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:05 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:05 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:26:05 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 3
+    [station_type] => vertical
+    [station_name] => MM-603 (MMA-3857)
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:26:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:05 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:05 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 20:26:18 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:18 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:18 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:18 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:18 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[31-May-2025 20:26:18 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748693798,
+   'exp' => 1748780198,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[31-May-2025 20:26:18 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 2
+                    [station_name] => MM-604
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 3
+                    [station_name] => MM-603 (MMA-3857)
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[31-May-2025 20:26:18 Asia/Manila] Generated transaction code: CSUMGB-20250531-1-002 for user_id: 1
+[31-May-2025 20:26:18 Asia/Manila] Inserted request with ID: 66, user_id: 1, transaction_code: CSUMGB-20250531-1-002
+[31-May-2025 20:26:18 Asia/Manila] Verification of request record - user_id: 1, transaction_code: CSUMGB-20250531-1-002
+[31-May-2025 20:26:18 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 2
+    [station_name] => MM-604
+    [station_type] => vertical
+)
+
+[31-May-2025 20:26:18 Asia/Manila] [createRequest] DB Insert Values: ID='2', Name='MM-604', Type='vertical', Price='300'
+[31-May-2025 20:26:18 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 3
+    [station_name] => MM-603 (MMA-3857)
+    [station_type] => vertical
+)
+
+[31-May-2025 20:26:18 Asia/Manila] [createRequest] DB Insert Values: ID='3', Name='MM-603 (MMA-3857)', Type='vertical', Price='300'
+[31-May-2025 20:26:18 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[31-May-2025 20:26:18 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 2
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching regions
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching stations for type: vertical
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching regions
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching provinces for region: 
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching cities for province: 
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching barangays for city: 
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching provinces for region: 
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching cities for province: 
+[31-May-2025 20:26:25 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[31-May-2025 20:26:25 Asia/Manila] Query parameters: Array
+(
+)
+
+[31-May-2025 20:26:25 Asia/Manila] Admin: Fetching barangays for city: 
+[31-May-2025 20:26:27 Asia/Manila] [2025-05-31 20:26:27] getAllPayments called by user_id: 1
+[31-May-2025 20:26:27 Asia/Manila] [2025-05-31 20:26:27] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:26:27 Asia/Manila] [2025-05-31 20:26:27] Found 2 transactions
+[31-May-2025 20:26:29 Asia/Manila] [2025-05-31 20:26:29] getAllPayments called by user_id: 1
+[31-May-2025 20:26:29 Asia/Manila] [2025-05-31 20:26:29] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:26:29 Asia/Manila] [2025-05-31 20:26:29] Found 2 transactions
+[31-May-2025 14:26:32 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:32 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:26:32 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:26:32 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:32 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:33 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:33 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:26:33 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:26:33 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:33 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:34 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 5
+    [station_type] => vertical
+    [station_name] => MM-518
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:26:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:34 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:34 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:34 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:26:35 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 6
+    [station_type] => vertical
+    [station_name] => MM-10A
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:26:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:35 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:35 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:35 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:26:35 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 7
+    [station_type] => vertical
+    [station_name] => MM-554
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:26:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:35 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:35 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:35 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:26:35 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 8
+    [station_type] => vertical
+    [station_name] => MM-262
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:26:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:26:35 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:26:35 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:26:35 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 20:26:46 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:46 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:46 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:46 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:46 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[31-May-2025 20:26:46 Asia/Manila] Full token object: (object) array(
+   'iat' => 1748693798,
+   'exp' => 1748780198,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[31-May-2025 20:26:46 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 5
+                    [station_name] => MM-518
+                    [station_type] => vertical
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 6
+                    [station_name] => MM-10A
+                    [station_type] => vertical
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 7
+                    [station_name] => MM-554
+                    [station_type] => vertical
+                )
+
+            [3] => stdClass Object
+                (
+                    [station_id] => 8
+                    [station_name] => MM-262
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[31-May-2025 20:26:46 Asia/Manila] Generated transaction code: CSUMGB-20250531-1-003 for user_id: 1
+[31-May-2025 20:26:46 Asia/Manila] Inserted request with ID: 67, user_id: 1, transaction_code: CSUMGB-20250531-1-003
+[31-May-2025 20:26:46 Asia/Manila] Verification of request record - user_id: 1, transaction_code: CSUMGB-20250531-1-003
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 5
+    [station_name] => MM-518
+    [station_type] => vertical
+)
+
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] DB Insert Values: ID='5', Name='MM-518', Type='vertical', Price='300'
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 6
+    [station_name] => MM-10A
+    [station_type] => vertical
+)
+
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] DB Insert Values: ID='6', Name='MM-10A', Type='vertical', Price='300'
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 7
+    [station_name] => MM-554
+    [station_type] => vertical
+)
+
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] DB Insert Values: ID='7', Name='MM-554', Type='vertical', Price='300'
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 8
+    [station_name] => MM-262
+    [station_type] => vertical
+)
+
+[31-May-2025 20:26:46 Asia/Manila] [createRequest] DB Insert Values: ID='8', Name='MM-262', Type='vertical', Price='300'
+[31-May-2025 20:26:46 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[31-May-2025 20:26:46 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 4
+[31-May-2025 20:26:46 Asia/Manila] uploadPaymentProof called with POST: Array
+(
+    [request_id] => 67
+    [paid_amount] => 1200.00
+    [payment_method] => 1
+    [reference_number] => aa
+)
+
+[31-May-2025 20:26:46 Asia/Manila] FILES array: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Fil40_Portfolio-Page-2.jpg
+            [full_path] => Fil40_Portfolio-Page-2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpC179.tmp
+            [error] => 0
+            [size] => 67749
+        )
+
+)
+
+[31-May-2025 20:26:48 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:26:48 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:48 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:48 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:48 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:48 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:26:48 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:26:48 Asia/Manila] Found 3 requests for user 1
+[31-May-2025 20:26:48 Asia/Manila] getUserRequests called with userId: 1
+[31-May-2025 20:26:48 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:48 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:48 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:48 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:26:48 Asia/Manila] Token user_id: 1, type: integer
+[31-May-2025 20:26:48 Asia/Manila] Requested user_id: 1, type: integer
+[31-May-2025 20:26:48 Asia/Manila] Found 3 requests for user 1
+[31-May-2025 20:26:51 Asia/Manila] [2025-05-31 20:26:51] getAllPayments called by user_id: 1
+[31-May-2025 20:26:51 Asia/Manila] [2025-05-31 20:26:51] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:26:51 Asia/Manila] [2025-05-31 20:26:51] Found 3 transactions
+[31-May-2025 20:26:53 Asia/Manila] [2025-05-31 20:26:53] Fetching transaction ID: 29 from action: view
+[31-May-2025 20:26:53 Asia/Manila] [2025-05-31 20:26:53] getTransactionById called with ID: 29
+[31-May-2025 20:26:53 Asia/Manila] [2025-05-31 20:26:53] User verified: user_id=1, user_type=admin
+[31-May-2025 20:26:53 Asia/Manila] [2025-05-31 20:26:53] Executing query for transaction_id: 29
+[31-May-2025 20:26:53 Asia/Manila] [2025-05-31 20:26:53] Found transaction: 29, request_id: 67, user_id: 1
+[31-May-2025 20:26:53 Asia/Manila] [2025-05-31 20:26:53] Fetching request ID: 67 from action: view
+[31-May-2025 20:26:53 Asia/Manila] verifyToken called with requiredRole: null
+[31-May-2025 20:26:53 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[31-May-2025 20:26:53 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[31-May-2025 20:26:53 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[31-May-2025 20:28:44 Asia/Manila] [2025-05-31 20:28:44] getAllPayments called by user_id: 1
+[31-May-2025 20:28:44 Asia/Manila] [2025-05-31 20:28:44] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:28:44 Asia/Manila] [2025-05-31 20:28:44] Found 3 transactions
+[31-May-2025 20:29:11 Asia/Manila] [2025-05-31 20:29:11] getAllPayments called by user_id: 1
+[31-May-2025 20:29:11 Asia/Manila] [2025-05-31 20:29:11] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[31-May-2025 20:29:11 Asia/Manila] [2025-05-31 20:29:11] Found 3 transactions
+[31-May-2025 14:29:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:29:47 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:29:47 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:29:48 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:29:48 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:29:48 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:29:48 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:29:48 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:29:48 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:29:48 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:29:48 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:29:48 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:35:06 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:06 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:35:06 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:35:07 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:07 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:35:07 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:07 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:35:07 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:35:07 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:35:07 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:35:07 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:07 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:35:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:14 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:35:14 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:35:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:14 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:35:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:15 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:35:15 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:35:15 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:35:15 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:35:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:35:15 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:46 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:40:46 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:40:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:47 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:47 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:47 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:40:47 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:40:47 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:40:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:47 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:53 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:40:53 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:40:54 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:54 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:54 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:54 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:54 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:40:54 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:40:54 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:40:54 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:54 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:55 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:55 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:40:55 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:40:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:56 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:56 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:40:56 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:40:56 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:40:56 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:40:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:40:56 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:17 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:17 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:45:17 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:45:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:18 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:45:18 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:45:18 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:45:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:20 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:45:20 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:45:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:21 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:21 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:21 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:45:21 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:45:21 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:45:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:21 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:22 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:45:22 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:45:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:22 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:23 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:23 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:45:23 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:45:23 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:45:23 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:45:23 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:45:23 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:47:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:47:40 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:47:40 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 14:47:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:47:41 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:47:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:47:41 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:47:41 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 14:47:41 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 14:47:41 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:47:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:47:41 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:48:42 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1116
+    [station_type] => vertical
+    [station_name] => MM-895(TBM-40)
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:48:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:48:42 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:48:42 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:48:42 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:48:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:48:43 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 20:48:58 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 14:49:45 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1586
+    [station_type] => vertical
+    [station_name] => MMA-4480
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:49:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:49:45 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:49:45 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:49:45 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 14:49:46 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1585
+    [station_type] => vertical
+    [station_name] => MMA-4480
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 14:49:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 14:49:46 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 14:49:46 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 14:49:46 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 15:01:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 21:01:15 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:01:15 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:01:15 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:01:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:01:16 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:01:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:01:16 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:01:16 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:01:16 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:01:16 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:01:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:01:19 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:01:40 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:03:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:03:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:03:18 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:03:18 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:03:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:03:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:03:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:03:21 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:03:21 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:03:21 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:03:21 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:03:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:03:21 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:04:35 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:04:40 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:04:42 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:04:47 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:04:48 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:04:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:04:56 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:04:56 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:04:56 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:04:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:04:57 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:05:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:05:02 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:05:02 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:05:02 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:05:02 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:05:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:05:10 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:07:13 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:07:13 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:07:13 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:07:14 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:07:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:07:14 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:07:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:07:18 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:07:18 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:07:18 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:07:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:07:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:07:24 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:07:24 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:07:24 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:07:24 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:07:24 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:07:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:07:24 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:07:43 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:07:46 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:07:50 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:08:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:08:01 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:08:01 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:08:01 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:08:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:08:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:08:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:08:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:08:05 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:08:05 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:08:05 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:08:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:08:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:08:21 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:08:35 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:08:41 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:09:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:09:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:09:05 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:09:05 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:09:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:09:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:09:14 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:09:14 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:09:14 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:09:14 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:09:14 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:09:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:09:14 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:15:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:15:34 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:15:34 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:15:34 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:15:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:15:36 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:15:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:15:36 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:15:36 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:15:36 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:15:36 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:15:44 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:15:44 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:28:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:28:57 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:28:57 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:28:57 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:29:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:01 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:29:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:01 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:29:01 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:29:01 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:29:01 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:29:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:01 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:29:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:26 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:29:26 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:29:26 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:29:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:31 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:29:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:31 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:29:31 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:29:31 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:29:31 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:29:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:29:31 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:29:35 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:29:42 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:44:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:44:05 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:44:05 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:44:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:10 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:44:10 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:44:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:10 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:44:10 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:44:10 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:44:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:10 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:44:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:11 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:44:11 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:44:11 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 15:44:12 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:12 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:44:12 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:12 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:44:12 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:44:12 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:44:12 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:44:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:44:16 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:45:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:45:57 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:45:57 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:45:57 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:46:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:04 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:04 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:04 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:46:04 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:46:04 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:46:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:05 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:24 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 3
+    [station_type] => horizontal
+    [station_name] => BM-66 (MMA) INTER 2014
+    [session_id] => guest_1748312233305_znevapgoxr
+)
+
+[31-May-2025 15:46:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:24 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:24 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:46:24 Europe/Berlin] Found existing user cart ID: 7
+[31-May-2025 15:46:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:26 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:26 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:26 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:26 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:46:28 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:46:32 Asia/Manila] API Request: /api/stations/gravity
+[31-May-2025 21:46:37 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:46:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:42 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:46:42 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 21:46:42 Asia/Manila] API Request: /api/stations/horizontal
+[31-May-2025 15:46:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:46 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:46 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 15:46:46 Europe/Berlin] Starting cart sync for user_id: 1
+[31-May-2025 15:46:46 Europe/Berlin] Syncing from guest session: guest_1748312233305_znevapgoxr to user: 1
+[31-May-2025 15:46:46 Europe/Berlin] No guest cart found for session_id: guest_1748312233305_znevapgoxr
+[31-May-2025 15:46:49 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[31-May-2025 15:46:49 Europe/Berlin] Token belongs to user_id: 1
+[31-May-2025 21:48:40 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:48:42 Asia/Manila] API Request: /api/stations/gravity
+[31-May-2025 21:48:43 Asia/Manila] API Request: /api/stations/vertical
+[31-May-2025 21:48:44 Asia/Manila] API Request: /api/stations/horizontal
+                                                                                                                                                                                                                                      [01-Jun-2025 23:07:30 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:07:30 Europe/Berlin] No authentication token provided in request
+[01-Jun-2025 23:07:30 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:10:13 Europe/Berlin] No authentication token provided in request
+[01-Jun-2025 23:10:13 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:10:13 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:11:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:11:30 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:11:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:11:30 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:11:30 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:11:30 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:11:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:11:31 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:11:31 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:11:31 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:11:31 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:11:31 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:11:31 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:11:33 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:11:33 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:33 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:11:42 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:11:42 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:11:42 Asia/Manila] Query parameters: Array
+(
+    [province] => NCR - SECOND DISTRICT
+)
+
+[01-Jun-2025 23:11:42 Asia/Manila] Query parameters: Array
+(
+    [city] => QUEZON CITY
+)
+
+[01-Jun-2025 23:11:42 Asia/Manila] Admin: Fetching cities for province: NCR - SECOND DISTRICT
+[01-Jun-2025 23:11:42 Asia/Manila] Admin: Fetching barangays for city: QUEZON CITY
+[01-Jun-2025 23:11:42 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:11:42 Asia/Manila] Query parameters: Array
+(
+    [region] => NCR
+)
+
+[01-Jun-2025 23:11:42 Asia/Manila] Admin: Fetching provinces for region: NCR
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:11:50 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:11:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:11:50 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:17:00 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:17:00 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:00 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 17:17:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:17:03 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:17:50 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:17:50 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:50 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:17:56 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:17:56 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:17:56 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:34 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:34 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:34 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:18:35 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:18:35 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:35 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:38 Asia/Manila] [2025-06-01 23:18:38] getAllPayments called by user_id: 1
+[01-Jun-2025 23:18:38 Asia/Manila] [2025-06-01 23:18:38] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[01-Jun-2025 23:18:38 Asia/Manila] [2025-06-01 23:18:38] Found 3 transactions
+[01-Jun-2025 23:18:42 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:18:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:42 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:18:42 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:18:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:42 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:18:42 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:42 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:42 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:18:43 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:18:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:43 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:18:43 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:43 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:18:43 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:43 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:18:43 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:43 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:18:43 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:18:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:43 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:43 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:18:43 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:18:43 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:18:46 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:18:46 Asia/Manila] Query parameters: Array
+(
+    [region] => NCR
+)
+
+[01-Jun-2025 23:18:46 Asia/Manila] Admin: Fetching provinces for region: NCR
+[01-Jun-2025 23:18:50 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:18:50 Asia/Manila] Query parameters: Array
+(
+    [province] => NCR - SECOND DISTRICT
+)
+
+[01-Jun-2025 23:18:50 Asia/Manila] Admin: Fetching cities for province: NCR - SECOND DISTRICT
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:19:23 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:19:23 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:23 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:19:45 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:19:45 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:19:45 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:20:58 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:20:58 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:20:58 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/stations/vertical
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching stations for type: vertical
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/regions
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching regions
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/provinces
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching provinces for region: 
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/cities
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching cities for province: 
+[01-Jun-2025 23:22:04 Asia/Manila] Admin API Request received: GET /api/admin/barangays
+[01-Jun-2025 23:22:04 Asia/Manila] Query parameters: Array
+(
+)
+
+[01-Jun-2025 23:22:04 Asia/Manila] Admin: Fetching barangays for city: 
+[01-Jun-2025 23:22:16 Asia/Manila] [2025-06-01 23:22:16] getAllPayments called by user_id: 1
+[01-Jun-2025 23:22:16 Asia/Manila] [2025-06-01 23:22:16] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[01-Jun-2025 23:22:16 Asia/Manila] [2025-06-01 23:22:16] Found 3 transactions
+[01-Jun-2025 23:22:31 Asia/Manila] getUserRequests called with userId: 1
+[01-Jun-2025 23:22:31 Asia/Manila] verifyToken called with requiredRole: null
+[01-Jun-2025 23:22:31 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[01-Jun-2025 23:22:31 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[01-Jun-2025 23:22:31 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[01-Jun-2025 23:22:31 Asia/Manila] Token user_id: 1, type: integer
+[01-Jun-2025 23:22:31 Asia/Manila] Requested user_id: 1, type: integer
+[01-Jun-2025 23:22:32 Asia/Manila] Found 3 requests for user 1
+[01-Jun-2025 23:22:32 Asia/Manila] getUserRequests called with userId: 1
+[01-Jun-2025 23:22:32 Asia/Manila] verifyToken called with requiredRole: null
+[01-Jun-2025 23:22:32 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[01-Jun-2025 23:22:32 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[01-Jun-2025 23:22:32 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[01-Jun-2025 23:22:32 Asia/Manila] Token user_id: 1, type: integer
+[01-Jun-2025 23:22:32 Asia/Manila] Requested user_id: 1, type: integer
+[01-Jun-2025 23:22:32 Asia/Manila] Found 3 requests for user 1
+[01-Jun-2025 17:22:34 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:22:34 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:22:34 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:22:34 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:22:37 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:22:37 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:22:37 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:22:37 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:22:37 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:22:37 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:22:37 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:22:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:22:40 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:23:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:23:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:23:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:23:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:23:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:23:43 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:23:43 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:23:43 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:23:43 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:23:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:23:43 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:23:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:23:46 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:24:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:24:56 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:24:56 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:24:56 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:24:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:24:57 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:24:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:24:58 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:24:58 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:24:58 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:24:58 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:24:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:24:58 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:25:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:25:14 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:25:14 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:25:14 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:25:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:25:16 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:25:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:25:16 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:25:16 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:25:16 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:25:16 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:25:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:25:16 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:27:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:27:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:27:19 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:27:19 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:27:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:27:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:27:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:27:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:27:21 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:27:21 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:27:21 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:27:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:27:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:27:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:27:59 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:27:59 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:27:59 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:28:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:00 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:28:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:01 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:28:01 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:28:01 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:28:01 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:28:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:01 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:28:37 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:37 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:28:37 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:28:37 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:28:38 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:38 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:28:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:28:39 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:28:39 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:28:39 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:28:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:28:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:31:59 Asia/Manila] API Request: /api/stations/vertical
+[01-Jun-2025 23:32:06 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:37:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:04 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:37:04 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:37:04 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:37:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:05 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:05 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:05 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:37:06 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:37:06 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:37:07 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:07 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:37:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:37:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:37:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:40 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:40 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:40 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:37:40 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:37:40 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:37:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:41 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:37:45 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:37:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:45 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:37:45 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:37:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:46 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:47 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:37:47 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:37:47 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:37:47 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:37:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:37:47 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:43:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 23:43:46 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:43:46 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:43:46 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:43:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:43:47 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:43:48 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:43:48 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:43:48 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:43:48 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:43:48 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:43:48 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:43:48 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:44:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:44:01 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:44:01 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:44:01 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:44:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:44:02 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:44:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:44:02 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:44:02 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:44:02 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:44:02 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:44:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:44:03 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:46:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:46:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:46:19 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:46:19 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:46:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:46:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:46:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:46:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:46:20 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:46:20 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:46:20 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:46:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:46:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:48:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:48:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:48:27 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:48:27 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:48:28 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:48:28 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:48:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:48:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:48:29 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:48:29 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:48:29 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:48:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:48:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:49:13 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:49:13 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:49:13 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:49:13 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:49:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:49:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:49:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:49:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:49:20 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:49:20 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:49:20 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:49:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:49:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:51:00 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1105
+    [station_type] => horizontal
+    [station_name] => MMA-3900
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 17:51:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:51:00 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:51:00 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:51:00 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 17:51:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:51:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:51:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:51:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:51:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:51:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:51:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:51:42 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:51:42 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:51:42 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:51:42 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:51:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:51:42 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:51:45 Asia/Manila] API Request: /api/stations/vertical
+[01-Jun-2025 17:51:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:51:45 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:54:51 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:54:51 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:54:51 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:54:51 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:55:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:00 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:55:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:00 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:55:00 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:55:00 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:55:00 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:55:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:01 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:55:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:55:21 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:55:21 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:55:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:55:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:55:27 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:55:27 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:55:27 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:55:28 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:55:28 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:56:37 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:56:37 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:56:37 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:56:37 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:56:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:56:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:56:43 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:56:43 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:56:43 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:56:43 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:56:43 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:56:44 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:56:44 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:57:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:57:18 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:57:18 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:57:18 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:57:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:57:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:57:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:57:22 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:57:22 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:57:22 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:57:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:57:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:57:29 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:57:29 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:57:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:57:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:57:29 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:57:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:57:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:58:17 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:58:17 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 23:58:17 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 23:58:17 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 17:58:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:58:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:58:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:58:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 17:58:19 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 17:58:19 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 17:58:19 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 17:58:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 17:58:33 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:05:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:05:29 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:05:29 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:05:29 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:05:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:05:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:05:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:05:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:05:39 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:05:39 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:05:39 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:05:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:05:39 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:09:51 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:09:51 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:09:51 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:09:51 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:09:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:09:53 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:09:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:09:53 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:09:53 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:09:53 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:09:53 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:09:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:09:53 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:13:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:13:11 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:13:11 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:13:11 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:13:12 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:13:12 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:13:12 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:13:12 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:13:12 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:13:12 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:13:12 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:13:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:13:14 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:14:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:22 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:14:22 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:14:22 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:14:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:14:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:14:29 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:14:29 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:14:29 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:14:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:14:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:52 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:14:52 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:14:52 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:14:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:56 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:14:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:56 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:14:56 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:14:56 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:14:56 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:14:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:14:59 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:17:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:17:10 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:17:10 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:17:10 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:17:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:17:16 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:17:16 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:17:16 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:17:16 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:17:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:17:16 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:17:16 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:17:16 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:17:59 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 353
+    [station_type] => horizontal
+    [station_name] => MMA-3200
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:17:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:17:59 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:17:59 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:17:59 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:18:00 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 354
+    [station_type] => horizontal
+    [station_name] => MMA-3201
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:18:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:00 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:18:00 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:18:00 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:18:00 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 355
+    [station_type] => horizontal
+    [station_name] => MMA-3201 (VAB-01)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:18:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:00 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:18:00 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:18:00 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:18:01 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 356
+    [station_type] => horizontal
+    [station_name] => MMA-3202
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:18:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:01 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:18:01 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:18:01 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:18:01 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 357
+    [station_type] => horizontal
+    [station_name] => MMA-3202 (VAB-02)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:18:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:01 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:18:01 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:18:01 Europe/Berlin] Found existing user cart ID: 7
+[02-Jun-2025 00:18:18 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:18:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:18 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:18:19 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:18:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:18:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:25 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:18:25 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:18:25 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:18:25 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:18:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:18:25 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:28:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:28:20 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:28:20 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:28:20 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:28:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:28:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:28:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:28:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:28:27 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:28:27 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:28:27 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:28:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:28:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:30:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:01 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:30:01 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:30:01 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:30:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:08 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:30:08 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:30:08 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:30:08 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:30:08 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:30:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:08 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:30:35 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:35 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:30:35 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:30:35 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:30:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:41 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:30:41 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:30:41 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:30:41 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:30:41 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:30:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:30:41 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:35:40 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:35:40 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:35:40 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:35:40 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:35:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:35:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:35:46 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:35:46 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:35:46 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:35:46 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:35:46 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:35:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:35:46 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:36:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:36:39 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:36:39 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:36:39 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:36:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:36:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:36:42 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:36:42 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:36:42 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:36:42 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:36:42 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:36:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:36:45 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:42:25 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[02-Jun-2025 00:42:25 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:42:25 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:42:25 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:42:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:42:33 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:42:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:42:33 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:42:33 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:42:33 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:42:33 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:42:33 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:42:33 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:44:37 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:44:37 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:44:37 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:44:38 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:44:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:44:43 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:44:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:44:43 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:44:43 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:44:43 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:44:43 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:44:44 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:44:44 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:45:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:45:21 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:45:21 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:45:21 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:45:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:45:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:45:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:45:27 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:45:27 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:45:27 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:45:27 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:45:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:45:27 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:46:02 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:46:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:46:02 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:46:02 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:46:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:46:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:46:08 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:46:08 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:46:08 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:46:08 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:46:08 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:46:08 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:46:08 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:46:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:46:58 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:46:58 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:46:58 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:47:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:04 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:04 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:04 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:47:04 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:47:04 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:47:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:05 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:17 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 412
+    [station_type] => vertical
+    [station_name] => MMA-3234
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:47:17 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:17 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:17 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:47:17 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:47:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:19 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:20 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:20 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:22 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:24 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 412
+    [station_type] => vertical
+    [station_name] => MMA-3234
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:47:24 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:24 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:24 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:47:24 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:47:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:53 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:47:53 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:47:53 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:47:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:59 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:59 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:47:59 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:47:59 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:47:59 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:47:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:47:59 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:53:56 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:53:56 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:53:56 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:53:56 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:54:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:03 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:54:03 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:54:03 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:54:03 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:54:03 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:54:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:03 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:54:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:46 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:54:46 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:54:46 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:54:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:52 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:54:52 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:54:52 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:54:52 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:54:52 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:54:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:54:53 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:55:10 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1390
+    [station_type] => vertical
+    [station_name] => MMA-4225
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 18:55:10 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:55:10 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:55:10 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:55:10 Europe/Berlin] Found existing user cart ID: 7
+[01-Jun-2025 18:55:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:55:11 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:55:12 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:55:12 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:56:27 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:56:27 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:56:27 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:56:27 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:56:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:56:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:56:36 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:56:36 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:56:36 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:56:36 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:56:36 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:56:36 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:56:36 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:58:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:58:59 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 00:58:59 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 00:58:59 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 18:59:06 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:59:06 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:59:06 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:59:06 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 18:59:06 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 18:59:06 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 18:59:06 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 18:59:06 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 18:59:06 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:00:23 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:00:23 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 01:00:23 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 01:00:23 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 19:00:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:00:29 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:00:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:00:29 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:00:29 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 19:00:29 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 19:00:29 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 19:00:30 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:00:30 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:01:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:01:15 Europe/Berlin] Token belongs to user_id: 1
+[02-Jun-2025 01:01:15 Asia/Manila] API Request: /api/stations/horizontal
+[02-Jun-2025 01:01:15 Asia/Manila] API Request: /api/stations/horizontal
+[01-Jun-2025 19:01:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:01:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:01:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:01:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:01:21 Europe/Berlin] Starting cart sync for user_id: 1
+[01-Jun-2025 19:01:21 Europe/Berlin] Syncing from guest session: guest_1747815353369_yjne75n0yec to user: 1
+[01-Jun-2025 19:01:21 Europe/Berlin] No guest cart found for session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 19:01:21 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:01:21 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:01:45 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1944
+    [station_type] => vertical
+    [station_name] => MMA-5207 (BBM-62)
+    [session_id] => guest_1747815353369_yjne75n0yec
+)
+
+[01-Jun-2025 19:01:45 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[01-Jun-2025 19:01:45 Europe/Berlin] Token belongs to user_id: 1
+[01-Jun-2025 19:01:45 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1747815353369_yjne75n0yec
+[01-Jun-2025 19:01:45 Europe/Berlin] Found existing user cart ID: 7

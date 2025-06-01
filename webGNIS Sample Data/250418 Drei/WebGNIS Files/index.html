@@ -74,14 +74,14 @@
                             <label class="form-label">GCP Type:</label>
                             <div class="gcp-type-group">
                                 <div class="gcp-type-option">
-                                    <input class="gcp-type-input" type="radio" name="gcpType" id="horizontalType" value="horizontal">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="horizontalType" value="horizontal" checked>
                                     <label class="gcp-type-label" for="horizontalType">
                                         <i class="fas fa-arrows-alt-h"></i>
                                         <span>Horizontal</span>
                                     </label>
                                 </div>
                                 <div class="gcp-type-option">
-                                    <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical" checked>
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical">
                                     <label class="gcp-type-label" for="verticalType">
                                         <i class="fas fa-arrows-alt-v"></i>
                                         <span>Benchmark</span>
@@ -122,7 +122,7 @@
                             </select>
                         </div>
 
-                        <!-- Pin and Radius -->
+                        <!-- Pin and Radius
                         <div class="mb-3">
                             <label class="form-label">Add Pin and Radius:</label>
                             <div class="input-group mb-2">
@@ -135,7 +135,7 @@
                                 <input type="number" class="form-control" id="searchRadius" placeholder="Radius (km)" step="0.1">
                                 <button class="btn btn-primary" type="button" id="searchByRadiusBtn">Search</button>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Loading Indicator -->
                         <div id="loadingIndicator" class="text-center d-none">
@@ -186,7 +186,7 @@
                                     </thead>
                                     <tbody id="searchResults">
                                         <!-- Example row to show styling -->
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Example Station</td>
                                             <td>14.123456</td>
                                             <td>121.123456</td>
@@ -195,7 +195,10 @@
                                             <td>
                                                 <button class="btn btn-add-to-cart" onclick="addToCart('Example Station', 'example_id', 'vertical')">Add to Cart</button>
                                             </td>
-                                        </tr>
+                                            <td>
+                                                <button class="btn btn-info btn-view-description" data-station-name="Example Station">View</button>
+                                            </td>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                                 <!-- Pagination Controls -->
@@ -376,6 +379,22 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5a8eb2;">
+                    <h5 class="modal-title" id="descriptionModalLabel" style="color: white;">Station Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="descriptionImage" src="" alt="Station Description" class="img-fluid">
+                    <p id="noDescriptionMessage" class="d-none">No available description image.</p>
                 </div>
             </div>
         </div>

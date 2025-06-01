@@ -45,7 +45,7 @@ if (preg_match('/\/api\/stations\/(\w+)/', $path, $matches) ||
 
 // Validate station type
 if (!in_array($type, ['vertical', 'horizontal', 'gravity'])) {
-    $type = 'vertical'; // Default to vertical if invalid
+    $type = 'horizontal'; // Default to vertical if invalid
 }
 
 try {

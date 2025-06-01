@@ -23,49 +23,39 @@ function setupSearchListener() {
         searchInput.addEventListener('input', debounce(function(e) {
             const searchTerm = e.target.value.toLowerCase().trim();
             
-            // Get the current stations from the table
-            const tableRows = document.getElementById('searchResults').getElementsByTagName('tr');
-            const currentStations = [];
-            
-            // Convert table rows to station objects
-            for (let row of tableRows) {
-                const cells = row.getElementsByTagName('td');
-                if (cells.length >= 5) {
-                    currentStations.push({
-                        station_name: cells[0].textContent,
-                        latitude: parseFloat(cells[1].textContent),
-                        longitude: parseFloat(cells[2].textContent),
-                        elevation: parseFloat(cells[3].textContent),
-                        order: cells[4].textContent
-                    });
-                }
+            // Use allStationChoices from stations.js, which should hold all stations for the current filters
+            let sourceStations = [];
+            if (window.allStationChoices && Array.isArray(window.allStationChoices)) {
+                sourceStations = [...window.allStationChoices];
+            } else if (window.allStations && Array.isArray(window.allStations)) {
+                // Fallback to allStations if allStationChoices is not available
+                sourceStations = [...window.allStations]; 
             }
 
-            if (currentStations.length === 0 && window.allStations && window.allStations.length > 0) {
-                // If no stations in table but we have cached stations, use those
-                allFilteredStations = [...window.allStations];
-            } else if (currentStations.length === 0) {
-                console.log('No stations in table to search through');
+            if (sourceStations.length === 0) {
+                console.log('No source stations available to search through');
+                // Optionally, clear results or show a message if no source stations
+                updateSearchResults([]); 
+                updateMapMarkers([]);
                 return;
-            } else {
-                // Use the current stations in the table
-                allFilteredStations = currentStations;
             }
 
-            // If search is empty, show all current stations
+            // If search is empty, show all stations that match the current filters
             if (searchTerm === '') {
                 resetPagination();
-                updateSearchResults(allFilteredStations);
-                updateMapMarkers(allFilteredStations);
+                // applyFilters() from stations.js should repopulate with current filter set
+                // Or, if applyFilters isn't desired here, directly use sourceStations
+                updateSearchResults(sourceStations);
+                updateMapMarkers(sourceStations);
                 return;
             }
 
-            // Filter current stations based on search term
-            const filteredStations = allFilteredStations.filter(station => {
-                const stationName = (station.station_name || '').toLowerCase();
-                // Remove special characters and spaces for comparison
-                const normalizedStationName = stationName.replace(/[\s-_()]/g, '');
-                const normalizedSearchTerm = searchTerm.replace(/[\s-_()]/g, '');
+            // Filter stations based on search term
+            const filteredStations = sourceStations.filter(station => {
+                const stationName = (station.station_name || station.name || '').toLowerCase();
+                // More robust normalization: handle various characters and ensure it's a string
+                const normalizedStationName = String(stationName).replace(/[\s-_()\.]/g, ''); // Added dot to regex
+                const normalizedSearchTerm = String(searchTerm).replace(/[\s-_()\.]/g, '');
                 return normalizedStationName.includes(normalizedSearchTerm);
             });
 

@@ -6,6 +6,7 @@ import { updateMap } from './map.js';
 let currentPage = 1;
 const itemsPerPage = 10;
 let paginatedStations = [];
+let allStationChoices = []; // Initialize allStationChoices
 
 // Fetch stations by type with improved error handling
 async function fetchStationsByType(type) {
@@ -25,9 +26,11 @@ async function fetchStationsByType(type) {
             console.warn('Invalid or empty data structure received');
             // Use cached data if available, otherwise use empty array
             window.allStations = window.allStations || [];
+            allStationChoices = JSON.parse(JSON.stringify(window.allStations)); // Update choices
         } else {
             console.log(`Received ${data.data.length} ${type} stations`);
             window.allStations = data.data;
+            allStationChoices = JSON.parse(JSON.stringify(window.allStations)); // Update choices
         }
         
         // Reset pagination when fetching new data
@@ -42,6 +45,7 @@ async function fetchStationsByType(type) {
             window.allStations = [];
             console.log('No cached station data available. Using empty array.');
         }
+        allStationChoices = JSON.parse(JSON.stringify(window.allStations)); // Update choices from error fallback
         
         // Try to apply filters even with cached/empty data
         try {
@@ -57,6 +61,16 @@ function paginateStations(stations, page = 1) {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return stations.slice(startIndex, endIndex);
+}
+
+// Helper function to check if any main filters are active
+function areAnyFiltersActive() {
+    const order = document.getElementById('orderFilter')?.value;
+    const region = document.getElementById('region')?.value;
+    const province = document.getElementById('province')?.value;
+    const city = document.getElementById('city')?.value;
+    const barangay = document.getElementById('barangay')?.value;
+    return !!(order || region || province || city || barangay);
 }
 
 // Render pagination controls
@@ -186,11 +200,22 @@ function updateSearchResults(stations) {
         // Clear existing rows
         tbody.innerHTML = '';
 
+        const searchInput = document.getElementById('stationNameSearch');
+        const searchIsEmpty = searchInput && searchInput.value.trim() === '';
+
         if (stationsArray.length === 0) {
             // Add a message row if no data
             const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = `<td colspan="6" class="text-center">No stations found. Try adjusting your filters.</td>`;
-            tbody.appendChild(emptyRow);
+            let message = "No stations found. Try adjusting your filters."; // Default message
+
+            if (searchIsEmpty && !areAnyFiltersActive()) {
+                message = "Apply filters or use the search bar to see stations.";
+            } else if (!searchIsEmpty) {
+                message = "No stations match your current search and/or filters.";
+            }
+            // If search is empty but filters ARE active and yield no results, the default message is fine.
+
+            emptyRow.innerHTML = `<td colspan="6" class="text-center">${message}</td>`;
             
             // Clear pagination
             const paginationEl = document.getElementById('stationsPagination');
@@ -200,7 +225,7 @@ function updateSearchResults(stations) {
         }
 
         // Determine current GCP type
-        const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'vertical';
+        const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'horizontal';
 
         // Get the header cell for the dynamic column (4th column, index 3)
         const dynamicHeaderCell = thead.cells[3];
@@ -241,7 +266,7 @@ function updateTableWithStations(stations) {
     tbody.innerHTML = '';
     
     // Determine current GCP type
-    const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'vertical';
+    const gcpType = document.querySelector('input[name="gcpType"]:checked')?.value || 'horizontal';
     
     // Get the correct elevation key based on GCP type
     let elevationKey = 'elevation';
@@ -274,6 +299,9 @@ function updateTableWithStations(stations) {
             <td>${elevationValue}</td>
             <td>${orderValue}</td>
             <td>
+                <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${stationName.replace(/'/g, "\\'")}">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </button>
                 <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id || ''}', '${stationName.replace(/'/g, "\\'")}', '${gcpType}')">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                 </button>
@@ -286,12 +314,12 @@ function updateTableWithStations(stations) {
 // Apply filters with improved error handling
 async function applyFilters() {
     try {
-        // Ensure allStations is always an array
-        window.allStations = window.allStations || [];
+        // Ensure allStationChoices is always an array (it should be by now)
+        allStationChoices = allStationChoices || [];
         
         // Get current filter values with error handling
         const typeRadio = document.querySelector('input[name="gcpType"]:checked');
-        const type = typeRadio ? typeRadio.value : 'vertical';
+        const type = typeRadio ? typeRadio.value : 'horizontal';
         
         const orderFilter = document.getElementById('orderFilter');
         const order = orderFilter ? orderFilter.value : '';
@@ -308,8 +336,8 @@ async function applyFilters() {
         const barangayFilter = document.getElementById('barangay');
         const barangay = barangayFilter ? barangayFilter.value : '';
 
-        // Start with all stations and apply filters
-        let filteredStations = [...window.allStations];
+        // Start with all station choices (the full cache for the current type) and apply filters
+        let filteredStations = [...allStationChoices];
         
         // Apply order filter if specified
         if (order) {
@@ -358,7 +386,12 @@ async function applyFilters() {
         }
 
         // Update search results table with filtered stations
-        updateSearchResults(filteredStations);
+        const searchInput = document.getElementById('stationNameSearch');
+        if (searchInput && searchInput.value.trim() === '' && !areAnyFiltersActive()) {
+            updateSearchResults([]); // Show initial message if search is empty and no filters active
+        } else {
+            updateSearchResults(filteredStations);
+        }
         
         // Update filters based on filtered data
         try {
@@ -375,11 +408,11 @@ async function applyFilters() {
 // Update filters based on available data
 async function updateFiltersBasedOnData(stations) {
     try {
-        // Ensure allStations is always an array
-        window.allStations = window.allStations || [];
+        // Ensure allStationChoices is always an array (should be handled by fetch, but good practice)
+        allStationChoices = allStationChoices || [];
         
-        // Get unique orders with fallback
-        const uniqueOrders = [...new Set(window.allStations
+        // Get unique orders with fallback from allStationChoices
+        const uniqueOrders = [...new Set(allStationChoices
             .filter(station => station) // Filter out null/undefined
             .map(station => station.order || station.elevation_order || station.horizontal_order)
             .filter(order => order))]; // Filter out null/undefined/empty
@@ -394,20 +427,20 @@ async function updateFiltersBasedOnData(stations) {
             });
         }
 
-        // Get unique location values
-        const uniqueRegions = [...new Set(window.allStations
+        // Get unique location values from allStationChoices
+        const uniqueRegions = [...new Set(allStationChoices
             .filter(station => station && station.region)
             .map(station => station.region))];
         
-        const uniqueProvinces = [...new Set(window.allStations
+        const uniqueProvinces = [...new Set(allStationChoices
             .filter(station => station && station.province)
             .map(station => station.province))];
         
-        const uniqueCities = [...new Set(window.allStations
+        const uniqueCities = [...new Set(allStationChoices
             .filter(station => station && station.city)
             .map(station => station.city))];
         
-        const uniqueBarangays = [...new Set(window.allStations
+        const uniqueBarangays = [...new Set(allStationChoices
             .filter(station => station && station.barangay)
             .map(station => station.barangay))];
 
@@ -435,13 +468,14 @@ async function updateFiltersBasedOnData(stations) {
         // Update province dropdown
         if (provinceFilter) {
             provinceFilter.innerHTML = '<option value="">Select Province</option>';
-            let filteredProvinces = uniqueProvinces;
+            let provincesToShow = uniqueProvinces; // Start with all unique provinces
             if (currentRegion) {
-                filteredProvinces = [...new Set(window.allStations
+                // Filter provinces based on currentRegion, sourcing from allStationChoices
+                provincesToShow = [...new Set(allStationChoices
                     .filter(station => station && station.region === currentRegion && station.province)
                     .map(station => station.province))];
             }
-            filteredProvinces.sort().forEach(province => {
+            provincesToShow.sort().forEach(province => {
                 provinceFilter.innerHTML += `<option value="${province}" ${province === currentProvince ? 'selected' : ''}>${province}</option>`;
             });
         }
@@ -449,27 +483,31 @@ async function updateFiltersBasedOnData(stations) {
         // Update city dropdown
         if (cityFilter) {
             cityFilter.innerHTML = '<option value="">Select City/Municipality</option>';
+            let citiesToShow = uniqueCities; // Start with all unique cities
             if (currentProvince) {
-                const filteredCities = [...new Set(window.allStations
+                // Filter cities based on currentProvince, sourcing from allStationChoices
+                citiesToShow = [...new Set(allStationChoices
                     .filter(station => station && station.province === currentProvince && station.city)
                     .map(station => station.city))];
-                filteredCities.sort().forEach(city => {
-                    cityFilter.innerHTML += `<option value="${city}" ${city === currentCity ? 'selected' : ''}>${city}</option>`;
-                });
             }
+            citiesToShow.sort().forEach(city => {
+                cityFilter.innerHTML += `<option value="${city}" ${city === currentCity ? 'selected' : ''}>${city}</option>`;
+            });
         }
 
         // Update barangay dropdown
         if (barangayFilter) {
             barangayFilter.innerHTML = '<option value="">Select Barangay</option>';
+            let barangaysToShow = uniqueBarangays; // Start with all unique barangays
             if (currentCity) {
-                const filteredBarangays = [...new Set(window.allStations
+                // Filter barangays based on currentCity, sourcing from allStationChoices
+                barangaysToShow = [...new Set(allStationChoices
                     .filter(station => station && station.city === currentCity && station.barangay)
                     .map(station => station.barangay))];
-                filteredBarangays.sort().forEach(barangay => {
-                    barangayFilter.innerHTML += `<option value="${barangay}" ${barangay === currentBarangay ? 'selected' : ''}>${barangay}</option>`;
-                });
             }
+            barangaysToShow.sort().forEach(barangay => {
+                barangayFilter.innerHTML += `<option value="${barangay}" ${barangay === currentBarangay ? 'selected' : ''}>${barangay}</option>`;
+            });
         }
 
     } catch (error) {

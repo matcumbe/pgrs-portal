@@ -49,7 +49,7 @@ function setupGCPTypeEventListeners() {
                 const type = this.value;
                 const accuracyContainer = document.getElementById('accuracyClassContainer');
                 if (accuracyContainer) {
-                    accuracyContainer.style.display = type === 'vertical' ? 'block' : 'none';
+                    accuracyContainer.style.display = type === 'horizontal' ? 'block' : 'none';
                 }
                 await fetchStationsByType(type);
             } catch (error) {
@@ -62,10 +62,10 @@ function setupGCPTypeEventListeners() {
 // Initialize default selection
 function initializeDefaultSelection() {
     // Initialize with vertical type selected
-    const verticalRadio = document.getElementById('verticalType');
-    if (verticalRadio) {
-        verticalRadio.checked = true;
-        fetchStationsByType('vertical');
+    const horizontalRadio = document.getElementById('horizontalType');
+    if (horizontalRadio) {
+        horizontalRadio.checked = true;
+        fetchStationsByType('horizontal');
     }
 
     // Initialize visibility based on default selection

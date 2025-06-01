@@ -60,17 +60,17 @@ async function initializeMap() {
         markersClusterGroup = L.markerClusterGroup();
         markersLayer = L.layerGroup().addTo(map);
 
-        // Initialize hydrography layer (NAMRIA WMS)
+        /* // Initialize hydrography layer (NAMRIA WMS)
         hydroLayer = L.tileLayer.wms('https://giswebservices.denr.gov.ph/geoserver/ows?', {
             layers: 'NAMRIA:Hydrography',
             format: 'image/png',
             transparent: true,
             attribution: 'Hydrography data &copy; NAMRIA'
-        });
+        }); */
 
         overlayLayers = {
-            "Hydrography": hydroLayer,
-            "Markers": markersLayer
+            //"Hydrography": hydroLayer,
+            "Points": markersLayer
             // Admin Boundary will be added once GeoJSON loaded
         };
 
@@ -121,7 +121,7 @@ function loadAdminBoundariesFromGeoJSON(geojsonData) {
         adminBoundaryLayer.addTo(map);
 
         // Add or update overlayLayers control for admin boundaries
-        overlayLayers["Administrative Boundary"] = adminBoundaryLayer;
+        overlayLayers["Provincial Boundary"] = adminBoundaryLayer;
         // Update layer control (remove and add again to refresh overlays) - keep collapsed true
         map.removeControl(layerControl);
         layerControl = L.control.layers(baseLayers, overlayLayers, {collapsed: true}).addTo(map);
@@ -184,17 +184,26 @@ function updateMap(stations) {
                 let order = station.order || station.elevation_order || station.horizontal_order || '';
                 const color = orderColors[order] || '#999999'; // Default gray for unknown order
                 
+                const sName = station.station_name || '';
+                // Escape single quotes for data attribute and JS string arguments
+                const escapedSName = sName.replace(/'/g, "\\'");
+
                 const marker = L.marker([station.latitude, station.longitude], {
                     icon: createCustomIcon(color)
                 }).bindPopup(`
-                    <strong>${station.station_name || ''}</strong><br>
+                    <strong>${sName}</strong><br>
                     Lat: ${station.latitude || ''}<br>
                     Long: ${station.longitude || ''}<br>
                     ${order ? `Order: ${order}<br>` : ''}
                     ${station.accuracy_class ? `Accuracy Class: ${station.accuracy_class}<br>` : ''}
-                    <button onclick="directAddToSelected('${station.station_id}', '${station.station_name || ''}')" class="btn btn-sm btn-primary mt-2">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                    </button>
+                    <div class="mt-2" style="display: flex; align-items: center; gap: 10px;">
+                        <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${escapedSName}">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id || ''}', '${escapedSName}')" class="btn btn-sm btn-primary mt-2">
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 `);
 
                 markersClusterGroup.addLayer(marker);
@@ -226,20 +235,30 @@ function updateMapMarkers(points) {
 
     points.forEach(point => {
         if (point.latitude && point.longitude) {
-            let order = point.order || '';
-            const color = orderColors[order] || '#999999';
+            // Use the same comprehensive order fallback as in updateMap
+            let order = point.order || point.elevation_order || point.horizontal_order || '';
+            const color = orderColors[order] || '#999999'; // Default gray for unknown order
+
+            const pName = point.stationName || point.station_name || '';
+             // Escape single quotes for data attribute and JS string arguments
+            const escapedPName = pName.replace(/'/g, "\\'");
 
             const marker = L.marker([point.latitude, point.longitude], {
                 icon: createCustomIcon(color)
             }).bindPopup(`
-                <strong>${point.stationName || point.station_name}</strong><br>
+                <strong>${pName}</strong><br>
                 Lat: ${point.latitude}<br>
                 Long: ${point.longitude}<br>
-                Order: ${point.order}<br>
-                ${point.accuracyClass ? `Accuracy Class: ${point.accuracyClass}<br>` : ''}
-                <button class="btn btn-add-to-cart mt-2" onclick="directAddToSelected('${point.stationId || point.station_id}', '${point.stationName || point.station_name}')">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                </button>
+                ${order ? `Order: ${order}<br>` : ''}
+                ${point.accuracy_class ? `Accuracy Class: ${point.accuracy_class}<br>` : ''}
+                <div class="mt-2" style="display: flex; align-items: center; gap: 10px;">
+                    <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${escapedPName}">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${point.station_id || ''}', '${escapedPName}')" class="btn btn-sm btn-primary mt-2">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
             `);
 
             markersClusterGroup.addLayer(marker);

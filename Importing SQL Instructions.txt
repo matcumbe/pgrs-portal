@@ -1,0 +1,4 @@
+When importing SQL files for DB, create these two databases first as the files require them in order to run properly:
+
+1. webgnis_db (stations)
+2. webgnis_users (users, carts, requests, transactions)
