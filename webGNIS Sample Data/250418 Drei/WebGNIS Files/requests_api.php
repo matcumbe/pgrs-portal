@@ -779,13 +779,15 @@ function getPriceForStationType($stationType) {
     // Use defined constants from config.php
     switch ($stationType) {
         case 'horizontal':
-            return defined('PRICE_HORIZONTAL') ? PRICE_HORIZONTAL : 300.00;
+            return defined('PRICE_HORIZONTAL') ? PRICE_HORIZONTAL : 360.00;
+        case 'caap':
+            return defined('PRICE_CAAP') ? PRICE_CAAP : 720.00;
         case 'vertical':
-            return defined('PRICE_VERTICAL') ? PRICE_VERTICAL : 300.00;
+            return defined('PRICE_VERTICAL') ? PRICE_VERTICAL : 360.00;
         case 'gravity':
-            return defined('PRICE_GRAVITY') ? PRICE_GRAVITY : 300.00;
+            return defined('PRICE_GRAVITY') ? PRICE_GRAVITY : 360.00;
         default:
-            return defined('PRICE_HORIZONTAL') ? PRICE_HORIZONTAL : 300.00;
+            return defined('PRICE_HORIZONTAL') ? PRICE_HORIZONTAL : 360.00;
     }
 }
 

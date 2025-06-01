@@ -91,10 +91,11 @@ try {
     define('TOKEN_EXPIRY', 86400); // 24 hours in seconds
 
     // Station price configuration
-    define('PRICE_HORIZONTAL', 300);
-    define('PRICE_VERTICAL', 300);
-    define('PRICE_GRAVITY', 300);
-
+    define('PRICE_HORIZONTAL', 360);
+    define('PRICE_VERTICAL', 360);
+    define('PRICE_GRAVITY', 360);
+    define('PRICE_CAAP', 720);
+    
     // Debug mode (true for development, false for production)
     define('DEBUG_MODE', true);
 

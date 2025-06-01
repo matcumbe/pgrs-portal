@@ -302,13 +302,51 @@ function updateTableWithStations(stations) {
                 <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${stationName.replace(/'/g, "\\'")}">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id || ''}', '${stationName.replace(/'/g, "\\'")}', '${gcpType}')">
+                <button class="btn btn-sm btn-primary" onclick="promptStationTypeAndAddToCart('${station.station_id || ''}', '${stationName.replace(/'/g, "\\'")}', '${gcpType}')">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                 </button>
             </td>
         `;
         tbody.appendChild(row);
     });
+}
+
+// Function to prompt for station type if horizontal, then add to cart
+function promptStationTypeAndAddToCart(stationId, stationName, gcpType) {
+    if (gcpType === 'horizontal') {
+        // Show modal
+        const stationTypeModal = new bootstrap.Modal(document.getElementById('stationTypeModal'));
+        
+        // Store data for modal buttons
+        const modalRegularButton = document.getElementById('modalRegularButton');
+        const modalCaapButton = document.getElementById('modalCaapButton');
+
+        // Clone and replace to remove old event listeners
+        const newModalRegularButton = modalRegularButton.cloneNode(true);
+        modalRegularButton.parentNode.replaceChild(newModalRegularButton, modalRegularButton);
+        
+        const newModalCaapButton = modalCaapButton.cloneNode(true);
+        modalCaapButton.parentNode.replaceChild(newModalCaapButton, modalCaapButton);
+
+        newModalRegularButton.onclick = () => {
+            directAddToSelected(stationId, stationName, 'horizontal');
+            stationTypeModal.hide();
+        };
+        newModalCaapButton.onclick = () => {
+            directAddToSelected(stationId, stationName, 'caap');
+            stationTypeModal.hide();
+        };
+        
+        stationTypeModal.show();
+    } else {
+        // For other types (vertical, gravity), add directly
+        directAddToSelected(stationId, stationName, gcpType);
+    }
+}
+
+// Expose the new function to the global scope if not already done for directAddToSelected
+if (typeof window.directAddToSelected === 'function' && typeof window.promptStationTypeAndAddToCart === 'undefined') {
+    window.promptStationTypeAndAddToCart = promptStationTypeAndAddToCart;
 }
 
 // Apply filters with improved error handling
@@ -574,5 +612,6 @@ export {
     handlePaginationClick,
     updateTableWithStations,
     // Expose current page variable for search.js
-    currentPage
+    currentPage,
+    promptStationTypeAndAddToCart // Export new function
 }; 

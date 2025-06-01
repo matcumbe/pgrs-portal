@@ -233,6 +233,7 @@
                                     <thead>
                                         <tr>
                                             <th>Station Name</th>
+                                            <th>Type</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -432,10 +433,29 @@
         });
     </script>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <!-- Leaflet MarkerCluster JS -->
     <script src="https://unpkg.com/leaflet.markercluster@1.5.1/dist/leaflet.markercluster.js"></script>
     
+    <script type="module" src="js/main.js"></script>
+
+    <!-- Station Type Modal -->
+    <div class="modal fade" id="stationTypeModal" tabindex="-1" aria-labelledby="stationTypeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="stationTypeModalLabel">Select Station Type</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>For this horizontal station, please specify if it's a Regular or CAAP station.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="modalRegularButton">Regular</button>
+            <button type="button" class="btn btn-success" id="modalCaapButton">CAAP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </body>
 </html> 

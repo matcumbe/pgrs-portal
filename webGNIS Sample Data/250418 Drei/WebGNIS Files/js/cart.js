@@ -43,11 +43,13 @@ async function directAddToSelected(stationId, stationName, stationType) {
         stationType = 'vertical';
     }
 
-    // Check if this ID is already in the list
+    // Check if this ID and TYPE is already in the list
     for (let i = 0; i < window.selectedPointsList.length; i++) {
-        if (window.selectedPointsList[i].id === stationId) {
-            console.log("Already in cart:", stationId);
-            return; // Exit if already in list
+        if (window.selectedPointsList[i].id === stationId && window.selectedPointsList[i].type === stationType) {
+            console.log("Item with same ID and Type already in cart:", stationId, stationType);
+            // Optionally, provide user feedback e.g., using a toast notification
+            // For now, just log and return to prevent duplicate.
+            return; 
         }
     }
     
@@ -130,8 +132,11 @@ function updateSelectedPointsTable() {
     for (let i = 0; i < window.selectedPointsList.length; i++) {
         const item = window.selectedPointsList[i];
         const row = document.createElement('tr');
+        // Capitalize the first letter of the type for display
+        const displayType = item.type.charAt(0).toUpperCase() + item.type.slice(1);
         row.innerHTML = `
             <td>${item.name}</td>
+            <td>${displayType}</td>
             <td>
                 <button class="btn btn-sm btn-danger" onclick="removeFromSelected('${item.id}')">
                     <i class="fa fa-times" aria-hidden="true"></i>

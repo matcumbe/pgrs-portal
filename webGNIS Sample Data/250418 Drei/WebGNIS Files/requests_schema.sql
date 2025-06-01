@@ -30,7 +30,7 @@ CREATE TABLE cart_items (
     cart_id INT NOT NULL,
     station_id VARCHAR(50) NOT NULL,
     station_name VARCHAR(100) NULL, -- Store station name for display
-    station_type ENUM('horizontal', 'vertical', 'gravity') NOT NULL,
+    station_type ENUM('horizontal', 'vertical', 'gravity', 'caap') NOT NULL,
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cart_id) REFERENCES carts(cart_id) ON DELETE CASCADE,
     INDEX (cart_id)

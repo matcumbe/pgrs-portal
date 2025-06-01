@@ -13,9 +13,10 @@ const API_URL = {
 
 // Station prices - will be updated from config
 let STATION_PRICES = {
-    'horizontal': 300,
-    'vertical': 300,
-    'gravity': 300
+    'horizontal': 360,
+    'caap': 720,
+    'vertical': 360,
+    'gravity': 360
 };
 
 // Modal HTML template

@@ -1,6 +1,19 @@
 // map.js - Map functionality for WebGNIS application
 import { logError, showError } from './utils.js';
 
+// Helper function to escape strings for use in JS onclick attributes within template literals
+function escapeStringForJsOnClickInTemplateLiteral(str) {
+    if (typeof str === 'undefined' || str === null) str = '';
+    if (typeof str !== 'string') str = String(str); 
+    let result = str.replace(/\\/g, '\\\\');  // 1. Escape backslashes FIRST (e.g., \ -> \\)
+    result = result.replace(/'/g, "\\'");    // 2. Escape single quotes (e.g., ' -> \')
+    result = result.replace(/\n/g, '\\n');   // 3. Escape newlines
+    result = result.replace(/\r/g, '\\r');   // 4. Escape carriage returns
+    result = result.replace(/\t/g, '\\t');   // 5. Escape tabs
+    result = result.replace(/`/g, '\\`');    // 6. Escape backticks (e.g., ` -> \\`)
+    return result;
+}
+
 // Define marker colors for different orders
 const orderColors = {
     '0': '#FF0000',    // Red
@@ -184,23 +197,30 @@ function updateMap(stations) {
                 let order = station.order || station.elevation_order || station.horizontal_order || '';
                 const color = orderColors[order] || '#999999'; // Default gray for unknown order
                 
-                const sName = station.station_name || '';
-                // Escape single quotes for data attribute and JS string arguments
-                const escapedSName = sName.replace(/'/g, "\\'");
+                const sNameOriginal = station.station_name || station.name || '';
+                const stationIdOriginal = station.station_id || '';
+                const stationTypeOriginal = station.station_type || station.type || '';
+
+                const escapedSName = escapeStringForJsOnClickInTemplateLiteral(sNameOriginal);
+                const escapedStationId = escapeStringForJsOnClickInTemplateLiteral(stationIdOriginal);
+                const escapedStationType = escapeStringForJsOnClickInTemplateLiteral(stationTypeOriginal);
+
+                // For display in HTML (simple HTML escaping)
+                const sNameForHTML = sNameOriginal.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
                 const marker = L.marker([station.latitude, station.longitude], {
                     icon: createCustomIcon(color)
                 }).bindPopup(`
-                    <strong>${sName}</strong><br>
+                    <strong>${sNameForHTML}</strong><br>
                     Lat: ${station.latitude || ''}<br>
                     Long: ${station.longitude || ''}<br>
                     ${order ? `Order: ${order}<br>` : ''}
-                    ${station.accuracy_class ? `Accuracy Class: ${station.accuracy_class}<br>` : ''}
+                    ${stationTypeOriginal === 'vertical' && station.accuracy_class ? `Accuracy Class: ${station.accuracy_class}<br>` : ''}
                     <div class="mt-2" style="display: flex; align-items: center; gap: 10px;">
                         <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${escapedSName}">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${station.station_id || ''}', '${escapedSName}')" class="btn btn-sm btn-primary mt-2">
+                        <button class="btn btn-sm btn-primary" onclick="window.promptStationTypeAndAddToCart('${escapedStationId}', '${escapedSName}', '${escapedStationType}')">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -239,23 +259,30 @@ function updateMapMarkers(points) {
             let order = point.order || point.elevation_order || point.horizontal_order || '';
             const color = orderColors[order] || '#999999'; // Default gray for unknown order
 
-            const pName = point.stationName || point.station_name || '';
-             // Escape single quotes for data attribute and JS string arguments
-            const escapedPName = pName.replace(/'/g, "\\'");
+            const pNameOriginal = point.stationName || point.station_name || '';
+            const pointStationIdOriginal = point.station_id || '';
+            const pointStationTypeOriginal = point.station_type || point.type || '';
+
+            const escapedPName = escapeStringForJsOnClickInTemplateLiteral(pNameOriginal);
+            const escapedPointStationId = escapeStringForJsOnClickInTemplateLiteral(pointStationIdOriginal);
+            const escapedPointStationType = escapeStringForJsOnClickInTemplateLiteral(pointStationTypeOriginal);
+
+            // For display in HTML (simple HTML escaping)
+            const pNameForHTML = pNameOriginal.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
             const marker = L.marker([point.latitude, point.longitude], {
                 icon: createCustomIcon(color)
             }).bindPopup(`
-                <strong>${pName}</strong><br>
+                <strong>${pNameForHTML}</strong><br>
                 Lat: ${point.latitude}<br>
                 Long: ${point.longitude}<br>
                 ${order ? `Order: ${order}<br>` : ''}
-                ${point.accuracy_class ? `Accuracy Class: ${point.accuracy_class}<br>` : ''}
+                ${pointStationTypeOriginal === 'vertical' && point.accuracy_class ? `Accuracy Class: ${point.accuracy_class}<br>` : ''}
                 <div class="mt-2" style="display: flex; align-items: center; gap: 10px;">
                     <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${escapedPName}">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
-                    <button class="btn btn-sm btn-primary" onclick="directAddToSelected('${point.station_id || ''}', '${escapedPName}')" class="btn btn-sm btn-primary mt-2">
+                    <button class="btn btn-sm btn-primary" onclick="window.promptStationTypeAndAddToCart('${escapedPointStationId}', '${escapedPName}', '${escapedPointStationType}')">
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                     </button>
                 </div>

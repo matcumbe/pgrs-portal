@@ -164,6 +164,9 @@ function addToCart($db) {
         $stmt->bindParam(':station_name', $stationName);
         $stmt->bindParam(':station_type', $data->station_type);
         
+        // Enhanced debug log before execute
+        error_log("Executing INSERT for cart_item with cart_id: {$cartId}, station_id: {$data->station_id}, station_name: {$stationName}, station_type: {$data->station_type}");
+        
         if ($stmt->execute()) {
             // Update cart's updated_at timestamp
             $sql = "UPDATE carts SET updated_at = CURRENT_TIMESTAMP WHERE cart_id = :cart_id";
@@ -383,6 +386,9 @@ function getCartItems($db) {
             
             $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
+            // Log the raw items fetched from DB before any processing
+            error_log("getCartItems raw fetched items: " . print_r($items, true));
+
             // Process items to ensure all have station_name
             foreach ($items as &$item) {
                 // If station_name is NULL or empty, use station_id as fallback

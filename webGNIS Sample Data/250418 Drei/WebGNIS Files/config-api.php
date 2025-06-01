@@ -12,9 +12,10 @@ $config = [
     'status' => 'success',
     'data' => [
         'station_prices' => [
-            'horizontal' => 300,
-            'vertical' => 300,
-            'gravity' => 300
+            'horizontal' => 360,
+            'vertical' => 360,
+            'gravity' => 360,
+            'caap' => 720
         ],
         'upload_limits' => [
             'max_size' => 5242880,

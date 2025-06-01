@@ -86,6 +86,7 @@ try {
     // Fetch the data
     $data = [];
     while ($row = $result->fetch_assoc()) {
+        $row['type'] = $type; // Append the station type to each row
         $data[] = $row;
     }
     
