@@ -372,7 +372,12 @@ function getUserRequests($db, $userId) {
     
     try {
         // Get requests with status name
-        $sql = "SELECT r.*, rs.status_name, rs.color_code, COUNT(ri.item_id) as item_count
+        $sql = "SELECT r.*, rs.status_name, rs.color_code, COUNT(ri.item_id) as item_count,
+                       (SELECT tr.remarks 
+                        FROM transactions tr 
+                        WHERE tr.request_id = r.request_id 
+                        ORDER BY tr.payment_date DESC 
+                        LIMIT 1) AS transaction_remarks
                 FROM requests r
                 JOIN request_statuses rs ON r.status_id = rs.status_id
                 LEFT JOIN request_items ri ON r.request_id = ri.request_id

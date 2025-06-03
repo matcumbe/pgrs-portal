@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let bsPaymentModal = null;
     
     // Add this variable to store the cached requests at the top of the file (after existing variables)
-    let cachedRequests = [];
-    let allRequests = [];
+    let allFetchedRequests = [];
+    const itemsPerPage = 10; // Or your preferred number for the tracker page
+    let currentPage = 1; // Keep track of the current page
     
     try {
         const paymentModalEl = document.getElementById('paymentModal');
@@ -125,7 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const result = await response.json();
             if (result.status === 'success') {
-                return result.data || [];
+                statusList = result.data || []; // Store for badge coloring
+                return statusList;
             }
             console.error('Failed to fetch request statuses:', result.message);
             return [];
@@ -135,83 +137,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function fetchUserRequests(userId, statusId = null, page = 1) {
+    // Modified to fetch a single page of user requests - will be used by fetchAllUserRequestPagesSequentially
+    async function fetchUserRequestsPage(userId, statusId = null, page = 1, perPage = itemsPerPage) {
         if (!userId) {
-            console.error('No userId provided to fetchUserRequests');
-            return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            console.error('No userId provided to fetchUserRequestsPage');
+            return { requests: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         }
-        
         const token = getToken();
         if (!token) {
             console.error('No authentication token available');
-            return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            return { requests: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         }
-        
-        // Build URL with parameters
-        let url = `${API_BASE_URL}/requests_api.php?action=list&user=${userId}&page=${page}`;
-        if (statusId) {
+        let url = `${API_BASE_URL}/requests_api.php?action=list&user=${userId}&page=${page}&per_page=${perPage}`;
+        if (statusId) { // If an initial server-side filter is ever needed for the base set
             url += `&status=${statusId}`;
         }
-        
-        console.log('Fetching requests from URL:', url);
-        console.log('Using token:', token.substring(0, 10) + '...');
-        
+        console.log('Fetching user requests page from URL:', url);
         try {
-            const response = await fetch(url, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            
-            // Log the raw response for debugging
+            const response = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
             const responseText = await response.text();
-            console.log('Raw API Response:', responseText);
-            
-            // Try to parse the response
             let result;
             try {
                 result = JSON.parse(responseText);
             } catch (parseError) {
-                console.error('Failed to parse API response as JSON:', parseError);
-                return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+                console.error('Failed to parse API response as JSON:', parseError, responseText.substring(0,500));
+                return { requests: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
             }
-            
             if (!response.ok) {
                 console.error(`API error! status: ${response.status}, message:`, result.message || 'Unknown error');
-                return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+                return { requests: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
             }
-            
             if (result.status === 'success') {
-                if (!result.data) {
-                    console.warn('API returned success but no data');
-                    return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
-                }
-                
-                // Log the requests for debugging
-                console.log('Parsed requests data:', result.data);
-                
-                // Cache all requests when no status filter is applied
-                if (!statusId) {
-                    allRequests = result.data.requests || [];
-                }
-                
-                return {
+                 return {
                     requests: result.data.requests || [],
-                    pagination: result.data.pagination || { 
-                        total: 0,
-                        per_page: 10,
-                        current_page: 1,
-                        last_page: 1
-                    }
+                    pagination: result.data.pagination || { total: 0, per_page: perPage, current_page: page, last_page: 1 }
                 };
             }
-            
-            console.error('Failed to fetch requests:', result.message);
-            return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            console.error('Failed to fetch user requests page:', result.message);
+            return { requests: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         } catch (error) {
-            console.error('Error fetching user requests:', error);
-            return { requests: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            console.error('Error fetching user requests page:', error);
+            return { requests: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         }
+    }
+
+    // New function to fetch all pages of user requests sequentially
+    async function fetchAllUserRequestPagesSequentially(userId, initialStatusId = null) {
+        let allItems = [];
+        let page = 1;
+        let hasMorePages = true;
+        const queryPerPage = 50; // Fetch in larger chunks
+
+        console.log(`Starting to fetch all request pages for user ${userId}.`);
+
+        while (hasMorePages) {
+            const result = await fetchUserRequestsPage(userId, initialStatusId, page, queryPerPage);
+            
+            if (result.requests && result.requests.length > 0) {
+                allItems = allItems.concat(result.requests);
+                console.log(`Fetched ${result.requests.length} requests from page ${page}. Total items for user ${userId} so far: ${allItems.length}`);
+            }
+
+            if (result.pagination) {
+                const { current_page, last_page } = result.pagination;
+                if (current_page >= last_page || result.requests.length < queryPerPage) {
+                    hasMorePages = false;
+                    console.log(`Reached the last page for user ${userId} or fetched less than perPage items.`);
+                } else {
+                    page++;
+                }
+            } else {
+                hasMorePages = false; // Safety break if pagination info is missing
+                console.warn('No pagination info in API response for user requests, assuming all items fetched.');
+            }
+            
+            // Safety break in case of an issue preventing hasMorePages from becoming false
+            if (page > (result.pagination?.last_page || 1) + 5 && page > 100) { // Allow a few extra pages, then cap
+                 console.error("fetchAllUserRequestPagesSequentially safety break: Exceeded expected page count.");
+                 hasMorePages = false;
+            }
+        }
+        console.log(`Finished fetching all request pages for user ${userId}. Total items fetched: ${allItems.length}`);
+        return allItems;
     }
 
     async function fetchRequestDetails(requestId) {
@@ -252,139 +259,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- UI Population ---
-    function populateStatusFilters(statuses) {
-        if (!statusFilterContainer) return;
-        
-        // Store statuses for later use
-        statusList = statuses;
-        
-        // Clear the container
-        statusFilterContainer.innerHTML = '';
-        
-        // Add "All" option
-        const allFilter = document.createElement('div');
-        allFilter.className = 'form-check';
-        allFilter.innerHTML = `
-            <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterAll" value="" checked>
-            <label class="form-check-label" for="filterAll">All</label>
-        `;
-        statusFilterContainer.appendChild(allFilter);
-        
-        // Add status options from API
-        statuses.forEach(status => {
-            const statusFilter = document.createElement('div');
-            statusFilter.className = 'form-check';
-            
-            // Use status color code if available
-            const colorStyle = status.color_code ? 
-                `style="color: ${status.color_code}; font-weight: bold;"` : '';
-            
-            statusFilter.innerHTML = `
-                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filter${status.status_id}" value="${status.status_id}">
-                <label class="form-check-label" for="filter${status.status_id}" ${colorStyle}>${status.status_name}</label>
-            `;
-            statusFilterContainer.appendChild(statusFilter);
-        });
-        
-        // Add event listeners for the filters
+    // populateStatusFilters is now primarily for attaching event listeners
+    function setupStatusFiltersEventListeners() {
+        if (!statusFilterContainer) {
+            console.warn("Status filter container not found. Cannot attach listeners.");
+            return;
+        }
+        // Event listeners for the static filters
         document.querySelectorAll('.status-filter').forEach(filter => {
             filter.addEventListener('change', handleStatusFilterChange);
         });
+        console.log("Event listeners attached to static status filters.");
     }
 
-    // Add helper function to filter requests by status
-    function filterRequestsByStatus(requests, statusId) {
-        if (statusId === null) {
-            return requests; // Return all if no filter
+    // Add helper function to filter requests by status (client-side)
+    // This function remains similar, ensures status_id comparison is correct
+    function filterRequestsByStatusClientSide(requests, statusId) {
+        if (statusId === null || statusId === "") { // Empty string for "All"
+            return requests; 
         }
-        
+        const numericStatusId = parseInt(statusId);
         return requests.filter(request => {
-            // First check for status_id match
-            if (request.status_id !== undefined) {
-                return parseInt(request.status_id) === statusId;
-            }
-            // If no status_id, try to match by finding the status in the statusList
-            const status = statusList.find(s => s.status_id === statusId);
-            if (status) {
-                return request.status_name === status.status_name;
-            }
-            return false;
+            // Ensure request.status_id is treated as a number for comparison
+            return request.status_id !== undefined && parseInt(request.status_id) === numericStatusId;
         });
     }
 
-    // Add helper function for pagination
-    function paginateRequests(requests, page) {
-        const perPage = 10; // Default from the original pagination
+    // Client-side pagination helper
+    function paginateClientSide(items, page, perPage) {
         const startIndex = (page - 1) * perPage;
-        const endIndex = startIndex + perPage;
-        const pagedRequests = requests.slice(startIndex, endIndex);
-        
-        // Create pagination info
-        const totalPages = Math.ceil(requests.length / perPage);
-        const paginationInfo = {
-            total: requests.length,
+        return items.slice(startIndex, startIndex + perPage);
+    }
+
+    // Client-side pagination info generator
+    function generatePaginationInfo(totalItems, page, perPage) {
+        const last_page = Math.ceil(totalItems / perPage) || 1;
+        return {
+            total: totalItems,
             per_page: perPage,
             current_page: page,
-            last_page: totalPages || 1
-        };
-        
-        return {
-            pagedRequests,
-            paginationInfo
+            last_page: last_page
         };
     }
 
-    // Update the handleStatusFilterChange function to use the pagination helper
+    // Modified handleStatusFilterChange for client-side filtering
     async function handleStatusFilterChange(event) {
         if (!event.target.checked) return;
         
-        const statusId = event.target.value;
-        currentStatusFilter = statusId ? parseInt(statusId) : null;
+        const statusIdValue = event.target.value; // Value from HTML radio button (can be empty string for "All")
+        currentStatusFilter = statusIdValue === "" ? null : parseInt(statusIdValue);
+        currentPage = 1; // Reset to first page on filter change
         
-        // Show loading state
-        if (loadingMessage) loadingMessage.style.display = 'block';
-        if (requestsTableBody) requestsTableBody.innerHTML = '';
-        if (noRequestsMessage) noRequestsMessage.style.display = 'none';
+        console.log('Client-side filter change. Status ID:', currentStatusFilter);
         
-        // Check if we have cached data to filter
-        if (allRequests.length > 0) {
-            console.log('Filtering cached requests for status:', currentStatusFilter);
-            
-            // Filter the cached requests
-            const filteredRequests = filterRequestsByStatus(allRequests, currentStatusFilter);
-            
-            // Paginate the filtered requests (page 1 for new filter)
-            const { pagedRequests, paginationInfo } = paginateRequests(filteredRequests, 1);
-            
-            // Update UI with filtered data
-            if (loadingMessage) loadingMessage.style.display = 'none';
-            renderRequests(pagedRequests);
-            renderPagination(paginationInfo);
-            
-            return;
-        }
-        
-        // Fallback: If no cached data is available, fetch from server
-        const userId = getUserId();
-        const result = await fetchUserRequests(userId, currentStatusFilter);
-        
-        // Update UI
-        if (loadingMessage) loadingMessage.style.display = 'none';
-        renderRequests(result.requests);
-        renderPagination(result.pagination);
+        applyFilterAndPaginateTracker();
     }
 
-    function renderRequests(requests) {
+    function renderRequests(requestsToRender) {
         if (!requestsTableBody) return;
         requestsTableBody.innerHTML = ''; // Clear existing rows
 
-        if (requests.length === 0) {
-            if (noRequestsMessage) noRequestsMessage.style.display = 'block';
+        if (requestsToRender.length === 0) {
+            // This is now handled by applyFilterAndPaginateTracker
+            // if (noRequestsMessage) noRequestsMessage.style.display = 'block'; 
             return;
         }
-        if (noRequestsMessage) noRequestsMessage.style.display = 'none';
+        // if (noRequestsMessage) noRequestsMessage.style.display = 'none'; // Handled by applyFilterAndPaginateTracker
 
-        requests.forEach(request => {
+        requestsToRender.forEach(request => {
             const row = requestsTableBody.insertRow();
             row.setAttribute('data-request-id', request.request_id);
             row.classList.add('request-summary-row');
@@ -419,6 +361,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             statusCell.appendChild(statusBadge);
+
+            // Remarks cell (new)
+            const remarksCell = row.insertCell();
+            if (request.status_name === 'Not Approved' && request.transaction_remarks) {
+                remarksCell.textContent = request.transaction_remarks;
+            } else {
+                remarksCell.textContent = 'No remarks.'; // Or some placeholder like '-'
+            }
 
             // Actions
             const actionsCell = row.insertCell();
@@ -478,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
             detailsRow.style.display = 'none'; // Hidden by default
             detailsRow.style.transition = 'all 0.3s ease';
             const detailsCell = detailsRow.insertCell();
-            detailsCell.colSpan = 4;
+            detailsCell.colSpan = 5; // Adjusted colspan from 4 to 5
             detailsCell.classList.add('request-details-content', 'p-3', 'bg-light');
             detailsCell.innerHTML = `
                 <div class="d-flex align-items-center justify-content-center">
@@ -526,45 +476,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Update the handlePaginationClick function to use the pagination helper
+    // Modified handlePaginationClick for client-side pagination
     async function handlePaginationClick(event) {
         event.preventDefault();
         const target = event.target;
-        if (!target.dataset.page) return;
-        
-        const page = parseInt(target.dataset.page);
-        
-        // Show loading state
-        if (loadingMessage) loadingMessage.style.display = 'block';
-        if (requestsTableBody) requestsTableBody.innerHTML = '';
-        if (noRequestsMessage) noRequestsMessage.style.display = 'none';
-        
-        // Check if we have cached data to paginate
-        if (allRequests.length > 0) {
-            console.log('Client-side pagination for page:', page);
-            
-            // Get filtered requests
-            const filteredRequests = filterRequestsByStatus(allRequests, currentStatusFilter);
-            
-            // Paginate the filtered requests
-            const { pagedRequests, paginationInfo } = paginateRequests(filteredRequests, page);
-            
-            // Update UI with paged data
-            if (loadingMessage) loadingMessage.style.display = 'none';
-            renderRequests(pagedRequests);
-            renderPagination(paginationInfo);
-            
+        const newPage = parseInt(target.dataset.page);
+
+        if (isNaN(newPage) || newPage < 1 || newPage === currentPage) {
+            if (target.closest('.page-item.disabled')) { // Check if parent li is disabled
             return;
+            }
+            // If not disabled but page is same or invalid, also return to avoid re-processing
+            if (newPage === currentPage || isNaN(newPage) || newPage < 1) return;
         }
         
-        // Fallback: If no cached data is available, fetch from server
-        const userId = getUserId();
-        const result = await fetchUserRequests(userId, currentStatusFilter, page);
-        
-        // Update UI
-        if (loadingMessage) loadingMessage.style.display = 'none';
-        renderRequests(result.requests);
-        renderPagination(result.pagination);
+        currentPage = newPage;
+        console.log('Client-side pagination click. New page:', currentPage);
+        applyFilterAndPaginateTracker();
     }
 
     async function toggleRequestDetails(requestId) {
@@ -639,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 html += '<tr>';
                                 html += `<td>${item.station_id || 'N/A'}</td>`;
                                 html += `<td>${item.station_name || 'N/A'}</td>`;
-                                html += `<td>${item.station_type ? (item.station_type.charAt(0).toUpperCase() + item.station_type.slice(1)) : 'N/A'}</td>`;
+                                html += `<td>${item.station_type === 'caap' ? 'Horizontal (CAAP)' : (item.station_type ? (item.station_type.charAt(0).toUpperCase() + item.station_type.slice(1)) : 'N/A')}</td>`;
                                 html += `<td class="text-end">₱${parseFloat(item.price || 0).toFixed(2)}</td>`;
                                 html += '</tr>';
                             });
@@ -833,16 +761,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Try to get user information to ensure we have the correct user ID
         let currentUser = await getCurrentUserInfo();
         let userId;
         
         if (currentUser && currentUser.user_id) {
             userId = parseInt(currentUser.user_id);
-            console.log('Using user_id from API response:', userId);
         } else {
-            userId = getUserId();
-            console.log('Using user_id from local storage/token:', userId);
+            userId = getUserId(); // Fallback to localStorage/token
         }
 
         if (!userId) {
@@ -855,177 +780,156 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Show loading state
         if (loadingMessage) loadingMessage.style.display = 'block';
         if (noRequestsMessage) noRequestsMessage.style.display = 'none';
         if (requestsTableBody) requestsTableBody.innerHTML = '';
 
         try {
-            // Fetch statuses for filtering
-            const statuses = await fetchRequestStatuses();
-            populateStatusFilters(statuses);
+            // Fetch statuses for badge coloring (statusList global variable)
+            await fetchRequestStatuses(); 
+            
+            // Attach event listeners to the static HTML filters
+            setupStatusFiltersEventListeners();
 
-            // Fetch user requests with no status filter to get all requests
-            console.log('Fetching all requests for user ID:', userId);
-            const result = await fetchUserRequests(userId);
-            console.log('Fetched requests:', result.requests);
+            // Fetch ALL user requests for client-side filtering
+            console.log('Fetching all requests for user ID for client-side cache:', userId);
+            allFetchedRequests = await fetchAllUserRequestPagesSequentially(userId);
+            console.log('All requests fetched and cached:', allFetchedRequests.length);
             
-            // Cache all requests for client-side filtering
-            allRequests = result.requests || [];
-            
-            // Update UI
-            if (loadingMessage) loadingMessage.style.display = 'none';
-            renderRequests(result.requests);
-            renderPagination(result.pagination);
+            currentPage = 1; // Ensure current page is reset before first render
+            applyFilterAndPaginateTracker(); // Initial render
+
         } catch (error) {
             console.error('Error initializing tracker:', error);
-            if (loadingMessage) loadingMessage.style.display = 'none';
             if (noRequestsMessage) {
                 noRequestsMessage.innerHTML = '<p>Error loading requests. Please try again later.</p>';
                 noRequestsMessage.style.display = 'block';
             }
+            // Render empty pagination or hide it
+             renderPagination(generatePaginationInfo(0, 1, itemsPerPage));
+        } finally {
+            if (loadingMessage) loadingMessage.style.display = 'none';
         }
 
-        // Add event listener for pagination
-        const paginationControls = document.getElementById('paginationControls');
-        if (paginationControls) {
-            paginationControls.addEventListener('click', handlePaginationClick);
-        }
-
-        // Event delegation for action buttons and row clicks
-        document.querySelector('#requestsTable tbody').addEventListener('click', function(event) {
+        // Event delegation for action buttons and row clicks (ensure this is set up once)
+        const tbody = document.querySelector('#requestsTable tbody');
+        if (tbody && !tbody.dataset.eventListenersAttached) { // Prevent multiple attachments
+            tbody.addEventListener('click', function(event) {
             const target = event.target;
-            if (target.classList.contains('add-payment-btn') && !target.disabled) {
-                const requestId = target.dataset.requestId;
-                handleAddPayment(requestId);
-            }
-            // Handle download button click (placeholder)
+                // Add Payment Button Click (check classList contains 'add-payment-btn' which is more robust)
+                const addPaymentButton = target.closest('.btn-primary'); // Assuming Add Payment is primary
+                if (addPaymentButton && addPaymentButton.textContent === 'Add Payment' && !addPaymentButton.disabled) {
+                    const requestId = addPaymentButton.dataset.requestId;
+                    if (requestId) handleAddPayment(requestId);
+                }
+                // Download button click
             else if (target.closest('.download-btn') && !target.closest('.download-btn').disabled) {
                 const requestId = target.closest('.download-btn').dataset.requestId;
                 alert(`Download functionality for request ID: ${requestId} is not yet implemented.`);
                 console.log("Download clicked for request:", requestId);
             }
-            // Handle row click for details, but not if a button in actions was clicked
-            else if (target.closest('.request-summary-row') && !target.closest('.action-buttons')) {
-                const requestId = target.closest('.request-summary-row').dataset.requestId;
+                // View Details Button Click (use .view-details-btn class)
+                else if (target.closest('.view-details-btn')) {
+                     const detailsButton = target.closest('.view-details-btn');
+                     const requestId = detailsButton.dataset.requestId;
+                     if (requestId) {
                 toggleRequestDetails(requestId);
-            }
-        });
-
-        // Handle payment submission from the modal
-        const submitPaymentBtn = document.getElementById('submitPaymentBtn');
-        if (submitPaymentBtn) {
-            submitPaymentBtn.addEventListener('click', async function() {
-                // Get form data
-                const form = document.getElementById('paymentForm');
-                const requestId = document.getElementById('modalRequestId').value;
-                const token = getToken();
-
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
+                        // Toggle button appearance
+                        if (detailsButton.classList.contains('btn-secondary')) {
+                            detailsButton.classList.replace('btn-secondary', 'btn-success');
+                            detailsButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                            detailsButton.title = 'Hide Details';
+                        } else {
+                            detailsButton.classList.replace('btn-success', 'btn-secondary');
+                            detailsButton.innerHTML = '<i class="fas fa-eye"></i>';
+                            detailsButton.title = 'View Details';
+                        }
+                     }
                 }
-
-                // Get payment method
-                let paymentMethodId = 0;
-                const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
-                for(let i = 0; i < paymentMethods.length; i++) {
-                    if(paymentMethods[i].checked) {
-                        paymentMethodId = i + 1;
-                        break;
+                // Handle row click for details (but not if an action button within the row was clicked)
+                // Check if the click was on the row itself and not on something within .action-buttons
+                else if (target.closest('.request-summary-row') && !target.closest('.action-buttons')) {
+                    const summaryRow = target.closest('.request-summary-row');
+                    const requestId = summaryRow.dataset.requestId;
+                    if (requestId) {
+                        // Also toggle the button state of the view details button within this row
+                        const detailsButton = summaryRow.querySelector('.view-details-btn');
+                        toggleRequestDetails(requestId); // This function handles showing/hiding details
+                         if (detailsButton) {
+                            if (detailsButton.classList.contains('btn-secondary')) {
+                                detailsButton.classList.replace('btn-secondary', 'btn-success');
+                                detailsButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                                detailsButton.title = 'Hide Details';
+                            } else {
+                                detailsButton.classList.replace('btn-success', 'btn-secondary');
+                                detailsButton.innerHTML = '<i class="fas fa-eye"></i>';
+                                detailsButton.title = 'View Details';
+                            }
+                        }
                     }
                 }
-                
-                if(paymentMethodId === 0) {
-                    alert('Please select a payment method');
-                    return;
-                }
+            });
+            tbody.dataset.eventListenersAttached = 'true';
+        }
+    }
 
-                const formData = new FormData(form);
-                const paymentData = {
-                    request_id: parseInt(requestId),
-                    payment_method_id: paymentMethodId,
-                    paid_amount: parseFloat(document.getElementById('paidAmount').value),
-                    reference_number: document.getElementById('referenceNumber').value
-                };
-
-                if (!token) {
-                    alert('Session expired or not logged in. Please log in again.');
-                    return;
-                }
-                
-                try {
-                    submitPaymentBtn.disabled = true;
-                    submitPaymentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-
-                    const response = await fetch(`${API_BASE_URL}/transactions_api.php?action=submit`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(paymentData)
-                    });
-                    const result = await response.json();
-
-                    if (result.status !== 'success') {
-                        document.getElementById('paymentAlert').textContent = `Payment failed: ${result.message}`;
-                        document.getElementById('paymentAlert').classList.remove('d-none');
+    // +++ New Client-Side Core Filtering and Pagination Function for Tracker +++
+    function applyFilterAndPaginateTracker() {
+        if (!allFetchedRequests) {
+            console.error("allFetchedRequests is not initialized. Cannot apply filter on tracker.");
+            if (loadingMessage) loadingMessage.style.display = 'none';
+            if (noRequestsMessage) {
+                noRequestsMessage.textContent = 'Request data is not available.';
+                noRequestsMessage.style.display = 'block';
+            }
+            renderPagination(generatePaginationInfo(0, 1, itemsPerPage)); // Show empty pagination
                         return;
                     }
 
-                    // Upload proof if provided
-                    const proofFile = document.getElementById('proofFile').files[0];
-                    if (proofFile && result.data.transaction_id) {
-                        const uploadFormData = new FormData();
-                        uploadFormData.append('transaction_id', result.data.transaction_id);
-                        uploadFormData.append('proof_file', proofFile);
-                        
-                        await fetch(`${API_BASE_URL}/transactions_api.php?action=upload-proof`, {
-                            method: 'POST',
-                            headers: { 'Authorization': `Bearer ${token}` },
-                            body: uploadFormData
-                        });
-                        // Check upload result if necessary
-                    }
-                    
-                    bsPaymentModal.hide();
-                    alert(`Payment submitted successfully for Request ID ${requestId}! Your transaction code is ${result.data.transaction_code}. The page will now refresh.`);
-                    initializeTracker(); // Refresh the list
+        if (loadingMessage) loadingMessage.style.display = 'block'; // Show loading during processing
 
-                } catch (error) {
-                    console.error('Error submitting payment:', error);
-                    document.getElementById('paymentAlert').textContent = 'An error occurred. Please try again.';
-                    document.getElementById('paymentAlert').classList.remove('d-none');
-                } finally {
-                    submitPaymentBtn.disabled = false;
-                    submitPaymentBtn.innerHTML = 'Submit';
-                }
-            });
+        console.log(`Tracker: Applying filter. Status ID: ${currentStatusFilter}, Current page: ${currentPage}`);
+
+        const filteredRequests = filterRequestsByStatusClientSide(allFetchedRequests, currentStatusFilter);
+        console.log(`Tracker: Found ${filteredRequests.length} requests after filter (Status ID: ${currentStatusFilter}).`);
+
+        const totalFilteredItems = filteredRequests.length;
+        const maxPage = Math.ceil(totalFilteredItems / itemsPerPage) || 1;
+        if (currentPage > maxPage) {
+            currentPage = maxPage; // Adjust current page if out of bounds
         }
 
-        // Setup file upload interactions
-        const uploadBox = document.getElementById('uploadBox');
-        const proofFile = document.getElementById('proofFile');
+        const paginationInfo = generatePaginationInfo(totalFilteredItems, currentPage, itemsPerPage);
+        const displayedRequests = paginateClientSide(filteredRequests, currentPage, itemsPerPage);
         
-        if (uploadBox && proofFile) {
-            uploadBox.addEventListener('click', function() {
-                proofFile.click();
-            });
-            
-            proofFile.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    const fileName = this.files[0].name;
-                    uploadBox.innerHTML = `
-                        <div class="upload-icon">
-                            <i class="fas fa-check fa-2x mb-2 text-success"></i>
-                        </div>
-                        <p class="mb-0">${fileName}</p>
-                    `;
+        console.log(`Tracker: Paginated. Displaying ${displayedRequests.length} requests on page ${currentPage} of ${paginationInfo.last_page}. Total filtered: ${totalFilteredItems}`);
+
+        if (requestsTableBody) requestsTableBody.innerHTML = ''; // Clear before rendering
+
+        if (displayedRequests.length === 0) {
+            if (noRequestsMessage) {
+                if (totalFilteredItems > 0) {
+                    noRequestsMessage.textContent = 'No requests match the current filter on this page.';
+                } else if (currentStatusFilter !== null) {
+                    noRequestsMessage.textContent = 'No requests match your current filter criteria.';
+                } else if (allFetchedRequests.length === 0 ) {
+                     noRequestsMessage.innerHTML = 'You have no requests yet. Please <a href="#" data-bs-toggle="modal" data-bs-target="#authModal">login</a> or make a request.';
                 }
-            });
+                 else {
+                    noRequestsMessage.textContent = 'No requests to display.';
+                }
+                noRequestsMessage.style.display = 'block';
+            }
+        } else {
+            if (noRequestsMessage) noRequestsMessage.style.display = 'none';
         }
+        
+        renderRequests(displayedRequests); // renderRequests now uses the passed 'displayedRequests'
+        renderPagination(paginationInfo);
+        
+        if (loadingMessage) loadingMessage.style.display = 'none'; // Hide loading after processing
     }
+    // --- End of New Helper Functions ---
 
     // Listen for authentication events
     document.addEventListener('webgnis:auth:login', function(event) {
@@ -1182,9 +1086,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Reload the requests table to show updated status
                 const userId = getUserId();
-                const userRequests = await fetchUserRequests(userId, currentStatusFilter);
-                renderRequests(userRequests.requests);
-                renderPagination(userRequests.pagination);
+                const userRequests = await fetchAllUserRequestPagesSequentially(userId, currentStatusFilter);
+                renderRequests(userRequests);
+                renderPagination(generatePaginationInfo(userRequests.length, currentPage, itemsPerPage));
             } else {
                 showPaymentAlert(result.message || "Failed to submit payment. Please try again.");
             }

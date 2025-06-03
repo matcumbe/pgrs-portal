@@ -86,7 +86,7 @@ const PAYMENT_MODAL_HTML = `
                     
                     <div class="row mb-3">
                         <div class="col-md-3">
-                            <label for="referenceNumber" class="form-label">Reference No.:</label>
+                            <label for="referenceNumber" class="form-label">Payment Reference No.:</label>
                         </div>
                         <div class="col-md-9">
                             <input type="text" class="form-control" id="referenceNumber" name="reference_number" required>
@@ -145,7 +145,7 @@ const PaymentController = {
         return {
             id: String(id),
             name: String(name),
-            type: String(type).toLowerCase()
+            type: String(type)
         };
     },
 
@@ -333,12 +333,17 @@ const PaymentController = {
             const label = document.createElement('div');
             label.className = 'form-check form-check-inline';
             
+            let methodName = method.method_name;
+            if (method.method_name.toLowerCase() === 'link biz') {
+                methodName = `<a href="https://www.lbp-eservices.com/egps/PPTransactionListServlet?selectBox=NATIONAL+MAPPING+AND+RESOURCE+INFORMATION+AUTHORITY+-+NAMRIA&pplid=7034&epptag=0&merchcode=1548&M_Submit=Continue+%C2%A0+%EF%84%81" target="_blank">LinkBiz</a>`;
+            }
+            
             label.innerHTML = `
                 <input class="form-check-input" type="radio" name="payment_method_id" 
                        id="${methodId}" value="${method.payment_method_id}" 
                        ${index === 0 ? 'checked' : ''}>
                 <label class="form-check-label" for="${methodId}">
-                    ${method.method_name}
+                    ${methodName}
                 </label>
             `;
             
@@ -646,6 +651,7 @@ const PaymentController = {
     formatStationType: function(type) {
         const types = {
             'horizontal': 'Horizontal GCP',
+            'caap': 'Horizontal GCP (CAAP)',
             'vertical': 'Vertical Benchmark',
             'gravity': 'Gravity Station'
         };

@@ -145,7 +145,7 @@
     <div class="container-fluid mt-3">
         <div class="row">
             <!-- Filter Panel -->
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="card mb-3">
                     <div class="card-header" style="background-color: rgb(25, 135, 84);">
                         <h5 class="mb-0" style="color: white;">Filter/Search Panel</h5>
@@ -153,14 +153,41 @@
                     <div class="card-body">
                         <h6>Filter by Status:</h6>
                         <div id="statusFilterContainer" class="mb-3">
-                            <!-- Will be populated dynamically by tracker.js -->
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterAll" value="" checked>
+                                <label class="form-check-label" for="filterAll">All</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterNotPaid" value="1">
+                                <label class="form-check-label" for="filterNotPaid">Not Paid</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterPaid" value="2">
+                                <label class="form-check-label" for="filterPaid">Paid</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterPending" value="3">
+                                <label class="form-check-label" for="filterPending">Pending</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterApproved" value="4">
+                                <label class="form-check-label" for="filterApproved">Approved</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterNotApproved" value="5">
+                                <label class="form-check-label" for="filterNotApproved">Not Approved</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input status-filter" type="radio" name="statusFilter" id="filterExpired" value="6">
+                                <label class="form-check-label" for="filterExpired">Expired</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Requests Table -->
-            <div class="col-md-9 ps-0">
+            <div class="col-md-10 ps-0">
                 <div class="card">
                     <div class="card-header" style="background-color: rgb(25, 135, 84);">
                         <h5 class="mb-0" style="color: white;">Requests Table</h5>
@@ -173,6 +200,7 @@
                                         <th>Transaction ID</th>
                                         <th>Date of Request</th>
                                         <th>Status</th>
+                                        <th>Remarks</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -266,7 +294,7 @@
                             <div class="col-md-9">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="paymentMethod" id="methodLinkBiz" value="linkbiz">
-                                    <label class="form-check-label" for="methodLinkBiz">LinkBiz</label>
+                                    <label class="form-check-label" for="methodLinkBiz"><a href="https://www.lbp-eservices.com/egps/PPTransactionListServlet?selectBox=NATIONAL+MAPPING+AND+RESOURCE+INFORMATION+AUTHORITY+-+NAMRIA&pplid=7034&epptag=0&merchcode=1548&M_Submit=Continue+%C2%A0+%EF%84%81" target="_blank">LinkBiz</a></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="paymentMethod" id="methodBankTransfer" value="bank_transfer">
@@ -288,7 +316,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-3">
-                                <label for="trackerReferenceNumber" class="form-label">Reference No.:</label>
+                                <label for="trackerReferenceNumber" class="form-label">Payment Reference No.:</label>
                             </div>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" id="trackerReferenceNumber" name="reference_number" required>

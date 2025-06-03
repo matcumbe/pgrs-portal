@@ -13,9 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentStatusFilter = null;
     let statusList = [];
-    let allTransactions = [];
     let currentPage = 1;
     let itemsPerPage = 10;
+    
+    // New global variables for client-side data management
+    let allFetchedTransactions = [];
+    let displayedTransactions = [];
     
     // Initialize Bootstrap modals
     let previewModal = null;
@@ -87,58 +90,109 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function fetchAllTransactions(statusId = null, page = 1) {
+    async function fetchSinglePageTransactions(statusId = null, page = 1, perPage = itemsPerPage) {
         const token = getToken();
         if (!token) {
             console.error('No authentication token available');
-            return { transactions: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            return { transactions: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         }
         
-        // Build URL with parameters
-        let url = `${API_BASE_URL}/transactions_api.php?action=list&page=${page}`;
+        let url = `${API_BASE_URL}/transactions_api.php?action=list&page=${page}&per_page=${perPage}`;
         if (statusId) {
             url += `&status=${statusId}`;
         }
-        
-        console.log('Fetching transactions from URL:', url);
-        
+        console.log('Fetching a single page of transactions from URL:', url);
         try {
             const response = await fetch(url, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-            
-            // For debugging, log the entire response
             const responseText = await response.text();
-            console.log('API Response:', responseText);
-            
-            // Re-parse the response
             let result;
             try {
                 result = JSON.parse(responseText);
             } catch (e) {
-                console.error('Failed to parse API response as JSON:', e);
+                console.error('Failed to parse API response as JSON:', e, responseText);
                 throw new Error('Invalid JSON response from API');
             }
-            
             if (result.status === 'success') {
                 return {
                     transactions: result.data.transactions || [],
-                    pagination: result.data.pagination || { 
-                        total: 0, 
-                        per_page: 10, 
-                        current_page: 1, 
-                        last_page: 1 
-                    }
+                    pagination: result.data.pagination || { total: 0, per_page: perPage, current_page: page, last_page: 1 }
                 };
             }
-            console.error('Failed to fetch all transactions:', result.message);
-            return { transactions: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            console.error('Failed to fetch transactions page:', result.message);
+            return { transactions: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         } catch (error) {
-            console.error('Error fetching all transactions:', error);
-            return { transactions: [], pagination: { total: 0, per_page: 10, current_page: 1, last_page: 1 } };
+            console.error('Error fetching single page of transactions:', error);
+            return { transactions: [], pagination: { total: 0, per_page: perPage, current_page: page, last_page: 1 } };
         }
+    }
+
+    async function fetchAllPagesSequentially(initialStatusId = null) {
+        let allItems = [];
+        let page = 1;
+        let hasMorePages = true;
+        const queryPerPage = 50; // Fetch in chunks of 50 to be efficient but not overload
+
+        console.log(`Starting to fetch all pages. Initial status filter (if any for base set): ${initialStatusId}`);
+
+        while (hasMorePages) {
+            const token = getToken();
+            if (!token) {
+                console.error('No authentication token available for fetching all pages.');
+                throw new Error('Authentication token not found.');
+            }
+            
+            let url = `${API_BASE_URL}/transactions_api.php?action=list&page=${page}&per_page=${queryPerPage}`;
+            if (initialStatusId) { // This would fetch all pages of an *initially* filtered set. Usually we want all.
+                url += `&status=${initialStatusId}`;
+            }
+            
+            console.log(`Fetching page ${page} (up to ${queryPerPage} items) from URL: ${url}`);
+
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const responseText = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (e) {
+                    console.error(`Failed to parse JSON for page ${page}:`, e, `Response text: ${responseText.substring(0, 500)}...`);
+                    throw new Error('Invalid JSON response during sequential fetch');
+                }
+
+                if (result.status === 'success' && result.data && result.data.transactions) {
+                    allItems = allItems.concat(result.data.transactions);
+                    console.log(`Fetched ${result.data.transactions.length} items from page ${page}. Total items so far: ${allItems.length}`);
+                    
+                    // Check if there are more pages
+                    if (result.data.pagination) {
+                        const { current_page, last_page } = result.data.pagination;
+                        if (current_page >= last_page || result.data.transactions.length < queryPerPage) {
+                            hasMorePages = false;
+                            console.log('Reached the last page or fetched less than perPage items.');
+                        } else {
+                            page++;
+                        }
+                    } else {
+                        // If no pagination info, assume this is all
+                        hasMorePages = false;
+                        console.warn('No pagination info in API response, assuming all items fetched.');
+                    }
+                } else {
+                    console.error('API call for a page was not successful or no data returned:', result.message || 'Unknown API error');
+                    hasMorePages = false; // Stop on error or unsuccessful fetch
+                }
+            } catch (error) {
+                console.error(`Error fetching page ${page} of transactions:`, error);
+                hasMorePages = false; // Stop on error
+                throw error; // Re-throw to be caught by the caller
+            }
+        }
+        console.log(`Finished fetching all pages. Total items fetched: ${allItems.length}`);
+        return allItems;
     }
 
     async function fetchTransactionDetails(transactionId) {
@@ -261,30 +315,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const statusValue = event.target.value;
         currentStatusFilter = statusValue === 'all' ? null : parseInt(statusValue);
         
-        loadingMessage.style.display = 'block';
-        noRequestsMessage.style.display = 'none';
-        
-        const result = await fetchAllTransactions(currentStatusFilter, currentPage);
-        allTransactions = result.transactions;
-        
-        if (allTransactions.length === 0) {
-            noRequestsMessage.style.display = 'block';
-            requestsTableBody.innerHTML = '';
-        } else {
-            noRequestsMessage.style.display = 'none';
-            renderTransactions(allTransactions);
-        }
-        
-        renderPagination(result.pagination);
-        loadingMessage.style.display = 'none';
+        applyFilterAndPaginate();
     }
 
-    function renderTransactions(transactions) {
+    function renderTransactions(transactionsToRender) {
         if (!requestsTableBody) return;
         
-        requestsTableBody.innerHTML = '';
+        requestsTableBody.innerHTML = ''; // Clear existing rows
         
-        transactions.forEach(transaction => {
+        if (transactionsToRender.length === 0) {
+            // This case is handled by applyFilterAndPaginate for more specific messages
+            return;
+        }
+
+        transactionsToRender.forEach(transaction => {
             const statusName = transaction.status_name || 'Unknown';
             const statusBadge = getStatusBadge(statusName);
             const row = document.createElement('tr');
@@ -330,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${formattedDate}</td>
                 <td>${formattedPaymentAmount}</td>
                 <td>${statusBadge}</td>
+                <td>${(transaction.status_name === 'Not Approved' && transaction.remarks) ? transaction.remarks : 'No remarks.'}</td>
                 <td class="text-center">
                     ${previewButton}
                     ${approveButton}
@@ -352,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.approve-btn:not(.btn-disabled)').forEach(button => {
             button.addEventListener('click', () => {
                 const transactionId = button.getAttribute('data-id');
-                const transaction = transactions.find(t => t.transaction_id == transactionId);
+                const transaction = transactionsToRender.find(t => t.transaction_id == transactionId);
                 handleApproveTransaction(transactionId, transaction.transaction_code);
             });
         });
@@ -360,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.disapprove-btn:not(.btn-disabled)').forEach(button => {
             button.addEventListener('click', () => {
                 const transactionId = button.getAttribute('data-id');
-                const transaction = transactions.find(t => t.transaction_id == transactionId);
+                const transaction = transactionsToRender.find(t => t.transaction_id == transactionId);
                 handleDisapproveTransaction(transactionId, transaction.transaction_code);
             });
         });
@@ -444,28 +489,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function handlePaginationClick(event) {
         event.preventDefault();
-        const page = parseInt(event.currentTarget.getAttribute('data-page'));
+        const newPage = parseInt(event.currentTarget.getAttribute('data-page'));
         
-        if (isNaN(page) || page < 1 || page === currentPage) {
-            return;
+        if (isNaN(newPage) || newPage < 1 || newPage === currentPage) {
+            // Also check if it's a disabled link if class 'disabled' is on li
+            if (event.currentTarget.closest('.page-item.disabled')) {
+                return;
+            }
         }
         
-        currentPage = page;
-        loadingMessage.style.display = 'block';
+        currentPage = newPage;
         
-        const result = await fetchAllTransactions(currentStatusFilter, currentPage);
-        allTransactions = result.transactions;
-        
-        if (allTransactions.length === 0) {
-            noRequestsMessage.style.display = 'block';
-            requestsTableBody.innerHTML = '';
-        } else {
-            noRequestsMessage.style.display = 'none';
-            renderTransactions(allTransactions);
-        }
-        
-        renderPagination(result.pagination);
-        loadingMessage.style.display = 'none';
+        applyFilterAndPaginate();
     }
 
     async function showTransactionPreview(transactionId) {
@@ -604,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     row.innerHTML = `
                         <td>${item.station_id || 'N/A'}</td>
                         <td>${item.station_name || 'N/A'}</td>
-                        <td>${item.station_type ? (item.station_type.charAt(0).toUpperCase() + item.station_type.slice(1)) : 'N/A'}</td>
+                        <td>${item.station_type ? (item.station_type === 'caap' ? 'Horizontal (CAAP)' : item.station_type.charAt(0).toUpperCase() + item.station_type.slice(1)) : 'N/A'}</td>
                         <td>₱${price.toFixed(2)}</td>
                     `;
                     
@@ -699,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.hide();
             
             // Refresh transactions list
-            await fetchAllTransactions(currentStatusFilter, currentPage);
+            await fetchAllPagesSequentially(currentStatusFilter);
             alert(`Transaction ${transactionCode} has been approved successfully.`);
             
         } catch (error) {
@@ -755,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.hide();
             
             // Refresh transactions list
-            await fetchAllTransactions(currentStatusFilter, currentPage);
+            await fetchAllPagesSequentially(currentStatusFilter);
             alert(`Transaction ${transactionCode} has been disapproved.`);
             
         } catch (error) {
@@ -860,21 +895,99 @@ document.addEventListener('DOMContentLoaded', () => {
         const statuses = await fetchRequestStatuses();
         populateStatusFilters(statuses);
         
-        // Fetch initial set of transactions
+        // Fetch initial set of ALL transactions
         loadingMessage.style.display = 'block';
-        const result = await fetchAllTransactions(null, 1);
-        allTransactions = result.transactions;
+        requestsTableBody.innerHTML = ''; // Clear table before loading
+        noRequestsMessage.style.display = 'none';
+
+        try {
+            // Fetch all transactions without any server-side status filter for the base dataset
+            allFetchedTransactions = await fetchAllPagesSequentially(null); 
+            console.log(`All transactions fetched for client-side use: ${allFetchedTransactions.length}`);
+
+            currentPage = 1; // Reset to first page for initial display
+            applyFilterAndPaginate(); // Apply default filter (all) and paginate the full set
+
+        } catch (error) {
+            console.error('Error initializing requests management with all transactions:', error);
+            requestsTableBody.innerHTML = ''; // Clear table on error
+            noRequestsMessage.textContent = 'Failed to load transactions. Please try again later.';
+            noRequestsMessage.style.display = 'block';
+            // Optionally, render an empty pagination or hide it
+            renderPagination(generatePaginationInfo(0, 1, itemsPerPage));
+        } finally {
+            loadingMessage.style.display = 'none';
+        }
+    }
+
+    // +++ New Client-Side Helper Functions +++
+    function paginateClientSide(items, page, perPage) {
+        const startIndex = (page - 1) * perPage;
+        return items.slice(startIndex, startIndex + perPage);
+    }
+
+    function generatePaginationInfo(totalItems, page, perPage) {
+        const last_page = Math.ceil(totalItems / perPage) || 1;
+        return {
+            total: totalItems,
+            per_page: perPage,
+            current_page: page,
+            last_page: last_page
+        };
+    }
+
+    function applyFilterAndPaginate() {
+        if (!allFetchedTransactions) {
+            console.error("allFetchedTransactions is not initialized. Cannot apply filter.");
+            return;
+        }
+        console.log(`Applying filter. Current status filter ID: ${currentStatusFilter}, Current page: ${currentPage}`);
+
+        let filteredTransactions = [...allFetchedTransactions];
+
+        if (currentStatusFilter !== null && currentStatusFilter !== undefined) {
+            // Ensure status_id is consistently available and compared as numbers
+            // API (transactions_api.php -> getAllPayments) provides t.status_id from transactions table.
+            filteredTransactions = allFetchedTransactions.filter(
+                transaction => transaction.status_id !== undefined && 
+                               parseInt(transaction.status_id) === parseInt(currentStatusFilter)
+            );
+        }
+        console.log(`Found ${filteredTransactions.length} transactions after filter (Status ID: ${currentStatusFilter}).`);
+
+        const totalFilteredItems = filteredTransactions.length;
+        // Adjust currentPage if it's out of bounds for the new filtered set
+        const maxPage = Math.ceil(totalFilteredItems / itemsPerPage) || 1;
+        if (currentPage > maxPage) {
+            currentPage = maxPage;
+        }
+
+        const paginationInfo = generatePaginationInfo(totalFilteredItems, currentPage, itemsPerPage);
+        displayedTransactions = paginateClientSide(filteredTransactions, currentPage, itemsPerPage);
         
-        if (allTransactions.length === 0) {
+        console.log(`Paginated. Displaying ${displayedTransactions.length} transactions on page ${currentPage} of ${paginationInfo.last_page}. Total filtered: ${totalFilteredItems}`);
+
+        requestsTableBody.innerHTML = ''; // Clear before rendering
+
+        if (displayedTransactions.length === 0) {
+            if (totalFilteredItems > 0) {
+                // Items match filter, but current page is empty (e.g., navigated beyond last page of filtered results)
+                noRequestsMessage.textContent = 'No requests match the current filter on this page.';
+            } else if (currentStatusFilter !== null) {
+                // No items match the specific filter
+                noRequestsMessage.textContent = 'No requests match the current filter criteria.';
+            } else {
+                // No transactions at all in the system
+                noRequestsMessage.textContent = 'No requests found in the system.';
+            }
             noRequestsMessage.style.display = 'block';
         } else {
-            renderTransactions(allTransactions);
             noRequestsMessage.style.display = 'none';
+            renderTransactions(displayedTransactions); // renderTransactions now uses the passed 'displayedTransactions'
         }
-        
-        renderPagination(result.pagination);
-        loadingMessage.style.display = 'none';
+        renderPagination(paginationInfo);
     }
+    // --- End of New Helper Functions ---
 
     // Initialize the page
     checkAuthStatus().then(() => {

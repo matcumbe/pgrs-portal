@@ -133,7 +133,7 @@ function updateSelectedPointsTable() {
         const item = window.selectedPointsList[i];
         const row = document.createElement('tr');
         // Capitalize the first letter of the type for display
-        const displayType = item.type.charAt(0).toUpperCase() + item.type.slice(1);
+        const displayType = item.type === 'caap' ? 'Horizontal (CAAP)' : item.type.charAt(0).toUpperCase() + item.type.slice(1);
         row.innerHTML = `
             <td>${item.name}</td>
             <td>${displayType}</td>
