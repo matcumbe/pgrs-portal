@@ -629,6 +629,42 @@ document.addEventListener('DOMContentLoaded', () => {
         if (transactionCodeField && requestData.transaction_code) {
             transactionCodeField.value = requestData.transaction_code;
         }
+
+        // Populate the stations list in the payment modal
+        const stationsListBody = document.getElementById('paymentStationsList');
+        const paymentTableFooter = document.querySelector('#paymentModal table tfoot tr');
+
+        if (stationsListBody) {
+            stationsListBody.innerHTML = ''; // Clear existing items
+            let totalItems = 0;
+            requestData.items.forEach(item => {
+                const row = stationsListBody.insertRow();
+                row.insertCell().textContent = item.station_id || 'N/A';
+                row.insertCell().textContent = item.station_name || 'N/A';
+                row.insertCell().textContent = item.station_type === 'caap' ? 'Horizontal (CAAP)' : (item.station_type ? (item.station_type.charAt(0).toUpperCase() + item.station_type.slice(1)) : 'N/A');
+                row.insertCell().textContent = `₱${parseFloat(item.price || 0).toFixed(2)}`;
+                
+                // Add a non-functional remove button as per the original UI, or make it functional if needed.
+                // For now, it's just a placeholder like the original static HTML.
+                const actionCell = row.insertCell();
+                const removeButton = document.createElement('button');
+                removeButton.classList.add('btn', 'btn-danger', 'btn-sm');
+                removeButton.textContent = 'X';
+                removeButton.disabled = true; // Keep it disabled as original, or implement removal logic
+                actionCell.appendChild(removeButton);
+                totalItems++;
+            });
+
+            // Update the footer
+            if (paymentTableFooter) {
+                paymentTableFooter.cells[0].textContent = 'Total'; // "Total" label
+                paymentTableFooter.cells[0].colSpan = 2;
+                paymentTableFooter.cells[1].textContent = totalItems; // Number of items
+                paymentTableFooter.cells[1].colSpan = 1; // Reset colspan if it was set differently
+                paymentTableFooter.cells[2].textContent = `₱${parseFloat(requestData.total_amount || 0).toFixed(2)}`; // Total amount
+                paymentTableFooter.cells[2].colSpan = 2; // Span across Price and Action
+            }
+        }
         
         // Clear any previous alert
         const alertElement = document.getElementById('trackerPaymentAlert');

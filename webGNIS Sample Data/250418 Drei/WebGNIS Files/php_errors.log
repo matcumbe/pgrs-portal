@@ -8358,3 +8358,720 @@
 [03-Jun-2025 16:49:44 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
 [03-Jun-2025 16:49:44 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
 [03-Jun-2025 16:49:44 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[03-Jun-2025 11:38:46 Europe/Berlin] No authentication token provided in request
+[03-Jun-2025 17:38:46 Asia/Manila] API Request: /api/stations/horizontal
+[03-Jun-2025 17:38:46 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 14:12:53 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:12:53 Europe/Berlin] No authentication token provided in request
+[04-Jun-2025 14:12:53 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:13:12 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:12 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:12 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 14:13:13 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:13:13 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:13 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:13 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 14:13:13 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:13:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:14 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:14 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:14 Europe/Berlin] Starting cart sync for user_id: 2
+[04-Jun-2025 08:13:14 Europe/Berlin] Syncing from guest session: guest_1748935812888_esmsvb88o9r to user: 2
+[04-Jun-2025 08:13:14 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 08:13:14 Europe/Berlin] No guest cart found for session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 14:13:15 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:13:15 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:13:15 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:13:15 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:13:15 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:13:15 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:13:15 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:13:16 Asia/Manila] Found 4 requests for user 2
+[04-Jun-2025 14:13:16 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:13:16 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:13:16 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:13:16 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:13:16 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:13:16 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:13:16 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:13:16 Asia/Manila] Found 4 requests for user 2
+[04-Jun-2025 14:13:19 Asia/Manila] [2025-06-04 14:13:19] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:13:19 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:13:19 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:13:19 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:13:19 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:13:23 Asia/Manila] [2025-06-04 14:13:23] Fetching request ID: 76 from action: view/76
+[04-Jun-2025 14:13:23 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:13:23 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:13:23 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:13:23 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 08:13:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:47 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 14:13:47 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:13:47 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 14:13:47 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:13:49 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:49 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:49 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:49 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:49 Europe/Berlin] Starting cart sync for user_id: 2
+[04-Jun-2025 08:13:49 Europe/Berlin] Syncing from guest session: guest_1748935812888_esmsvb88o9r to user: 2
+[04-Jun-2025 08:13:49 Europe/Berlin] No guest cart found for session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:13:49 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 08:13:50 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:13:50 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:13:50 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 08:14:01 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 356
+    [station_type] => caap
+    [station_name] => MMA-3202
+    [session_id] => guest_1748935812888_esmsvb88o9r
+)
+
+[04-Jun-2025 08:14:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:14:01 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:14:01 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:14:01 Europe/Berlin] Found existing user cart ID: 9
+[04-Jun-2025 08:14:01 Europe/Berlin] Executing INSERT for cart_item with cart_id: 9, station_id: 356, station_name: MMA-3202, station_type: caap
+[04-Jun-2025 08:14:03 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 356
+    [station_type] => horizontal
+    [station_name] => MMA-3202
+    [session_id] => guest_1748935812888_esmsvb88o9r
+)
+
+[04-Jun-2025 08:14:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:14:03 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:14:03 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:14:03 Europe/Berlin] Found existing user cart ID: 9
+[04-Jun-2025 08:14:03 Europe/Berlin] Executing INSERT for cart_item with cart_id: 9, station_id: 356, station_name: MMA-3202, station_type: horizontal
+[04-Jun-2025 08:18:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:39 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:39 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 290
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => horizontal
+            [added_at] => 2025-06-04 14:14:03
+        )
+
+    [1] => Array
+        (
+            [item_id] => 289
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => caap
+            [added_at] => 2025-06-04 14:14:01
+        )
+
+)
+
+[04-Jun-2025 14:18:39 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 14:18:40 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:18:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:41 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:41 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 290
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => horizontal
+            [added_at] => 2025-06-04 14:14:03
+        )
+
+    [1] => Array
+        (
+            [item_id] => 289
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => caap
+            [added_at] => 2025-06-04 14:14:01
+        )
+
+)
+
+[04-Jun-2025 08:18:41 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:41 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:41 Europe/Berlin] Starting cart sync for user_id: 2
+[04-Jun-2025 08:18:41 Europe/Berlin] Syncing from guest session: guest_1748935812888_esmsvb88o9r to user: 2
+[04-Jun-2025 08:18:41 Europe/Berlin] No guest cart found for session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:18:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:42 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:42 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 290
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => horizontal
+            [added_at] => 2025-06-04 14:14:03
+        )
+
+    [1] => Array
+        (
+            [item_id] => 289
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => caap
+            [added_at] => 2025-06-04 14:14:01
+        )
+
+)
+
+[04-Jun-2025 14:18:43 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:18:43 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:18:43 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:18:43 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:18:43 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:18:43 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:18:43 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:18:43 Asia/Manila] Found 4 requests for user 2
+[04-Jun-2025 14:18:43 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:18:43 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:18:43 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:18:43 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:18:43 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:18:43 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:18:43 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:18:43 Asia/Manila] Found 4 requests for user 2
+[04-Jun-2025 14:18:45 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:18:45 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:18:45 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:18:45 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:18:45 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:18:45 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:18:45 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:18:45 Asia/Manila] Found 4 requests for user 2
+[04-Jun-2025 14:18:45 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:18:45 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:18:45 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:18:45 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:18:45 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:18:45 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:18:45 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:18:45 Asia/Manila] Found 4 requests for user 2
+[04-Jun-2025 08:18:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:57 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:57 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 290
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => horizontal
+            [added_at] => 2025-06-04 14:14:03
+        )
+
+    [1] => Array
+        (
+            [item_id] => 289
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => caap
+            [added_at] => 2025-06-04 14:14:01
+        )
+
+)
+
+[04-Jun-2025 14:18:57 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 14:18:57 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:18:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:59 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:59 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 290
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => horizontal
+            [added_at] => 2025-06-04 14:14:03
+        )
+
+    [1] => Array
+        (
+            [item_id] => 289
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => caap
+            [added_at] => 2025-06-04 14:14:01
+        )
+
+)
+
+[04-Jun-2025 08:18:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:18:59 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:18:59 Europe/Berlin] Starting cart sync for user_id: 2
+[04-Jun-2025 08:18:59 Europe/Berlin] Syncing from guest session: guest_1748935812888_esmsvb88o9r to user: 2
+[04-Jun-2025 08:18:59 Europe/Berlin] No guest cart found for session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:19:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:19:00 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:19:00 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 290
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => horizontal
+            [added_at] => 2025-06-04 14:14:03
+        )
+
+    [1] => Array
+        (
+            [item_id] => 289
+            [station_id] => 356
+            [station_name] => MMA-3202
+            [station_type] => caap
+            [added_at] => 2025-06-04 14:14:01
+        )
+
+)
+
+[04-Jun-2025 08:19:06 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1390
+    [station_type] => caap
+    [station_name] => MMA-4225
+    [session_id] => guest_1748935812888_esmsvb88o9r
+)
+
+[04-Jun-2025 08:19:06 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:19:06 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:19:06 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:19:06 Europe/Berlin] Found existing user cart ID: 9
+[04-Jun-2025 08:19:06 Europe/Berlin] Executing INSERT for cart_item with cart_id: 9, station_id: 1390, station_name: MMA-4225, station_type: caap
+[04-Jun-2025 08:19:09 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 354
+    [station_type] => caap
+    [station_name] => MMA-3201
+    [session_id] => guest_1748935812888_esmsvb88o9r
+)
+
+[04-Jun-2025 08:19:09 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:19:09 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:19:09 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:19:09 Europe/Berlin] Found existing user cart ID: 9
+[04-Jun-2025 08:19:09 Europe/Berlin] Executing INSERT for cart_item with cart_id: 9, station_id: 354, station_name: MMA-3201, station_type: caap
+[04-Jun-2025 08:19:11 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:19:11 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 14:19:28 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:28 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:28 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:28 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:28 Asia/Manila] createRequest called with token user_id: 2 (type: integer)
+[04-Jun-2025 14:19:28 Asia/Manila] Full token object: (object) array(
+   'iat' => 1749017592,
+   'exp' => 1749103992,
+   'user_id' => 2,
+   'username' => 'sample',
+   'user_type' => 'individual',
+)
+[04-Jun-2025 14:19:28 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 356
+                    [station_name] => MMA-3202
+                    [station_type] => caap
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 1390
+                    [station_name] => MMA-4225
+                    [station_type] => caap
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 354
+                    [station_name] => MMA-3201
+                    [station_type] => caap
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[04-Jun-2025 14:19:28 Asia/Manila] Generated transaction code: CSUMGB-20250604-2-001 for user_id: 2
+[04-Jun-2025 14:19:28 Asia/Manila] Inserted request with ID: 78, user_id: 2, transaction_code: CSUMGB-20250604-2-001
+[04-Jun-2025 14:19:28 Asia/Manila] Verification of request record - user_id: 2, transaction_code: CSUMGB-20250604-2-001
+[04-Jun-2025 14:19:28 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 356
+    [station_name] => MMA-3202
+    [station_type] => caap
+)
+
+[04-Jun-2025 14:19:28 Asia/Manila] [createRequest] DB Insert Values: ID='356', Name='MMA-3202', Type='caap', Price='720'
+[04-Jun-2025 14:19:28 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 1390
+    [station_name] => MMA-4225
+    [station_type] => caap
+)
+
+[04-Jun-2025 14:19:28 Asia/Manila] [createRequest] DB Insert Values: ID='1390', Name='MMA-4225', Type='caap', Price='720'
+[04-Jun-2025 14:19:28 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 354
+    [station_name] => MMA-3201
+    [station_type] => caap
+)
+
+[04-Jun-2025 14:19:28 Asia/Manila] [createRequest] DB Insert Values: ID='354', Name='MMA-3201', Type='caap', Price='720'
+[04-Jun-2025 14:19:28 Asia/Manila] Attempting to clear cart items for user_id: 2 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[04-Jun-2025 14:19:28 Asia/Manila] Cart items cleared for user_id: 2. Rows affected: 3
+[04-Jun-2025 14:19:30 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:19:30 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:30 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:30 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:30 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:30 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:19:30 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:19:30 Asia/Manila] Found 5 requests for user 2
+[04-Jun-2025 14:19:30 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:19:30 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:30 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:30 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:30 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:30 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:19:30 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:19:30 Asia/Manila] Found 5 requests for user 2
+[04-Jun-2025 14:19:33 Asia/Manila] [2025-06-04 14:19:33] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:33 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:33 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:33 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:33 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:33 Asia/Manila] [2025-06-04 14:19:33] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:33 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:33 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:33 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:33 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:40 Asia/Manila] [2025-06-04 14:19:40] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:40 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:40 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:40 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:40 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:41 Asia/Manila] [2025-06-04 14:19:41] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:41 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:41 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:41 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:41 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:44 Asia/Manila] [2025-06-04 14:19:44] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:19:44 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:44 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:44 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:44 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:44 Asia/Manila] [2025-06-04 14:19:44] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:19:44 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:44 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:44 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:44 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:46 Asia/Manila] [2025-06-04 14:19:46] Fetching request ID: 76 from action: view/76
+[04-Jun-2025 14:19:46 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:46 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:46 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:46 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:46 Asia/Manila] [2025-06-04 14:19:46] Fetching request ID: 76 from action: view/76
+[04-Jun-2025 14:19:46 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:46 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:46 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:46 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:49 Asia/Manila] [2025-06-04 14:19:49] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:49 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:49 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:49 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:49 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:53 Asia/Manila] [2025-06-04 14:19:53] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:53 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:53 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:53 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:53 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:19:53 Asia/Manila] [2025-06-04 14:19:53] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:19:53 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:19:53 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:19:53 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:19:53 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:02 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:20:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:20:02 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:20:02 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 14:20:03 Asia/Manila] API Request: /api/stations/horizontal
+[04-Jun-2025 08:20:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:20:04 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:20:04 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 08:20:04 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:20:04 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:20:04 Europe/Berlin] Starting cart sync for user_id: 2
+[04-Jun-2025 08:20:04 Europe/Berlin] Syncing from guest session: guest_1748935812888_esmsvb88o9r to user: 2
+[04-Jun-2025 08:20:04 Europe/Berlin] No guest cart found for session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:20:05 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:20:05 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:20:05 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[04-Jun-2025 08:20:13 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 356
+    [station_type] => horizontal
+    [station_name] => MMA-3202
+    [session_id] => guest_1748935812888_esmsvb88o9r
+)
+
+[04-Jun-2025 08:20:13 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:20:13 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:20:13 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:20:13 Europe/Berlin] Found existing user cart ID: 9
+[04-Jun-2025 08:20:13 Europe/Berlin] Executing INSERT for cart_item with cart_id: 9, station_id: 356, station_name: MMA-3202, station_type: horizontal
+[04-Jun-2025 08:20:15 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 354
+    [station_type] => horizontal
+    [station_name] => MMA-3201
+    [session_id] => guest_1748935812888_esmsvb88o9r
+)
+
+[04-Jun-2025 08:20:15 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[04-Jun-2025 08:20:15 Europe/Berlin] Token belongs to user_id: 2
+[04-Jun-2025 08:20:15 Europe/Berlin] Getting cart for user_id: 2, session_id: guest_1748935812888_esmsvb88o9r
+[04-Jun-2025 08:20:15 Europe/Berlin] Found existing user cart ID: 9
+[04-Jun-2025 08:20:15 Europe/Berlin] Executing INSERT for cart_item with cart_id: 9, station_id: 354, station_name: MMA-3201, station_type: horizontal
+[04-Jun-2025 14:20:17 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:17 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:17 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:17 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:17 Asia/Manila] createRequest called with token user_id: 2 (type: integer)
+[04-Jun-2025 14:20:17 Asia/Manila] Full token object: (object) array(
+   'iat' => 1749017592,
+   'exp' => 1749103992,
+   'user_id' => 2,
+   'username' => 'sample',
+   'user_type' => 'individual',
+)
+[04-Jun-2025 14:20:17 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 356
+                    [station_name] => MMA-3202
+                    [station_type] => horizontal
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 354
+                    [station_name] => MMA-3201
+                    [station_type] => horizontal
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[04-Jun-2025 14:20:17 Asia/Manila] Generated transaction code: CSUMGB-20250604-2-002 for user_id: 2
+[04-Jun-2025 14:20:17 Asia/Manila] Inserted request with ID: 79, user_id: 2, transaction_code: CSUMGB-20250604-2-002
+[04-Jun-2025 14:20:17 Asia/Manila] Verification of request record - user_id: 2, transaction_code: CSUMGB-20250604-2-002
+[04-Jun-2025 14:20:17 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 356
+    [station_name] => MMA-3202
+    [station_type] => horizontal
+)
+
+[04-Jun-2025 14:20:17 Asia/Manila] [createRequest] DB Insert Values: ID='356', Name='MMA-3202', Type='horizontal', Price='360'
+[04-Jun-2025 14:20:17 Asia/Manila] [createRequest] Processing item: stdClass Object
+(
+    [station_id] => 354
+    [station_name] => MMA-3201
+    [station_type] => horizontal
+)
+
+[04-Jun-2025 14:20:17 Asia/Manila] [createRequest] DB Insert Values: ID='354', Name='MMA-3201', Type='horizontal', Price='360'
+[04-Jun-2025 14:20:17 Asia/Manila] Attempting to clear cart items for user_id: 2 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[04-Jun-2025 14:20:17 Asia/Manila] Cart items cleared for user_id: 2. Rows affected: 2
+[04-Jun-2025 14:20:19 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:20:19 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:19 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:19 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:19 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:19 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:20:19 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:20:19 Asia/Manila] Found 6 requests for user 2
+[04-Jun-2025 14:20:19 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:20:19 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:19 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:19 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:19 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:19 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:20:19 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:20:19 Asia/Manila] Found 6 requests for user 2
+[04-Jun-2025 14:20:20 Asia/Manila] [2025-06-04 14:20:20] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:20:20 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:20 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:20 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:20 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:20 Asia/Manila] [2025-06-04 14:20:20] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:20:20 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:20 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:20 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:20 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:25 Asia/Manila] [2025-06-04 14:20:25] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:20:25 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:25 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:25 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:25 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:25 Asia/Manila] [2025-06-04 14:20:25] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:20:25 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:25 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:25 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:25 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:27 Asia/Manila] [2025-06-04 14:20:27] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:20:27 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:27 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:27 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:27 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:27 Asia/Manila] [2025-06-04 14:20:27] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:20:27 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:27 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:27 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:27 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:29 Asia/Manila] [2025-06-04 14:20:29] Fetching request ID: 76 from action: view/76
+[04-Jun-2025 14:20:29 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:29 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:29 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:29 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:29 Asia/Manila] [2025-06-04 14:20:29] Fetching request ID: 76 from action: view/76
+[04-Jun-2025 14:20:29 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:29 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:29 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:29 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:39 Asia/Manila] [2025-06-04 14:20:39] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:20:39 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:39 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:39 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:39 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:20:39 Asia/Manila] [2025-06-04 14:20:39] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:20:39 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:20:39 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:20:39 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:20:39 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:22:31 Asia/Manila] [2025-06-04 14:22:31] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:22:31 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:22:31 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:22:31 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:22:31 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:22:31 Asia/Manila] [2025-06-04 14:22:31] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:22:31 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:22:31 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:22:31 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:22:31 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:06 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:25:06 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:06 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:06 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:06 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:06 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:25:06 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:25:06 Asia/Manila] Found 6 requests for user 2
+[04-Jun-2025 14:25:06 Asia/Manila] getUserRequests called with userId: 2
+[04-Jun-2025 14:25:06 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:06 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:06 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:06 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:06 Asia/Manila] Token user_id: 2, type: integer
+[04-Jun-2025 14:25:06 Asia/Manila] Requested user_id: 2, type: integer
+[04-Jun-2025 14:25:06 Asia/Manila] Found 6 requests for user 2
+[04-Jun-2025 14:25:07 Asia/Manila] [2025-06-04 14:25:07] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:25:07 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:07 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:07 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:07 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:07 Asia/Manila] [2025-06-04 14:25:07] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:25:07 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:07 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:07 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:07 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:10 Asia/Manila] [2025-06-04 14:25:10] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:25:10 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:10 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:10 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:10 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:10 Asia/Manila] [2025-06-04 14:25:10] Fetching request ID: 78 from action: view/78
+[04-Jun-2025 14:25:10 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:10 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:10 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:10 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:13 Asia/Manila] [2025-06-04 14:25:13] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:25:13 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:13 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:13 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:13 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:13 Asia/Manila] [2025-06-04 14:25:13] Fetching request ID: 77 from action: view/77
+[04-Jun-2025 14:25:13 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:13 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:13 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:13 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:15 Asia/Manila] [2025-06-04 14:25:15] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:25:15 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:15 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:15 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:15 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:15 Asia/Manila] [2025-06-04 14:25:15] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:25:15 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:15 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:15 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:15 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:21 Asia/Manila] [2025-06-04 14:25:21] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:25:21 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:21 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:21 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:21 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
+[04-Jun-2025 14:25:21 Asia/Manila] [2025-06-04 14:25:21] Fetching request ID: 79 from action: view/79
+[04-Jun-2025 14:25:21 Asia/Manila] verifyToken called with requiredRole: null
+[04-Jun-2025 14:25:21 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[04-Jun-2025 14:25:21 Asia/Manila] JWT token for verification (length: 210): eyJ0eXAiOiJKV1QiLCJh...
+[04-Jun-2025 14:25:21 Asia/Manila] Token payload decoded successfully. User ID: 2, Type: individual
