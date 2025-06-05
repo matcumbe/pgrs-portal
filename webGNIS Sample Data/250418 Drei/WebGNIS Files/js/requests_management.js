@@ -368,6 +368,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 `<button class="btn btn-sm btn-secondary action-btn download-btn" data-code="${transaction.transaction_code}" title="Download Certificate"><i class="fas fa-download"></i></button>` :
                 `<button class="btn btn-sm btn-secondary action-btn download-btn btn-disabled" title="Download Certificate"><i class="fas fa-download"></i></button>`;
             
+            const uploadButton = isApproved ?
+                `<button class="btn btn-sm btn-warning action-btn upload-btn" data-code="${transaction.transaction_code}" title="Upload Processed Certificate"><i class="fas fa-upload"></i></button>` :
+                `<button class="btn btn-sm btn-warning action-btn upload-btn btn-disabled" title="Upload Processed Certificate"><i class="fas fa-upload"></i></button>`;
+            
             row.innerHTML = `
                 <td>${transaction.username || 'Unknown'}</td>
                 <td>${transactionCode}</td>
@@ -380,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${approveButton}
                     ${disapproveButton}
                     ${downloadButton}
+                    ${uploadButton}
                 </td>
             `;
             
@@ -414,6 +419,13 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener('click', () => {
                 const transactionCode = button.getAttribute('data-code');
                 handleDownloadCertificate(transactionCode);
+            });
+        });
+
+        document.querySelectorAll('.upload-btn:not(.btn-disabled)').forEach(button => {
+            button.addEventListener('click', () => {
+                const transactionCode = button.getAttribute('data-code');
+                handleTriggerUpload(transactionCode);
             });
         });
     }
@@ -602,14 +614,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="text-center">
                             <i class="fas fa-file-pdf fa-5x text-danger mb-2"></i>
                             <p>PDF Document</p>
-                            <a href="Assets/payment_proofs/${proofFileUrl}" target="_blank" class="btn btn-sm btn-primary">View PDF</a>
+                            <a href="assets/payment_proofs/${proofFileUrl}" target="_blank" class="btn btn-sm btn-primary">View PDF</a>
                         </div>
                     `;
                 } else {
                     // Otherwise, show the image
                     proofContainer.innerHTML = `
                         <div class="text-center">
-                            <img src="Assets/payment_proofs/${proofFileUrl}" alt="Payment Proof" class="img-fluid payment-proof-img">
+                            <img src="assets/payment_proofs/${proofFileUrl}" alt="Payment Proof" class="img-fluid payment-proof-img">
                         </div>
                     `;
                 }
@@ -700,7 +712,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             if (!updateResponse.ok) {
-                throw new Error(`Failed to update transaction status: ${updateResponse.status}`);
+                let errorMsg = `Failed to update transaction status: ${updateResponse.status}`;
+                try {
+                    const errorBody = await updateResponse.json();
+                    if (errorBody && errorBody.message) {
+                        errorMsg = errorBody.message;
+                    }
+                } catch (e) {
+                    // Could not parse JSON, try to get text
+                    try {
+                        const errorText = await updateResponse.text();
+                        errorMsg += ` - Server response: ${errorText.substring(0, 200)}`; // Show first 200 chars
+                    } catch (textErr) {
+                        // Failed to get text either
+                        errorMsg += ' - Server response could not be read.';
+                    }
+                }
+                throw new Error(errorMsg);
             }
             
             const updateResult = await updateResponse.json();
@@ -776,7 +804,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             if (!updateResponse.ok) {
-                throw new Error(`Failed to update transaction status: ${updateResponse.status}`);
+                let errorMsg = `Failed to update transaction status: ${updateResponse.status}`;
+                try {
+                    const errorBody = await updateResponse.json();
+                    if (errorBody && errorBody.message) {
+                        errorMsg = errorBody.message;
+                    }
+                } catch (e) {
+                     // Could not parse JSON, try to get text
+                    try {
+                        const errorText = await updateResponse.text();
+                        errorMsg += ` - Server response: ${errorText.substring(0, 200)}`; // Show first 200 chars
+                    } catch (textErr) {
+                        // Failed to get text either
+                        errorMsg += ' - Server response could not be read.';
+                    }
+                }
+                throw new Error(errorMsg);
             }
             
             const updateResult = await updateResponse.json();
@@ -818,55 +862,174 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to handle certificate download
     async function handleDownloadCertificate(transactionCode) {
         if (!transactionCode) {
-            console.error('Cannot download certificate: transaction code is undefined or null');
             alert('Unable to download certificate: Invalid transaction code');
             return;
         }
-        
+
+        const token = getToken();
+        console.log('Token for download:', token);
+        if (!token) {
+            alert('Authentication token is missing. Please log in again.');
+            return;
+        }
+
+        showLoadingMessage('Preparing download...');
+
         try {
-            const token = getToken();
-            
-            // First check if certificate exists
-            const checkResponse = await fetch(`${API_BASE_URL}/certificates_api.php?action=download&transaction_code=${transactionCode}`, {
-                method: 'HEAD',
+            const response = await fetch(`${API_BASE_URL}/certificates_api.php?action=download&transaction_code=${transactionCode}`, {
+                method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            
-            if (checkResponse.status === 404) {
-                // Certificate doesn't exist yet, need to generate it
-                console.log(`Certificate for ${transactionCode} not found, generating...`);
-                
-                const generateResponse = await fetch(`${API_BASE_URL}/certificates_api.php?action=generate`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        transaction_code: transactionCode
-                    })
-                });
-                
-                if (!generateResponse.ok) {
-                    throw new Error(`Failed to generate certificate: ${generateResponse.status}`);
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    // Try to generate the certificate if it's not found
+                    console.log(`Certificate for ${transactionCode} not found, attempting to generate...`);
+                    const generateResponse = await fetch(`${API_BASE_URL}/certificates_api.php?action=generate`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ transaction_code: transactionCode })
+                    });
+
+                    if (!generateResponse.ok) {
+                        const errorData = await generateResponse.json().catch(() => ({ message: 'Failed to generate certificate after 404.' }));
+                        throw new Error(errorData.message || 'Failed to generate certificate.');
+                    }
+                    
+                    // After generating, try fetching the file again
+                    const finalResponse = await fetch(`${API_BASE_URL}/certificates_api.php?action=download&transaction_code=${transactionCode}`, {
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (!finalResponse.ok) {
+                        throw new Error('Certificate was generated but could not be downloaded. Please try again.');
+                    }
+                    return await processDownloadResponse(finalResponse);
                 }
-                
-                const generateResult = await generateResponse.json();
-                
-                if (generateResult.status !== 'success') {
-                    throw new Error(generateResult.message || 'Failed to generate certificate');
-                }
+                // For other errors (e.g., 500, 403)
+                const errorData = await response.json().catch(() => ({ message: `HTTP error! status: ${response.status}` }));
+                throw new Error(errorData.message || `Failed to download certificate. Status: ${response.status}`);
             }
             
-            // Open download in new window/tab
-            window.open(`${API_BASE_URL}/certificates_api.php?action=download&transaction_code=${transactionCode}`, '_blank');
-            
+            await processDownloadResponse(response);
+
         } catch (error) {
             console.error('Error downloading certificate:', error);
             alert(`Failed to download certificate: ${error.message}`);
+        } finally {
+            hideLoadingMessage();
         }
+    }
+    
+    // Helper function to process the fetch response for download
+    async function processDownloadResponse(response) {
+        const contentDisposition = response.headers.get('content-disposition');
+        let filename = 'certificate.pdf'; // Default filename
+        if (contentDisposition) {
+            const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+            if (filenameMatch && filenameMatch[1]) {
+                filename = filenameMatch[1];
+            }
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+    }
+
+    // Function to trigger file input for processed certificate upload
+    function handleTriggerUpload(transactionCode) {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.pdf'; // Accept only PDF files
+        fileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.type !== "application/pdf") {
+                    alert("Invalid file type. Only PDF files are allowed.");
+                    return;
+                }
+                // You might want to add a size check here as well
+                // if (file.size > MAX_FILE_SIZE) { ... }
+
+                await handleUploadProcessedCertificate(transactionCode, file);
+            }
+        };
+        fileInput.click();
+    }
+
+    // Function to handle the actual upload of the processed certificate
+    async function handleUploadProcessedCertificate(transactionCode, file) {
+        const token = getToken();
+        console.log('Token for upload:', token);
+        if (!token) {
+            alert('Authentication token not found. Please log in.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('transaction_code', transactionCode);
+        formData.append('processed_certificate_file', file);
+
+        try {
+            showLoadingMessage('Uploading processed certificate...'); // Optional: show a loading indicator
+
+            const response = await fetch(`${API_BASE_URL}/certificates_api.php?action=upload_processed`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                    // 'Content-Type' header is not needed for FormData; browser sets it with boundary
+                },
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ message: `HTTP error! status: ${response.status}` }));
+                throw new Error(errorData.message || `Failed to upload processed certificate. Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                alert('Processed certificate uploaded successfully!');
+                // Refresh the transaction list to reflect changes (e.g., updated status or new download link for processed cert)
+                allFetchedTransactions = await fetchAllPagesSequentially(null);
+                applyFilterAndPaginate();
+            } else {
+                throw new Error(result.message || 'Failed to upload processed certificate.');
+            }
+        } catch (error) {
+            console.error('Error uploading processed certificate:', error);
+            alert(`Upload failed: ${error.message}`);
+        } finally {
+            hideLoadingMessage(); // Optional: hide loading indicator
+        }
+    }
+    
+    // Helper functions for loading message (optional)
+    function showLoadingMessage(message = 'Processing...') {
+        // Implement a way to show a loading indicator to the user
+        // For example, display a modal or a message overlay
+        console.log(message); // Placeholder
+        if(loadingMessage) loadingMessage.textContent = message; loadingMessage.style.display = 'block';
+    }
+
+    function hideLoadingMessage() {
+        // Hide the loading indicator
+        if(loadingMessage) loadingMessage.style.display = 'none';
     }
 
     // --- Initialization ---

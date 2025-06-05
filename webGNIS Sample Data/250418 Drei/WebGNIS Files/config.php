@@ -238,7 +238,8 @@ if (!function_exists('getConfigData')) {
 
 // Handle direct API requests to config.php (e.g., ?action=get-config)
 // This block is for when config.php is the entry point, not when included.
-if (isset($_GET['action']) && !$_config_php_error_occurred) { // Proceed only if config setup was ok
+// Only run if this script (config.php) is the one directly called by the server.
+if ((basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) && isset($_GET['action']) && !$_config_php_error_occurred) { // Proceed only if config setup was ok and this is the main script
     // Start a new output buffer specifically for this direct action response.
     if(ob_get_level() > 0) { // Clean any buffer that might exist (e.g. from a previous ob_end_clean failure)
         ob_end_clean();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2025 at 07:15 PM
+-- Generation Time: Jun 04, 2025 at 11:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,8 +40,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`cart_id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
-(7, 1, 'guest_1747815353369_yjne75n0yec', '2025-05-31 12:01:01', '2025-06-01 17:13:26'),
-(8, 2, 'guest_1748692891984_psi30pq43jj', '2025-05-31 12:01:24', '2025-05-31 12:21:15');
+(9, 2, 'guest_1748935812888_esmsvb88o9r', '2025-06-03 07:19:36', '2025-06-04 06:20:15');
 
 -- --------------------------------------------------------
 
@@ -54,17 +53,26 @@ CREATE TABLE `cart_items` (
   `cart_id` int(11) NOT NULL,
   `station_id` varchar(50) NOT NULL,
   `station_name` varchar(100) DEFAULT NULL,
-  `station_type` enum('horizontal','vertical','gravity') NOT NULL,
+  `station_type` enum('horizontal','vertical','gravity','caap') NOT NULL,
   `added_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `cart_items`
+-- Table structure for table `certificates`
 --
 
-INSERT INTO `cart_items` (`item_id`, `cart_id`, `station_id`, `station_name`, `station_type`, `added_at`) VALUES
-(207, 7, '1944', 'MMA-5207 (BBM-62)', 'vertical', '2025-06-01 17:01:45'),
-(208, 7, '1397', 'MMA-4231', 'vertical', '2025-06-01 17:13:26');
+CREATE TABLE `certificates` (
+  `certificate_id` int(11) NOT NULL,
+  `transaction_code` varchar(50) NOT NULL,
+  `request_id` int(11) NOT NULL,
+  `preprocessed_filename` varchar(255) DEFAULT NULL,
+  `processed_filename` varchar(255) DEFAULT NULL,
+  `status` enum('pending_generation','preprocessed','processed') DEFAULT 'pending_generation',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -147,11 +155,12 @@ CREATE TABLE `requests` (
 --
 
 INSERT INTO `requests` (`request_id`, `user_id`, `request_date`, `status_id`, `total_amount`, `remarks`, `exp_date`, `transaction_code`) VALUES
-(57, 2, '2025-05-31 12:08:13', 1, 1200.00, NULL, '2025-06-15 12:08:13', 'CSUMGB-20250531-2-001'),
-(63, 2, '2025-05-31 12:21:17', 2, 900.00, NULL, '2025-06-15 12:21:17', 'CSUMGB-20250531-2-001'),
-(65, 1, '2025-05-31 12:24:22', 2, 900.00, NULL, '2025-06-15 12:24:22', 'CSUMGB-20250531-1-001'),
-(66, 1, '2025-05-31 12:26:18', 1, 600.00, NULL, '2025-06-15 12:26:18', 'CSUMGB-20250531-1-002'),
-(67, 1, '2025-05-31 12:26:46', 2, 1200.00, NULL, '2025-06-15 12:26:46', 'CSUMGB-20250531-1-002');
+(74, 2, '2025-06-03 07:31:20', 4, 1800.00, NULL, '2025-06-18 07:31:20', 'CSUMGB-20250603-2-001'),
+(75, 2, '2025-06-03 07:32:27', 5, 1080.00, NULL, '2025-06-18 07:32:27', 'CSUMGB-20250603-2-002'),
+(76, 2, '2025-06-03 08:49:37', 1, 1440.00, NULL, '2025-06-18 08:49:37', 'CSUMGB-20250603-2-003'),
+(77, 2, '2025-06-03 08:53:47', 1, 1080.00, NULL, '2025-06-18 08:53:47', 'CSUMGB-20250603-2-004'),
+(78, 2, '2025-06-04 06:19:28', 1, 2160.00, NULL, '2025-06-19 06:19:28', 'CSUMGB-20250604-2-001'),
+(79, 2, '2025-06-04 06:20:17', 1, 720.00, NULL, '2025-06-19 06:20:17', 'CSUMGB-20250604-2-002');
 
 -- --------------------------------------------------------
 
@@ -164,7 +173,7 @@ CREATE TABLE `request_items` (
   `request_id` int(11) NOT NULL,
   `station_id` varchar(50) NOT NULL,
   `station_name` varchar(100) DEFAULT NULL,
-  `station_type` enum('horizontal','vertical','gravity') NOT NULL,
+  `station_type` enum('horizontal','vertical','gravity','caap') NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -173,22 +182,22 @@ CREATE TABLE `request_items` (
 --
 
 INSERT INTO `request_items` (`item_id`, `request_id`, `station_id`, `station_name`, `station_type`, `price`) VALUES
-(184, 57, '1', 'MMA-4269 (GM-3HA)', 'vertical', 300.00),
-(185, 57, '2', 'MM-604', 'vertical', 300.00),
-(186, 57, '3', 'MM-603 (MMA-3857)', 'vertical', 300.00),
-(187, 57, '4', 'MM-519 (MMA-4440)', 'vertical', 300.00),
-(188, 63, '4', 'MM-519 (MMA-4440)', 'vertical', 300.00),
-(189, 63, '5', 'MM-518', 'vertical', 300.00),
-(190, 63, '6', 'MM-10A', 'vertical', 300.00),
-(191, 65, '1', 'MMA-4269 (GM-3HA)', 'vertical', 300.00),
-(192, 65, '2', 'MM-604', 'vertical', 300.00),
-(193, 65, '3', 'MM-603 (MMA-3857)', 'vertical', 300.00),
-(194, 66, '2', 'MM-604', 'vertical', 300.00),
-(195, 66, '3', 'MM-603 (MMA-3857)', 'vertical', 300.00),
-(196, 67, '5', 'MM-518', 'vertical', 300.00),
-(197, 67, '6', 'MM-10A', 'vertical', 300.00),
-(198, 67, '7', 'MM-554', 'vertical', 300.00),
-(199, 67, '8', 'MM-262', 'vertical', 300.00);
+(217, 74, '356', 'MMA-3202', 'horizontal', 360.00),
+(218, 74, '356', 'MMA-3202', 'caap', 720.00),
+(219, 74, '1', 'MMA-4269 (GM-3HA)', 'vertical', 360.00),
+(220, 74, '10001', 'MMA-115', 'gravity', 360.00),
+(221, 75, '356', 'MMA-3202', 'horizontal', 360.00),
+(222, 75, '356', 'MMA-3202', 'caap', 720.00),
+(223, 76, '354', 'MMA-3201', 'horizontal', 360.00),
+(224, 76, '354', 'MMA-3201', 'caap', 720.00),
+(225, 76, '356', 'MMA-3202', 'horizontal', 360.00),
+(226, 77, '356', 'MMA-3202', 'caap', 720.00),
+(227, 77, '356', 'MMA-3202', 'horizontal', 360.00),
+(228, 78, '356', 'MMA-3202', 'caap', 720.00),
+(229, 78, '1390', 'MMA-4225', 'caap', 720.00),
+(230, 78, '354', 'MMA-3201', 'caap', 720.00),
+(231, 79, '356', 'MMA-3202', 'horizontal', 360.00),
+(232, 79, '354', 'MMA-3201', 'horizontal', 360.00);
 
 -- --------------------------------------------------------
 
@@ -291,9 +300,8 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`transaction_id`, `transaction_code`, `request_id`, `user_id`, `status_id`, `payment_method_id`, `payment_amount`, `paid_amount`, `payment_reference`, `payment_proof_file`, `payment_date`, `verified`, `verified_by`, `verified_date`, `remarks`) VALUES
-(27, 'CSUMGB-20250531-2-001', 63, 2, 2, 1, 900.00, 900.00, 'aa', 'payment_proof_63_683af45420ee0.jpg', '2025-05-31 12:21:40', 0, NULL, NULL, NULL),
-(28, 'CSUMGB-20250531-1-001', 65, 1, 2, 1, 900.00, 900.00, 'aa', 'payment_proof_65_683af51003786.jpg', '2025-05-31 12:24:48', 0, NULL, NULL, NULL),
-(29, 'CSUMGB-20250531-1-002', 67, 1, 2, 1, 1200.00, 1200.00, 'aa', 'payment_proof_67_683af586deebb.jpg', '2025-05-31 12:26:46', 0, NULL, NULL, NULL);
+(34, 'CSUMGB-20250603-2-001', 74, 2, 4, 1, 1800.00, 1800.00, 'test reference', 'payment_proof_74_683ea4c89a73f.jpg', '2025-06-03 07:31:20', 1, 1, '2025-06-02 23:33:57', NULL),
+(35, 'CSUMGB-20250603-2-002', 75, 2, 5, 1, 1080.00, 1080.00, 'test reference', 'payment_proof_75_683ea52ff1139.jpg', '2025-06-03 07:33:03', 0, 1, '2025-06-02 23:33:49', 'Wrong payment amount.');
 
 -- --------------------------------------------------------
 
@@ -344,6 +352,14 @@ ALTER TABLE `carts`
 ALTER TABLE `cart_items`
   ADD PRIMARY KEY (`item_id`),
   ADD KEY `cart_id` (`cart_id`);
+
+--
+-- Indexes for table `certificates`
+--
+ALTER TABLE `certificates`
+  ADD PRIMARY KEY (`certificate_id`),
+  ADD UNIQUE KEY `transaction_code` (`transaction_code`),
+  ADD KEY `request_id` (`request_id`);
 
 --
 -- Indexes for table `company_details`
@@ -436,13 +452,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=295;
+
+--
+-- AUTO_INCREMENT for table `certificates`
+--
+ALTER TABLE `certificates`
+  MODIFY `certificate_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `company_details`
@@ -466,13 +488,13 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `request_items`
 --
 ALTER TABLE `request_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT for table `request_statuses`
@@ -496,7 +518,7 @@ ALTER TABLE `sexes`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -519,6 +541,13 @@ ALTER TABLE `carts`
 --
 ALTER TABLE `cart_items`
   ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`cart_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `certificates`
+--
+ALTER TABLE `certificates`
+  ADD CONSTRAINT `certificates_ibfk_1` FOREIGN KEY (`transaction_code`) REFERENCES `transactions` (`transaction_code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `certificates_ibfk_2` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `company_details`

@@ -1,660 +1,398 @@
 <?php
-// Include database configuration
-require_once 'config.php';
+// certificates_api.php
 
-// Configure error handling
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', 'php_errors.log');
+require_once 'users_config.php';
+require_once 'certificate_generator.php';
+// require_once 'jwt_utils.php'; // REMOVED: jwt_utils.php is missing, JWT validation will be handled locally
 
-// Copy FPDF from the original project if doesn't exist
-if (!file_exists('fpdf/fpdf.php')) {
-    error_log("FPDF library not found. Please copy from the original project.");
-}
-
-// Try to include FPDF
-if (file_exists('fpdf/fpdf.php')) {
-    require('fpdf/fpdf.php');
-} elseif (file_exists('../webGNIS Prototype (Original)/fpdf/fpdf.php')) {
-    require('../webGNIS Prototype (Original)/fpdf/fpdf.php');
-} else {
-    header("HTTP/1.1 500 Internal Server Error");
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'FPDF library not found'
-    ]);
-    exit;
-}
-
-// Set headers for API response
+header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// Handle preflight OPTIONS request
+// Handle preflight CORS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-// Get request parameters
-$method = $_SERVER['REQUEST_METHOD'];
-$endpoint = isset($_GET['action']) ? $_GET['action'] : '';
-$parts = explode('/', $endpoint);
-$action = $parts[0]; // First part is the action
-
-// Verify token - this should be replaced with your actual authentication
-function verifyToken($auth_header = null, $returnData = false) {
-    // Pull from Authorization header if not explicitly provided
-    if ($auth_header === null) {
-        $headers = getallheaders();
-        $auth_header = isset($headers['Authorization']) ? $headers['Authorization'] : '';
-    }
-    
-    // Extract the token from the Authorization header
-    if (preg_match('/Bearer\s(\S+)/', $auth_header, $matches)) {
-        $token = $matches[1];
-        
-        // Here you would verify the token using your JWT library
-        // For now, we'll just create a simple object for testing
-        if ($returnData) {
-            return (object)[
-                'user_id' => 1,
-                'user_type' => 'admin',
-                'exp' => time() + 3600 // Expires in 1 hour
-            ];
-        }
-        return true;
-    }
-    
-    if ($returnData) {
-        // Return a default admin user
-        return (object)[
-            'user_id' => 1,
-            'user_type' => 'admin',
-            'exp' => time() + 3600 // Expires in 1 hour
-        ];
-    }
-    
-    return false;
-}
-
-// Return standardized JSON response
-function returnResponse($status_code, $message, $data = null) {
-    http_response_code($status_code);
-    echo json_encode([
-        'status' => $status_code >= 200 && $status_code < 300 ? 'success' : 'error',
-        'message' => $message,
-        'data' => $data
-    ]);
+function returnError($message, $statusCode = 400) {
+    http_response_code($statusCode);
+    echo json_encode(['status' => 'error', 'message' => $message]);
     exit;
 }
 
-// Custom PDF class extending FPDF
-class CertificatePDF extends FPDF {
-    protected $certificate_type = 'vertical'; // Default type
-    protected $transaction_code = '';
-    
-    public function setType($type) {
-        $this->certificate_type = $type;
-    }
-    
-    public function setTransactionCode($code) {
-        $this->transaction_code = $code;
-    }
-    
-    // Function to center text (both regular and bold)
-    function CenteredMixedText($regularText, $boldText, $y) {
-        // Set fonts
-        $this->SetFont('Arial', '', 10);
-        $regularTextWidth = $this->GetStringWidth($regularText);
-        
-        $this->SetFont('Arial', 'B', 10);
-        $boldTextWidth = $this->GetStringWidth($boldText);
+// Copied and adapted verifyToken from transactions_api.php
+function verifyToken($requiredRole = null, $exitOnFail = true) {
+    $headers = getallheaders();
+    $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : (isset($headers['authorization']) ? $headers['authorization'] : '');
 
-        // Calculate total width
-        $totalWidth = $regularTextWidth + $boldTextWidth;
-
-        // Calculate the x position to center the text
-        $x = ($this->w - $totalWidth) / 2;
-
-        // Set position and print the regular text
-        $this->SetXY($x, $y);
-        $this->SetFont('Arial', '', 10);
-        $this->Cell($regularTextWidth, 5, $regularText, 0, 0, 'L');
-
-        // Print the bold text right after the regular text
-        $this->SetFont('Arial', 'B', 10);
-        $this->Cell($boldTextWidth, 5, $boldText, 0, 1, 'L');
-    }
-    
-    // Create a text box with fixed width
-    function TextBox($x, $y, $width, $height, $text, $border = 0, $align = 'L', $fill = false) {
-        $this->SetFont('Arial', '', 8);
-        $this->SetXY($x, $y);
-        $this->MultiCell($width, $height, $text, $border, $align, $fill);
-    }
-    
-    // Simple bold text renderer
-    function BoldText($x, $y, $text) {
-        $this->SetXY($x, $y);
-        $this->SetFont('Arial', 'B', 10);
-        $this->Cell($this->GetStringWidth($text), 5, $text, 0, 1);
-    }
-    
-    // Header - Add letterhead or logo
-    function Header() {
-        // Add NAMRIA logo
-        if (file_exists('Assets/gnis_logo.png')) {
-            $this->Image('Assets/gnis_logo.png', 10, 10, 30);
+    if (!$authHeader || stripos($authHeader, 'Bearer ') !== 0) {
+        if ($exitOnFail) {
+            returnError("Authentication token not provided or invalid format.", 401);
         }
-        
-        // Add title
-        $this->SetFont('Arial', 'B', 12);
-        $this->SetXY(40, 15);
-        $this->Cell(130, 10, 'GEODETIC CONTROL POINT CERTIFICATE', 0, 1, 'C');
-        
-        $this->SetFont('Arial', '', 10);
-        $this->SetXY(40, 23);
-        $this->Cell(130, 5, 'National Mapping and Resource Information Authority', 0, 1, 'C');
-        
-        // Add a line
-        $this->Line(10, 35, 200, 35);
+        return null;
     }
-    
-    // Footer - Add page numbers and transaction code
-    function Footer() {
-        $this->SetY(-15);
-        $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . ' of {nb}', 0, 0, 'C');
-        
-        // Add transaction code
-        if (!empty($this->transaction_code)) {
-            $this->SetY(-10);
-            $this->SetFont('Arial', '', 8);
-            $this->Cell(0, 5, 'Transaction: ' . $this->transaction_code, 0, 0, 'R');
-        }
-    }
-    
-    // Function to render a vertical certificate table
-    function renderVerticalTable($station) {
-        $this->AddPage();
-        
-        // Add section title
-        $this->SetFont('Arial', 'B', 12);
-        $this->Cell(0, 10, 'VERTICAL CONTROL POINT DETAILS', 0, 1, 'C');
-        $this->Ln(5);
-        
-        // Start creating table
-        $this->SetFont('Arial', '', 10);
-        $this->SetFillColor(240, 240, 240);
-        
-        // Station information
-        $this->Cell(50, 8, 'Station ID:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['station_id'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Station Name:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['station_name'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Order/Class:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['elevation_order'] ?? 'N/A', 1, 1, 'L');
-        
-        // Location information
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Location Information', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->Cell(50, 8, 'Region:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['region'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Province:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['province'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'City/Municipality:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['city'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Barangay:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['barangay'] ?? 'N/A', 1, 1, 'L');
-        
-        // Coordinates
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Coordinates and Elevation', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->Cell(50, 8, 'Latitude:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['latitude'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Longitude:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['longitude'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Elevation:', 1, 0, 'L', true);
-        $this->Cell(140, 8, ($station['elevation'] ?? 'N/A') . ' meters', 1, 1, 'L');
-        
-        // Description
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Station Description', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->MultiCell(190, 8, $station['description'] ?? 'No description available.', 1, 'L');
-        
-        // Add certification statement
-        $this->Ln(10);
-        $this->SetFont('Arial', '', 10);
-        $this->MultiCell(190, 5, 'This is to certify that the information provided above is accurate and verified based on the records of the National Mapping and Resource Information Authority (NAMRIA).', 0, 'L');
-        
-        // Add signature line
-        $this->Ln(15);
-        $this->Cell(95, 5, '', 0, 0);
-        $this->Cell(95, 5, '___________________________', 0, 1, 'C');
-        $this->Cell(95, 5, '', 0, 0);
-        $this->Cell(95, 5, 'Authorized Signature', 0, 1, 'C');
-    }
-    
-    // Function to render a horizontal certificate table
-    function renderHorizontalTable($station) {
-        $this->AddPage();
-        
-        // Add section title
-        $this->SetFont('Arial', 'B', 12);
-        $this->Cell(0, 10, 'HORIZONTAL CONTROL POINT DETAILS', 0, 1, 'C');
-        $this->Ln(5);
-        
-        // Start creating table
-        $this->SetFont('Arial', '', 10);
-        $this->SetFillColor(240, 240, 240);
-        
-        // Station information
-        $this->Cell(50, 8, 'Station ID:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['station_id'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Station Name:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['station_name'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Order:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['horizontal_order'] ?? 'N/A', 1, 1, 'L');
-        
-        // Location information
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Location Information', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->Cell(50, 8, 'Region:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['region'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Province:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['province'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'City/Municipality:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['city'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Barangay:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['barangay'] ?? 'N/A', 1, 1, 'L');
-        
-        // Coordinates
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Geographic Coordinates', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->Cell(50, 8, 'Latitude:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['latitude'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Longitude:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['longitude'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Ellipsoidal Height:', 1, 0, 'L', true);
-        $this->Cell(140, 8, ($station['ellipsoidal_height'] ?? 'N/A') . ' meters', 1, 1, 'L');
-        
-        // Description
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Station Description', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->MultiCell(190, 8, $station['description'] ?? 'No description available.', 1, 'L');
-        
-        // Add certification statement
-        $this->Ln(10);
-        $this->SetFont('Arial', '', 10);
-        $this->MultiCell(190, 5, 'This is to certify that the information provided above is accurate and verified based on the records of the National Mapping and Resource Information Authority (NAMRIA).', 0, 'L');
-        
-        // Add signature line
-        $this->Ln(15);
-        $this->Cell(95, 5, '', 0, 0);
-        $this->Cell(95, 5, '___________________________', 0, 1, 'C');
-        $this->Cell(95, 5, '', 0, 0);
-        $this->Cell(95, 5, 'Authorized Signature', 0, 1, 'C');
-    }
-    
-    // Function to render a gravity certificate table
-    function renderGravityTable($station) {
-        $this->AddPage();
-        
-        // Add section title
-        $this->SetFont('Arial', 'B', 12);
-        $this->Cell(0, 10, 'GRAVITY CONTROL POINT DETAILS', 0, 1, 'C');
-        $this->Ln(5);
-        
-        // Start creating table
-        $this->SetFont('Arial', '', 10);
-        $this->SetFillColor(240, 240, 240);
-        
-        // Station information
-        $this->Cell(50, 8, 'Station ID:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['station_id'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Station Name:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['station_name'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Order:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['order'] ?? 'N/A', 1, 1, 'L');
-        
-        // Location information
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Location Information', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->Cell(50, 8, 'Region:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['region'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Province:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['province'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'City/Municipality:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['city'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Barangay:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['barangay'] ?? 'N/A', 1, 1, 'L');
-        
-        // Coordinates and gravity
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Coordinates and Gravity Value', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->Cell(50, 8, 'Latitude:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['latitude'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Longitude:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['longitude'] ?? 'N/A', 1, 1, 'L');
-        
-        $this->Cell(50, 8, 'Gravity Value:', 1, 0, 'L', true);
-        $this->Cell(140, 8, $station['gravity_value'] ?? 'N/A', 1, 1, 'L');
-        
-        // Description
-        $this->Ln(5);
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, 'Station Description', 0, 1, 'L');
-        $this->SetFont('Arial', '', 10);
-        
-        $this->MultiCell(190, 8, $station['description'] ?? 'No description available.', 1, 'L');
-        
-        // Add certification statement
-        $this->Ln(10);
-        $this->SetFont('Arial', '', 10);
-        $this->MultiCell(190, 5, 'This is to certify that the information provided above is accurate and verified based on the records of the National Mapping and Resource Information Authority (NAMRIA).', 0, 'L');
-        
-        // Add signature line
-        $this->Ln(15);
-        $this->Cell(95, 5, '', 0, 0);
-        $this->Cell(95, 5, '___________________________', 0, 1, 'C');
-        $this->Cell(95, 5, '', 0, 0);
-        $this->Cell(95, 5, 'Authorized Signature', 0, 1, 'C');
-    }
-}
 
-// Function to generate a PDF certificate for a transaction
-function generateTransactionCertificate($db, $transactionCode) {
+    $jwt = substr($authHeader, 7);
+    if (empty($jwt)) {
+        if ($exitOnFail) {
+            returnError("Authentication token not provided.", 401);
+        }
+        return null;
+    }
+
     try {
-        error_log("Generating certificate for transaction: " . $transactionCode);
-        
-        // Check if transaction exists
-        $transactionSql = "SELECT t.*, r.*, rs.status_name 
-                           FROM transactions t
-                           JOIN requests r ON t.request_id = r.request_id
-                           JOIN request_statuses rs ON r.status_id = rs.status_id
-                           WHERE t.transaction_code = :transaction_code
-                           LIMIT 1";
-        
-        $stmt = $db->prepare($transactionSql);
-        $stmt->bindParam(':transaction_code', $transactionCode);
-        $stmt->execute();
-        
-        $transaction = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$transaction) {
-            error_log("Transaction not found: " . $transactionCode);
-            return [
-                'status' => 'error',
-                'message' => 'Transaction not found'
-            ];
+        // JWT_SECRET and TOKEN_EXPIRY should be defined (e.g., in users_config.php or globally)
+        if (!defined('JWT_SECRET')) {
+            // This should not happen if users_config.php is loaded correctly
+            error_log("[ERROR] JWT_SECRET is not defined in certificates_api.php context.");
+            if ($exitOnFail) returnError("Server configuration error regarding JWT secret.", 500);
+            return null;
         }
-        
-        // Get request items (stations) for this request
-        $itemsSql = "SELECT ri.*, s.station_type
-                    FROM request_items ri
-                    LEFT JOIN stations s ON ri.station_id = s.station_id
-                    WHERE ri.request_id = :request_id";
-        
-        $stmtItems = $db->prepare($itemsSql);
-        $stmtItems->bindParam(':request_id', $transaction['request_id']);
-        $stmtItems->execute();
-        
-        $requestItems = $stmtItems->fetchAll(PDO::FETCH_ASSOC);
-        
-        if (empty($requestItems)) {
-            // If no items found, try to get them from the stations API
-            $requestItems = getStationsFromAPI();
+
+        $tokenParts = explode('.', $jwt);
+        if (count($tokenParts) != 3) {
+            throw new Exception('Invalid token format');
         }
-        
-        if (empty($requestItems)) {
-            error_log("No items found for request: " . $transaction['request_id']);
-            return [
-                'status' => 'error',
-                'message' => 'No control points found for this transaction'
-            ];
+
+        list($headerEncoded, $payloadEncoded, $signatureProvided) = $tokenParts;
+
+        // Build signature
+        $dataToSign = $headerEncoded . "." . $payloadEncoded;
+        $expectedSignature = base64_encode(hash_hmac('sha256', $dataToSign, JWT_SECRET, true));
+
+        if (!hash_equals($expectedSignature, $signatureProvided)) {
+            throw new Exception('Invalid token signature');
         }
-        
-        // Group items by station type
-        $stationsByType = [];
-        foreach ($requestItems as $item) {
-            $type = $item['station_type'] ?? 'vertical'; // Default to vertical if not specified
-            
-            if (!isset($stationsByType[$type])) {
-                $stationsByType[$type] = [];
+
+        $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $payloadEncoded)));
+        if (!$payload) {
+            throw new Exception('Invalid token payload');
+        }
+
+        if (isset($payload->exp) && $payload->exp < time()) {
+            throw new Exception('Token expired');
+        }
+
+        if ($requiredRole && (!isset($payload->user_type) || $payload->user_type !== $requiredRole)) {
+             error_log("[AUTH_FAIL] Required role: {$requiredRole}, User type: {".($payload->user_type ?? 'N/A')."}");
+            if ($exitOnFail) {
+                returnError("Access denied. User does not have the required role: {$requiredRole}", 403);
             }
-            
-            $stationsByType[$type][] = $item;
+            return null;
         }
         
-        // Create PDF
-        $pdf = new CertificatePDF();
-        $pdf->AliasNbPages();
-        $pdf->setTransactionCode($transactionCode);
-        
-        // Add stations to PDF by type
-        foreach ($stationsByType as $type => $stations) {
-            $pdf->setType($type);
-            
-            foreach ($stations as $station) {
-                switch ($type) {
-                    case 'horizontal':
-                        $pdf->renderHorizontalTable($station);
-                        break;
-                    case 'gravity':
-                        $pdf->renderGravityTable($station);
-                        break;
-                    case 'vertical':
-                    default:
-                        $pdf->renderVerticalTable($station);
-                        break;
-                }
-            }
+        // Ensure user_id is an integer if it exists
+        if (isset($payload->user_id) && is_numeric($payload->user_id)) {
+            $payload->user_id = intval($payload->user_id);
         }
-        
-        // Create certificates directory if it doesn't exist
-        $certDir = 'Assets/certificates';
-        if (!is_dir($certDir)) {
-            mkdir($certDir, 0755, true);
-        }
-        
-        // Save PDF
-        $filename = $certDir . '/' . $transactionCode . '.pdf';
-        $pdf->Output('F', $filename);
-        
-        return [
-            'status' => 'success',
-            'message' => 'Certificate generated successfully',
-            'filename' => $filename,
-            'transaction_code' => $transactionCode
-        ];
+
+        return $payload; // Contains user_id, user_type, etc.
     } catch (Exception $e) {
-        error_log("Error generating certificate: " . $e->getMessage());
-        return [
-            'status' => 'error',
-            'message' => 'Failed to generate certificate: ' . $e->getMessage()
-        ];
+        error_log("[AUTH_EXCEPTION] JWT Validation Error: " . $e->getMessage() . " for token: " . $jwt);
+        if ($exitOnFail) {
+            returnError("Authentication failed: " . $e->getMessage(), 401);
+        }
+        return null;
     }
 }
 
-// Function to get stations from the API if they are not in the database
-function getStationsFromAPI() {
-    $stations = [];
-    
-    // Get stations from the API for each type
-    $types = ['vertical', 'horizontal', 'gravity'];
-    
-    foreach ($types as $type) {
-        $url = "stations-api.php?type=" . $type;
-        $response = @file_get_contents($url);
-        
-        if ($response) {
-            $data = json_decode($response, true);
+$action = $_GET['action'] ?? null;
+$db = connectDB(); // From users_config.php
+
+if (!$db) {
+    returnError('Database connection failed.', 500);
+}
+
+// All actions in this API currently require admin privileges.
+$tokenData = verifyToken(); // This will exit with 401/403 if validation fails. Role checks are done per action.
+
+if (!$tokenData || !isset($tokenData->user_id)) { // Should not be reached if verifyToken exits on fail
+    returnError('Authentication failed or admin user ID not found in token.', 401);
+}
+$adminUserId = $tokenData->user_id; // user_id from the validated token
+
+
+if ($action === 'generate') {
+    if ($tokenData->user_type !== 'admin') {
+        returnError('Access denied. Admin privileges required for this action.', 403);
+    }
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        returnError('Invalid request method for generate. POST required.', 405);
+    }
+    $data = json_decode(file_get_contents('php://input'), true);
+    $transaction_code = $data['transaction_code'] ?? null;
+
+    if (!$transaction_code) {
+        returnError('Transaction code is required.');
+    }
+
+    try {
+        // 1. Get request_id and transaction_id (integer PK) from transactions table
+        $stmt_trans = $db->prepare("SELECT transaction_id, request_id FROM transactions WHERE transaction_code = :transaction_code");
+        $stmt_trans->bindParam(':transaction_code', $transaction_code);
+        $stmt_trans->execute();
+        $transactionDetails = $stmt_trans->fetch(PDO::FETCH_ASSOC);
+
+        if (!$transactionDetails || !isset($transactionDetails['request_id']) || !isset($transactionDetails['transaction_id'])) {
+            returnError('Transaction not found or missing key details for the given transaction code.', 404);
+        }
+        $request_id = $transactionDetails['request_id'];
+        $db_transaction_id = $transactionDetails['transaction_id']; // The integer PK
+
+        // 2. Call the certificate generator from certificate_generator.php
+        $generationResult = generateAndSaveCertificate($db, $transaction_code, $request_id);
+
+        if ($generationResult['status'] === 'success' && isset($generationResult['filepath'])) {
+            // 3. Save certificate details to the 'certificates' table
+            $generated_filename = basename($generationResult['filepath']);
+            // $filepath_to_save = $generationResult['filepath']; // Actual path, not directly stored if schema lacks 'file_path'
+
+            // Check if a certificate already exists for this transaction_code
+            $stmt_check_cert = $db->prepare("SELECT certificate_id FROM certificates WHERE transaction_code = :transaction_code");
+            $stmt_check_cert->bindParam(':transaction_code', $transaction_code);
+            $stmt_check_cert->execute();
+            $existing_cert = $stmt_check_cert->fetch(PDO::FETCH_ASSOC);
+
+            $log_action = "";
+            $stmt_cert_execute = false;
+
+            if ($existing_cert) {
+                $stmt_cert_update = $db->prepare("UPDATE certificates 
+                                                 SET preprocessed_filename = :preprocessed_filename, status = 'preprocessed', updated_at = CURRENT_TIMESTAMP
+                                                 WHERE transaction_code = :transaction_code");
+                // Removed generated_by, file_path from DB update to match schema.
+                // Using preprocessed_filename for the generated file's name.
+                $stmt_cert_update->bindParam(':preprocessed_filename', $generated_filename);
+                $stmt_cert_update->bindParam(':transaction_code', $transaction_code);
+                $stmt_cert_execute = $stmt_cert_update->execute();
+                $log_action = "updated";
+            } else {
+                $stmt_cert_insert = $db->prepare("INSERT INTO certificates (transaction_code, request_id, preprocessed_filename, status)
+                                                  VALUES (:transaction_code, :request_id, :preprocessed_filename, 'preprocessed')");
+                // Removed generated_by, file_path from DB insert. Added request_id.
+                $stmt_cert_insert->bindParam(':transaction_code', $transaction_code);
+                $stmt_cert_insert->bindParam(':request_id', $request_id, PDO::PARAM_INT);
+                $stmt_cert_insert->bindParam(':preprocessed_filename', $generated_filename);
+                $stmt_cert_execute = $stmt_cert_insert->execute();
+                $log_action = "inserted";
+            }
             
-            if (isset($data['success']) && $data['success'] && isset($data['data'])) {
-                // Add type to each station
-                foreach ($data['data'] as &$station) {
-                    $station['station_type'] = $type;
-                }
-                
-                $stations = array_merge($stations, $data['data']);
+            if ($stmt_cert_execute) {
+                echo json_encode([
+                    'status' => 'success', 
+                    'message' => 'Certificate generated and DB record ' . $log_action . ' successfully.',
+                    // Provide the filepath in response if useful for client, even if not stored in DB exactly as is.
+                    'filepath' => $generationResult['filepath']
+                ]);
+            } else {
+                error_log("Failed to $log_action certificate record for transaction_code {$transaction_code}. DB Error: " . print_r($db->errorInfo(), true));
+                returnError('Certificate generated but failed to record in database.', 500);
             }
-        }
-    }
-    
-    // Take only the first 5 stations of each type for simplicity
-    $result = [];
-    $countByType = [];
-    
-    foreach ($stations as $station) {
-        $type = $station['station_type'];
-        
-        if (!isset($countByType[$type])) {
-            $countByType[$type] = 0;
-        }
-        
-        if ($countByType[$type] < 5) {
-            $result[] = $station;
-            $countByType[$type]++;
-        }
-    }
-    
-    return $result;
-}
-
-// Connect to the database
-try {
-    $dbConfig = getDBConfig();
-    $db = new PDO("mysql:host={$dbConfig['DB_HOST']};dbname={$dbConfig['DB_NAME']}", $dbConfig['DB_USER'], $dbConfig['DB_PASS']);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    error_log("Database connection failed: " . $e->getMessage());
-    returnResponse(500, "Database connection failed", null);
-}
-
-// Handle API requests
-switch ($action) {
-    case 'generate':
-        // Check authorization
-        $token = verifyToken(null, true);
-        if (!$token || $token->user_type !== 'admin') {
-            returnResponse(401, "Unauthorized access", null);
-        }
-        
-        // Get transaction code
-        $transactionCode = isset($_GET['transaction_code']) ? $_GET['transaction_code'] : null;
-        
-        if (!$transactionCode) {
-            // Check if it's in the URL path
-            if (count($parts) > 1) {
-                $transactionCode = $parts[1];
-            }
-            
-            // If still no transaction code, check request body
-            if (!$transactionCode) {
-                $json = file_get_contents('php://input');
-                $data = json_decode($json, true);
-                
-                if ($data && isset($data['transaction_code'])) {
-                    $transactionCode = $data['transaction_code'];
-                }
-            }
-        }
-        
-        if (!$transactionCode) {
-            returnResponse(400, "Transaction code is required", null);
-        }
-        
-        // Generate certificate
-        $result = generateTransactionCertificate($db, $transactionCode);
-        
-        if ($result['status'] === 'success') {
-            returnResponse(200, $result['message'], [
-                'filename' => $result['filename'],
-                'transaction_code' => $result['transaction_code'],
-                'download_url' => $result['filename']
-            ]);
         } else {
-            returnResponse(500, $result['message'], null);
+            returnError('Certificate generation failed: ' . ($generationResult['message'] ?? 'Unknown error from generator'), 500);
         }
-        break;
+    } catch (Exception $e) {
+        error_log("Error in generate certificate action for transaction_code {$transaction_code}: " . $e->getMessage() . " Trace: " . $e->getTraceAsString());
+        returnError('An internal error occurred during certificate generation: ' . $e->getMessage(), 500);
+    }
+
+} elseif ($action === 'download') {
+    if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'HEAD') {
+        returnError('Invalid request method for download. GET or HEAD required.', 405);
+    }
+    $transaction_code = $_GET['transaction_code'] ?? null;
+
+    if (!$transaction_code) {
+        returnError('Transaction code is required for download.');
+    }
+
+    try {
+        // Authorize: Admin can download anything. User can only download their own.
+        $stmt_owner = $db->prepare("
+            SELECT r.user_id 
+            FROM requests r
+            JOIN transactions t ON r.request_id = t.request_id
+            WHERE t.transaction_code = :transaction_code
+        ");
+        $stmt_owner->bindParam(':transaction_code', $transaction_code);
+        $stmt_owner->execute();
+        $request_owner = $stmt_owner->fetch(PDO::FETCH_ASSOC);
+
+        if (!$request_owner) {
+            returnError('Transaction not found.', 404);
+        }
+
+        if ($tokenData->user_type !== 'admin' && $tokenData->user_id != $request_owner['user_id']) {
+            returnError('Access denied. You are not authorized to download this certificate.', 403);
+        }
         
-    case 'download':
-        // Get filename
-        $transactionCode = isset($_GET['transaction_code']) ? $_GET['transaction_code'] : null;
-        
-        if (!$transactionCode) {
-            // Check if it's in the URL path
-            if (count($parts) > 1) {
-                $transactionCode = $parts[1];
+        // Fetch certificate filenames
+        $stmt_get_cert = $db->prepare("SELECT preprocessed_filename, processed_filename FROM certificates WHERE transaction_code = :transaction_code ORDER BY updated_at DESC LIMIT 1");
+        $stmt_get_cert->bindParam(':transaction_code', $transaction_code);
+        $stmt_get_cert->execute();
+        $certificate_info = $stmt_get_cert->fetch(PDO::FETCH_ASSOC);
+
+        $certificate_file_to_serve = null;
+        $certificate_actual_filename = null;
+
+        if ($certificate_info) {
+            // Prioritize processed certificate
+            if (!empty($certificate_info['processed_filename'])) {
+                $potential_path = __DIR__ . '/assets/processed_certs/' . $certificate_info['processed_filename'];
+                if (file_exists($potential_path)) {
+                    $certificate_file_to_serve = $potential_path;
+                    $certificate_actual_filename = $certificate_info['processed_filename'];
+                } else {
+                    error_log("File {$potential_path} (processed) from DB record not found for transaction {$transaction_code}.");
+                }
+            }
+
+            // Fallback to preprocessed certificate if processed one not found
+            if (!$certificate_file_to_serve && !empty($certificate_info['preprocessed_filename'])) {
+                $potential_path = __DIR__ . '/assets/preprocessed_certs/' . $certificate_info['preprocessed_filename'];
+                if (file_exists($potential_path)) {
+                    $certificate_file_to_serve = $potential_path;
+                    $certificate_actual_filename = $certificate_info['preprocessed_filename'];
+                } else {
+                    error_log("File {$potential_path} (preprocessed) from DB record not found for transaction {$transaction_code}.");
+                }
             }
         }
-        
-        if (!$transactionCode) {
-            returnResponse(400, "Transaction code is required", null);
+
+        if ($certificate_file_to_serve) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="' . basename($certificate_actual_filename) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($certificate_file_to_serve));
+            flush(); 
+            readfile($certificate_file_to_serve);
+            exit;
+        } else {
+            error_log("No valid certificate file found for transaction {$transaction_code}. DB info: " . print_r($certificate_info, true));
+            http_response_code(404);
+            // Output a user-friendly HTML page for 404 if not an API client expecting JSON strictly
+            echo "<html><body><h1>Certificate Not Found</h1><p>The certificate for transaction code {$transaction_code} could not be found. It may not have been generated yet or an error occurred.</p></body></html>";
+            exit;
         }
-        
-        $filename = 'Assets/certificates/' . $transactionCode . '.pdf';
-        
-        // Check if file exists
-        if (!file_exists($filename)) {
-            returnResponse(404, "Certificate not found", null);
+    } catch (Exception $e) {
+        error_log("Error in download certificate action for transaction_code {$transaction_code}: " . $e->getMessage() . " Trace: " . $e->getTraceAsString());
+        returnError('An internal error occurred during certificate download: ' . $e->getMessage(), 500);
+    }
+
+} elseif ($action === 'upload_processed') {
+    if ($tokenData->user_type !== 'admin') {
+        returnError('Access denied. Admin privileges required for this action.', 403);
+    }
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        returnError('Invalid request method. POST required.', 405);
+    }
+
+    // Admin authentication is already handled at the top of the file.
+
+    $transaction_code = $_POST['transaction_code'] ?? null;
+    if (empty($transaction_code)) {
+        returnError('Transaction code is required.', 400);
+    }
+
+    if (!isset($_FILES['processed_certificate_file']) || $_FILES['processed_certificate_file']['error'] !== UPLOAD_ERR_OK) {
+        $uploadError = $_FILES['processed_certificate_file']['error'] ?? UPLOAD_ERR_NO_FILE;
+        returnError('File upload error: ' . getUploadErrorMessage($uploadError), 400); // Reusing error message helper if available or define one
+    }
+
+    $file = $_FILES['processed_certificate_file'];
+
+    // Validate file type (PDF only)
+    if ($file['type'] !== 'application/pdf') {
+        returnError('Invalid file type. Only PDF files are allowed.', 400);
+    }
+
+    // Validate file size (e.g., max 5MB)
+    $maxFileSize = 5 * 1024 * 1024; // 5 MB
+    if ($file['size'] > $maxFileSize) {
+        returnError('File is too large. Maximum size is 5MB.', 400);
+    }
+
+    // Define target directory and ensure it exists
+    $targetDir = __DIR__ . '/assets/processed_certs/';
+    if (!is_dir($targetDir)) {
+        if (!mkdir($targetDir, 0755, true)) {
+            error_log("[ERROR] Failed to create directory: {$targetDir}");
+            returnError('Server error: Could not create directory for uploads.', 500);
         }
-        
-        // Output file for download
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
-        header('Content-Length: ' . filesize($filename));
-        readfile($filename);
-        exit;
-        
-    default:
-        returnResponse(400, "Invalid action", null);
-} 
+    }
+
+    // Sanitize filename and create a unique name
+    $originalFilename = basename($file['name']);
+    $safeFilename = preg_replace("/[^a-zA-Z0-9_.-]/", "", $originalFilename);
+    $extension = pathinfo($safeFilename, PATHINFO_EXTENSION); // Should be pdf
+    // Ensure it keeps the .pdf extension, even if original was different due to manipulation
+    $newFilename = $transaction_code . "_" . uniqid() . ".pdf";
+    $targetFilePath = $targetDir . $newFilename;
+
+    try {
+        // Check if a record exists for this transaction_code in certificates table
+        $stmt_check = $db->prepare("SELECT certificate_id FROM certificates WHERE transaction_code = :transaction_code");
+        $stmt_check->bindParam(':transaction_code', $transaction_code);
+        $stmt_check->execute();
+        if (!$stmt_check->fetch(PDO::FETCH_ASSOC)) {
+            returnError('No existing certificate record found for this transaction code. Cannot upload processed certificate.', 404);
+        }
+
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            // Update the certificates table
+            $stmt_update = $db->prepare("UPDATE certificates 
+                                          SET processed_filename = :processed_filename, 
+                                              status = 'processed', 
+                                              updated_at = CURRENT_TIMESTAMP 
+                                          WHERE transaction_code = :transaction_code");
+            $stmt_update->bindParam(':processed_filename', $newFilename);
+            $stmt_update->bindParam(':transaction_code', $transaction_code);
+
+            if ($stmt_update->execute()) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Processed certificate uploaded and record updated successfully.',
+                    'processed_filename' => $newFilename
+                ]);
+            } else {
+                error_log("[ERROR] Failed to update certificate record for {$transaction_code} after upload. DB Error: " . print_r($stmt_update->errorInfo(), true));
+                // Attempt to delete the orphaned uploaded file
+                if (file_exists($targetFilePath)) {
+                    unlink($targetFilePath);
+                }
+                returnError('Database error: Could not update certificate record after upload.', 500);
+            }
+        } else {
+            returnError('Server error: Could not save uploaded file.', 500);
+        }
+    } catch (Exception $e) {
+        error_log("[ERROR] Exception during processed certificate upload for {$transaction_code}: " . $e->getMessage());
+        returnError('An internal server error occurred during upload: ' . $e->getMessage(), 500);
+    }
+
+} else {
+    returnError('Invalid action specified.');
+}
+
+// Helper function to get upload error messages (if not already globally available)
+if (!function_exists('getUploadErrorMessage')) { // Prevent re-declaration if it exists elsewhere
+    function getUploadErrorMessage($errorCode) {
+        switch ($errorCode) {
+            case UPLOAD_ERR_INI_SIZE: return "The uploaded file exceeds the upload_max_filesize directive in php.ini.";
+            case UPLOAD_ERR_FORM_SIZE: return "The uploaded file exceeds the MAX_FILE_SIZE directive specified in the HTML form.";
+            case UPLOAD_ERR_PARTIAL: return "The uploaded file was only partially uploaded.";
+            case UPLOAD_ERR_NO_FILE: return "No file was uploaded.";
+            case UPLOAD_ERR_NO_TMP_DIR: return "Missing a temporary folder on the server.";
+            case UPLOAD_ERR_CANT_WRITE: return "Failed to write file to disk on the server.";
+            case UPLOAD_ERR_EXTENSION: return "A PHP extension stopped the file upload.";
+            default: return "Unknown upload error.";
+        }
+    }
+}
+
+?>

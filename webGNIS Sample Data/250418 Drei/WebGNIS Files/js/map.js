@@ -92,7 +92,7 @@ async function initializeMap() {
 
         // Fetch and load admin boundaries GeoJSON (replace with your path)
         try {
-            const response = await fetch('Assets/Provinces.json');
+            const response = await fetch('assets/Provinces.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

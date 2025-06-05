@@ -119,6 +119,8 @@ try {
                 returnResponse(405, "Method not allowed. Use POST for updates.", null);
             }
             
+            require_once 'certificate_generator.php'; // Ensure this is present for generateAndSaveCertificate
+            
             // Check authorization
             $token = verifyToken(null, true);
             if (!$token || $token->user_type !== 'admin') {
@@ -144,7 +146,7 @@ try {
                 $data = json_decode($json, true);
                 
                 if (!$data) {
-                    returnResponse(400, "Invalid JSON data", null);
+                    returnResponse(400, "Invalid JSON data received. Please check the request body.", null);
                 }
                 
                 error_log("[" . date('Y-m-d H:i:s') . "] Updating transaction ID: $transactionId with data: " . print_r($data, true));
@@ -182,7 +184,7 @@ try {
                     $statusResult = $statusStmt->fetch(PDO::FETCH_ASSOC);
                     if (!$statusResult) {
                         $db->rollBack();
-                        returnResponse(400, "Invalid status: $statusName", null);
+                        returnResponse(400, "Invalid status name provided: '{$statusName}'. This status does not exist in the request_statuses table.", null);
                     }
                     
                     $statusId = $statusResult['status_id'];
@@ -196,6 +198,64 @@ try {
                     $updateRequestStmt->bindParam(':status_id', $statusId);
                     $updateRequestStmt->bindParam(':request_id', $transaction['request_id']);
                     $updateRequestStmt->execute();
+
+                    // Determine if the new status is 'Approved' for certificate generation.
+                    // This check should be robust, ideally based on status_name if status_id can vary.
+                    // For now, assuming $statusName is reliable from $data['status'] being 'approved'.
+                    $isApprovedStatus = (strtolower($statusName) === 'approved');
+
+                    // If status is 'Approved', handle certificate generation and recording
+                    if ($isApprovedStatus) {
+                        require_once 'certificate_generator.php'; // Make sure it's included
+
+                        // Call certificate generation function
+                        $certGenerationResult = generateAndSaveCertificate($db, $transaction['transaction_code'], $transaction['request_id']);
+                        
+                        if ($certGenerationResult['status'] === 'success' && isset($certGenerationResult['filepath'])) {
+                            $generated_filename = basename($certGenerationResult['filepath']);
+                            error_log("[INFO] Certificate generated successfully for transaction: " . $transaction['transaction_code'] . " at " . $certGenerationResult['filepath'] . ". Filename: " . $generated_filename);
+
+                            // Check if certificate record exists, then insert or update in 'certificates' table
+                            $stmt_check_cert = $db->prepare("SELECT certificate_id FROM certificates WHERE transaction_code = :transaction_code");
+                            $stmt_check_cert->bindParam(':transaction_code', $transaction['transaction_code']);
+                            $stmt_check_cert->execute();
+                            $existing_cert = $stmt_check_cert->fetch(PDO::FETCH_ASSOC);
+
+                            if ($existing_cert) {
+                                $stmt_cert_update = $db->prepare(
+                                    "UPDATE certificates SET preprocessed_filename = :preprocessed_filename, status = 'preprocessed', updated_at = CURRENT_TIMESTAMP 
+                                     WHERE transaction_code = :transaction_code"
+                                );
+                                $stmt_cert_update->bindParam(':preprocessed_filename', $generated_filename);
+                                $stmt_cert_update->bindParam(':transaction_code', $transaction['transaction_code']);
+                                if ($stmt_cert_update->execute()) {
+                                    error_log("[INFO] Certificate record UPDATED for transaction_code {$transaction['transaction_code']} with filename {$generated_filename}");
+                                } else {
+                                    error_log("[ERROR] Failed to UPDATE certificate record for transaction_code {$transaction['transaction_code']}. DB Error: " . print_r($stmt_cert_update->errorInfo(), true));
+                                    // Consider if this failure should rollback the main transaction
+                                }
+                            } else {
+                                $stmt_cert_insert = $db->prepare(
+                                   "INSERT INTO certificates (transaction_code, request_id, preprocessed_filename, status)
+                                    VALUES (:transaction_code, :request_id, :preprocessed_filename, 'preprocessed')"
+                                );
+                                $stmt_cert_insert->bindParam(':transaction_code', $transaction['transaction_code']);
+                                $stmt_cert_insert->bindParam(':request_id', $transaction['request_id'], PDO::PARAM_INT);
+                                $stmt_cert_insert->bindParam(':preprocessed_filename', $generated_filename);
+                                if ($stmt_cert_insert->execute()) {
+                                    error_log("[INFO] Certificate record INSERTED for transaction_code {$transaction['transaction_code']} with filename {$generated_filename}");
+                                } else {
+                                    error_log("[ERROR] Failed to INSERT certificate record for transaction_code {$transaction['transaction_code']}. DB Error: " . print_r($stmt_cert_insert->errorInfo(), true));
+                                    // Consider if this failure should rollback the main transaction
+                                }
+                            }
+                        } else {
+                            error_log("[ERROR] Certificate generation failed for transaction: " . $transaction['transaction_code'] . ". Error: " . ($certGenerationResult['message'] ?? 'Unknown error from generator'));
+                            // If certificate generation is critical for 'approved' status,
+                            // you might want to $db->rollBack() and return an error response.
+                            // Current behavior: logs error and continues transaction commit.
+                        }
+                    }
                 }
                 
                 // Handle verification
@@ -222,7 +282,7 @@ try {
                 // If no fields to update, return error
                 if (empty($updateFields)) {
                     $db->rollBack();
-                    returnResponse(400, "No fields to update", null);
+                    returnResponse(400, "No valid fields to update were provided in the request.", null);
                 }
                 
                 // Build and execute update query
@@ -587,7 +647,7 @@ function uploadPaymentProof($db) {
             $paidStatusId = $paidStatusResult['status_id'];
             
             // Create payment_proofs directory if it doesn't exist
-            $uploadsDir = dirname(__FILE__) . '/Assets/payment_proofs';
+            $uploadsDir = dirname(__FILE__) . '/assets/payment_proofs';
             if (!is_dir($uploadsDir)) {
                 if (!mkdir($uploadsDir, 0755, true)) {
                     error_log("Failed to create directory: $uploadsDir");
@@ -719,7 +779,7 @@ function uploadPaymentProof($db) {
         }
         
         // Create payment_proofs directory if it doesn't exist
-        $uploadsDir = dirname(__FILE__) . '/Assets/payment_proofs';
+        $uploadsDir = dirname(__FILE__) . '/assets/payment_proofs';
         if (!is_dir($uploadsDir)) {
             if (!mkdir($uploadsDir, 0755, true)) {
                 error_log("Failed to create directory: $uploadsDir");

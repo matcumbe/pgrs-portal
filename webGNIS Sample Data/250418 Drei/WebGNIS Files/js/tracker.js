@@ -389,10 +389,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Download button
             const downloadBtn = document.createElement('button');
-            downloadBtn.classList.add('btn', 'btn-info', 'btn-sm', 'me-2');
+            downloadBtn.classList.add('btn', 'btn-info', 'btn-sm', 'me-2', 'download-btn');
             downloadBtn.innerHTML = '<i class="fas fa-download"></i>';
             downloadBtn.setAttribute('data-request-id', request.request_id);
-            downloadBtn.title = 'Download';
+            downloadBtn.setAttribute('data-transaction-code', request.transaction_code);
+            downloadBtn.title = 'Download Certificate';
             if (request.status_name !== 'Approved') {
                 downloadBtn.disabled = true;
                 downloadBtn.classList.replace('btn-info', 'btn-secondary');
@@ -600,6 +601,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    async function handleDownloadCertificate(transactionCode) {
+        if (!transactionCode) {
+            alert("Transaction code is missing.");
+            return;
+        }
+
+        const token = getToken();
+        if (!token) {
+            alert("You must be logged in to download certificates.");
+            return;
+        }
+
+        console.log(`Attempting to download certificate for transaction: ${transactionCode}`);
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/certificates_api.php?action=download&transaction_code=${transactionCode}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                // Try to get error message from body
+                let errorMsg = `HTTP error! status: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    errorMsg = errorData.message || errorMsg;
+                } catch (e) {
+                    // Not a JSON response, maybe HTML for 404
+                    const textError = await response.text();
+                    if (textError.includes("Certificate Not Found")) {
+                        errorMsg = "Certificate not found. It may not have been generated or processed yet.";
+                    } else {
+                        errorMsg = `Server returned an invalid response. Status: ${response.status}`;
+                    }
+                }
+                throw new Error(errorMsg);
+            }
+
+            // Get filename from Content-Disposition header
+            const disposition = response.headers.get('Content-Disposition');
+            let filename = `${transactionCode}.pdf`; // Default filename
+            if (disposition && disposition.indexOf('attachment') !== -1) {
+                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                const matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) {
+                    filename = matches[1].replace(/['"]/g, '');
+                }
+            }
+
+            const blob = await response.blob();
+            if (blob.size === 0) {
+                throw new Error("Received an empty file from the server.");
+            }
+
+            // Create a link to download the blob
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+        } catch (error) {
+            console.error('Error downloading certificate:', error);
+            alert(`Could not download certificate: ${error.message}`);
+        }
+    }
+
     // --- Payment Modal Handling ---
     async function handleAddPayment(requestId) {
         const requestData = await fetchRequestDetails(requestId);
@@ -859,10 +933,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (requestId) handleAddPayment(requestId);
                 }
                 // Download button click
-            else if (target.closest('.download-btn') && !target.closest('.download-btn').disabled) {
-                const requestId = target.closest('.download-btn').dataset.requestId;
-                alert(`Download functionality for request ID: ${requestId} is not yet implemented.`);
-                console.log("Download clicked for request:", requestId);
+            else if (target.closest('.download-btn')) {
+                const downloadButton = target.closest('.download-btn');
+                if (!downloadButton.disabled) {
+                    const transactionCode = downloadButton.dataset.transactionCode;
+                    if (transactionCode) {
+                        handleDownloadCertificate(transactionCode);
+                    } else {
+                        console.error('Download button clicked but no transaction code found.');
+                        alert('Could not initiate download: transaction code missing.');
+                    }
+                }
             }
                 // View Details Button Click (use .view-details-btn class)
                 else if (target.closest('.view-details-btn')) {
