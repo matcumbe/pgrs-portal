@@ -7,10 +7,17 @@ try {
     // Original headers related to direct access or OPTIONS are deferred until the direct action handler block
 
     // Database Configuration
-    define('DB_HOST', '127.0.0.1'); // Change this to your actual database host if needed
-    define('DB_USER', 'root');      // Change this to your actual database username
-    define('DB_PASS', '');          // Change this to your actual database password
-    define('DB_NAME', 'webgnis_db'); // Change this to your actual database name
+    if (getenv('GAE_APPLICATION')) {
+        define('DB_HOST', getenv('DB_SOCKET_1'));
+        define('DB_USER', getenv('DB_USER_1'));
+        define('DB_PASS', getenv('DB_PASS_1'));
+        define('DB_NAME', getenv('DB_NAME_1'));
+    } else {
+        define('DB_HOST', '127.0.0.1'); // Change this to your actual database host if needed
+        define('DB_USER', 'root');      // Change this to your actual database username
+        define('DB_PASS', '');          // Change this to your actual database password
+        define('DB_NAME', 'webgnis_db'); // Change this to your actual database name
+    }
     define('DB_CHARSET', 'utf8mb4');
 
     // Test the database connection at config load time and log errors
@@ -19,7 +26,11 @@ try {
         function config_testDatabaseConnection() { // Renamed
             try {
                 // Ensure DB_HOST etc. are defined before this call, which they are now.
-                $db = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+                if (getenv('GAE_APPLICATION')) {
+                    $db = new mysqli(null, DB_USER, DB_PASS, DB_NAME, null, DB_HOST);
+                } else {
+                    $db = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+                }
                 if ($db->connect_error) {
                     error_log("[CONFIG] Database connection failed: " . $db->connect_error);
                     // Optionally, throw an exception here to be caught by the outer try-catch
@@ -41,7 +52,7 @@ try {
     // Application Configuration
     define('APP_NAME', 'Geodetic Network Information System (GNIS)');
     define('APP_VERSION', '1.0.0');
-    define('APP_ENV', 'development'); // Change to 'production' in production
+    define('APP_ENV', getenv('APP_ENV') ?: 'development'); // Change to 'production' in production
 
     // Error Reporting (these ini_set might be overridden by including scripts like api.php)
     if (APP_ENV === 'development') {
@@ -86,8 +97,8 @@ try {
     define('MAX_SEARCH_RADIUS', 100); // in kilometers
 
     // API settings
-    define('BASE_URL', 'http://localhost/webgnis/'); // Adjust if your dev URL is different
-    define('JWT_SECRET', 'webgnis-secret-key-please-change-in-production');
+    define('BASE_URL', getenv('BASE_URL') ?: 'http://localhost/webgnis/'); // Adjust if your dev URL is different
+    define('JWT_SECRET', getenv('JWT_SECRET') ?: 'webgnis-secret-key-please-change-in-production');
     define('TOKEN_EXPIRY', 86400); // 24 hours in seconds
 
     // Station price configuration
@@ -158,7 +169,11 @@ if (!function_exists('testDatabaseConnection')) {
 // Connection function to establish database connection (used by other API files if they don't manage their own)
 if (!function_exists('connectDB')) {
     function connectDB() {
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (getenv('GAE_APPLICATION')) {
+            $conn = new mysqli(null, DB_USER, DB_PASS, DB_NAME, null, DB_HOST);
+        } else {
+            $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        }
         
         if ($conn->connect_error) {
             // This function's error handling uses returnResponse, which exits.

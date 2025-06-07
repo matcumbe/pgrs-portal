@@ -1,5 +1,16 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
 require_once 'users_config.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+// Define token expiry time
+define('TOKEN_EXPIRY', 86400); // 24 hours in seconds
 
 // Set headers to allow cross-origin requests and specify content type
 header("Access-Control-Allow-Origin: *");
@@ -772,84 +783,72 @@ function validateUserData($data) {
     return true;
 }
 
+// Function to generate JWT
 function generateJWT($user) {
-    $issuedAt = time();
-    $expirationTime = $issuedAt + TOKEN_EXPIRY;
-    
+    try {
+        $secretKey = get_jwt_secret();
+    } catch (Exception $e) {
+        // Log the error and return an internal server error response
+        error_log('JWT Secret Error: ' . $e->getMessage());
+        returnResponse(500, "Server configuration error prevents login.", null);
+        exit;
+    }
+
     $payload = [
-        'iat' => $issuedAt,
-        'exp' => $expirationTime,
+        'iat' => time(),
+        'exp' => time() + TOKEN_EXPIRY,
         'user_id' => $user['user_id'],
         'username' => $user['username'],
-        'user_type' => $user['user_type']
+        'user_type' => $user['user_type'],
+        'role' => $user['role'] ?? 'user'
     ];
-    
-    $header = base64_encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
-    $payload = base64_encode(json_encode($payload));
-    $signature = base64_encode(hash_hmac('sha256', "$header.$payload", JWT_SECRET, true));
-    
-    return "$header.$payload.$signature";
+    return JWT::encode($payload, $secretKey, 'HS256');
 }
 
+// Function to verify JWT
 function verifyToken($requiredRole = null, $exitOnFail = true) {
     $headers = getallheaders();
     
-    if (!isset($headers['Authorization']) && !isset($headers['authorization'])) {
+    if (!isset($headers['Authorization'])) {
         if ($exitOnFail) {
             returnResponse(401, "Authorization header missing", null);
             exit;
-        } else {
-            return false;
         }
+        return null;
     }
     
-    $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : $headers['authorization'];
-    $token = str_replace('Bearer ', '', $authHeader);
+    $authHeader = $headers['Authorization'];
+    list($jwt) = sscanf($authHeader, 'Bearer %s');
     
-    $tokenParts = explode('.', $token);
-    if (count($tokenParts) !== 3) {
+    if (!$jwt) {
         if ($exitOnFail) {
             returnResponse(401, "Invalid token format", null);
             exit;
-        } else {
-            return false;
         }
+        return null;
     }
     
-    list($header, $payload, $signature) = $tokenParts;
-    
-    $verifySignature = base64_encode(hash_hmac('sha256', "$header.$payload", JWT_SECRET, true));
-    
-    if ($signature !== $verifySignature) {
+    try {
+        $secretKey = get_jwt_secret();
+        $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
+    } catch (Exception $e) {
         if ($exitOnFail) {
-            returnResponse(401, "Invalid token signature", null);
+            returnResponse(401, "Invalid token: " . $e->getMessage(), null);
             exit;
-        } else {
-            return false;
         }
+        return null;
     }
     
-    $payload = json_decode(base64_decode($payload));
-    
-    if ($payload->exp < time()) {
-        if ($exitOnFail) {
-            returnResponse(401, "Token expired", null);
-            exit;
-        } else {
-            return false;
-        }
-    }
-    
-    if ($requiredRole && $payload->user_type !== $requiredRole) {
+    // Check for required role
+    if ($requiredRole && $decoded->user_type !== $requiredRole) {
         if ($exitOnFail) {
             returnResponse(403, "Insufficient permissions", null);
             exit;
-        } else {
-            return false;
         }
+        return null;
     }
     
-    return $payload;
+    return $decoded;
 }
 
 function returnResponse($statusCode, $message, $data) {

@@ -3,13 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GNIS | About Us</title>
+    <title>GNIS | Home</title>
     <link rel="icon" href="assets/gnis_logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Reusing styles from home.html for consistency */
+        /* Additional styles specific to home page */
+        .feature-box {
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            height: 100%; /* Make boxes equal height */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to top */
+        }
+        .feature-box i {
+            font-size: 3rem; /* Larger icons */
+            margin-bottom: 15px;
+        }
+        .feature-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .feature-box p {
+            font-size: 0.9rem;
+            color: #6c757d; /* Bootstrap secondary text color */
+            text-align: center; /* Center align text */
+        }
         .content-section {
             background-color: #ffffff;
             padding: 40px;
@@ -18,6 +42,11 @@
             max-width: 1000px; /* Adjust max-width as needed */
             margin: 30px auto; /* Center the content */
         }
+
+        .content-section h2  {
+            color: var(--secondary-color);
+        }
+
          .navbar .nav-link.active {
             font-weight: bold; /* Make active link bold */
          }
@@ -25,17 +54,6 @@
             padding-left: 15px;
             padding-right: 15px;
          }
-         .content-section h2, h3 {
-            color: var(--secondary-color); /* Bootstrap success green */
-            margin-top: 20px;
-            margin-bottom: 10px;
-         }
-         .content-section p {
-            text-align: justify;
-            line-height: 1.6;
-         }
-        /* Styles for profile cards */
-        /* REMOVED profile card styles */
 
     </style>
 </head>
@@ -45,12 +63,12 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
-                    <img src="assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
+                    <img src="assets/gnis_logo.png" alt="NAMRIA Logo" class="me-4" style="height: 40px;">
                     <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
                 </div>
                 <div class="d-flex align-items-center accnt">
                     <div id="headerAccountDetails" class="me-3 d-none">
-                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <a href="account.php" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
                         <span id="headerUserType" class="ms-2"></span>
                     </div>
                     <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -68,13 +86,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav mx-auto">
-                    <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
-                    <a class="nav-link" href="index.html"><i class="fas fa-search"></i> Explorer</a>
-                    <a class="nav-link" href="tracker.html"><i class="fas fa-map-marker"></i> Tracker</a>
-                    <a class="nav-link admin-only d-none" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
-                    <a class="nav-link admin-only d-none" href="requests_management.html"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link active" href="home.php"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.php"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="tracker.php"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link admin-only d-none" href="admin.php"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link admin-only d-none" href="requests_management.php"><i class="fas fa-tasks"></i> Requests Management</a>
                     <a class="nav-link admin-only d-none" href="#"><i class="fas fa-users"></i> Users Management</a>
-                    <a class="nav-link active" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                    <a class="nav-link" href="about.php"><i class="fas fa-info-circle"></i> About Us</a>
                 </div>
             </div>
         </div>
@@ -82,20 +100,43 @@
 
     <!-- Main Content -->
     <div class="container content-section">
-        <h2 class="text-center mb-4 mt-0">About NAMRIA and the Geodetic Network Information System (GNIS)</h2>
+        <h2 class="text-center mb-4">Welcome to Web GNIS</h2>
+        <p class="text-center mb-4">At NAMRIA, the Geodetic Network Information System (GNIS) is a specialized database designed to support geodetic and mapping activities in the Philippines. The GNIS contains detailed descriptions of each Geodetic Control Point (GCP), including its geographic location and precise geographic coordinates such as latitude, longitude, and elevation. GNIS maintains extensive records for each GCP, including geographic coordinates such as latitude, longitude, and elevation.</p>
 
-        <p>The National Mapping and Resource Information Authority (NAMRIA), under the Department of Environment and Natural Resources, is the central mapping agency of the Philippine government. NAMRIA is responsible for providing map-making services and acting as the central repository for natural resources and mapping data.</p>
+        <!-- Feature Boxes -->
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Surveying and Mapping</h3>
+                    <p>Ensures high accuracy in geographic referencing for various surveying and mapping projects.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                    <i class="fas fa-building"></i>
+                    <h3>Infrastructure Development</h3>
+                    <p>Supports precise planning and construction by providing accurate geographic data.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="feature-box">
+                     <i class="fas fa-tree"></i>
+                    <h3>Land Management</h3>
+                    <p>Assists in land classification, land use planning, and property boundary delineation.</p>
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="feature-box">
+                   <i class="fas fa-globe-asia"></i>
+                    <h3>Environmental Monitoring</h3>
+                    <p>Aids in tracking changes in the environment and planning conservation efforts.</p>
+                </div>
+            </div>
+        </div>
 
-        <h3>Philippine Geodetic Reference System (PGRS)</h3>
-        <p>A key function of NAMRIA involves establishing and maintaining the national geodetic control network. This includes the Philippine Reference System 92 (PRS92) and the ongoing modernization efforts related to the Philippine Geodetic Reference System (PGRS). These efforts are crucial for ensuring accurate and consistent geospatial referencing across the country, supporting various applications from surveying and mapping to infrastructure development and disaster management. NAMRIA has published strategic plans, such as the "Modernization of the PHILIPPINE GEODETIC REFERENCE SYSTEM STRATEGIC PLAN 2016-2020," and developed resources like the "PGM2016: A new geoid model for the Philippines," highlighting its commitment to improving the national geodetic framework. The goal is to align with and contribute to the sustainability of the Global Geodetic Reference Frame (Source: <a href="https://www.namria.gov.ph/downloads.aspx" target="_blank">NAMRIA Downloads</a>).</p>
-
-        <h3>Towards Online Geospatial Information Access</h3>
-        <p>NAMRIA is actively working towards making geospatial information more accessible. While specific details on a "GNIS Online" system aren't explicitly mentioned in the available resources, NAMRIA manages the <strong>Philippine Geoportal</strong>, offering online access to various geospatial datasets. They also provide downloadable resources, including topographic maps, hazard maps, publications like the <em>Infomapper</em>, and applications such as the <strong>Philippine Geoid Model</strong>. These initiatives demonstrate NAMRIA's direction towards enhancing online access to critical geodetic and resource information, which aligns with the objectives of providing systems like the Geodetic Network Information System (GNIS) to users (Source: <a href="https://www.namria.gov.ph/downloads.aspx" target="_blank">NAMRIA Downloads</a>).</p>
-
-        <!-- Team Section -->
-        <!-- REMOVED team section -->
-        <!-- End Team Section -->
-
+        <p class="mt-4 text-center">By providing reliable geographic coordinates, GNIS ensures that all mapping and surveying activities in the Philippines are based on consistent and accurate data. This is essential for various applications including land development, infrastructure planning, and environmental management.</p>
+        <p class="text-center">The system is designed to be user-friendly, allowing easy access to GCP information. This ensures that surveyors and mappers can quickly find the data they need to carry out their work efficiently.</p>
     </div>
 
     <!-- Auth Modal (Login/Register) -->

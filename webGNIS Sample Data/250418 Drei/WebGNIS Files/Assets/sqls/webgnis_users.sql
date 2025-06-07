@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2025 at 11:49 AM
+-- Generation Time: Jun 05, 2025 at 06:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`cart_id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
-(9, 2, 'guest_1748935812888_esmsvb88o9r', '2025-06-03 07:19:36', '2025-06-04 06:20:15');
+(9, 2, 'guest_1748935812888_esmsvb88o9r', '2025-06-03 07:19:36', '2025-06-04 06:20:15'),
+(11, 1, 'guest_1748828048665_d49y2xvojsk', '2025-06-04 19:58:30', '2025-06-05 14:34:59');
 
 -- --------------------------------------------------------
 
@@ -73,6 +74,14 @@ CREATE TABLE `certificates` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `certificates`
+--
+
+INSERT INTO `certificates` (`certificate_id`, `transaction_code`, `request_id`, `preprocessed_filename`, `processed_filename`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'CSUMGB-20250605-1-001', 80, 'CSUMGB-20250605-1-001.pdf', NULL, 'preprocessed', '2025-06-05 14:30:51', '2025-06-05 14:30:51'),
+(2, 'CSUMGB-20250605-1-002', 81, 'CSUMGB-20250605-1-002.pdf', 'CSUMGB-20250605-1-002_6841c2df1db1f.pdf', 'processed', '2025-06-05 14:35:43', '2025-06-05 16:16:31');
 
 -- --------------------------------------------------------
 
@@ -155,12 +164,14 @@ CREATE TABLE `requests` (
 --
 
 INSERT INTO `requests` (`request_id`, `user_id`, `request_date`, `status_id`, `total_amount`, `remarks`, `exp_date`, `transaction_code`) VALUES
-(74, 2, '2025-06-03 07:31:20', 4, 1800.00, NULL, '2025-06-18 07:31:20', 'CSUMGB-20250603-2-001'),
+(74, 2, '2025-06-03 07:31:20', 4, 1800.00, NULL, '2025-06-18 07:31:20', 'TESTCERT-20250605044408'),
 (75, 2, '2025-06-03 07:32:27', 5, 1080.00, NULL, '2025-06-18 07:32:27', 'CSUMGB-20250603-2-002'),
 (76, 2, '2025-06-03 08:49:37', 1, 1440.00, NULL, '2025-06-18 08:49:37', 'CSUMGB-20250603-2-003'),
 (77, 2, '2025-06-03 08:53:47', 1, 1080.00, NULL, '2025-06-18 08:53:47', 'CSUMGB-20250603-2-004'),
 (78, 2, '2025-06-04 06:19:28', 1, 2160.00, NULL, '2025-06-19 06:19:28', 'CSUMGB-20250604-2-001'),
-(79, 2, '2025-06-04 06:20:17', 1, 720.00, NULL, '2025-06-19 06:20:17', 'CSUMGB-20250604-2-002');
+(79, 2, '2025-06-04 06:20:17', 1, 720.00, NULL, '2025-06-19 06:20:17', 'CSUMGB-20250604-2-002'),
+(80, 1, '2025-06-04 19:58:57', 4, 1800.00, NULL, '2025-06-19 19:58:57', 'CSUMGB-20250605-1-001'),
+(81, 1, '2025-06-05 14:35:12', 4, 2880.00, NULL, '2025-06-20 14:35:12', 'CSUMGB-20250605-1-002');
 
 -- --------------------------------------------------------
 
@@ -182,10 +193,6 @@ CREATE TABLE `request_items` (
 --
 
 INSERT INTO `request_items` (`item_id`, `request_id`, `station_id`, `station_name`, `station_type`, `price`) VALUES
-(217, 74, '356', 'MMA-3202', 'horizontal', 360.00),
-(218, 74, '356', 'MMA-3202', 'caap', 720.00),
-(219, 74, '1', 'MMA-4269 (GM-3HA)', 'vertical', 360.00),
-(220, 74, '10001', 'MMA-115', 'gravity', 360.00),
 (221, 75, '356', 'MMA-3202', 'horizontal', 360.00),
 (222, 75, '356', 'MMA-3202', 'caap', 720.00),
 (223, 76, '354', 'MMA-3201', 'horizontal', 360.00),
@@ -197,7 +204,22 @@ INSERT INTO `request_items` (`item_id`, `request_id`, `station_id`, `station_nam
 (229, 78, '1390', 'MMA-4225', 'caap', 720.00),
 (230, 78, '354', 'MMA-3201', 'caap', 720.00),
 (231, 79, '356', 'MMA-3202', 'horizontal', 360.00),
-(232, 79, '354', 'MMA-3201', 'horizontal', 360.00);
+(232, 79, '354', 'MMA-3201', 'horizontal', 360.00),
+(677, 80, '356', 'MMA-3202', 'horizontal', 360.00),
+(678, 80, '356', 'MMA-3202', 'caap', 720.00),
+(679, 80, '282', 'MMA-5229 (TPTG-2)', 'vertical', 360.00),
+(680, 80, '20036', 'MM-129', 'gravity', 360.00),
+(685, 74, '356', 'MMA-3202', 'horizontal', 360.00),
+(686, 74, '356', 'MMA-3202', 'caap', 720.00),
+(687, 74, '1', 'MMA-4269 (GM-3HA)', 'vertical', 360.00),
+(688, 74, '10001', 'MMA-115', 'gravity', 360.00),
+(689, 81, '356', 'MMA-3202', 'horizontal', 360.00),
+(690, 81, '1390', 'MMA-4225', 'horizontal', 360.00),
+(691, 81, '1390', 'MMA-4225', 'caap', 720.00),
+(692, 81, '787', 'MMA-4239', 'vertical', 360.00),
+(693, 81, '1082', 'MM-141A', 'vertical', 360.00),
+(694, 81, '10086', 'MMGS-7', 'gravity', 360.00),
+(695, 81, '20058', 'MM-144', 'gravity', 360.00);
 
 -- --------------------------------------------------------
 
@@ -301,7 +323,9 @@ CREATE TABLE `transactions` (
 
 INSERT INTO `transactions` (`transaction_id`, `transaction_code`, `request_id`, `user_id`, `status_id`, `payment_method_id`, `payment_amount`, `paid_amount`, `payment_reference`, `payment_proof_file`, `payment_date`, `verified`, `verified_by`, `verified_date`, `remarks`) VALUES
 (34, 'CSUMGB-20250603-2-001', 74, 2, 4, 1, 1800.00, 1800.00, 'test reference', 'payment_proof_74_683ea4c89a73f.jpg', '2025-06-03 07:31:20', 1, 1, '2025-06-02 23:33:57', NULL),
-(35, 'CSUMGB-20250603-2-002', 75, 2, 5, 1, 1080.00, 1080.00, 'test reference', 'payment_proof_75_683ea52ff1139.jpg', '2025-06-03 07:33:03', 0, 1, '2025-06-02 23:33:49', 'Wrong payment amount.');
+(35, 'CSUMGB-20250603-2-002', 75, 2, 5, 1, 1080.00, 1080.00, 'test reference', 'payment_proof_75_683ea52ff1139.jpg', '2025-06-03 07:33:03', 0, 1, '2025-06-02 23:33:49', 'Wrong payment amount.'),
+(36, 'CSUMGB-20250605-1-001', 80, 1, 4, 1, 1800.00, 1800.00, 'Test Reference', 'payment_proof_80_6840a581626b7.jpg', '2025-06-04 19:58:57', 1, 1, '2025-06-05 06:30:50', NULL),
+(37, 'CSUMGB-20250605-1-002', 81, 1, 4, 1, 2880.00, 2880.00, 'Test Reference', 'payment_proof_81_6841ab208c570.jpg', '2025-06-05 14:35:12', 1, 1, '2025-06-05 06:35:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -330,7 +354,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `contact_number`, `user_type`, `sex_id`, `name_on_certificate`, `created_at`, `updated_at`, `is_active`, `last_login`) VALUES
 (1, 'admin', '$2y$10$l4MkyBztTrYXY.xVCx2rAeo8hSZkqC7enS0sgi3TTBeLzydcjhFHe', 'admin@webgnis.gov.ph', '09123456789', 'admin', NULL, NULL, '2025-05-17 07:45:19', '2025-05-17 08:05:32', 1, NULL),
-(2, 'sample', '$2y$10$l4MkyBztTrYXY.xVCx2rAeo8hSZkqC7enS0sgi3TTBeLzydcjhFHe', 'sample@email.com', '09393939393', 'individual', 1, 'Sample', '2025-05-17 07:59:41', '2025-05-17 07:59:41', 1, NULL),
+(2, 'sample', '$2y$10$l4MkyBztTrYXY.xVCx2rAeo8hSZkqC7enS0sgi3TTBeLzydcjhFHe', 'sample@email.com', '09393939393', 'individual', 1, 'Sample User Name for Certificate Test', '2025-05-17 07:59:41', '2025-06-04 20:44:08', 1, NULL),
 (3, 'sample2', '$2y$10$mmgFIjA2tkAwbDnv88m8p.uya9cUNcEmZakXQi9uomI.ko6.PlUwK', 'sample2@email.com', '09393939393', 'individual', 1, 'Sample', '2025-05-17 08:00:30', '2025-05-17 08:00:30', 1, NULL),
 (4, 'sample3', '$2y$10$Mb2iZmsFbEnD9zq4xbUd1Ojg7PCH9XPZEppX6fAuVKGLf0sffWEtK', 'sample3@email.com', '09393939393', 'individual', 1, 'Sample', '2025-05-17 08:05:14', '2025-05-17 08:05:14', 1, NULL);
 
@@ -452,19 +476,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=295;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
 
 --
 -- AUTO_INCREMENT for table `certificates`
 --
 ALTER TABLE `certificates`
-  MODIFY `certificate_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `certificate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `company_details`
@@ -476,7 +500,7 @@ ALTER TABLE `company_details`
 -- AUTO_INCREMENT for table `individual_details`
 --
 ALTER TABLE `individual_details`
-  MODIFY `individual_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `individual_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -488,13 +512,13 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `request_items`
 --
 ALTER TABLE `request_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=696;
 
 --
 -- AUTO_INCREMENT for table `request_statuses`
@@ -518,7 +542,7 @@ ALTER TABLE `sexes`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`

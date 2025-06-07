@@ -38,13 +38,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav mx-auto">
-                    <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
-                    <a class="nav-link" href="index.html"><i class="fas fa-search"></i> Explorer</a>
-                    <a class="nav-link" href="tracker.html"><i class="fas fa-map-marker"></i> Tracker</a>
-                    <a class="nav-link admin-only d-none" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link" href="home.php"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.php"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="tracker.php"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link admin-only d-none" href="admin.php"><i class="fas fa-cog"></i> GCP Management</a>
                     <a class="nav-link admin-only d-none" href="#"><i class="fas fa-tasks"></i> Requests Management</a>
                     <a class="nav-link admin-only d-none" href="#"><i class="fas fa-users"></i> Users Management</a>
-                    <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                    <a class="nav-link" href="about.php"><i class="fas fa-info-circle"></i> About Us</a>
                 </div>
             </div>
         </div>

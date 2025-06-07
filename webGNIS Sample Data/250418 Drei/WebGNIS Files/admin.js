@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('Current User:', currentUser);
     
     if (!authStatus.authenticated) {
-        console.log('User not authenticated, redirecting to index.html');
-        window.location.href = 'index.html';
+        console.log('User not authenticated, redirecting to index.php');
+        window.location.href = 'index.php';
         return;
     }
     

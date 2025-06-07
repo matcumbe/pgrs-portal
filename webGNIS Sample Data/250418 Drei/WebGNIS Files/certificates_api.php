@@ -1,8 +1,14 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
 // certificates_api.php
 
 require_once 'users_config.php';
 require_once 'certificate_generator.php';
+require_once 'gcs_helper.php'; // Include the GCS helper
 // require_once 'jwt_utils.php'; // REMOVED: jwt_utils.php is missing, JWT validation will be handled locally
 
 header('Content-Type: application/json');
@@ -292,8 +298,6 @@ if ($action === 'generate') {
         returnError('Invalid request method. POST required.', 405);
     }
 
-    // Admin authentication is already handled at the top of the file.
-
     $transaction_code = $_POST['transaction_code'] ?? null;
     if (empty($transaction_code)) {
         returnError('Transaction code is required.', 400);
@@ -301,74 +305,41 @@ if ($action === 'generate') {
 
     if (!isset($_FILES['processed_certificate_file']) || $_FILES['processed_certificate_file']['error'] !== UPLOAD_ERR_OK) {
         $uploadError = $_FILES['processed_certificate_file']['error'] ?? UPLOAD_ERR_NO_FILE;
-        returnError('File upload error: ' . getUploadErrorMessage($uploadError), 400); // Reusing error message helper if available or define one
+        returnError('File upload error: ' . getUploadErrorMessage($uploadError), 400);
     }
 
     $file = $_FILES['processed_certificate_file'];
 
-    // Validate file type (PDF only)
     if ($file['type'] !== 'application/pdf') {
         returnError('Invalid file type. Only PDF files are allowed.', 400);
     }
 
-    // Validate file size (e.g., max 5MB)
     $maxFileSize = 5 * 1024 * 1024; // 5 MB
     if ($file['size'] > $maxFileSize) {
         returnError('File is too large. Maximum size is 5MB.', 400);
     }
 
-    // Define target directory and ensure it exists
-    $targetDir = __DIR__ . '/assets/processed_certs/';
-    if (!is_dir($targetDir)) {
-        if (!mkdir($targetDir, 0755, true)) {
-            error_log("[ERROR] Failed to create directory: {$targetDir}");
-            returnError('Server error: Could not create directory for uploads.', 500);
-        }
-    }
-
-    // Sanitize filename and create a unique name
-    $originalFilename = basename($file['name']);
-    $safeFilename = preg_replace("/[^a-zA-Z0-9_.-]/", "", $originalFilename);
-    $extension = pathinfo($safeFilename, PATHINFO_EXTENSION); // Should be pdf
-    // Ensure it keeps the .pdf extension, even if original was different due to manipulation
-    $newFilename = $transaction_code . "_" . uniqid() . ".pdf";
-    $targetFilePath = $targetDir . $newFilename;
-
     try {
-        // Check if a record exists for this transaction_code in certificates table
-        $stmt_check = $db->prepare("SELECT certificate_id FROM certificates WHERE transaction_code = :transaction_code");
-        $stmt_check->bindParam(':transaction_code', $transaction_code);
-        $stmt_check->execute();
-        if (!$stmt_check->fetch(PDO::FETCH_ASSOC)) {
-            returnError('No existing certificate record found for this transaction code. Cannot upload processed certificate.', 404);
-        }
+        $publicUrl = _handleGCSUpload_Certs($file, $transaction_code);
 
-        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            // Update the certificates table
-            $stmt_update = $db->prepare("UPDATE certificates 
-                                          SET processed_filename = :processed_filename, 
-                                              status = 'processed', 
-                                              updated_at = CURRENT_TIMESTAMP 
-                                          WHERE transaction_code = :transaction_code");
-            $stmt_update->bindParam(':processed_filename', $newFilename);
-            $stmt_update->bindParam(':transaction_code', $transaction_code);
+        $stmt_update = $db->prepare(
+            "UPDATE certificates SET processed_filename = :processed_filename, status = 'processed', uploaded_by = :uploaded_by, uploaded_at = CURRENT_TIMESTAMP 
+             WHERE transaction_code = :transaction_code"
+        );
+        $stmt_update->bindParam(':processed_filename', $publicUrl);
+        $stmt_update->bindParam(':uploaded_by', $adminUserId, PDO::PARAM_INT);
+        $stmt_update->bindParam(':transaction_code', $transaction_code);
 
-            if ($stmt_update->execute()) {
-                echo json_encode([
-                    'status' => 'success',
-                    'message' => 'Processed certificate uploaded and record updated successfully.',
-                    'processed_filename' => $newFilename
-                ]);
-            } else {
-                error_log("[ERROR] Failed to update certificate record for {$transaction_code} after upload. DB Error: " . print_r($stmt_update->errorInfo(), true));
-                // Attempt to delete the orphaned uploaded file
-                if (file_exists($targetFilePath)) {
-                    unlink($targetFilePath);
-                }
-                returnError('Database error: Could not update certificate record after upload.', 500);
-            }
+        if ($stmt_update->execute() && $stmt_update->rowCount() > 0) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Processed certificate uploaded and record updated successfully.',
+                'filepath' => $publicUrl
+            ]);
         } else {
-            returnError('Server error: Could not save uploaded file.', 500);
+            // Optional: If the DB fails, try to delete the uploaded file from GCS.
+            error_log("[ERROR] Failed to update certificate record for {$transaction_code} after upload. DB Error: " . print_r($stmt_update->errorInfo(), true));
+            returnError('Database error: Could not update certificate record after upload.', 500);
         }
     } catch (Exception $e) {
         error_log("[ERROR] Exception during processed certificate upload for {$transaction_code}: " . $e->getMessage());
@@ -377,6 +348,29 @@ if ($action === 'generate') {
 
 } else {
     returnError('Invalid action specified.');
+}
+
+/**
+ * Handles the file upload to Google Cloud Storage for certificates.
+ *
+ * @param array $file The $_FILES['processed_certificate_file'] array.
+ * @param string $transaction_code The transaction code to build a unique filename.
+ * @return string The public URL of the uploaded file.
+ */
+function _handleGCSUpload_Certs(array $file, string $transaction_code): string
+{
+    $bucketName = getenv('GCS_BUCKET_NAME');
+    if (!$bucketName) {
+        error_log("GCS_BUCKET_NAME environment variable not set.");
+        throw new Exception("Server configuration error for file uploads.");
+    }
+    
+    $originalFilename = basename($file['name']);
+    $safeFilename = preg_replace("/[^a-zA-Z0-9_.-]/", "", $originalFilename);
+    $extension = pathinfo($safeFilename, PATHINFO_EXTENSION);
+    $gcsFileName = "processed_certs/{$transaction_code}_" . uniqid() . ".{$extension}";
+
+    return uploadToGCS($bucketName, $file['tmp_name'], $gcsFileName);
 }
 
 // Helper function to get upload error messages (if not already globally available)

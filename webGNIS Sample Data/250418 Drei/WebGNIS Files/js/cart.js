@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navItem.textContent = '0';
         
         // Find where to insert it
-        const navElement = document.querySelector('.nav-link[href="index.html"],.nav-link[href="about.html"]');
+        const navElement = document.querySelector('.nav-link[href="index.php"],.nav-link[href="about.php"]');
         if (navElement) {
             navElement.appendChild(navItem);
         }

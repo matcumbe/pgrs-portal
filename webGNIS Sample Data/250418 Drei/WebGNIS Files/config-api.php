@@ -1,7 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Turn off all error reporting to ensure clean JSON output
-error_reporting(0);
-ini_set('display_errors', 0);
+// error_reporting(0); // This line is now commented out for debugging
 
 // Set headers
 header("Access-Control-Allow-Origin: *");

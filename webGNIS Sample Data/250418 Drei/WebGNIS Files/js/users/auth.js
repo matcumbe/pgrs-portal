@@ -101,7 +101,7 @@ function getCurrentUser() {
 // Redirect to login if not authenticated
 function requireAuth() {
     if (!usersApi.isAuthenticated()) {
-        window.location.href = 'index.html';
+        window.location.href = 'index.php';
         return false;
     }
     return true;
@@ -112,9 +112,9 @@ function updateNavigation() {
     const adminLinks = document.querySelectorAll('.admin-only');
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
-    const homeLink = document.querySelector('a[href="home.html"]');
+    const homeLink = document.querySelector('a[href="home.php"]');
     const trackerLink = document.querySelector('a[href="#"]:has(i.fa-map-marker)');
-    const aboutLink = document.querySelector('a[href="about.html"]');
+    const aboutLink = document.querySelector('a[href="about.php"]');
     
     if (currentUser) {
         // Show/hide admin links based on role
@@ -158,7 +158,7 @@ function updateNavigation() {
 function protectAdminPage() {
     if (!currentUser || currentUser.user_type !== 'admin') {
         // Redirect to home page if not admin
-        window.location.href = 'index.html';
+        window.location.href = 'index.php';
         return false;
     }
     return true;
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateNavigation();
             
             // Redirect to home page
-            window.location.href = 'home.html';
+            window.location.href = 'home.php';
         });
     }
     

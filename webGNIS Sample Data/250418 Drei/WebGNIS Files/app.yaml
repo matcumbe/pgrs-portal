@@ -1,0 +1,58 @@
+runtime: php82
+entrypoint:
+
+# This section defines all the necessary environment variables for your application.
+# These include database credentials and other configuration details.
+env_variables:
+  DB_CONNECTION_NAME_1: 'pgrs-portal:us-central1:webgnis-stations'
+  DB_NAME_1: 'webgnis_db'
+  DB_USER_1: 'webgnis-stations'
+  DB_PASS_1: 'WebGN1S$tati0ns'
+  DB_SOCKET_1: '/cloudsql/pgrs-portal:us-central1:webgnis-stations'
+  DB_CONNECTION_NAME_2: 'pgrs-portal:us-central1:webgnis-stations'
+  DB_NAME_2: 'webgnis_users'
+  DB_USER_2: 'webgnis-stations'
+  DB_PASS_2: 'WebGN1S$tati0ns'
+  DB_SOCKET_2: '/cloudsql/pgrs-portal:us-central1:webgnis-stations'
+  APP_ENV: 'production'
+  BASE_URL: 'https://pgrs-portal.appspot.com/'
+  GCS_BUCKET_NAME: 'pgrs-portal.appspot.com'
+
+# This enables the connection to your Cloud SQL instance.
+beta_settings:
+  cloud_sql_instances: "pgrs-portal:us-central1:webgnis-stations"
+
+# This configures the PHP runtime itself, enabling required extensions.
+runtime_config:
+  document_root: .
+  extensions:
+    - gd
+    - imagick
+    - mysqli
+    - pdo_mysql
+
+# The handlers section dictates how URLs are routed. The order is critical.
+# Handlers are processed from top to bottom.
+handlers:
+# Handler for static directories. This is the most efficient way to serve these files.
+- url: /assets
+  static_dir: assets
+- url: /js
+  static_dir: js
+
+# CRITICAL FIX: The regex now includes 'js' to correctly serve JavaScript files.
+- url: /(.*\.(css|js|json|ico|png|jpg|gif))$
+  static_files: \1
+  upload: .*\.(css|js|json|ico|png|jpg|gif)$
+
+# CRITICAL FIX: The documentation requires a single 'script: auto' handler
+# when an empty 'entrypoint' is used. This allows App Engine's php-fpm
+# server to correctly handle each PHP file as its own entrypoint.
+- url: /(.+\.php)$
+  script: auto
+  secure: always
+
+# Fallback for any other request (e.g., the root "/") to index.php
+- url: /.*
+  script: index.php
+  secure: always

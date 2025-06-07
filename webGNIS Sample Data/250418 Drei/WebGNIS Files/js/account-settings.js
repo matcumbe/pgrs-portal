@@ -240,7 +240,7 @@ async function renderAccountForm(user, sexes, sectors) {
 async function loadAccountSettings() {
     const status = await checkAuthStatus();
     if (!status.authenticated || !status.user) {
-        window.location.href = 'index.html';
+        window.location.href = 'index.php';
         return;
     }
     
@@ -318,7 +318,7 @@ form.addEventListener('submit', async (e) => {
     // Get user info
     const status = await checkAuthStatus();
     if (!status.authenticated || !status.user) {
-        window.location.href = 'index.html';
+        window.location.href = 'index.php';
         return;
     }
     const user = status.user;
