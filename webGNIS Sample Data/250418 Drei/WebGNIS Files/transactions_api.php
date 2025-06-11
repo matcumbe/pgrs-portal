@@ -613,18 +613,21 @@ function uploadPaymentProof($db) {
                 return;
             }
             
-            // Get payment method ID
-            $methodSql = "SELECT payment_method_id FROM payment_methods WHERE method_name = :method_name AND is_active = TRUE";
+            // The payment method is sent as an ID from the frontend.
+            // Validate that the payment method ID exists and is active.
+            $paymentMethodId = isset($_POST['payment_method']) ? intval($_POST['payment_method']) : null;
+
+            $methodSql = "SELECT payment_method_id FROM payment_methods WHERE payment_method_id = :payment_method_id AND is_active = TRUE";
             $methodStmt = $db->prepare($methodSql);
-            $methodStmt->bindParam(':method_name', $paymentMethod);
+            $methodStmt->bindParam(':payment_method_id', $paymentMethodId, PDO::PARAM_INT);
             $methodStmt->execute();
             $methodResult = $methodStmt->fetch();
+
             if (!$methodResult) {
                 $db->rollBack();
-                returnResponse(400, "Invalid payment method", null);
+                returnResponse(400, "Invalid or inactive payment method ID provided.", null);
                 return;
             }
-            $paymentMethodId = $methodResult['payment_method_id'];
 
             $transactionCode = generateTransactionCode($db, $userId);
             $statusId = 2; // Paid

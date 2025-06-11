@@ -1,7 +1,6 @@
 {
     "require": {
         "endroid/qr-code": "^6.0",
-        "google/cloud-storage": "^1.31",
-        "google/cloud-secret-manager": "^2.0"
+        "google/cloud-storage": "^1.31"
     }
 }
