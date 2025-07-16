@@ -1,0 +1,20 @@
+CREATE TABLE `grav_stations` (
+  `station_id` varchar(20) DEFAULT NULL,
+  `station_name` varchar(100) DEFAULT NULL,
+  `island_group` varchar(50) DEFAULT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `province` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `barangay` varchar(100) DEFAULT NULL,
+  `latitude` decimal(10,6) DEFAULT NULL,
+  `longitude` decimal(10,6) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `gravity_value` decimal(10,3) DEFAULT NULL,
+  `standard_deviation` decimal(10,3) DEFAULT NULL,
+  `date_measured` date DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  `encoder` varchar(100) DEFAULT NULL,
+  `date_last_updated` date DEFAULT NULL,
+  `reference_file` varchar(255) DEFAULT NULL,
+  `station_code` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci; 

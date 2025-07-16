@@ -1,0 +1,52 @@
+runtime: php82
+
+handlers:
+  # Serve static files from directories
+- url: /assets
+  static_dir: assets
+- url: /js
+  static_dir: js
+
+  # Serve individual static files at the root
+- url: /(.*\.(css|js|json|ico|png|jpg|gif))$
+  static_files: \1
+  upload: .*\.(css|js|json|ico|png|jpg|gif)$
+
+  # Serve HTML pages.
+- url: /(.+\.html)$
+  static_files: \1
+  upload: .+\.html$
+
+  # Serve PHP scripts
+- url: /.*
+  script: auto
+
+# Re-enable the Cloud SQL environment variables and beta settings.
+env_variables:
+  DB_CONNECTION_NAME_1: 'pgrs-portal:us-central1:webgnis-stations'
+  DB_NAME_1: 'webgnis_db'
+  DB_USER_1: 'webgnis-stations'
+  DB_PASS_1: 'WebGN1S$tati0ns'
+  DB_SOCKET_1: '/cloudsql/pgrs-portal:us-central1:webgnis-stations'
+
+  DB_CONNECTION_NAME_2: 'pgrs-portal:us-central1:webgnis-stations'
+  DB_NAME_2: 'webgnis_users'
+  DB_USER_2: 'webgnis-stations'
+  DB_PASS_2: 'WebGN1S$tati0ns'
+  DB_SOCKET_2: '/cloudsql/pgrs-portal:us-central1:webgnis-stations'
+
+  JWT_SECRET: 'your-secure-jwt-secret'
+  APP_ENV: 'production'
+  BASE_URL: 'https://pgrs-portal.appspot.com/'
+  GCS_BUCKET_NAME: 'pgrs-portal.appspot.com'
+
+beta_settings:
+  cloud_sql_instances: "pgrs-portal:us-central1:webgnis-stations"
+
+runtime_config:
+  document_root: .
+  extensions:
+    - gd
+    - imagick
+    - mysqli
+    - pdo_mysql 

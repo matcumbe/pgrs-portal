@@ -17,3 +17,18 @@ alwaysApply: true
     - Using consistent function and variable naming
 - Ensure backward compatibility with the existing JWT implementation and authentication flow.
 - Maintain the existing project architecture where configuration is separated (users_config.php) from implementation logic (users_api.php).
+
+## Debugging
+
+1.  **Check Logs**: Always check the `error_log.txt` file for any relevant error messages.
+2.  **API Endpoints**: When debugging API issues, first check the relevant API endpoint file (e.g., `users_api.php`, `stations_api.php`, `certificates_api.php`) to understand the expected request and response formats.
+3.  **Database Connectivity**: Verify that the database connection parameters in `config.php` are correct and that the database server is running.
+4.  **Client-Side Errors**: Use the browser's developer console to check for any JavaScript errors. Pay close attention to the network tab to inspect API requests and responses.
+
+## Building
+
+1.  **Code Style**: Follow the existing code style and conventions.
+2.  **Dependencies**: If adding new server-side dependencies, use Composer and update the `composer.json` file. For client-side dependencies, use a package manager like npm or yarn if one is in use, or include the files in the `js/libs` directory.
+3.  **API Development**: When creating new API endpoints, follow the structure of the existing API files. Ensure that all API responses are consistent and follow the format defined in the `returnResponse` function in `config.php`.
+4.  **Database Migrations**: For any database schema changes, create a new SQL script in the `SQL` directory. The script should be named with a number prefix to indicate the order of execution (e.g., `04_add_new_table.sql`).
+5.  **UI Components**: When creating new UI components, use Bootstrap 5 and follow the existing design patterns.

@@ -9,6 +9,9 @@ Initial Files/
 
 # Certificates
 certificates/
+cursor_chats/
+.cursor/
+.vscode/
 
 # Temporary files
 *.tmp

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNIS | GCP Management</title>
+    <link rel="icon" href="assets/gnis_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .filter-panel {
+            overflow-y: auto;
+            padding: 15px;
+            height: calc(100vh - 110px);
+        }
+        
+        .content-panel {
+            overflow-y: auto;
+            padding: 15px;
+            height: calc(100vh - 110px);
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        /* Compact form styles */
+        .form-floating > .form-control, 
+        .form-floating > .form-select {
+            height: calc(2.5rem + 2px);
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .form-floating > label {
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label,
+        .form-floating > .form-select ~ label {
+            transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem);
+        }
+        
+        /* Form groups in columns */
+        .admin-form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -5px;
+            margin-left: -5px;
+        }
+        
+        .admin-form-col {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-form-col {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .admin-form-col {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+        
+        /* DMS input groups */
+        .dms-input-group .form-floating {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        /* Tab style for type-specific fields */
+        .type-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .type-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 0.25rem 0.25rem 0 0;
+            margin-right: 0.25rem;
+            background-color: #f8f9fa;
+        }
+        
+        .type-tab.active {
+            background-color: #fff;
+            border-color: #dee2e6;
+            color: #198754;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 75px;">
+                    <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
+                </div>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.php" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mx-auto">
+                    <a class="nav-link" href="home.php"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link" href="index.php"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="tracker.php"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link active admin-only" href="admin.php"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link admin-only" href="requests_management.php"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link admin-only" href="#"><i class="fas fa-users"></i> Users Management</a>
+                    <a class="nav-link" href="about.php"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-3" style="padding: 0">
+        <!-- Access Denied Message -->
+        <div id="accessDenied" class="alert alert-danger text-center">
+            <h4 class="alert-heading">Access Denied</h4>
+            <p>You do not have permission to access this page. Only administrators can access the management interface.</p>
+            <hr>
+            <p class="mb-0">Please contact your system administrator if you believe this is an error.</p>
+        </div>
+
+        <!-- Admin Interface -->
+        <div id="adminInterface" class="hidden">
+            <!-- Main Content -->
+            <div class="container-fluid mt-3 mb-3">
+                <div class="row">
+                    <!-- Left Column: Filter Panel -->
+                    <div class="col-md-3" style="padding-right: 0px;">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Filter GCP Stations</h5>
+                            </div>
+                            <div class="filter-panel">
+                                <div id="errorMessages" class="alert alert-danger hidden"></div>
+                                
+                                <!-- GCP Type Selection -->
+                                <div class="mb-3">
+                                    <label class="form-label">GCP Type</label>
+                                    <div class="gcp-type-group">
+                                        <div class="gcp-type-option">
+                                            <input class="gcp-type-input" type="radio" name="gcpType" id="horizontalType" value="horizontal">
+                                            <label class="gcp-type-label" for="horizontalType">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                                <span>Horizontal</span>
+                                            </label>
+                                        </div>
+                                        <div class="gcp-type-option">
+                                            <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical" checked>
+                                            <label class="gcp-type-label" for="verticalType">
+                                                <i class="fas fa-arrows-alt-v"></i>
+                                                <span>Benchmark</span>
+                                            </label>
+                                        </div>
+                                        <div class="gcp-type-option">
+                                            <input class="gcp-type-input" type="radio" name="gcpType" id="gravityType" value="gravity">
+                                            <label class="gcp-type-label" for="gravityType">
+                                                <i class="fas fa-weight-hanging"></i>
+                                                <span>Gravity</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="region" class="form-label">Location:</label>
+                                    <select class="form-select mb-2" id="region">
+                                        <option value="">Select Region</option>
+                                    </select>
+                                    <select class="form-select mb-2" id="province">
+                                        <option value="">Select Province</option>
+                                    </select>
+                                    <select class="form-select mb-2" id="city">
+                                        <option value="">Select City/Municipality</option>
+                                    </select>
+                                    <select class="form-select" id="barangay">
+                                        <option value="">Select Barangay</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="orderFilter" class="form-label">Order:</label>
+                                    <select class="form-select" id="orderFilter">
+                                        <option value="">Select Order</option>
+                                    </select>
+                                </div>
+
+                                <button id="resetFiltersBtn" class="btn btn-secondary w-100 mb-3">Reset Filters</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Column: Data Table -->
+                    <div class="col-md-6" style="padding-right: 0px;">
+                        <div class="card mb-0">
+                            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">GCP Stations</h5>
+                                <button id="addNewBtn" class="btn btn-light btn-sm">
+                                    <i class="fas fa-plus-circle"></i> Add New
+                                </button>
+                            </div>
+                            <div class="content-panel h-100" style="padding:0;">
+                                <div id="loadingIndicator" class="text-center my-3 hidden">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover" id="stationsTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Station Name</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th>
+                                                <th>Elevation</th>
+                                                <th>Order</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stationsList">
+                                            <!-- Station data will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <nav>
+                                    <ul class="pagination justify-content-center mb-3" id="pagination">
+                                        <!-- Pagination will be populated here -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Edit Panel -->
+                    <div class="col-md-3">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0" id="formTitle">Add/Edit GCP Station</h5>
+                            </div>
+                            <div class="content-panel">
+                                <form id="stationForm" class="hidden">
+                                    <input type="hidden" id="stationId">
+                                    
+                                    <!-- Basic Info Section -->
+                                    <div class="mb-3">
+                                        <label for="stationName" class="form-label">Station Name</label>
+                                        <input type="text" class="form-control" id="stationName" placeholder="Station Name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="stationCode" class="form-label">Station Code</label>
+                                        <input type="text" class="form-control" id="stationCode" placeholder="Station Code">
+                                    </div>
+                                    
+                                    <!-- Coordinate Fields with DMS Format -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Latitude</label>
+                                        <div class="row g-2 align-items-end mb-1">
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="latDegrees" min="-90" max="90" placeholder="Degrees" required>
+                                                    <span class="input-group-text">&deg;</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="latMinutes" min="0" max="59" placeholder="Minutes">
+                                                    <span class="input-group-text">&prime;</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="latSeconds" min="0" max="59.999" step="0.001" placeholder="Seconds">
+                                                    <span class="input-group-text">&Prime;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="latitude" name="latitude">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Longitude</label>
+                                        <div class="row g-2 align-items-end mb-1">
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="lngDegrees" min="-180" max="180" placeholder="Degrees" required>
+                                                    <span class="input-group-text">&deg;</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="lngMinutes" min="0" max="59" placeholder="Minutes">
+                                                    <span class="input-group-text">&prime;</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="lngSeconds" min="0" max="59.999" step="0.001" placeholder="Seconds">
+                                                    <span class="input-group-text">&Prime;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="longitude" name="longitude">
+                                    </div>
+
+                                    <!-- Type-specific sections as tabs -->
+                                    <ul class="nav nav-tabs mb-4" id="stationFormTabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="common-tab" data-bs-toggle="tab" data-bs-target="#common-fields" type="button" role="tab" aria-controls="common-fields" aria-selected="true">Common</button>
+                                        </li>
+                                        <li class="nav-item vertical-type-tab" role="presentation">
+                                            <button class="nav-link" id="vertical-tab" data-bs-toggle="tab" data-bs-target="#vertical-fields" type="button" role="tab" aria-controls="vertical-fields" aria-selected="false">Vertical</button>
+                                        </li>
+                                        <li class="nav-item horizontal-type-tab" role="presentation">
+                                            <button class="nav-link" id="horizontal-tab" data-bs-toggle="tab" data-bs-target="#horizontal-fields" type="button" role="tab" aria-controls="horizontal-fields" aria-selected="false">Horizontal</button>
+                                        </li>
+                                        <li class="nav-item gravity-type-tab" role="presentation">
+                                            <button class="nav-link" id="gravity-tab" data-bs-toggle="tab" data-bs-target="#gravity-fields" type="button" role="tab" aria-controls="gravity-fields" aria-selected="false">Gravity</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="location-tab" data-bs-toggle="tab" data-bs-target="#location-fields" type="button" role="tab" aria-controls="location-fields" aria-selected="false">Location</button>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content p-2">
+                                        <!-- Common Fields -->
+                                        <div class="tab-pane fade show active" id="common-fields" role="tabpanel" aria-labelledby="common-tab">
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-markType">Mark Type</span>
+                                                    <select class="form-select" id="markType" aria-describedby="label-markType">
+                                                        <option value="">Select Mark Type</option>
+                                                        <option value="1">Concrete</option>
+                                                        <option value="2">Steel</option>
+                                                        <option value="3">Brass</option>
+                                                        <option value="4">Aluminum</option>
+                                                        <option value="5">Stainless Steel</option>
+                                                        <option value="6">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-markStatus">Mark Status</span>
+                                                    <select class="form-select" id="markStatus" aria-describedby="label-markStatus">
+                                                        <option value="">Select Mark Status</option>
+                                                        <option value="1">Good Condition</option>
+                                                        <option value="2">Damaged</option>
+                                                        <option value="3">Destroyed</option>
+                                                        <option value="4">Not Found</option>
+                                                        <option value="5">Restricted Access</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-markConstruction">Construction</span>
+                                                    <select class="form-select" id="markConstruction" aria-describedby="label-markConstruction">
+                                                        <option value="">Select Construction</option>
+                                                        <option value="1">Pillar</option>
+                                                        <option value="2">Disk</option>
+                                                        <option value="3">Rod</option>
+                                                        <option value="4">Monument</option>
+                                                        <option value="5">Marker</option>
+                                                        <option value="6">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-authority">Authority</span>
+                                                    <input type="text" class="form-control" id="authority" placeholder="Authority" aria-describedby="label-authority">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-dateEstablished">Date Established</span>
+                                                    <input type="date" class="form-control" id="dateEstablished" placeholder="Date Established" aria-describedby="label-dateEstablished">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-dateLastUpdated">Last Updated</span>
+                                                    <input type="date" class="form-control" id="dateLastUpdated" placeholder="Date Last Updated" aria-describedby="label-dateLastUpdated">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-encoder">Encoder</span>
+                                                    <input type="text" class="form-control" id="encoder" placeholder="Encoder" aria-describedby="label-encoder">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-islandGroup">Island Group</span>
+                                                    <select class="form-select" id="islandGroup" aria-describedby="label-islandGroup">
+                                                        <option value="">Select Island Group</option>
+                                                        <option value="Luzon">Luzon</option>
+                                                        <option value="Visayas">Visayas</option>
+                                                        <option value="Mindanao">Mindanao</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="label-orderInput">Order</span>
+                                                    <select class="form-select" id="orderInput" required aria-describedby="label-orderInput">
+                                                        <option value="">Select Order</option>
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Vertical GCP Fields -->
+                                        <div class="tab-pane fade" id="vertical-fields" role="tabpanel" aria-labelledby="vertical-tab">
+                                            <div class="mb-3">
+                                                <label for="elevation" class="form-label">Elevation (m)</label>
+                                                <input type="number" class="form-control" id="elevation" step="0.001" placeholder="Elevation">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="bmPlus" class="form-label">BM Plus (m)</label>
+                                                <input type="number" class="form-control" id="bmPlus" step="0.001" placeholder="BM Plus">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="accuracyClass" class="form-label">Accuracy Class</label>
+                                                <select class="form-select" id="accuracyClass">
+                                                    <option value="">Select Accuracy Class</option>
+                                                    <option value="1CM">1CM</option>
+                                                    <option value="2CM">2CM</option>
+                                                    <option value="3CM">3CM</option>
+                                                    <option value="5CM">5CM</option>
+                                                    <option value="10CM">10CM</option>
+                                                    <option value="2CM FROM M">2CM FROM M</option>
+                                                    <option value="3CM FROM M">3CM FROM M</option>
+                                                    <option value="5CM FROM M">5CM FROM M</option>
+                                                    <option value="0 CM">0 CM</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="elevationOrder" class="form-label">Elevation Order</label>
+                                                <select class="form-select" id="elevationOrder">
+                                                    <option value="">Select Order</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="verticalDatum" class="form-label">Vertical Datum</label>
+                                                <select class="form-select" id="verticalDatum">
+                                                    <option value="">Select Datum</option>
+                                                    <option value="MSL">Mean Sea Level</option>
+                                                    <option value="GEOID">Geoid Model</option>
+                                                    <option value="ELLIPSOID">Ellipsoid</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="elevationAuthority" class="form-label">Authority</label>
+                                                <input type="text" class="form-control" id="elevationAuthority" placeholder="Authority">
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Horizontal GCP Fields -->
+                                        <div class="tab-pane fade" id="horizontal-fields" role="tabpanel" aria-labelledby="horizontal-tab">
+                                            <div class="mb-3">
+                                                <label for="ellipsoidalHeight" class="form-label">Ellipsoidal Height (m)</label>
+                                                <input type="number" class="form-control" id="ellipsoidalHeight" step="0.001" placeholder="Ellipsoidal Height">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="horizontalOrder" class="form-label">Horizontal Order</label>
+                                                <select class="form-select" id="horizontalOrder">
+                                                    <option value="">Select Order</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="horizontalDatum" class="form-label">Horizontal Datum</label>
+                                                <select class="form-select" id="horizontalDatum">
+                                                    <option value="">Select Datum</option>
+                                                    <option value="PRS92">PRS92</option>
+                                                    <option value="WGS84">WGS84</option>
+                                                    <option value="ITRF">ITRF</option>
+                                                </select>
+                                            </div>
+                                            <h6 class="mt-4 mb-3">UTM Coordinates</h6>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span for="northingValue" class="input-group-text">N</span>
+                                                    <input type="number" class="form-control" id="northingValue" step="0.001" placeholder="Northing">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span for="eastingValue" class="input-group-text">E</span>
+                                                    <input type="number" class="form-control" id="eastingValue" step="0.001" placeholder="Easting">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="utmZone" class="form-label">UTM Zone</label>
+                                                <input type="text" class="form-control" id="utmZone" placeholder="UTM Zone">
+                                            </div>
+                                            <h6 class="mt-4 mb-3">ITRF Coordinates</h6>
+                                            <label class="form-label mb-2">ITRF Latitude (DMS)</label>
+                                            <div class="row g-2 align-items-end mb-1">
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="itrfLatDd" placeholder="Degrees">
+                                                        <span class="input-group-text">&deg;</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="itrfLatMm" placeholder="Minutes">
+                                                        <span class="input-group-text">&prime;</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="itrfLatSs" step="0.001" placeholder="Seconds">
+                                                        <span class="input-group-text">&Prime;</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="form-label mb-2">ITRF Longitude (DMS)</label>
+                                            <div class="row g-2 align-items-end mb-1">
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="itrfLonDd" placeholder="Degrees">
+                                                        <span class="input-group-text">&deg;</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="itrfLonMm" placeholder="Minutes">
+                                                        <span class="input-group-text">&prime;</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="itrfLonSs" step="0.001" placeholder="Seconds">
+                                                        <span class="input-group-text">&Prime;</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="itrfEllHgt" class="form-label">ITRF Ellipsoidal Height</label>
+                                                <input type="number" class="form-control" id="itrfEllHgt" step="0.001" placeholder="ITRF Ellipsoidal Height">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="itrfEllErr" class="form-label">Ellipsoid Error</label>
+                                                <input type="number" class="form-control" id="itrfEllErr" step="0.001" placeholder="Ellipsoid Error">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="itrfHgtErr" class="form-label">Height Error</label>
+                                                <input type="number" class="form-control" id="itrfHgtErr" step="0.001" placeholder="Height Error">
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Gravity GCP Fields -->
+                                        <div class="tab-pane fade" id="gravity-fields" role="tabpanel" aria-labelledby="gravity-tab">
+                                            <div class="mb-3">
+                                                <label for="gravityValue" class="form-label">Gravity Value (mGal)</label>
+                                                <input type="number" class="form-control" id="gravityValue" step="0.001" placeholder="Gravity Value">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="standardDeviation" class="form-label">Standard Deviation</label>
+                                                <input type="number" class="form-control" id="standardDeviation" step="0.0001" placeholder="Standard Deviation">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="gravityOrder" class="form-label">Gravity Order</label>
+                                                <select class="form-select" id="gravityOrder">
+                                                    <option value="">Select Order</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="dateMeasured" class="form-label">Date Measured</label>
+                                                <input type="date" class="form-control" id="dateMeasured" placeholder="Date Measured">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="gravityMeter" class="form-label">Gravity Meter</label>
+                                                <input type="text" class="form-control" id="gravityMeter" placeholder="Gravity Meter">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="gravityDatum" class="form-label">Gravity Datum</label>
+                                                <select class="form-select" id="gravityDatum">
+                                                    <option value="">Select Datum</option>
+                                                    <option value="IGSN71">IGSN71</option>
+                                                    <option value="PGRS">PGRS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Location Fields -->
+                                        <div class="tab-pane fade" id="location-fields" role="tabpanel" aria-labelledby="location-tab">
+                                            <div class="mb-3">
+                                                <label for="regionInput" class="form-label">Region</label>
+                                                <select class="form-select" id="regionInput" required>
+                                                    <option value="">Select Region</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="provinceInput" class="form-label">Province</label>
+                                                <select class="form-select" id="provinceInput" required>
+                                                    <option value="">Select Province</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="cityInput" class="form-label">City/Municipality</label>
+                                                <select class="form-select" id="cityInput" required>
+                                                    <option value="">Select City/Municipality</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="barangayInput" class="form-label">Barangay</label>
+                                                <select class="form-select" id="barangayInput">
+                                                    <option value="">Select Barangay</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="siteDescription" class="form-label">Site Description</label>
+                                                <textarea class="form-control" id="siteDescription" style="height: 100px" placeholder="Site Description"></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="accessInstructions" class="form-label">Access Instructions</label>
+                                                <textarea class="form-control" id="accessInstructions" style="height: 100px" placeholder="Access Instructions"></textarea>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" id="isActive" checked>
+                                                <label class="form-check-label" for="isActive">
+                                                    Active Station
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 mt-4">
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                                    </div>
+                                </form>
+                                
+                                <div id="viewPanel" class="hidden">
+                                    <div id="stationDetails" class="mb-3">
+                                        <!-- Station details will be displayed here -->
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="button" id="editBtn" class="btn btn-primary">Edit</button>
+                                        <button type="button" id="deleteBtn" class="btn btn-danger">Delete</button>
+                                        <button type="button" id="cancelViewBtn" class="btn btn-secondary">Close</button>
+                                    </div>
+                                </div>
+                                
+                                <div id="deleteConfirmPanel" class="hidden">
+                                    <div class="alert alert-warning">
+                                        <h5>Confirm Deletion</h5>
+                                        <p>Are you sure you want to delete this station? This action cannot be undone.</p>
+                                        <div class="d-grid gap-2">
+                                            <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Yes, Delete</button>
+                                            <button type="button" id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="welcomePanel">
+                                    <h5>Welcome to the Admin Panel</h5>
+                                    <p>Select a station to view details or click "Add New" to create a new station.</p>
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i> Use the filters on the left to find specific stations.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="users.js"></script>
+    <script type="module" src="admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { protectAdminPage, updateNavigation } from './js/users/auth.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is admin
+            if (!protectAdminPage()) {
+                return; // Page will redirect if not admin
+            }
+            
+            // Show admin interface, hide access denied message
+            document.getElementById('adminInterface').classList.remove('hidden');
+            document.getElementById('accessDenied').classList.add('hidden');
+            
+            // Update navigation
+            updateNavigation();
+        });
+    </script>
+</body>
+</html> 
