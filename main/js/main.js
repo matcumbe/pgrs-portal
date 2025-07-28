@@ -15,7 +15,7 @@ import { populateLocationDropdowns, setupFilterListeners, handleSearch, handleCl
 function promptStationTypeAndAddToCart(stationId, stationName, stationType) {
     if (stationType.toLowerCase() === 'horizontal') {
         const stationTypeModalElement = document.getElementById('stationTypeModal');
-        const stationTypeModal = new bootstrap.Modal(stationTypeModalElement);
+        const stationTypeModal = bootstrap.Modal.getInstance(stationTypeModalElement) || new bootstrap.Modal(stationTypeModalElement);
         
         // Store station details on the modal element to be retrieved by the button click handlers
         stationTypeModalElement.dataset.stationId = stationId;

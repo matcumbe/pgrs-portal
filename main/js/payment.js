@@ -773,7 +773,7 @@ const PaymentController = {
                 alert(`Payment submitted successfully! Your transaction code is ${uploadResult.data.transaction_code}`);
                 
                 // Redirect to tracker page
-                window.location.href = 'tracker.php';
+                // window.location.href = 'tracker.php';
                 
             } catch (error) {
                 console.error('Error submitting payment proof:', error);

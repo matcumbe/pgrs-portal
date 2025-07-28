@@ -117,6 +117,8 @@ function setupPagination(map, totalStations) {
         return;
     }
 
+    stationsPagination.innerHTML = ''; // Clear existing pagination
+
     // Previous button
     const prevLi = document.createElement('li');
     prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
@@ -130,8 +132,8 @@ function setupPagination(map, totalStations) {
     });
     stationsPagination.appendChild(prevLi);
 
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
+    // Function to add page number
+    const addPageNumber = (i) => {
         const pageLi = document.createElement('li');
         pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
         pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
@@ -141,6 +143,47 @@ function setupPagination(map, totalStations) {
             updateStationsDisplay(map);
         });
         stationsPagination.appendChild(pageLi);
+    };
+
+    // Function to add ellipsis
+    const addEllipsis = () => {
+        const ellipsisLi = document.createElement('li');
+        ellipsisLi.className = 'page-item disabled';
+        ellipsisLi.innerHTML = '<a class="page-link" href="#">...</a>';
+        stationsPagination.appendChild(ellipsisLi);
+    };
+
+    // Calculate visible page range
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, currentPage + 2);
+
+    // Adjust range if at the edges
+    if (currentPage <= 3) {
+        endPage = Math.min(5, totalPages);
+    }
+    if (currentPage >= totalPages - 2) {
+        startPage = Math.max(1, totalPages - 4);
+    }
+
+    // First page
+    if (startPage > 1) {
+        addPageNumber(1);
+        if (startPage > 2) {
+            addEllipsis();
+        }
+    }
+
+    // Visible pages
+    for (let i = startPage; i <= endPage; i++) {
+        addPageNumber(i);
+    }
+
+    // Last page
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            addEllipsis();
+        }
+        addPageNumber(totalPages);
     }
 
     // Next button

@@ -521,19 +521,30 @@ function submitPayment($db) {
  */
 function _handleGCSUpload(array $file, string $baseFileName): string
 {
+    error_log("[DEBUG] _handleGCSUpload called with baseFileName: " . $baseFileName);
+    
     // Get GCS bucket name from environment variables
     $bucketName = getenv('GCS_BUCKET_NAME');
     if (!$bucketName) {
-        error_log("GCS_BUCKET_NAME environment variable not set.");
-        throw new Exception("Server configuration error for file uploads.");
+        error_log("[DEBUG] GCS_BUCKET_NAME not set, using default");
+        $bucketName = 'pgrs-portal.appspot.com';
     }
-        
+    
     // Generate unique filename for GCS
     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
     $gcsFileName = 'payment_proofs/payment_proof_' . $baseFileName . '_' . uniqid() . '.' . $extension;
+    error_log("[DEBUG] Generated filename: " . $gcsFileName);
 
-    // Upload file to GCS
-    return uploadToGCS($bucketName, $file['tmp_name'], $gcsFileName);
+    try {
+        error_log("[DEBUG] Attempting to upload file to storage");
+        // Upload file to GCS or local storage
+        $url = uploadToGCS($bucketName, $file['tmp_name'], $gcsFileName);
+        error_log("[DEBUG] Upload successful, URL: " . $url);
+        return $url;
+    } catch (Exception $e) {
+        error_log("[DEBUG] Upload failed in _handleGCSUpload: " . $e->getMessage());
+        throw $e;
+    }
 }
 
 function uploadPaymentProof($db) {
@@ -541,25 +552,29 @@ function uploadPaymentProof($db) {
     $token = verifyToken(null, true);
     $userId = $token->user_id;
 
-    // For debugging
-    error_log("uploadPaymentProof called with POST: " . print_r($_POST, true));
-    error_log("FILES array: " . print_r($_FILES, true));
+    // Debug logging
+    error_log("[DEBUG] uploadPaymentProof called with POST data: " . print_r($_POST, true));
+    error_log("[DEBUG] Files data: " . print_r($_FILES, true));
 
     // Handle new implementation with direct file upload
     if (isset($_POST['request_id']) && isset($_FILES['proof_file'])) {
         $requestId = intval($_POST['request_id']);
         $paidAmount = isset($_POST['paid_amount']) ? floatval($_POST['paid_amount']) : null;
-        $paymentMethod = isset($_POST['payment_method']) ? $_POST['payment_method'] : null;
+        $paymentMethodId = isset($_POST['payment_method']) ? intval($_POST['payment_method']) : null;
         $referenceNumber = isset($_POST['reference_number']) ? $_POST['reference_number'] : null;
 
+        error_log("[DEBUG] Parsed values - requestId: $requestId, paidAmount: $paidAmount, paymentMethodId: $paymentMethodId, referenceNumber: $referenceNumber");
+
         // Validate required fields
-        if (!$paidAmount || !$paymentMethod || !$referenceNumber) {
+        if (!$paidAmount || !$paymentMethodId || !$referenceNumber) {
+            error_log("[ERROR] Missing required fields - paidAmount: $paidAmount, paymentMethodId: $paymentMethodId, referenceNumber: $referenceNumber");
             returnResponse(400, "Missing required fields: paid_amount, payment_method, reference_number", null);
             return;
         }
 
         // Check if file was properly uploaded
         if ($_FILES['proof_file']['error'] !== UPLOAD_ERR_OK) {
+            error_log("[ERROR] File upload error: " . getUploadErrorMessage($_FILES['proof_file']['error']));
             returnResponse(400, "File upload error: " . getUploadErrorMessage($_FILES['proof_file']['error']), null);
             return;
         }
@@ -574,49 +589,21 @@ function uploadPaymentProof($db) {
         finfo_close($finfo);
 
         if (!in_array($fileType, $allowedTypes)) {
+            error_log("[ERROR] Invalid file type: $fileType");
             returnResponse(400, "Invalid file type. Allowed types: JPG, PNG, GIF, PDF", null);
             return;
         }
 
         // Check file size
         if ($_FILES['proof_file']['size'] > $maxFileSize) {
+            error_log("[ERROR] File too large: " . $_FILES['proof_file']['size'] . " bytes");
             returnResponse(400, "File too large. Maximum size: 5MB", null);
-            return;
-        }
-
-        try {
-            $publicUrl = _handleGCSUpload($_FILES['proof_file'], $requestId);
-        } catch (Exception $e) {
-            error_log("Failed to upload to GCS: " . $e->getMessage());
-            returnResponse(500, "Failed to save uploaded file.", null);
             return;
         }
 
         $db->beginTransaction();
         try {
-            // Get request details
-            $requestSql = "SELECT r.*, rs.status_name FROM requests r JOIN request_statuses rs ON r.status_id = rs.status_id WHERE r.request_id = :request_id";
-            $requestStmt = $db->prepare($requestSql);
-            $requestStmt->bindParam(':request_id', $requestId);
-            $requestStmt->execute();
-            $request = $requestStmt->fetch();
-
-            if (!$request) {
-                $db->rollBack();
-                returnResponse(404, "Request not found", null);
-                return;
-            }
-
-            if ($token->user_type !== 'admin' && $request['user_id'] != $userId) {
-                $db->rollBack();
-                returnResponse(403, "Access denied", null);
-                return;
-            }
-            
-            // The payment method is sent as an ID from the frontend.
-            // Validate that the payment method ID exists and is active.
-            $paymentMethodId = isset($_POST['payment_method']) ? intval($_POST['payment_method']) : null;
-
+            // Validate payment method first
             $methodSql = "SELECT payment_method_id FROM payment_methods WHERE payment_method_id = :payment_method_id AND is_active = TRUE";
             $methodStmt = $db->prepare($methodSql);
             $methodStmt->bindParam(':payment_method_id', $paymentMethodId, PDO::PARAM_INT);
@@ -624,113 +611,156 @@ function uploadPaymentProof($db) {
             $methodResult = $methodStmt->fetch();
 
             if (!$methodResult) {
+                error_log("[ERROR] Invalid or inactive payment method ID: $paymentMethodId");
                 $db->rollBack();
-                returnResponse(400, "Invalid or inactive payment method ID provided.", null);
+                returnResponse(400, "Invalid or inactive payment method ID provided", null);
                 return;
             }
 
-            $transactionCode = generateTransactionCode($db, $userId);
-            $statusId = 2; // Paid
-            $totalAmount = $request['total_amount'];
+            // Get request details
+            $requestSql = "SELECT r.*, rs.status_name FROM requests r 
+                          JOIN request_statuses rs ON r.status_id = rs.status_id 
+                          WHERE r.request_id = :request_id";
+            $requestStmt = $db->prepare($requestSql);
+            $requestStmt->bindParam(':request_id', $requestId);
+            $requestStmt->execute();
+            $request = $requestStmt->fetch();
 
-            $sql = "INSERT INTO transactions (transaction_code, request_id, user_id, status_id, payment_method_id, payment_amount, paid_amount, payment_reference, payment_date, payment_proof_file) VALUES (:transaction_code, :request_id, :user_id, :status_id, :payment_method_id, :payment_amount, :paid_amount, :payment_reference, NOW(), :proof_filename)";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':transaction_code', $transactionCode);
-            $stmt->bindParam(':request_id', $requestId);
-            $stmt->bindParam(':user_id', $userId);
-            $stmt->bindParam(':status_id', $statusId);
-            $stmt->bindParam(':payment_method_id', $paymentMethodId);
-            $stmt->bindParam(':payment_amount', $totalAmount);
-            $stmt->bindParam(':paid_amount', $paidAmount);
-            $stmt->bindParam(':payment_reference', $referenceNumber);
-            $stmt->bindParam(':proof_filename', $publicUrl);
-            $stmt->execute();
-            $transactionId = $db->lastInsertId();
+            if (!$request) {
+                error_log("[ERROR] Request not found: $requestId");
+                $db->rollBack();
+                returnResponse(404, "Request not found", null);
+                return;
+            }
 
-            if ($request['status_name'] == 'Not Paid') {
-                $updateSql = "UPDATE requests SET status_id = :status_id, transaction_code = :transaction_code WHERE request_id = :request_id";
+            if ($token->user_type !== 'admin' && $request['user_id'] != $userId) {
+                error_log("[ERROR] Access denied for user $userId trying to access request " . $request['user_id']);
+                $db->rollBack();
+                returnResponse(403, "Access denied", null);
+                return;
+            }
+
+            // Handle file upload
+            try {
+                $publicUrl = _handleGCSUpload($_FILES['proof_file'], $requestId);
+                error_log("[DEBUG] File uploaded successfully. URL: " . $publicUrl);
+            } catch (Exception $e) {
+                error_log("[ERROR] File upload failed: " . $e->getMessage());
+                $db->rollBack();
+                returnResponse(500, "Failed to save uploaded file: " . $e->getMessage(), null);
+                return;
+            }
+
+            // Get "Paid" status ID
+            $statusSql = "SELECT status_id FROM request_statuses WHERE status_name = 'Paid'";
+            $statusStmt = $db->prepare($statusSql);
+            $statusStmt->execute();
+            $statusResult = $statusStmt->fetch();
+            
+            if (!$statusResult) {
+                error_log("[ERROR] Failed to get 'Paid' status ID");
+                $db->rollBack();
+                returnResponse(500, "Failed to get status ID", null);
+                return;
+            }
+            $statusId = $statusResult['status_id'];
+
+            // Check for existing transaction
+            $transactionSql = "SELECT transaction_id FROM transactions WHERE request_id = :request_id LIMIT 1";
+            $transactionStmt = $db->prepare($transactionSql);
+            $transactionStmt->bindParam(':request_id', $requestId);
+            $transactionStmt->execute();
+            $transaction = $transactionStmt->fetch();
+
+            if ($transaction) {
+                // Update existing transaction
+                $updateSql = "UPDATE transactions SET 
+                    status_id = :status_id,
+                    payment_method_id = :payment_method_id,
+                    paid_amount = :paid_amount,
+                    payment_reference = :payment_reference,
+                    payment_proof_file = :proof_file,
+                    payment_date = NOW()
+                    WHERE transaction_id = :transaction_id";
+                
                 $updateStmt = $db->prepare($updateSql);
                 $updateStmt->bindParam(':status_id', $statusId);
-                $updateStmt->bindParam(':transaction_code', $transactionCode);
-                $updateStmt->bindParam(':request_id', $requestId);
-                $updateStmt->execute();
+                $updateStmt->bindParam(':payment_method_id', $paymentMethodId);
+                $updateStmt->bindParam(':paid_amount', $paidAmount);
+                $updateStmt->bindParam(':payment_reference', $referenceNumber);
+                $updateStmt->bindParam(':proof_file', $publicUrl);
+                $updateStmt->bindParam(':transaction_id', $transaction['transaction_id']);
+                
+                if (!$updateStmt->execute()) {
+                    error_log("[ERROR] Failed to update transaction: " . print_r($updateStmt->errorInfo(), true));
+                    $db->rollBack();
+                    returnResponse(500, "Failed to update transaction", null);
+                    return;
+                }
+
+                $transactionId = $transaction['transaction_id'];
+            } else {
+                // Create new transaction
+                $transactionSql = "INSERT INTO transactions (
+                    transaction_code, request_id, user_id, status_id,
+                    payment_method_id, payment_amount, paid_amount,
+                    payment_reference, payment_proof_file, payment_date
+                ) VALUES (
+                    :transaction_code, :request_id, :user_id, :status_id,
+                    :payment_method_id, :payment_amount, :paid_amount,
+                    :payment_reference, :proof_file, NOW()
+                )";
+
+                $transactionStmt = $db->prepare($transactionSql);
+                $transactionStmt->bindParam(':transaction_code', $request['transaction_code']);
+                $transactionStmt->bindParam(':request_id', $requestId);
+                $transactionStmt->bindParam(':user_id', $userId);
+                $transactionStmt->bindParam(':status_id', $statusId);
+                $transactionStmt->bindParam(':payment_method_id', $paymentMethodId);
+                $transactionStmt->bindParam(':payment_amount', $request['total_amount']);
+                $transactionStmt->bindParam(':paid_amount', $paidAmount);
+                $transactionStmt->bindParam(':payment_reference', $referenceNumber);
+                $transactionStmt->bindParam(':proof_file', $publicUrl);
+                
+                if (!$transactionStmt->execute()) {
+                    error_log("[ERROR] Failed to create transaction: " . print_r($transactionStmt->errorInfo(), true));
+                    $db->rollBack();
+                    returnResponse(500, "Failed to create transaction", null);
+                    return;
+                }
+
+                $transactionId = $db->lastInsertId();
+            }
+
+            // Update request status
+            $updateRequestSql = "UPDATE requests SET status_id = :status_id WHERE request_id = :request_id";
+            $updateRequestStmt = $db->prepare($updateRequestSql);
+            $updateRequestStmt->bindParam(':status_id', $statusId);
+            $updateRequestStmt->bindParam(':request_id', $requestId);
+            
+            if (!$updateRequestStmt->execute()) {
+                error_log("[ERROR] Failed to update request status: " . print_r($updateRequestStmt->errorInfo(), true));
+                $db->rollBack();
+                returnResponse(500, "Failed to update request status", null);
+                return;
             }
 
             $db->commit();
-            returnResponse(200, "Payment submitted successfully", ['transaction_id' => $transactionId, 'transaction_code' => $transactionCode, 'request_id' => $requestId, 'proof_filename' => $publicUrl]);
+
+            returnResponse(200, "Payment submitted successfully", [
+                'transaction_id' => $transactionId,
+                'request_id' => $requestId,
+                'proof_filename' => $publicUrl,
+                'transaction_code' => $request['transaction_code']  // Add transaction code to response
+            ]);
+
         } catch (Exception $e) {
+            error_log("[ERROR] Transaction failed: " . $e->getMessage());
             $db->rollBack();
-            // Optional: Add logic to delete the file from GCS
-            returnResponse(500, "Failed to create transaction: " . $e->getMessage(), null);
-        }
-
-    } else if (isset($_POST['transaction_id']) && isset($_FILES['proof_file'])) {
-        // Handle legacy implementation with existing transaction
-        $transactionId = intval($_POST['transaction_id']);
-
-        // Check if transaction exists and belongs to the user
-        $checkSql = "SELECT t.*, r.user_id FROM transactions t JOIN requests r ON t.request_id = r.request_id WHERE t.transaction_id = :transaction_id";
-        $checkStmt = $db->prepare($checkSql);
-        $checkStmt->bindParam(':transaction_id', $transactionId);
-        $checkStmt->execute();
-
-        if ($checkStmt->rowCount() == 0) {
-            returnResponse(404, "Transaction not found", null);
-            return;
-        }
-
-        $transaction = $checkStmt->fetch();
-
-        if ($token->user_type !== 'admin' && $transaction['user_id'] != $userId) {
-            returnResponse(403, "Access denied", null);
-            return;
-        }
-
-        if ($_FILES['proof_file']['error'] !== UPLOAD_ERR_OK) {
-            returnResponse(400, "File upload error: " . getUploadErrorMessage($_FILES['proof_file']['error']), null);
-            return;
-        }
-
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
-        $maxFileSize = 5 * 1024 * 1024;
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $fileType = finfo_file($finfo, $_FILES['proof_file']['tmp_name']);
-        finfo_close($finfo);
-
-        if (!in_array($fileType, $allowedTypes)) {
-            returnResponse(400, "Invalid file type. Allowed types: JPG, PNG, GIF, PDF", null);
-            return;
-        }
-
-        if ($_FILES['proof_file']['size'] > $maxFileSize) {
-            returnResponse(400, "File too large. Maximum size: 5MB", null);
-            return;
-        }
-
-        try {
-            $publicUrl = _handleGCSUpload($_FILES['proof_file'], $transactionId);
-        } catch (Exception $e) {
-            error_log("Failed to upload to GCS: " . $e->getMessage());
-            returnResponse(500, "Failed to save uploaded file.", null);
-            return;
-        }
-
-        $sql = "UPDATE transactions SET payment_proof_file = :proof_filename WHERE transaction_id = :transaction_id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':proof_filename', $publicUrl);
-        $stmt->bindParam(':transaction_id', $transactionId);
-
-        try {
-            $stmt->execute();
-            returnResponse(200, "Payment proof uploaded successfully", ['transaction_id' => $transactionId, 'proof_filename' => $publicUrl]);
-        } catch (Exception $e) {
-            // Optional: Add logic to delete the file from GCS
-            returnResponse(500, "Failed to update transaction record: " . $e->getMessage(), null);
+            returnResponse(500, "Failed to process payment: " . $e->getMessage(), null);
         }
     } else {
-        returnResponse(400, "Missing required fields: transaction_id or request_id, and proof_file", null);
-        return;
+        returnResponse(400, "Missing required fields: request_id and proof_file", null);
     }
 }
 

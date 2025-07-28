@@ -200,51 +200,34 @@ function createRequest($db) {
         $checkStmt->bindParam(':request_id', $requestId);
         $checkStmt->execute();
         $checkResult = $checkStmt->fetch();
-        error_log("Verification of request record - user_id: " . $checkResult['user_id'] . ", transaction_code: " . $checkResult['transaction_code']);
-        
-        // Add items to request
+
+        // Process items and calculate total amount
         $itemSql = "INSERT INTO request_items (request_id, station_id, station_name, station_type, price) 
-                   VALUES (:request_id, :station_id, :station_name, :station_type, :price)";
+                    VALUES (:request_id, :station_id, :station_name, :station_type, :price)";
         $itemStmt = $db->prepare($itemSql);
         
         foreach ($data->items as $item) {
-            // Log the received item data for debugging
-            error_log("[createRequest] Processing item: " . print_r($item, true));
-
-            // Calculate price based on station type
-            // Ensure station_type is present and valid
-            $stationType = $item->station_type ?? 'horizontal'; // Default if null, though it shouldn\'t be
-            $price = getPriceForStationType($stationType);
-            $totalAmount += $price;
-            
-            // Use the properties as sent by the corrected payment.js
-            // station_id from client should be the actual ID (e.g., from item.id)
-            // station_name from client should be the name (e.g., from item.name)
-            // station_type from client should be the type (e.g., from item.type)
-
             $clientStationId = $item->station_id ?? null;
             $clientStationName = $item->station_name ?? null;
-            $clientStationType = $item->station_type ?? 'unknown'; // Default if not provided
+            $clientStationType = $item->station_type ?? null;
+            $price = getPriceForStationType($clientStationType);
+            $totalAmount += $price;
 
             if ($clientStationId === null) {
                 error_log("[createRequest] CRITICAL: clientStationId is null. Item: " . print_r($item, true));
-                // Potentially skip this item or throw an error, as a null ID is problematic
-                // For now, we\'ll try to use station_name as a fallback for ID if name is not null.
-                // This is not ideal and suggests client-side data issues.
                 $clientStationId = $clientStationName ?? ('ERR-' . substr(md5(time() . rand()), 0, 8));
             }
             
             if ($clientStationName === null) {
-                // If name is null, try to use the ID as name, or a placeholder
                 $clientStationName = $clientStationId ?? 'Unknown Station';
             }
 
             error_log("[createRequest] DB Insert Values: ID='{$clientStationId}', Name='{$clientStationName}', Type='{$clientStationType}', Price='{$price}'");
 
             $itemStmt->bindParam(':request_id', $requestId);
-            $itemStmt->bindParam(':station_id', $clientStationId); // Use client-provided ID
-            $itemStmt->bindParam(':station_name', $clientStationName); // Use client-provided Name
-            $itemStmt->bindParam(':station_type', $clientStationType); // Use client-provided Type
+            $itemStmt->bindParam(':station_id', $clientStationId);
+            $itemStmt->bindParam(':station_name', $clientStationName);
+            $itemStmt->bindParam(':station_type', $clientStationType);
             $itemStmt->bindParam(':price', $price);
             $itemStmt->execute();
         }
@@ -255,24 +238,32 @@ function createRequest($db) {
         $updateStmt->bindParam(':total_amount', $totalAmount);
         $updateStmt->bindParam(':request_id', $requestId);
         $updateStmt->execute();
+
+        // Create initial transaction record with "Not Paid" status
+        $transactionSql = "INSERT INTO transactions (
+            transaction_code, request_id, user_id, status_id,
+            payment_method_id, payment_amount, paid_amount
+        ) VALUES (
+            :transaction_code, :request_id, :user_id, :status_id,
+            1, :payment_amount, 0
+        )";
+        
+        $transactionStmt = $db->prepare($transactionSql);
+        $transactionStmt->bindParam(':transaction_code', $transactionCode);
+        $transactionStmt->bindParam(':request_id', $requestId);
+        $transactionStmt->bindParam(':user_id', $userId);
+        $transactionStmt->bindParam(':status_id', $statusId);
+        $transactionStmt->bindParam(':payment_amount', $totalAmount);
+        $transactionStmt->execute();
         
         // Remove items from cart if they were cart items
         if (isset($data->clear_cart) && $data->clear_cart) {
-            // Corrected SQL: Delete from cart_items by joining with carts table or using a subquery
-            // Using a subquery to get cart_id(s) for the user
             $cartSql = "DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)";
-            error_log("Attempting to clear cart items for user_id: $userId using query: $cartSql"); // Debug log
+            error_log("Attempting to clear cart items for user_id: $userId using query: $cartSql");
             $cartStmt = $db->prepare($cartSql);
             $cartStmt->bindParam(':user_id', $userId);
             $cartStmt->execute();
-            error_log("Cart items cleared for user_id: $userId. Rows affected: " . $cartStmt->rowCount()); // Debug log
-        
-            // Optionally, if you also want to delete the cart record itself from 'carts' table (not just items):
-            // $cartMasterSql = "DELETE FROM carts WHERE user_id = :user_id";
-            // $cartMasterStmt = $db->prepare($cartMasterSql);
-            // $cartMasterStmt->bindParam(':user_id', $userId);
-            // $cartMasterStmt->execute();
-            // error_log("Cart master record deleted for user_id: $userId. Rows affected: " . $cartMasterStmt->rowCount());
+            error_log("Cart items cleared for user_id: $userId. Rows affected: " . $cartStmt->rowCount());
         }
         
         // Commit transaction

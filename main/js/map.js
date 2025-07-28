@@ -220,7 +220,7 @@ function updateMap(stations) {
                         <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${station.name}">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-sm btn-primary" onclick="promptStationTypeAndAddToCart('${station.id || ''}', '${station.station_name.replace(/'/g, "\\'")}', '${escapedStationType}')">
+                        <button class="btn btn-sm btn-primary" onclick="promptStationTypeAndAddToCart('${station.id || ''}', '${station.station_name.replace(/'/g, "\\'")}', document.querySelector('input[name=\\'gcpType\\']:checked')?.value || 'horizontal')">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -310,7 +310,7 @@ function updateMapMarkers(points, mapInstance = map) {
                         <button class="btn btn-sm btn-primary btn-view-description" data-station-name="${point.station_name}">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-sm btn-primary" onclick="promptStationTypeAndAddToCart('${point.id || ''}', '${point.station_name.replace(/'/g, "\\'")}', '${pointStationTypeOriginal}')">
+                        <button class="btn btn-sm btn-primary" onclick="promptStationTypeAndAddToCart('${point.id || ''}', '${point.station_name.replace(/'/g, "\\'")}', document.querySelector('input[name=\\'gcpType\\']:checked')?.value || 'horizontal')">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i>
                         </button>
                     </div>
