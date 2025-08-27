@@ -349,7 +349,7 @@
             console.log('Auth Status:', authStatus);
             console.log('Current User:', currentUser);
             
-            if (!authStatus.authenticated) {
+            if (!authStatus || !authStatus.authenticated) {
                 console.log('User not authenticated, redirecting to index.php');
                 window.location.href = 'index.php';
                 return;
@@ -462,8 +462,16 @@
                     let json = XLSX.utils.sheet_to_json(firstSheet, {defval: ''});
                     // Validate columns
                     const fileCols = Object.keys(json[0] || {});
-                    const missing = currentColumns.filter(col => !fileCols.includes(col));
-                    const extra = fileCols.filter(col => !currentColumns.includes(col));
+                    // Normalize expected columns to handle synonyms (station_id/id, city/city_or_municipality)
+                    const normalize = (name) => {
+                        if (name === 'station_id') return 'id';
+                        if (name === 'city') return 'city_or_municipality';
+                        return name;
+                    };
+                    const expectedCols = currentColumns.map(normalize);
+                    const normalizedFileCols = fileCols.map(normalize);
+                    const missing = expectedCols.filter(col => !normalizedFileCols.includes(col));
+                    const extra = normalizedFileCols.filter(col => !expectedCols.includes(col));
                     if (missing.length > 0 || extra.length > 0) {
                         showModal(`<div class='warning'>Column mismatch detected!</div>
                             <div>The file you are trying to import does not match the columns of the <b>${currentTable}</b> table.</div>
@@ -473,7 +481,8 @@
                                 <b>Instructions:</b><br>
                                 - You can only import files for the currently selected table.<br>
                                 - For example, you cannot import a <b>grav_stations</b> dataset into <b>hgcp_stations</b> or <b>vgcp_stations</b>, and vice versa.<br>
-                                - The file must have <b>exactly the same columns</b> as the current table, in any order.<br>
+                                - The file must have <b>the required columns</b> for the current table, in any order.<br>
+                                - Accepted header synonyms: <code>station_id</code> or <code>id</code>; <code>city</code> or <code>city_or_municipality</code>.<br>
                                 - Save your data as Excel (.xlsx) or CSV (.csv) with the correct column headers.
                             </div>
                             <div class='modal-actions'><button onclick='closeModal()'>Close</button></div>`);
@@ -603,7 +612,14 @@
 
         function appendData(newRows) {
             // Remove __delete field if present
-            newRows = newRows.map(row => { let c = {...row}; delete c.__delete; return c; });
+            newRows = newRows.map(row => {
+                let c = {...row};
+                delete c.__delete;
+                // Normalize header synonyms from import to match backend expectations
+                if (c.id && !c.station_id) c.station_id = c.id;
+                if (c.city_or_municipality && !c.city) c.city = c.city_or_municipality;
+                return c;
+            });
             
             // Process the data: replace existing records with same station_id, add new ones
             const processedData = processImportData(newRows);
@@ -818,6 +834,7 @@
                 summary += '\n';
             }
             if (deletions.length === 0 && newRecords.length === 0 && updates.length === 0) {
+                // If nothing changed, return a neutral message
                 summary = 'No changes detected.';
             }
             return summary;

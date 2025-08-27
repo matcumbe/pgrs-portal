@@ -49,6 +49,14 @@ function transformStationData($row, $type) {
     if (isset($row['longitude']) && is_numeric($row['longitude'])) {
         $transformed['longitude'] = floatval($row['longitude']);
     }
+    // Back-compat for new schemas: fill station_id from id if missing
+    if ((empty($transformed['station_id']) || $transformed['station_id'] === '') && isset($row['id'])) {
+        $transformed['station_id'] = (string)$row['id'];
+    }
+    // Back-compat for city name
+    if ((empty($transformed['city']) || $transformed['city'] === '') && isset($row['city_or_municipality'])) {
+        $transformed['city'] = $row['city_or_municipality'];
+    }
     foreach ($row as $key => $value) {
         if (!isset($transformed[$key])) {
             $transformed[$key] = $value;
@@ -195,6 +203,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($data as $row) {
                 $type = str_replace('_stations', '', $table);
                 $dbRow = transformDataForDatabase($row, $type);
+                // Map synonyms to match DB columns
+                if (in_array('id', $columns, true) && (!isset($dbRow['id']) || $dbRow['id'] === null || $dbRow['id'] === '')) {
+                    if (isset($row['station_id']) && $row['station_id'] !== '') {
+                        $dbRow['id'] = $row['station_id'];
+                    }
+                }
+                if (in_array('station_id', $columns, true) && (!isset($dbRow['station_id']) || $dbRow['station_id'] === null || $dbRow['station_id'] === '')) {
+                    if (isset($row['id']) && $row['id'] !== '') {
+                        $dbRow['station_id'] = $row['id'];
+                    }
+                }
+                if (in_array('city_or_municipality', $columns, true) && (!isset($dbRow['city_or_municipality']) || $dbRow['city_or_municipality'] === null || $dbRow['city_or_municipality'] === '')) {
+                    if (isset($row['city']) && $row['city'] !== '') {
+                        $dbRow['city_or_municipality'] = $row['city'];
+                    }
+                }
+                if (in_array('city', $columns, true) && (!isset($dbRow['city']) || $dbRow['city'] === null || $dbRow['city'] === '')) {
+                    if (isset($row['city_or_municipality']) && $row['city_or_municipality'] !== '') {
+                        $dbRow['city'] = $row['city_or_municipality'];
+                    }
+                }
                 $stationId = $row['station_id'] ?? null;
                 if ($stationId) {
                     $checkStmt = $conn->prepare("SELECT COUNT(*) as count FROM `$table` WHERE station_id = ?");
@@ -268,6 +297,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($data as $row) {
                 $type = str_replace('_stations', '', $table);
                 $dbRow = transformDataForDatabase($row, $type);
+                // Map synonyms to match DB columns
+                if (in_array('id', $columns, true) && (!isset($dbRow['id']) || $dbRow['id'] === null || $dbRow['id'] === '')) {
+                    if (isset($row['station_id']) && $row['station_id'] !== '') {
+                        $dbRow['id'] = $row['station_id'];
+                    }
+                }
+                if (in_array('station_id', $columns, true) && (!isset($dbRow['station_id']) || $dbRow['station_id'] === null || $dbRow['station_id'] === '')) {
+                    if (isset($row['id']) && $row['id'] !== '') {
+                        $dbRow['station_id'] = $row['id'];
+                    }
+                }
+                if (in_array('city_or_municipality', $columns, true) && (!isset($dbRow['city_or_municipality']) || $dbRow['city_or_municipality'] === null || $dbRow['city_or_municipality'] === '')) {
+                    if (isset($row['city']) && $row['city'] !== '') {
+                        $dbRow['city_or_municipality'] = $row['city'];
+                    }
+                }
+                if (in_array('city', $columns, true) && (!isset($dbRow['city']) || $dbRow['city'] === null || $dbRow['city'] === '')) {
+                    if (isset($row['city_or_municipality']) && $row['city_or_municipality'] !== '') {
+                        $dbRow['city'] = $row['city_or_municipality'];
+                    }
+                }
                 $values = [];
                 foreach ($columns as $col) {
                     $values[] = $dbRow[$col] ?? null;
