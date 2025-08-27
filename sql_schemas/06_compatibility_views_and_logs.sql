@@ -36,18 +36,18 @@ USE `webgnis_db`;
 
 -- Horizontal GCPs
 DROP VIEW IF EXISTS `hgcp_stations`;
-CREATE VIEW `hgcp_stations` AS
-SELECT * FROM `hgcp_stations_new`;
+CREATE VIEW `webgnis_db`.`hgcp_stations` AS
+SELECT * FROM `webgnis_db`.`hgcp_stations_new`;
 
 -- Vertical GCPs
 DROP VIEW IF EXISTS `vgcp_stations`;
-CREATE VIEW `vgcp_stations` AS
-SELECT * FROM `vgcp_stations_new`;
+CREATE VIEW `webgnis_db`.`vgcp_stations` AS
+SELECT * FROM `webgnis_db`.`vgcp_stations_new`;
 
 -- Gravity stations
 DROP VIEW IF EXISTS `grav_stations`;
-CREATE VIEW `grav_stations` AS
-SELECT * FROM `grav_stations_new`;
+CREATE VIEW `webgnis_db`.`grav_stations` AS
+SELECT * FROM `webgnis_db`.`grav_stations_new`;
 
 -- Done.
 
