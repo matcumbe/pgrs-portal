@@ -75,8 +75,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = password_hash($input['password'] ?? '', PASSWORD_DEFAULT);
         $now = date('Y-m-d H:i:s');
         $stmt = $conn->prepare("INSERT INTO users (username, password, email, contact_number, user_type, sex_id, name_on_certificate, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Prepare failed: ' . $conn->error]);
+            exit;
+        }
         $stmt->bind_param('sssssisss', $username, $password, $email, $contact_number, $user_type, $sex_id, $name_on_certificate, $now, $now);
         $ok = $stmt->execute();
+        if (!$ok) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Insert failed: ' . $stmt->error]);
+            $stmt->close();
+            exit;
+        }
         $stmt->close();
         echo json_encode(['success' => $ok]);
         exit;

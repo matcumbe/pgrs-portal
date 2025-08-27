@@ -408,9 +408,9 @@ function renderTable() {
             tr.classList.add('current-user-row');
         }
         
-        const typeLower = (u.user_type || '').toLowerCase();
+        const typeLower = (u.user_type || '').toString().toLowerCase();
         const typeLabel = typeLower ? typeLower.charAt(0).toUpperCase() + typeLower.slice(1) : '-';
-        const badgeClass = typeLower === 'admin' ? 'text-bg-danger' : typeLower === 'moderator' ? 'text-bg-info' : typeLower === 'company' ? 'text-bg-warning text-dark' : 'text-bg-primary';
+        const badgeClass = typeLower === 'admin' ? 'text-bg-danger' : typeLower === 'moderator' ? 'text-bg-info' : typeLower === 'company' ? 'text-bg-warning text-dark' : (typeLower === 'individual' ? 'text-bg-primary' : 'text-bg-secondary');
         tr.innerHTML = `
             <td><strong>${u.username}</strong>${isCurrentUser ? ' <span class="badge bg-warning text-dark">(You)</span>' : ''}</td>
             <td>${u.email}</td>
@@ -506,6 +506,13 @@ function showUserModal(mode, user = {}) {
         '<i class="fas fa-user-plus me-2"></i>Add User' : 
         '<i class="fas fa-user-edit me-2"></i>Edit User';
     
+    // Reset visibility/state for all options and fields
+    const userTypeSelect = document.getElementById('userType');
+    Array.from(userTypeSelect.options).forEach(option => { option.style.display = ''; });
+    const sexSelect = document.getElementById('userSexId');
+    sexSelect.disabled = false;
+    sexSelect.classList.remove('disabled-field');
+
     document.getElementById('userId').value = user.user_id || '';
     document.getElementById('userUsername').value = user.username || '';
     document.getElementById('userEmail').value = user.email || '';
@@ -690,7 +697,8 @@ document.getElementById('userForm').onsubmit = function(e) {
             alert('Password must be at least 6 characters');
             return;
         }
-        if (!['individual','company','moderator','admin'].includes((payload.user_type || '').toLowerCase())) {
+        payload.user_type = (payload.user_type || '').toLowerCase();
+        if (!['individual','company','moderator','admin'].includes(payload.user_type)) {
             alert('Invalid user type');
             return;
         }
