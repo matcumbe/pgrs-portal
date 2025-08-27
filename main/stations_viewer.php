@@ -329,7 +329,7 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script type="module">
         // Import authentication module
-        import { checkAuthStatus, hasRole, getCurrentUser, initAuth } from './js/users/auth.js';
+        import { checkAuthStatus, hasRole, getCurrentUser, initializeAuth } from './js/users/auth.js';
 
         // Global Variables
         let tabulatorTable = null;
@@ -343,7 +343,7 @@
         // Initialize application when DOM is fully loaded
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize authentication
-            const authStatus = await initAuth();
+            const authStatus = await initializeAuth();
             const currentUser = getCurrentUser();
             
             console.log('Auth Status:', authStatus);

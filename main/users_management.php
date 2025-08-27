@@ -316,12 +316,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module">
 // --- Access Control: Only admin ---
-import { getCurrentUser, initAuth } from './js/users/auth.js';
+import { getCurrentUser, initializeAuth } from './js/users/auth.js';
 
 let currentUser = null;
 
 (async function() {
-    await initAuth();
+    await initializeAuth();
     currentUser = getCurrentUser();
     if (!currentUser || currentUser.user_type !== 'admin') {
         document.getElementById('accessDenied').classList.remove('d-none');
