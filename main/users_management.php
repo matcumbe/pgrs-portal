@@ -516,12 +516,12 @@ function showUserModal(mode, user = {}) {
     document.getElementById('passwordField').style.display = mode === 'add' ? 'block' : 'none';
     
     // Handle field restrictions
-    handleUserTypeRestrictions(user.user_type || 'individual', mode);
+    handleUserTypeRestrictions(user.user_type || 'individual', mode, user);
     
     userModal.show();
 }
 
-function handleUserTypeRestrictions(userType, mode) {
+function handleUserTypeRestrictions(userType, mode, user) {
     const userTypeSelect = document.getElementById('userType');
     const sexSelect = document.getElementById('userSexId');
     
@@ -544,17 +544,17 @@ function handleUserTypeRestrictions(userType, mode) {
             // For existing users, allow User Type changes but restrict based on current type
             userTypeSelect.disabled = false;
             
-            if (user.user_type === 'company') {
+            if (user && user.user_type === 'company') {
                 // Company users cannot change type
                 userTypeSelect.disabled = true;
-            } else if (user.user_type === 'moderator') {
+            } else if (user && user.user_type === 'moderator') {
                 // Moderators can only change to admin
                 Array.from(userTypeSelect.options).forEach(option => {
                     if (option.value !== 'admin' && option.value !== 'moderator') {
                         option.style.display = 'none';
                     }
                 });
-            } else if (user.user_type === 'admin') {
+            } else if (user && user.user_type === 'admin') {
                 // Admins can only change to moderator
                 Array.from(userTypeSelect.options).forEach(option => {
                     if (option.value !== 'admin' && option.value !== 'moderator') {
@@ -681,7 +681,14 @@ document.getElementById('userForm').onsubmit = function(e) {
         name_on_certificate
     };
     
-    if (!user_id) payload.password = password;
+    if (!user_id) {
+        payload.password = password;
+        // Allow creating moderator/admin users too
+        if (!['individual','company','moderator','admin'].includes(payload.user_type)) {
+            alert('Invalid user type');
+            return;
+        }
+    }
     
     fetch('users_management_api.php', {
         method: 'POST', 
