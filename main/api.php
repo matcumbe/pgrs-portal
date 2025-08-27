@@ -106,10 +106,43 @@ function getStations($type, $params) {
         $queryParams[] = $params['province'];
         $queryTypes .= 's';
     }
-    if (!empty($params['city_or_municipality'])) {
-        $filters[] = 'city_or_municipality = ?';
-        $queryParams[] = $params['city_or_municipality'];
-        $queryTypes .= 's';
+    // Support both 'city_or_municipality' and 'city' query params and columns
+    $cityParam = null;
+    if (isset($params['city_or_municipality']) && $params['city_or_municipality'] !== '') {
+        $cityParam = $params['city_or_municipality'];
+    } elseif (isset($params['city']) && $params['city'] !== '') {
+        $cityParam = $params['city'];
+    }
+    if ($cityParam !== null) {
+        // Detect which city column(s) exist on the chosen table
+        $cityColumns = [];
+        $colCheck1 = $db->query("SHOW COLUMNS FROM `$tableName` LIKE 'city_or_municipality'");
+        if ($colCheck1 && $colCheck1->num_rows > 0) {
+            $cityColumns[] = 'city_or_municipality';
+        }
+        if ($colCheck1) { $colCheck1->free(); }
+        $colCheck2 = $db->query("SHOW COLUMNS FROM `$tableName` LIKE 'city'");
+        if ($colCheck2 && $colCheck2->num_rows > 0) {
+            $cityColumns[] = 'city';
+        }
+        if ($colCheck2) { $colCheck2->free(); }
+
+        if (count($cityColumns) === 0) {
+            // Fallback: assume 'city_or_municipality'
+            $filters[] = 'city_or_municipality = ?';
+            $queryParams[] = $cityParam;
+            $queryTypes .= 's';
+        } elseif (count($cityColumns) === 1) {
+            $filters[] = "$cityColumns[0] = ?";
+            $queryParams[] = $cityParam;
+            $queryTypes .= 's';
+        } else {
+            // Both columns exist; allow match on either
+            $filters[] = '(city_or_municipality = ? OR city = ?)';
+            $queryParams[] = $cityParam;
+            $queryParams[] = $cityParam;
+            $queryTypes .= 'ss';
+        }
     }
     if (!empty($params['barangay'])) {
         $filters[] = 'barangay = ?';

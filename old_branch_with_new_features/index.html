@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNIS | Explorer</title>
+    <link rel="icon" href="assets/gnis_logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.1/dist/MarkerCluster.Default.css" />
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <img src="assets/gnis_logo.png" alt="GNIS Logo" class="me-4" style="height: 40px;">
+                    <h1 class="mb-0 h3">Geodetic Network Information System (GNIS)</h1>
+                </div>
+                <div class="d-flex align-items-center accnt">
+                    <div id="headerAccountDetails" class="me-3 d-none">
+                        <a href="account.html" id="headerUserDisplayName" class="fw-bold ms-2 text-decoration-underline text-dark" style="cursor:pointer"></a>
+                        <span id="headerUserType" class="ms-2"></span>
+                    </div>
+                    <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#authModal"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="logoutBtn" class="btn btn-outline-dark d-none"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mx-auto">
+                    <a class="nav-link" href="home.html"><i class="fas fa-home"></i> GNIS Home</a>
+                    <a class="nav-link active" href="index.html"><i class="fas fa-search"></i> Explorer</a>
+                    <a class="nav-link" href="tracker.html"><i class="fas fa-map-marker"></i> Tracker</a>
+                    <a class="nav-link admin-only d-none" href="admin.html"><i class="fas fa-cog"></i> GCP Management</a>
+                    <a class="nav-link admin-only d-none" href="requests_management.html"><i class="fas fa-tasks"></i> Requests Management</a>
+                    <a class="nav-link admin-only d-none" href="#"><i class="fas fa-users"></i> Users Management</a>
+                    <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- Filter Panel -->
+            <div class="col-md-3" style="padding-right: 0px;">
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                        <h5 class="mb-0" style="color: white;">Filter/Search Panel</h5>
+                    </div>
+                    <div class="card-body" style="max-height: 100vh; overflow-y: auto;">
+                        <!-- Error Messages -->
+                        <div id="errorMessages" class="alert alert-danger d-none"></div>
+                        
+                        <!-- GCP Type Filter -->
+                        <div class="mb-3">
+                            <label class="form-label">GCP Type:</label>
+                            <div class="gcp-type-group">
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="horizontalType" value="horizontal" checked>
+                                    <label class="gcp-type-label" for="horizontalType">
+                                        <i class="fas fa-arrows-alt-h"></i>
+                                        <span>Horizontal</span>
+                                    </label>
+                                </div>
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="verticalType" value="vertical">
+                                    <label class="gcp-type-label" for="verticalType">
+                                        <i class="fas fa-arrows-alt-v"></i>
+                                        <span>Benchmark</span>
+                                    </label>
+                                </div>
+                                <div class="gcp-type-option">
+                                    <input class="gcp-type-input" type="radio" name="gcpType" id="gravityType" value="gravity">
+                                    <label class="gcp-type-label" for="gravityType">
+                                        <i class="fas fa-weight-hanging"></i>
+                                        <span>Gravity</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Filter -->
+                        <div class="mb-3">
+                            <label class="form-label">Location:</label>
+                            <select class="form-select mb-2" id="region">
+                                <option value="">Select Region</option>
+                            </select>
+                            <select class="form-select mb-2" id="province">
+                                <option value="">Select Province</option>
+                            </select>
+                            <select class="form-select mb-2" id="city">
+                                <option value="">Select City/Municipality</option>
+                            </select>
+                            <select class="form-select" id="barangay">
+                                <option value="">Select Barangay</option>
+                            </select>
+                        </div>
+
+                        <!-- Order and Accuracy Class Filter -->
+                        <div class="mb-3">
+                            <label class="form-label">Order:</label>
+                            <select class="form-select mb-2" id="orderFilter">
+                                <option value="">Select Order</option>
+                            </select>
+                        </div>
+
+                        <!-- Pin and Radius
+                        <div class="mb-3">
+                            <label class="form-label">Add Pin and Radius:</label>
+                            <div class="input-group mb-2">
+                                <input type="number" class="form-control" id="pinLat" placeholder="Latitude" step="any">
+                            </div>
+                            <div class="input-group mb-2">
+                                <input type="number" class="form-control" id="pinLng" placeholder="Longitude" step="any">
+                            </div>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="searchRadius" placeholder="Radius (km)" step="0.1">
+                                <button class="btn btn-primary" type="button" id="searchByRadiusBtn">Search</button>
+                            </div>
+                        </div> -->
+
+                        <!-- Loading Indicator -->
+                        <div id="loadingIndicator" class="text-center d-none">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map and Tables -->
+            <div class="col-md-9">
+                <!-- Map View -->
+                <div class="card mb-3">
+                    <div class="card-body" style="padding: 0;">
+                        <div id="map" style="height: 400px;"></div>
+                    </div>
+                </div>
+
+                <!-- Tables Row -->
+                <div class="row">
+                    <!-- Search Results Table -->
+                    <div class="col-md-8" style="padding-right: 0px;">
+                        <div class="card">
+                            <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0" style="color: white;">Search Results</h5>
+                                    <div class="input-group" style="width: 300px;">
+                                        <input type="text" class="form-control" id="stationNameSearch" placeholder="Search station name...">
+                                        <button class="btn btn-light" type="button" id="searchByNameBtn">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-0 mh-100" style="padding: 0;">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Station Name</th>
+                                            <th>Latitude</th>
+                                            <th>Longitude</th>
+                                            <th>Elevation</th>
+                                            <th>Order</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="searchResults">
+                                        <!-- Example row to show styling -->
+                                        <!-- <tr>
+                                            <td>Example Station</td>
+                                            <td>14.123456</td>
+                                            <td>121.123456</td>
+                                            <td>100.123</td>
+                                            <td>1</td>
+                                            <td>
+                                                <button class="btn btn-add-to-cart" onclick="addToCart('Example Station', 'example_id', 'vertical')">Add to Cart</button>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-info btn-view-description" data-station-name="Example Station">View</button>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                                <!-- Pagination Controls -->
+                                <nav aria-label="Search results pagination" class="mb-2 mt-2 d-flex justify-content-center">
+                                    <ul class="pagination mt-0" id="stationsPagination">
+                                        <!-- Will be populated by JavaScript -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selected Points Table -->
+                    <div class="col-md-4">
+                        
+                        <!-- Request Certificates Button -->
+                        <div class="mb-3">
+                            <button id="requestCertBtn" class="btn btn-success w-100">
+                                <i class="fas fa-certificate"></i> Request Certificates
+                            </button>
+                        </div>
+
+                        <!-- User Info Section (hidden by default) -->
+                        <!-- Removed userInfoSection from here, as account details are now in the header -->
+                
+                        <div class="card">
+                            <div class="card-header" style="background-color: rgb(25, 135, 84);">
+                                <h5 class="mb-0" style="color: white;">Selected Points</h5>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Station Name</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="selectedPoints">
+                                        <!-- Selected points will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login/Register) -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="authModalLabel">Login or Register</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 0;">
+                    <ul class="nav nav-tabs" id="authTabs" role="tablist" style="margin-top: 1rem;">
+                        <li class="nav-item" role="presentation" style="margin-left: 1rem;">
+                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-tab-pane" type="button" role="tab" aria-controls="register-tab-pane" aria-selected="false">Register</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="authTabContent">
+                        <!-- Login Tab -->
+                        <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab">
+                            <div id="loginAlert" class="alert alert-danger d-none"></div>
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="loginUsername" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Register Tab -->
+                        <div class="tab-pane fade" id="register-tab-pane" role="tabpanel" aria-labelledby="register-tab">
+                            <div id="registerAlert" class="alert alert-danger d-none"></div>
+                            <form id="registerForm">
+                                <!-- User Type Selection -->
+                                <div class="mb-3">
+                                    <label class="form-label">Account Type</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="userType" id="individualType" value="individual" checked>
+                                        <label class="form-check-label" for="individualType">Individual</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="userType" id="companyType" value="company">
+                                        <label class="form-check-label" for="companyType">Company</label>
+                                    </div>
+                                </div>
+
+                                <!-- Common Fields -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerUsername" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="registerUsername" name="username" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="registerPassword" name="password" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="registerEmail" name="email" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerContact" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="registerContact" name="contact_number" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerSex" class="form-label">Sex</label>
+                                        <select class="form-select" id="registerSex" name="sex_id" required>
+                                            <option value="">Select Sex</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerNameOnCert" class="form-label">Name on Certificate</label>
+                                        <input type="text" class="form-control" id="registerNameOnCert" name="name_on_certificate" required>
+                                    </div>
+                                </div>
+
+                                <!-- Individual Fields -->
+                                <div id="individualFields">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerFullName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="registerFullName" name="full_name" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerAddress" class="form-label">Address</label>
+                                            <input type="text" class="form-control" id="registerAddress" name="address" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Company Fields -->
+                                <div id="companyFields" class="d-none">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerCompanyName" class="form-label">Company Name</label>
+                                            <input type="text" class="form-control" id="registerCompanyName" name="company_name">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerCompanyAddress" class="form-label">Company Address</label>
+                                            <input type="text" class="form-control" id="registerCompanyAddress" name="company_address">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerSector" class="form-label">Sector</label>
+                                            <select class="form-select" id="registerSector" name="sector_id">
+                                                <option value="">Select Sector</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="registerRepresentative" class="form-label">Authorized Representative</label>
+                                            <input type="text" class="form-control" id="registerRepresentative" name="representative">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5a8eb2;">
+                    <h5 class="modal-title" id="descriptionModalLabel" style="color: white;">Station Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="descriptionImage" src="" alt="Station Description" class="img-fluid">
+                    <p id="noDescriptionMessage" class="d-none">No available description image.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="users.js"></script>
+    <script src="js/cart-api.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/utils.js" type="module"></script>
+    <script src="js/map.js" type="module"></script>
+    <script src="js/stations.js" type="module"></script>
+    <script src="js/search.js" type="module"></script>
+    <script src="js/payment.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <script type="module">
+        import { updateNavigation } from './js/users/auth.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavigation();
+            
+            // Add event listener to remove backdrop when modal is hidden
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.addEventListener('hidden.bs.modal', function () {
+                    // Remove modal backdrop
+                    document.body.classList.remove('modal-open');
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Leaflet MarkerCluster JS -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.1/dist/leaflet.markercluster.js"></script>
+    
+    <script type="module" src="js/main.js"></script>
+
+    <!-- Station Type Modal -->
+    <div class="modal fade" id="stationTypeModal" tabindex="-1" aria-labelledby="stationTypeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="stationTypeModalLabel">Select Station Type</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>For this horizontal station, please specify if it's a Regular or CAAP station.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="modalRegularButton">Regular</button>
+            <button type="button" class="btn btn-success" id="modalCaapButton">CAAP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html> 
