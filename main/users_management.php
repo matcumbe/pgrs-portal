@@ -408,13 +408,16 @@ function renderTable() {
             tr.classList.add('current-user-row');
         }
         
+        const typeLower = (u.user_type || '').toLowerCase();
+        const typeLabel = typeLower ? typeLower.charAt(0).toUpperCase() + typeLower.slice(1) : '-';
+        const badgeClass = typeLower === 'admin' ? 'text-bg-danger' : typeLower === 'moderator' ? 'text-bg-info' : typeLower === 'company' ? 'text-bg-warning text-dark' : 'text-bg-primary';
         tr.innerHTML = `
             <td><strong>${u.username}</strong>${isCurrentUser ? ' <span class="badge bg-warning text-dark">(You)</span>' : ''}</td>
             <td>${u.email}</td>
             <td>${u.contact_number || '<span class="text-muted">-</span>'}</td>
             <td>
-                <span class="badge bg-${u.user_type === 'admin' ? 'danger' : u.user_type === 'moderator' ? 'info' : u.user_type === 'company' ? 'warning' : 'primary'}">
-                    ${u.user_type}
+                <span class="badge ${badgeClass}">
+                    ${typeLabel}
                 </span>
             </td>
             <td>${window.sexMap && u.sex_id ? (window.sexMap[u.sex_id] || u.sex_id) : '<span class="text-muted">-</span>'}</td>
@@ -683,8 +686,11 @@ document.getElementById('userForm').onsubmit = function(e) {
     
     if (!user_id) {
         payload.password = password;
-        // Allow creating moderator/admin users too
-        if (!['individual','company','moderator','admin'].includes(payload.user_type)) {
+        if (!payload.password || payload.password.length < 6) {
+            alert('Password must be at least 6 characters');
+            return;
+        }
+        if (!['individual','company','moderator','admin'].includes((payload.user_type || '').toLowerCase())) {
             alert('Invalid user type');
             return;
         }
