@@ -133,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $table = $input['table'] ?? '';
     $data = $input['data'] ?? [];
     $append = isset($input['append']) ? (bool)$input['append'] : false;
+    $deleteIds = $input['deleteIds'] ?? [];
     if (!in_array($table, $allowed_tables)) {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid table']);
@@ -209,6 +210,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         $conn->query("DELETE FROM `$targetTable`");
+    }
+    // When append=true, optionally process deletions first
+    if ($append && !empty($deleteIds) && $keyCol) {
+        $placeholders = implode(',', array_fill(0, count($deleteIds), '?'));
+        $types = str_repeat('s', count($deleteIds));
+        $sql = "DELETE FROM `$targetTable` WHERE `$keyCol` IN ($placeholders)";
+        $stmtDel = $conn->prepare($sql);
+        $stmtDel->bind_param($types, ...array_map('strval', $deleteIds));
+        $stmtDel->execute();
+        $stmtDel->close();
+        // Log deletions
+        foreach ($deleteIds as $did) {
+            logStationActivity($conn, $table, (string)$did, $adminUser, 'delete', json_encode(['table' => $table, 'data' => ['id' => $did]]));
+        }
     }
     if (count($data) > 0) {
         if ($append) {

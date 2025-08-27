@@ -583,20 +583,42 @@
                 });
         }
 
-        function saveChanges(dataOverride) {
-            let newData = dataOverride || tabulatorTable.getData();
-            // Remove __delete field if present
-            newData = newData.map(row => { let c = {...row}; delete c.__delete; return c; });
+        function saveChanges() {
             const token = localStorage.getItem('webgnis_token');
+            const currentData = tabulatorTable.getData().map(r => { let c = {...r}; delete c.__delete; return c; });
+            // Build maps by key (station_id or id)
+            const getKey = (row) => (row.station_id != null && row.station_id !== '') ? String(row.station_id).trim() : (row.id != null ? String(row.id).trim() : null);
+            const originalMap = {};
+            lastLoadedData.forEach(r => { const k = getKey(r); if (k) originalMap[k] = r; });
+            const currentMap = {};
+            currentData.forEach(r => { const k = getKey(r); if (k) currentMap[k] = r; });
+            // Compute deletes and upserts
+            const deleteIds = [];
+            Object.keys(originalMap).forEach(k => { if (!(k in currentMap)) deleteIds.push(k); });
+            const upserts = [];
+            Object.keys(currentMap).forEach(k => {
+                const cur = currentMap[k];
+                const orig = originalMap[k];
+                if (!orig) { upserts.push(cur); return; }
+                // Compare using areValuesEquivalent
+                let changed = false;
+                for (const col of currentColumns) {
+                    if (col === '__delete') continue;
+                    if (!areValuesEquivalent(orig[col], cur[col])) { changed = true; break; }
+                }
+                if (changed) upserts.push(cur);
+            });
             fetch('stations_viewer_api.php', {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     table: currentTable,
-                    data: newData
+                    data: upserts,
+                    append: true,
+                    deleteIds: deleteIds
                 })
             })
             .then(res => res.json())
