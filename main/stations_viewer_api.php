@@ -146,34 +146,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $currentUser = getCurrentUser();
     $adminUser = $currentUser ? $currentUser->username : 'unknown';
-    $colres = $conn->query("SHOW COLUMNS FROM `$table`");
+    // Map view/table alias to physical table for writes
+    $tableMap = [
+        'hgcp_stations' => 'hgcp_stations_new',
+        'vgcp_stations' => 'vgcp_stations_new',
+        'grav_stations' => 'grav_stations_new'
+    ];
+    $targetTable = isset($tableMap[$table]) ? $tableMap[$table] : $table;
+    $colres = $conn->query("SHOW COLUMNS FROM `$targetTable`");
     $columns = [];
     while ($col = $colres->fetch_assoc()) {
         $columns[] = $col['Field'];
     }
+    // Determine primary key field present in target table
+    $keyCol = in_array('station_id', $columns, true) ? 'station_id' : (in_array('id', $columns, true) ? 'id' : null);
     if (!$append) {
         $existingData = [];
-        $result = $conn->query("SELECT * FROM `$table`");
+        $result = $conn->query("SELECT * FROM `$targetTable`");
         while ($row = $result->fetch_assoc()) {
-            if (isset($row['station_id'])) {
-                $existingData[trim((string)$row['station_id'])] = $row;
+            if ($keyCol && isset($row[$keyCol])) {
+                $existingData[trim((string)$row[$keyCol])] = $row;
             }
         }
         $newDataMap = [];
         foreach ($data as $newRow) {
-            if (isset($newRow['station_id'])) {
-                $newDataMap[trim((string)$newRow['station_id'])] = $newRow;
+            if ($keyCol) {
+                $incomingKey = $newRow[$keyCol] ?? ($keyCol === 'id' ? ($newRow['station_id'] ?? null) : ($newRow['id'] ?? null));
+                if ($incomingKey !== null && $incomingKey !== '') {
+                    $newDataMap[trim((string)$incomingKey)] = $newRow;
+                }
             }
         }
-        foreach ($newDataMap as $stationId => $newRow) {
-            if (!isset($existingData[$stationId])) {
-                logStationActivity($conn, $table, $stationId, $adminUser, 'add', json_encode(['table' => $table, 'data' => $newRow]));
+        foreach ($newDataMap as $keyValue => $newRow) {
+            if (!isset($existingData[$keyValue])) {
+                logStationActivity($conn, $table, $keyValue, $adminUser, 'add', json_encode(['table' => $table, 'data' => $newRow]));
             } else {
-                $oldRow = $existingData[$stationId];
+                $oldRow = $existingData[$keyValue];
                 $changed = false;
                 $changes = [];
                 foreach ($columns as $col) {
-                    if ($col === 'station_id') continue;
+                    if ($col === $keyCol) continue;
                     $oldVal = array_key_exists($col, $oldRow) ? (string)$oldRow[$col] : '';
                     $newVal = array_key_exists($col, $newRow) ? (string)$newRow[$col] : '';
                     if ($oldVal !== $newVal) {
@@ -182,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 if ($changed) {
-                    logStationActivity($conn, $table, $stationId, $adminUser, 'update', json_encode([
+                    logStationActivity($conn, $table, $keyValue, $adminUser, 'update', json_encode([
                         'table' => $table,
                         'changes' => $changes,
                         'before' => $oldRow,
@@ -191,12 +203,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         }
-        foreach ($existingData as $stationId => $oldRow) {
-            if (!isset($newDataMap[$stationId])) {
-                logStationActivity($conn, $table, $stationId, $adminUser, 'delete', json_encode(['table' => $table, 'data' => $oldRow]));
+        foreach ($existingData as $keyValue => $oldRow) {
+            if (!isset($newDataMap[$keyValue])) {
+                logStationActivity($conn, $table, $keyValue, $adminUser, 'delete', json_encode(['table' => $table, 'data' => $oldRow]));
             }
         }
-        $conn->query("DELETE FROM `$table`");
+        $conn->query("DELETE FROM `$targetTable`");
     }
     if (count($data) > 0) {
         if ($append) {
@@ -224,42 +236,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $dbRow['city'] = $row['city_or_municipality'];
                     }
                 }
-                $stationId = $row['station_id'] ?? null;
-                if ($stationId) {
-                    $checkStmt = $conn->prepare("SELECT COUNT(*) as count FROM `$table` WHERE station_id = ?");
-                    $checkStmt->bind_param('s', $stationId);
+                $incomingKey = $row[$keyCol] ?? ($keyCol === 'id' ? ($row['station_id'] ?? null) : ($row['id'] ?? null));
+                if ($incomingKey) {
+                    $checkStmt = $conn->prepare("SELECT COUNT(*) as count FROM `$targetTable` WHERE `$keyCol` = ?");
+                    $checkStmt->bind_param('s', $incomingKey);
                     $checkStmt->execute();
                     $result = $checkStmt->get_result();
                     $exists = $result->fetch_assoc()['count'] > 0;
                     $checkStmt->close();
                     if ($exists) {
-                        $getStmt = $conn->prepare("SELECT * FROM `$table` WHERE station_id = ?");
-                        $getStmt->bind_param('s', $stationId);
+                        $getStmt = $conn->prepare("SELECT * FROM `$targetTable` WHERE `$keyCol` = ?");
+                        $getStmt->bind_param('s', $incomingKey);
                         $getStmt->execute();
                         $existingRow = $getStmt->get_result()->fetch_assoc();
                         $getStmt->close();
                         $updateFields = [];
                         $updateValues = [];
                         foreach ($columns as $col) {
-                            if ($col !== 'station_id') {
+                            if ($col !== $keyCol) {
                                 $updateFields[] = "`$col` = ?";
                                 $updateValues[] = $dbRow[$col] ?? null;
                             }
                         }
-                        $updateValues[] = $stationId;
-                        $updateSql = "UPDATE `$table` SET " . implode(', ', $updateFields) . " WHERE station_id = ?";
+                        $updateValues[] = $incomingKey;
+                        $updateSql = "UPDATE `$targetTable` SET " . implode(', ', $updateFields) . " WHERE `$keyCol` = ?";
                         $updateStmt = $conn->prepare($updateSql);
                         $updateStmt->bind_param(str_repeat('s', count($updateValues)), ...$updateValues);
                         $updateStmt->execute();
                         $updateStmt->close();
                         $changes = [];
                         foreach ($columns as $col) {
-                            if ($col !== 'station_id' && $existingRow[$col] !== $dbRow[$col]) {
+                            if ($col !== $keyCol && $existingRow[$col] !== $dbRow[$col]) {
                                 $changes[] = "$col: \"{$existingRow[$col]}\" → \"{$dbRow[$col]}\"";
                             }
                         }
                         if (!empty($changes)) {
-                            logStationActivity($conn, $table, $stationId, $adminUser, 'update', json_encode([
+                            logStationActivity($conn, $table, $incomingKey, $adminUser, 'update', json_encode([
                                 'table' => $table,
                                 'changes' => $changes,
                                 'before' => $existingRow,
@@ -268,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
                     } else {
                         $colList = '`' . implode('`,`', $columns) . '`';
-                        $insertStmt = $conn->prepare("INSERT INTO `$table` ($colList) VALUES (" . rtrim(str_repeat('?,', count($columns)), ',') . ")");
+                        $insertStmt = $conn->prepare("INSERT INTO `$targetTable` ($colList) VALUES (" . rtrim(str_repeat('?,', count($columns)), ',') . ")");
                         $values = [];
                         foreach ($columns as $col) {
                             $values[] = $dbRow[$col] ?? null;
@@ -276,11 +288,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $insertStmt->bind_param(str_repeat('s', count($values)), ...$values);
                         $insertStmt->execute();
                         $insertStmt->close();
-                        logStationActivity($conn, $table, $stationId, $adminUser, 'add', json_encode(['table' => $table, 'data' => $dbRow]));
+                        logStationActivity($conn, $table, $incomingKey, $adminUser, 'add', json_encode(['table' => $table, 'data' => $dbRow]));
                     }
                 } else {
                     $colList = '`' . implode('`,`', $columns) . '`';
-                    $insertStmt = $conn->prepare("INSERT INTO `$table` ($colList) VALUES (" . rtrim(str_repeat('?,', count($columns)), ',') . ")");
+                    $insertStmt = $conn->prepare("INSERT INTO `$targetTable` ($colList) VALUES (" . rtrim(str_repeat('?,', count($columns)), ',') . ")");
                     $values = [];
                     foreach ($columns as $col) {
                         $values[] = $dbRow[$col] ?? null;
@@ -293,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             $colList = '`' . implode('`,`', $columns) . '`';
-            $stmt = $conn->prepare("INSERT INTO `$table` ($colList) VALUES (" . rtrim(str_repeat('?,', count($columns)), ',') . ")");
+            $stmt = $conn->prepare("INSERT INTO `$targetTable` ($colList) VALUES (" . rtrim(str_repeat('?,', count($columns)), ',') . ")");
             foreach ($data as $row) {
                 $type = str_replace('_stations', '', $table);
                 $dbRow = transformDataForDatabase($row, $type);
@@ -324,8 +336,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $stmt->bind_param(str_repeat('s', count($values)), ...$values);
                 $stmt->execute();
-                $stationId = $row['station_id'] ?? 'N/A';
-                logStationActivity($conn, $table, $stationId, $adminUser, 'add', json_encode(['table' => $table, 'data' => $dbRow]));
+                $keyValue = ($keyCol && isset($row[$keyCol])) ? $row[$keyCol] : (($keyCol === 'id') ? ($row['station_id'] ?? 'N/A') : ($row['id'] ?? 'N/A'));
+                logStationActivity($conn, $table, (string)$keyValue, $adminUser, 'add', json_encode(['table' => $table, 'data' => $dbRow]));
             }
             $stmt->close();
         }
