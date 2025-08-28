@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['list'])) {
     $page = max(1, intval($_GET['page'] ?? 1));
     $perPage = max(1, min(50, intval($_GET['per_page'] ?? 20)));
     $offset = ($page - 1) * $perPage;
-    $where = [];
+    $where = ["is_active = 1"]; // only show active users
     if ($search) {
         $where[] = "(username LIKE '%$search%' OR email LIKE '%$search%' OR name_on_certificate LIKE '%$search%')";
     }
@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // --- Edit user ---
     if ($action === 'edit' && $userId) {
+        $username = $conn->real_escape_string($input['username'] ?? '');
         $email = $conn->real_escape_string($input['email'] ?? '');
         $contact_number = $conn->real_escape_string($input['contact_number'] ?? '');
         $user_type = $conn->real_escape_string($input['user_type'] ?? '');
@@ -101,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name_on_certificate = $conn->real_escape_string($input['name_on_certificate'] ?? '');
         $set = [];
         // Allow clearing/changing values; include fields when provided
+        if (isset($input['username'])) $set[] = "username='$username'";
         if (isset($input['email'])) $set[] = "email='$email'";
         if (isset($input['contact_number'])) $set[] = "contact_number='$contact_number'";
         if (isset($input['user_type'])) $set[] = "user_type='$user_type'";
