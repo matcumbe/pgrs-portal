@@ -554,6 +554,12 @@ function handleUserTypeRestrictions(userType, mode, user) {
             // For existing users, allow User Type changes
             // Only lock company users from changing type
             userTypeSelect.disabled = !!(user && user.user_type === 'company');
+            // Hide company option for non-company users to prevent switching into/out of company
+            if (!user || user.user_type !== 'company') {
+                Array.from(userTypeSelect.options).forEach(option => {
+                    if (option.value === 'company') option.style.display = 'none';
+                });
+            }
         }
     }
 }
