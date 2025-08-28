@@ -551,34 +551,9 @@ function handleUserTypeRestrictions(userType, mode, user) {
         sexSelect.classList.remove('disabled-field');
         
         if (mode === 'edit') {
-            // For existing users, allow User Type changes but restrict based on current type
-            userTypeSelect.disabled = false;
-            
-            if (user && user.user_type === 'company') {
-                // Company users cannot change type
-                userTypeSelect.disabled = true;
-            } else if (user && user.user_type === 'moderator') {
-                // Moderators can only change to admin
-                Array.from(userTypeSelect.options).forEach(option => {
-                    if (option.value !== 'admin' && option.value !== 'moderator') {
-                        option.style.display = 'none';
-                    }
-                });
-            } else if (user && user.user_type === 'admin') {
-                // Admins can only change to moderator
-                Array.from(userTypeSelect.options).forEach(option => {
-                    if (option.value !== 'admin' && option.value !== 'moderator') {
-                        option.style.display = 'none';
-                    }
-                });
-            } else {
-                // Individual users can change to admin or moderator
-                Array.from(userTypeSelect.options).forEach(option => {
-                    if (option.value === 'company') {
-                        option.style.display = 'none';
-                    }
-                });
-            }
+            // For existing users, allow User Type changes
+            // Only lock company users from changing type
+            userTypeSelect.disabled = !!(user && user.user_type === 'company');
         }
     }
 }

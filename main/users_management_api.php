@@ -100,15 +100,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sex_id = intval($input['sex_id'] ?? 0) ?: null;
         $name_on_certificate = $conn->real_escape_string($input['name_on_certificate'] ?? '');
         $set = [];
-        if ($email) $set[] = "email='$email'";
-        if ($contact_number) $set[] = "contact_number='$contact_number'";
-        if ($user_type) $set[] = "user_type='$user_type'";
-        if ($sex_id) $set[] = "sex_id=$sex_id";
-        if ($name_on_certificate) $set[] = "name_on_certificate='$name_on_certificate'";
+        // Allow clearing/changing values; include fields when provided
+        if (isset($input['email'])) $set[] = "email='$email'";
+        if (isset($input['contact_number'])) $set[] = "contact_number='$contact_number'";
+        if (isset($input['user_type'])) $set[] = "user_type='$user_type'";
+        if (array_key_exists('sex_id', $input)) $set[] = (is_null($sex_id) ? "sex_id=NULL" : "sex_id=$sex_id");
+        if (isset($input['name_on_certificate'])) $set[] = "name_on_certificate='$name_on_certificate'";
         if ($set) {
             $sql = "UPDATE users SET ".implode(',', $set).", updated_at=NOW() WHERE user_id=$userId";
             $ok = $conn->query($sql);
-            echo json_encode(['success' => $ok]);
+            if (!$ok) {
+                http_response_code(500);
+                echo json_encode(['error' => 'Update failed: ' . $conn->error]);
+            } else {
+                echo json_encode(['success' => true]);
+            }
             exit;
         }
     }
@@ -123,7 +129,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // --- Delete (soft delete) ---
     if ($action === 'delete' && $userId) {
         $ok = $conn->query("UPDATE users SET is_active=0, updated_at=NOW() WHERE user_id=$userId");
-        echo json_encode(['success' => $ok]);
+        if (!$ok) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Delete failed: ' . $conn->error]);
+        } else {
+            echo json_encode(['success' => true]);
+        }
         exit;
     }
     echo json_encode(['error' => 'Invalid action or missing parameters']);
