@@ -16,6 +16,21 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// --- Debug helper ---
+if (!function_exists('cert_api_log')) {
+    function cert_api_log($message, $context = null) {
+        try {
+            if ($context !== null) {
+                error_log('[CERT_API] ' . $message . ' | ' . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            } else {
+                error_log('[CERT_API] ' . $message);
+            }
+        } catch (Throwable $e) {
+            error_log('[CERT_API] log_error: ' . $e->getMessage());
+        }
+    }
+}
+
 // Handle preflight CORS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -23,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 function returnError($message, $statusCode = 400) {
+    cert_api_log('returnError', ['status' => $statusCode, 'message' => $message]);
     http_response_code($statusCode);
     echo json_encode(['status' => 'error', 'message' => $message]);
     exit;
@@ -31,6 +47,7 @@ function returnError($message, $statusCode = 400) {
 // Copied and adapted verifyToken from transactions_api.php
 function verifyToken($requiredRole = null, $exitOnFail = true) {
     $headers = getallheaders();
+    cert_api_log('verifyToken:headers_present', ['keys' => array_keys($headers)]);
     $authHeader = isset($headers['Authorization']) ? $headers['Authorization'] : (isset($headers['authorization']) ? $headers['authorization'] : '');
 
     if (!$authHeader || stripos($authHeader, 'Bearer ') !== 0) {
@@ -41,6 +58,7 @@ function verifyToken($requiredRole = null, $exitOnFail = true) {
     }
 
     $jwt = substr($authHeader, 7);
+    cert_api_log('verifyToken:jwt_prefix', ['prefix' => substr($jwt, 0, 12) . '...']);
     if (empty($jwt)) {
         if ($exitOnFail) {
             returnError("Authentication token not provided.", 401);
@@ -94,6 +112,7 @@ function verifyToken($requiredRole = null, $exitOnFail = true) {
             $payload->user_id = intval($payload->user_id);
         }
 
+        cert_api_log('verifyToken:ok', ['user_id' => $payload->user_id ?? null, 'user_type' => $payload->user_type ?? null]);
         return $payload; // Contains user_id, user_type, etc.
     } catch (Exception $e) {
         error_log("[AUTH_EXCEPTION] JWT Validation Error: " . $e->getMessage() . " for token: " . $jwt);
@@ -105,6 +124,7 @@ function verifyToken($requiredRole = null, $exitOnFail = true) {
 }
 
 $action = $_GET['action'] ?? null;
+cert_api_log('request:start', ['action' => $action, 'method' => $_SERVER['REQUEST_METHOD']]);
 $db = connectDB(); // From users_config.php
 
 if (!$db) {
@@ -113,6 +133,7 @@ if (!$db) {
 
 // All actions in this API currently require admin privileges.
 $tokenData = verifyToken(); // This will exit with 401/403 if validation fails. Role checks are done per action.
+cert_api_log('auth:ok', ['user_id' => $tokenData->user_id ?? null, 'user_type' => $tokenData->user_type ?? null]);
 
 if (!$tokenData || !isset($tokenData->user_id)) { // Should not be reached if verifyToken exits on fail
     returnError('Authentication failed or admin user ID not found in token.', 401);
@@ -128,6 +149,7 @@ if ($action === 'generate') {
         returnError('Invalid request method for generate. POST required.', 405);
     }
     $data = json_decode(file_get_contents('php://input'), true);
+    cert_api_log('generate:payload', $data);
     $transaction_code = $data['transaction_code'] ?? null;
 
     if (!$transaction_code) {
@@ -140,6 +162,7 @@ if ($action === 'generate') {
         $stmt_trans->bindParam(':transaction_code', $transaction_code);
         $stmt_trans->execute();
         $transactionDetails = $stmt_trans->fetch(PDO::FETCH_ASSOC);
+        cert_api_log('generate:transaction_lookup', $transactionDetails);
 
         if (!$transactionDetails || !isset($transactionDetails['request_id']) || !isset($transactionDetails['transaction_id'])) {
             returnError('Transaction not found or missing key details for the given transaction code.', 404);
@@ -148,7 +171,9 @@ if ($action === 'generate') {
         $db_transaction_id = $transactionDetails['transaction_id']; // The integer PK
 
         // 2. Call the certificate generator from certificate_generator.php
+        cert_api_log('generate:call_generator');
         $generationResult = generateAndSaveCertificate($db, $transaction_code, $request_id);
+        cert_api_log('generate:generator_result', $generationResult);
 
         if ($generationResult['status'] === 'success' && isset($generationResult['filepath'])) {
             // 3. Save certificate details to the 'certificates' table
@@ -173,6 +198,7 @@ if ($action === 'generate') {
                 $stmt_cert_update->bindParam(':preprocessed_filename', $generated_filename);
                 $stmt_cert_update->bindParam(':transaction_code', $transaction_code);
                 $stmt_cert_execute = $stmt_cert_update->execute();
+                cert_api_log('generate:cert_update', ['ok' => $stmt_cert_execute]);
                 $log_action = "updated";
             } else {
                 $stmt_cert_insert = $db->prepare("INSERT INTO certificates (transaction_code, request_id, preprocessed_filename, status)
@@ -182,6 +208,7 @@ if ($action === 'generate') {
                 $stmt_cert_insert->bindParam(':request_id', $request_id, PDO::PARAM_INT);
                 $stmt_cert_insert->bindParam(':preprocessed_filename', $generated_filename);
                 $stmt_cert_execute = $stmt_cert_insert->execute();
+                cert_api_log('generate:cert_insert', ['ok' => $stmt_cert_execute]);
                 $log_action = "inserted";
             }
             

@@ -45,9 +45,9 @@ CREATE VIEW `webgnis_db`.`vgcp_stations` AS
 SELECT * FROM `webgnis_db`.`vgcp_stations_new`;
 
 -- Gravity stations
-DROP VIEW IF EXISTS `grav_stations`;
-CREATE VIEW `webgnis_db`.`grav_stations` AS
-SELECT * FROM `webgnis_db`.`grav_stations_new`;
+-- DROP VIEW IF EXISTS `grav_stations`;
+-- CREATE VIEW `webgnis_db`.`grav_stations` AS
+-- SELECT * FROM `webgnis_db`.`grav_stations_new`;
 
 -- Done.
 

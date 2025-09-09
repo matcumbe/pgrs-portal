@@ -31,8 +31,28 @@ if (file_exists(__DIR__ . '/config.php')) {
 
 // Removed QR Code specific use statements as generation is temporarily disabled
 
+// --- Debug helper ---
+if (!function_exists('cert_log')) {
+    function cert_log($message, $context = null) {
+        try {
+            if ($context !== null) {
+                error_log('[CERT_GEN] ' . $message . ' | ' . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            } else {
+                error_log('[CERT_GEN] ' . $message);
+            }
+        } catch (Throwable $e) {
+            error_log('[CERT_GEN] log_error: ' . $e->getMessage());
+        }
+    }
+}
+
 // --- Helper function to fetch station details from the (potentially separate) station database ---
-function getStationDetails($station_id, $station_type) {
+function getStationDetails($station_identifier, $station_name, $station_type) {
+    cert_log('getStationDetails:start', [
+        'identifier' => $station_identifier,
+        'station_name' => $station_name,
+        'station_type' => $station_type
+    ]);
     // These constants (DB_HOST, DB_USER, DB_PASS) will be from users_config.php,
     // as it's included first. This is acceptable because they are identical to those
     // in config.php for this specific setup.
@@ -55,23 +75,32 @@ function getStationDetails($station_id, $station_type) {
     $mysqli->set_charset(DB_CHARSET); // Use the globally defined DB_CHARSET
 
     $table_name = '';
-    // Mapping based on stations-api.php and user description
+    // Mapping aligned with compatibility views from 06_compatibility_views_and_logs.sql
     switch (strtolower($station_type)) {
         case 'horizontal':
         case 'caap': // CAAP uses horizontal data table
-            $table_name = 'hgcp_stations'; // Placeholder, confirm actual table name
+            $table_name = 'hgcp_stations';
             break;
         case 'vertical':
-            $table_name = 'vgcp_stations'; // Placeholder, confirm actual table name
+            $table_name = 'vgcp_stations';
             break;
         case 'gravity':
-            $table_name = 'grav_stations'; // Placeholder, confirm actual table name
+            // View for gravity may not exist in 06 script; fallback to new table if view is absent
+            $table_name = 'grav_stations';
             break;
         default:
             error_log("Unknown station type for detail fetching: $station_type");
             $mysqli->close();
             return null;
     }
+    cert_log('getStationDetails:mapped_table', ['table' => $table_name]);
+    // Also prepare fallback physical tables if views are not present
+    $fallback_tables = [
+        'hgcp_stations' => 'hgcp_stations_new',
+        'vgcp_stations' => 'vgcp_stations_new',
+        'grav_stations' => 'grav_stations_new'
+    ];
+    $alt_table = isset($fallback_tables[$table_name]) ? $fallback_tables[$table_name] : null;
 
     // Ensure station_id is properly escaped or use prepared statements if column name is dynamic (not typical)
     // Assuming station_id column is named 'station_id_column_name' - replace with actual
@@ -80,19 +109,47 @@ function getStationDetails($station_id, $station_type) {
     // $stmt->bind_param("s", $station_id);
 
 
-    // Using a direct query for now, assuming $station_id is safe and $table_name is controlled.
-    // THIS SHOULD BE REPLACED WITH PREPARED STATEMENT and actual column name for station_id
-    $sql = "SELECT * FROM `" . $mysqli->real_escape_string($table_name) . "` WHERE `station_id` = '" . $mysqli->real_escape_string($station_id) . "' LIMIT 1";
-    $result = $mysqli->query($sql);
-    
+    // Using a direct query for now.
+    // If we received a numeric identifier, prefer matching by primary key `id`.
+    // Otherwise, match by `station_name` (trim decorations like " (BBM-22) (4703)").
     $details = null;
-    if ($result && $result->num_rows > 0) {
-        $details = $result->fetch_assoc();
+    $queries = [];
+    if ($station_identifier !== null && $station_identifier !== '' && is_numeric($station_identifier)) {
+        $idInt = (int)$station_identifier;
+        $queries[] = ["table" => $table_name, "sql" => "SELECT * FROM `" . $mysqli->real_escape_string($table_name) . "` WHERE `id` = " . $idInt . " LIMIT 1"];
+        if ($alt_table) {
+            $queries[] = ["table" => $alt_table, "sql" => "SELECT * FROM `" . $mysqli->real_escape_string($alt_table) . "` WHERE `id` = " . $idInt . " LIMIT 1"];
+        }
     } else {
-        error_log("No details found for station_id: $station_id in table: $table_name. Error: " . $mysqli->error);
+        $nameSource = ($station_name !== null && $station_name !== '') ? $station_name : (string)$station_identifier;
+        $trimmed = preg_replace('/\s*\(.*/', '', (string)$nameSource);
+        $candidates = array_values(array_unique(array_filter([$nameSource, $trimmed])));
+        foreach ($candidates as $cand) {
+            $escCand = $mysqli->real_escape_string($cand);
+            $queries[] = ["table" => $table_name, "sql" => "SELECT * FROM `" . $mysqli->real_escape_string($table_name) . "` WHERE `station_name` = '" . $escCand . "' LIMIT 1"];
+            $queries[] = ["table" => $table_name, "sql" => "SELECT * FROM `" . $mysqli->real_escape_string($table_name) . "` WHERE `station_name` LIKE '" . $escCand . "%' LIMIT 1"];
+            if ($alt_table) {
+                $queries[] = ["table" => $alt_table, "sql" => "SELECT * FROM `" . $mysqli->real_escape_string($alt_table) . "` WHERE `station_name` = '" . $escCand . "' LIMIT 1"];
+                $queries[] = ["table" => $alt_table, "sql" => "SELECT * FROM `" . $mysqli->real_escape_string($alt_table) . "` WHERE `station_name` LIKE '" . $escCand . "%' LIMIT 1"];
+            }
+        }
+    }
+    foreach ($queries as $q) {
+        cert_log('getStationDetails:try_sql', ['table' => $q['table'], 'sql' => $q['sql']]);
+        $result = $mysqli->query($q['sql']);
+        if ($result && $result->num_rows > 0) {
+            $details = $result->fetch_assoc();
+            cert_log('getStationDetails:found', ['table' => $q['table'], 'keys' => array_keys($details)]);
+            break;
+        }
+    }
+    if (!$details) {
+        error_log("No details found after fallbacks for identifier '" . (string)$station_identifier . "' (name: '" . (string)$station_name . "') across tables [$table_name" . ($alt_table ? ", $alt_table" : "") . "]");
     }
 
-    $result->free();
+    if (isset($result) && $result instanceof mysqli_result) {
+        $result->free();
+    }
     $mysqli->close();
     return $details;
 }
@@ -390,37 +447,47 @@ function drawHorizontalCaapData(FPDF $pdf, $stationData, $isCaap) {
     $pdf->Cell($totalWidth, $headerLineHeight, 'PRS92 Coordinates', $border, 1, 'C', true);
     $pdf->SetX(15);
     
-    $latitudeDMS = '';
-    if ($stationData['latitude_degrees'] !== null && $stationData['latitude_minutes'] !== null && $stationData['latitude_seconds'] !== null) {
+    // Prefer preformatted DMS when available in new schema; otherwise compose from components
+    $latitudeDMS = $stationData['latitude_prs92_dms'] ?? '';
+    if (!$latitudeDMS && isset($stationData['latitude_degrees'], $stationData['latitude_minutes'], $stationData['latitude_seconds'])) {
         $latitudeDMS = $stationData['latitude_degrees'] . utf8_decode('°') . ' ' . $stationData['latitude_minutes'] . '\'' . ' ' . $stationData['latitude_seconds'] . '" N';
     }
     
-    $longitudeDMS = '';
-    if ($stationData['longitude_degrees'] !== null && $stationData['longitude_minutes'] !== null && $stationData['longitude_seconds'] !== null) {
+    $longitudeDMS = $stationData['longitude_prs92_dms'] ?? '';
+    if (!$longitudeDMS && isset($stationData['longitude_degrees'], $stationData['longitude_minutes'], $stationData['longitude_seconds'])) {
         $longitudeDMS = $stationData['longitude_degrees'] . utf8_decode('°') . ' ' . $stationData['longitude_minutes'] . '\'' . ' ' . $stationData['longitude_seconds'] . '" E';
     }
     
     drawStyledLabelValueCell($pdf, 'Latitude', $latitudeDMS, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
     drawStyledLabelValueCell($pdf, 'Longitude', $longitudeDMS, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
-    drawStyledLabelValueCell($pdf, 'Ellipsoidal Height', $stationData['ellipsoidal_height'] ?? null, $colWidthThird, $dataLineHeight, $border, ' m', 'L', false, true);
+    // Ellipsoidal Height (prefer PRS92 new schema field)
+    $ellipHgt = $stationData['ellipsoidal_ht_prs92'] ?? ($stationData['ellipsoidal_ht_wgs84'] ?? ($stationData['ellipsoidal_height'] ?? null));
+    drawStyledLabelValueCell($pdf, 'Ellipsoidal Height', $ellipHgt, $colWidthThird, $dataLineHeight, $border, ' m', 'L', false, true);
 
     // --- PTM / PRS92 (NOT Grayed out, Centered) ---
     $pdf->SetX(15);
     $pdf->SetFont('Arial', 'B', $headerFontSize);
     $pdf->Cell($totalWidth, $headerLineHeight, 'PTM / PRS92', $border, 1, 'C', false); 
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Northing', $stationData['utm_northing'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
-    drawStyledLabelValueCell($pdf, 'Easting', $stationData['utm_easting'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
-    drawStyledLabelValueCell($pdf, 'Zone', $stationData['utm_zone'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
+    // PTM/PRS92 values
+    $ptmNorth = $stationData['northing_ptm'] ?? ($stationData['utm_northing'] ?? null);
+    $ptmEast = $stationData['easting_ptm'] ?? ($stationData['utm_easting'] ?? null);
+    $ptmZone = $stationData['ptm_zone'] ?? ($stationData['utm_zone'] ?? null);
+    drawStyledLabelValueCell($pdf, 'Northing', $ptmNorth, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
+    drawStyledLabelValueCell($pdf, 'Easting', $ptmEast, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
+    drawStyledLabelValueCell($pdf, 'Zone', $ptmZone, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
 
     // --- UTM / PRS92 (NOT Grayed out, Centered) ---
     $pdf->SetX(15);
     $pdf->SetFont('Arial', 'B', $headerFontSize);
     $pdf->Cell($totalWidth, $headerLineHeight, 'UTM / PRS92', $border, 1, 'C', false); 
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Northing', $stationData['utm_y'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
-    drawStyledLabelValueCell($pdf, 'Easting', $stationData['utm_x'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
-    drawStyledLabelValueCell($pdf, 'Zone', $stationData['utm_zone_alt'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
+    $prsNorth = $stationData['utm_y_prs92'] ?? ($stationData['utm_y'] ?? null);
+    $prsEast = $stationData['utm_x_prs92'] ?? ($stationData['utm_x'] ?? null);
+    $prsZone = $stationData['utm_zone_prs92'] ?? ($stationData['utm_zone_alt'] ?? null);
+    drawStyledLabelValueCell($pdf, 'Northing', $prsNorth, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
+    drawStyledLabelValueCell($pdf, 'Easting', $prsEast, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
+    drawStyledLabelValueCell($pdf, 'Zone', $prsZone, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
     
     // --- WGS84 Coordinates (Grayed out, Centered) ---
     $pdf->SetX(15);
@@ -429,19 +496,13 @@ function drawHorizontalCaapData(FPDF $pdf, $stationData, $isCaap) {
     $pdf->Cell($totalWidth, $headerLineHeight, 'WGS84 Coordinates', $border, 1, 'C', true); 
     $pdf->SetX(15);
     
-    $wgs84LatDMS = '';
-    if ($stationData['wgs84_north_degrees'] !== null && $stationData['wgs84_north_minutes'] !== null && $stationData['wgs84_north_seconds'] !== null) {
-        $wgs84LatDMS = $stationData['wgs84_north_degrees'] . utf8_decode('°') . ' ' . $stationData['wgs84_north_minutes'] . '\'' . ' ' . $stationData['wgs84_north_seconds'] . '" N';
-    }
-    
-    $wgs84LonDMS = '';
-    if ($stationData['wgs84_east_degrees'] !== null && $stationData['wgs84_east_minutes'] !== null && $stationData['wgs84_east_seconds'] !== null) {
-        $wgs84LonDMS = $stationData['wgs84_east_degrees'] . utf8_decode('°') . ' ' . $stationData['wgs84_east_minutes'] . '\'' . ' ' . $stationData['wgs84_east_seconds'] . '" E';
-    }
+    $wgs84LatDMS = $stationData['latitude_wgs84_dms'] ?? '';
+    $wgs84LonDMS = $stationData['longitude_wgs84_dms'] ?? '';
     
     drawStyledLabelValueCell($pdf, 'Latitude', $wgs84LatDMS, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
     drawStyledLabelValueCell($pdf, 'Longitude', $wgs84LonDMS, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
-    drawStyledLabelValueCell($pdf, 'Ellip. Height', $stationData['itrf_ell_hgt'] ?? null, $colWidthThird, $dataLineHeight, $border, ' m', 'L', false, true);
+    $wgsEllip = $stationData['ellipsoidal_ht_wgs84'] ?? ($stationData['ellipsoidal_ht_itrf'] ?? null);
+    drawStyledLabelValueCell($pdf, 'Ellip. Height', $wgsEllip, $colWidthThird, $dataLineHeight, $border, ' m', 'L', false, true);
 
     // --- Error Ellipse (NOT Bold, Centered) ---
     $pdf->SetX(15);
@@ -632,6 +693,10 @@ function drawGravityData(FPDF $pdf, $stationData) {
  * @return array ['status' => 'success'|'error', 'message' => string, 'filepath' => string|null]
  */
 function generateAndSaveCertificate($db, $transaction_code, $request_id) {
+    cert_log('generateAndSaveCertificate:start', [
+        'transaction_code' => $transaction_code,
+        'request_id' => $request_id
+    ]);
     $outputDir = __DIR__ . '/assets/preprocessed_certs/'; // Ensure this is correct relative to this script.
     if (!is_dir($outputDir)) {
         if (!mkdir($outputDir, 0775, true)) {
@@ -685,6 +750,7 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
     $stmt->execute();
     $request_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    cert_log('generateAndSaveCertificate:request_items_count', ['count' => count($request_items)]);
     if (empty($request_items)) {
         error_log("No request items found for request_id: $request_id, transaction_code: $transaction_code");
         return ['status' => 'error', 'message' => 'No station items found for this request.', 'filepath' => null];
@@ -703,7 +769,9 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
         // Use FPDF directly, FPDI is not needed for placing a simple image background here.
         $pdf = new FPDF('P', 'mm', 'A4');
 
+        $idx = 0;
         foreach ($request_items as $item) {
+            $idx++;
             $pdf->AddPage();
             
             $pdf->Image($letterheadImage, 0, 0, 210, 297, 'PNG');
@@ -712,7 +780,14 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
             // Transaction code, requesting party, etc. are passed but won't be used by the new header.
             drawCertificateHeaderContent($pdf, $transaction_code, $requestingParty, $purposeForCert, $orNumberForCert, $certificateDate);
 
-            $stationData = getStationDetails($item['station_id'], $item['station_type']);
+            $station_identifier = isset($item['station_id']) ? $item['station_id'] : (isset($item['id']) ? $item['id'] : null);
+            cert_log('generateAndSaveCertificate:item', [
+                'index' => $idx,
+                'station_identifier' => $station_identifier,
+                'station_name' => $item['station_name'] ?? null,
+                'station_type' => $item['station_type'] ?? null
+            ]);
+            $stationData = getStationDetails($station_identifier, $item['station_name'], $item['station_type']);
             
             // QR Code generation logic removed
             // $qrCodePath = null; // No QR code path
@@ -723,7 +798,8 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
                     $qrData = "99" . $request_date_for_qr . str_replace(' ', '', $item['station_name']); // Remove spaces from station name for QR data
                     
                     // Sanitize station_id and station_name for filename
-                    $safe_station_id = preg_replace('/[^a-zA-Z0-9_-]/', '_', $item['station_id']);
+                    $safe_station_id_src = isset($item['station_id']) ? $item['station_id'] : (isset($item['id']) ? (string)$item['id'] : 'unknown');
+                    $safe_station_id = preg_replace('/[^a-zA-Z0-9_-]/', '_', $safe_station_id_src);
                     $safe_station_name = preg_replace('/[^a-zA-Z0-9_-]/', '_', $item['station_name']);
                     $qrFilename = $transaction_code . '_' . $safe_station_id . '_' . $safe_station_name . '_qr.png';
                     $currentQrPath = $qrOutputDir . $qrFilename;
@@ -747,7 +823,8 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
                         error_log("Failed to save QR Code to: " . $currentQrPath);
                     }
                 } catch (Exception $qrE) {
-                    error_log("QR Code generation failed for station {$item['station_id']}: " . $qrE->getMessage());
+                    $log_id = isset($item['station_id']) ? $item['station_id'] : (isset($item['id']) ? (string)$item['id'] : 'unknown');
+                    error_log("QR Code generation failed for station {$log_id}: " . $qrE->getMessage());
                 }
             } else {
                 if (!class_exists(Builder::class)) {
@@ -764,10 +841,12 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
                 $pdf->SetX(15);
                 $pdf->SetFont('Arial','B',10);
                 $pdf->SetTextColor(255,0,0);
-                $pdf->Cell(180,10, "Error: Detailed data for {$item['station_name']} ({$item['station_id']}) not retrieved.", 0, 1, 'C');
+                $err_id = isset($item['station_id']) ? $item['station_id'] : (isset($item['id']) ? (string)$item['id'] : 'unknown');
+                $pdf->Cell(180,10, "Error: Detailed data for {$item['station_name']} ({$err_id}) not retrieved.", 0, 1, 'C');
                 $pdf->SetTextColor(0,0,0);
                 // Call footer even if station data fails, passing necessary details
                 drawCertificateFooterContent($pdf, $transaction_code, $requestingParty, $purposeForCert, $orNumberForCert, $qrCodePath); // $qrCodePath will be null
+                cert_log('generateAndSaveCertificate:item_station_lookup_failed', ['index' => $idx, 'id' => $err_id]);
                 continue; 
             }
             
@@ -789,6 +868,12 @@ function generateAndSaveCertificate($db, $transaction_code, $request_id) {
         }
 
         $pdf->Output('F', $filepath); 
+        if (file_exists($filepath)) {
+            cert_log('generateAndSaveCertificate:pdf_saved', [
+                'path' => $filepath,
+                'size' => filesize($filepath)
+            ]);
+        }
 
         // Cleanup temporary QR files removed
         // foreach ($tempQrFiles as $tempFile) { ... }

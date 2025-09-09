@@ -1,8 +1,20 @@
-# GNIS API Documentation
+# GNIS API Index
 
-## Overview
+This page is an index. Detailed endpoint docs are in `api_documentation/`:
 
-The GNIS API provides endpoints for accessing and managing geodetic control point data. All endpoints return JSON responses and follow RESTful conventions. The API is split into several main sections: the public API (`api.php`), the admin API (`gcp_admin_api.php`), the users API (`users_api.php`), and the new tickets API (`tickets_api.php`).
+- Public API: see `api_documentation/api_documentation.md`
+- Admin API: see `api_documentation/gcp_admin_api_documentation.md`
+- Users API: see `api_documentation/users_api_documentation.md`
+- Requests API: see `api_documentation/requests_api_documentation.md`
+- Transactions API: see `api_documentation/transactions_api_documentation.md`
+- Cart API: see `api_documentation/cart_api_documentation.md`
+- Certificates API: see `api_documentation/certificates_api_documentation.md`
+
+Notes:
+- Protected endpoints use JWT Bearer tokens in the `Authorization` header.
+- Response shape is generally `{ status, message, data? }`.
+
+Last Updated: May 1, 2025
 
 ## Base URLs
 

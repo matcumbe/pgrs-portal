@@ -4,11 +4,9 @@
 
 WebGNIS (Geodetic Network Information System) is a web-based application for viewing, exploring, and managing geodetic control points. The system provides a user-friendly interface for searching, filtering, and visualizing geodetic stations across the Philippines.
 
-<<<<<<< HEAD
-## Key Features
-=======
 ![WebGNIS Logo](../Assets/gnis_logo.png)
->>>>>>> 88ef3e5ab7d31f85435027343a539ba89e703feb
+
+## Key Features
 
 - **Interactive Map:** View all geodetic control points on an interactive map.
 - **Advanced Filtering:** Filter stations by various criteria (type, location, order, etc.).
@@ -76,6 +74,7 @@ Refer to [INSTALLATION_GUIDE.md](./INSTALLATION_GUIDE.md) for detailed setup ins
 - [Architecture](./ARCHITECTURE.md) - System architecture overview
 - [API Documentation](./API.md) - API endpoint details
 - [Database Schema](./DATABASE.md) - Database structure
+- [Components Index](./components-index.md) - Key components overview
 
 ## License
 
@@ -88,9 +87,5 @@ For further information, contact the development team at:
 - Phone: +63 123 456 7890
 
 ## Last Updated
-<<<<<<< HEAD
 
 May 1, 2025 
-=======
-April 20, 2025 
->>>>>>> 88ef3e5ab7d31f85435027343a539ba89e703feb
