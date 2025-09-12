@@ -425,10 +425,10 @@ function drawHorizontalCaapData(FPDF $pdf, $stationData, $isCaap) {
     // --- Grid: Order | Accuracy Class | Elevation ---
     $colWidthThird = $totalWidth / 3; 
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Order', $stationData['horizontal_order'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
+    drawStyledLabelValueCell($pdf, 'Order', $stationData['order_of_accuracy_wgs84'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
     drawStyledLabelValueCell($pdf, 'Accuracy Class', $stationData['accuracy_class'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
     if ($isCaap) {
-        $elevation = utf8_decode($stationData['ApprovedBy']) ?? 'N/A';    
+        $elevation = utf8_decode($stationData['egm2008_elevation']) ?? 'N/A';    
         drawStyledLabelValueCell($pdf, 'Elevation', $elevation, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
     } else {
         drawStyledLabelValueCell($pdf, 'Elevation', ' ', $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
@@ -438,7 +438,7 @@ function drawHorizontalCaapData(FPDF $pdf, $stationData, $isCaap) {
     $pdf->SetX(15);
     drawStyledLabelValueCell($pdf, 'Island', $stationData['island_group'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
     drawStyledLabelValueCell($pdf, 'Barangay', $stationData['barangay'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
-    drawStyledLabelValueCell($pdf, 'Municipality', $stationData['city'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
+    drawStyledLabelValueCell($pdf, 'Municipality', $stationData['city_or_municipality'] ?? null, $colWidthThird, $dataLineHeight, $border, '', 'L', false, true);
 
     // --- PRS92 Coordinates (Grayed out, Centered) ---
     $pdf->SetX(15);
@@ -448,14 +448,14 @@ function drawHorizontalCaapData(FPDF $pdf, $stationData, $isCaap) {
     $pdf->SetX(15);
     
     // Prefer preformatted DMS when available in new schema; otherwise compose from components
-    $latitudeDMS = $stationData['latitude_prs92_dms'] ?? '';
+    $latitudeDMS = utf8_decode($stationData['latitude_prs92_dms']) ?? '';
     if (!$latitudeDMS && isset($stationData['latitude_degrees'], $stationData['latitude_minutes'], $stationData['latitude_seconds'])) {
-        $latitudeDMS = $stationData['latitude_degrees'] . utf8_decode('°') . ' ' . $stationData['latitude_minutes'] . '\'' . ' ' . $stationData['latitude_seconds'] . '" N';
+        $latitudeDMS = $stationData['latitude_degrees'] . '°' . ' ' . $stationData['latitude_minutes'] . '\'' . ' ' . $stationData['latitude_seconds'] . '" N';
     }
     
-    $longitudeDMS = $stationData['longitude_prs92_dms'] ?? '';
+    $longitudeDMS = utf8_decode($stationData['longitude_prs92_dms']) ?? '';
     if (!$longitudeDMS && isset($stationData['longitude_degrees'], $stationData['longitude_minutes'], $stationData['longitude_seconds'])) {
-        $longitudeDMS = $stationData['longitude_degrees'] . utf8_decode('°') . ' ' . $stationData['longitude_minutes'] . '\'' . ' ' . $stationData['longitude_seconds'] . '" E';
+        $longitudeDMS = $stationData['longitude_degrees'] . '°' . ' ' . $stationData['longitude_minutes'] . '\'' . ' ' . $stationData['longitude_seconds'] . '" E';
     }
     
     drawStyledLabelValueCell($pdf, 'Latitude', $latitudeDMS, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
@@ -496,8 +496,8 @@ function drawHorizontalCaapData(FPDF $pdf, $stationData, $isCaap) {
     $pdf->Cell($totalWidth, $headerLineHeight, 'WGS84 Coordinates', $border, 1, 'C', true); 
     $pdf->SetX(15);
     
-    $wgs84LatDMS = $stationData['latitude_wgs84_dms'] ?? '';
-    $wgs84LonDMS = $stationData['longitude_wgs84_dms'] ?? '';
+    $wgs84LatDMS = utf8_decode($stationData['latitude_wgs84_dms']) ?? '';
+    $wgs84LonDMS = utf8_decode($stationData['longitude_wgs84_dms']) ?? '';
     
     drawStyledLabelValueCell($pdf, 'Latitude', $wgs84LatDMS, $colWidthThird, $dataLineHeight, $border, '', 'L', false, false);
     drawStyledLabelValueCell($pdf, 'Longitude', $wgs84LonDMS, $colWidthThird, $dataLineHeight, $border, '', 'C', false, false);
@@ -556,32 +556,16 @@ function drawVerticalData(FPDF $pdf, $stationData) {
     $pdf->SetX(15);
     drawStyledLabelValueCell($pdf, 'Barangay', $stationData['barangay'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, false);
     // Assuming 'city' maps to Municipality as in horizontal
-    drawStyledLabelValueCell($pdf, 'Municipality', $stationData['city'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
+    drawStyledLabelValueCell($pdf, 'Municipality', $stationData['city_or_municipality'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
 
     // --- Elevation | Accuracy Class ---
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Elevation', $stationData['elevation'] ?? null, $halfWidth, $dataLineHeight, $border, ' m', 'L', false, false);
+    drawStyledLabelValueCell($pdf, 'Elevation', $stationData['elevation_m'] ?? null, $halfWidth, $dataLineHeight, $border, ' m', 'L', false, false);
     drawStyledLabelValueCell($pdf, 'Accuracy Class', $stationData['accuracy_class'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
-
-    if (isset($stationData['lon']) && is_string($stationData['lon'])) {
-        $lonParts = explode(' ', trim($stationData['lon']));
-        $lonDeg = $lonParts[0] ?? 'N/A';
-        $lonMin = $lonParts[1] ?? '';
-        $lonSec = isset($lonParts[2]) ? sprintf('%.2F', $lonParts[2]) : '';
-    }
-    $lonDMS = $lonDeg . utf8_decode('°') . ' ' . $lonMin . '\'' . ' ' . $lonSec . '" E';
-
-    if (isset($stationData['lat']) && is_string($stationData['lat'])) {
-        $latParts = explode(' ', trim($stationData['lat']));
-        $latDeg = $latParts[0] ?? 'N/A';
-        $latMin = $latParts[1] ?? '';
-        $lonSec = isset($lonParts[2]) ? sprintf('%.2F', $lonParts[2]) : '';
-    }
-    $latDMS = $latDeg . utf8_decode('°') . ' ' . $latMin . '\'' . ' ' . $latSec . '" N';
         
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Longitude', $lonDMS, $halfWidth, $dataLineHeight, $border, '', 'L', false, false);
-    drawStyledLabelValueCell($pdf, 'Latitude', $latDMS, $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
+    drawStyledLabelValueCell($pdf, 'Longitude', utf8_decode($station_data['longitude_dms']), $halfWidth, $dataLineHeight, $border, '', 'L', false, false);
+    drawStyledLabelValueCell($pdf, 'Latitude', utf8_decode($station_data['latitude_dms']), $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
 
     // --- Station Mark Description ---
     $pdf->SetX(15);
@@ -634,7 +618,7 @@ function drawGravityData(FPDF $pdf, $stationData) {
 
     // --- Municipality | Barangay ---
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Municipality', $stationData['city'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, false); // city field for Municipality
+    drawStyledLabelValueCell($pdf, 'Municipality', $stationData['city_or_municipality'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, false); // city field for Municipality
     drawStyledLabelValueCell($pdf, 'Barangay', $stationData['barangay'] ?? null, $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
 
     // --- WGS84 Coordinates (Header) ---
@@ -649,8 +633,8 @@ function drawGravityData(FPDF $pdf, $stationData) {
     // e.g., $stationData['wgs84_longitude_dms'] and $stationData['wgs84_latitude_dms']
     // If these fields are not populated by getStationDetails for gravity, this will show N/A or empty.
     $pdf->SetX(15);
-    drawStyledLabelValueCell($pdf, 'Longitude', $stationData['longitude'] ?? 'N/A', $halfWidth, $dataLineHeight, $border, '', 'L', false, false);
-    drawStyledLabelValueCell($pdf, 'Latitude', $stationData['latitude'] ?? 'N/A', $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
+    drawStyledLabelValueCell($pdf, 'Longitude', $stationData['longitude_dms'] ?? 'N/A', $halfWidth, $dataLineHeight, $border, '', 'L', false, false);
+    drawStyledLabelValueCell($pdf, 'Latitude', $stationData['latitude_dms'] ?? 'N/A', $halfWidth, $dataLineHeight, $border, '', 'L', false, true);
 
     // --- <EMPTY> | Observed Value ---
     $pdf->SetX(15);

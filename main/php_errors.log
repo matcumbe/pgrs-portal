@@ -1209,3 +1209,1440 @@
 [09-Sep-2025 19:10:51 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
 [09-Sep-2025 19:10:51 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
 [09-Sep-2025 19:10:51 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[09-Sep-2025 22:09:57 Asia/Manila] API Route: api/locations
+[09-Sep-2025 22:09:57 Asia/Manila] Executing getLocationsTree
+[09-Sep-2025 22:09:57 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[09-Sep-2025 16:09:57 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:09:57 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:09:57 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[09-Sep-2025 16:09:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:09:58 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[09-Sep-2025 16:09:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:09:58 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[09-Sep-2025 16:09:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:09:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:09:58 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] Starting cart sync for user_id: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] Starting cart sync for user_id: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[09-Sep-2025 16:09:58 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[09-Sep-2025 16:09:58 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[09-Sep-2025 22:10:15 Asia/Manila] API Route: api/search/stations
+[09-Sep-2025 22:10:20 Asia/Manila] API Route: api/search/stations
+[09-Sep-2025 16:12:07 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 11015
+    [station_type] => horizontal
+    [station_name] => MMA-4044 (BBM-18)
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[09-Sep-2025 16:12:07 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:12:07 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:12:07 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[09-Sep-2025 16:12:07 Europe/Berlin] Found existing user cart ID: 11
+[09-Sep-2025 16:12:07 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 11015, station_name: MMA-4044 (BBM-18), station_type: horizontal
+[09-Sep-2025 16:12:09 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 10418
+    [station_type] => horizontal
+    [station_name] => MMA-3047
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[09-Sep-2025 16:12:09 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:12:09 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:12:09 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[09-Sep-2025 16:12:09 Europe/Berlin] Found existing user cart ID: 11
+[09-Sep-2025 16:12:09 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 10418, station_name: MMA-3047, station_type: horizontal
+[09-Sep-2025 16:12:14 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 11014
+    [station_type] => horizontal
+    [station_name] => MMA-4043 (BBM-16)
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[09-Sep-2025 16:12:14 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[09-Sep-2025 16:12:14 Europe/Berlin] Token belongs to user_id: 1
+[09-Sep-2025 16:12:14 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[09-Sep-2025 16:12:14 Europe/Berlin] Found existing user cart ID: 11
+[09-Sep-2025 16:12:14 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 11014, station_name: MMA-4043 (BBM-16), station_type: horizontal
+[12-Sep-2025 12:08:58 Europe/Berlin] No authentication token provided in request
+[12-Sep-2025 18:08:58 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:08:58 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:08:58 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 18:10:47 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:11:14 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1190
+    [station_type] => horizontal
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:11:14 Europe/Berlin] No authentication token provided in request
+[12-Sep-2025 12:11:14 Europe/Berlin] Getting cart for user_id: NULL, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:11:14 Europe/Berlin] Creating new guest cart for session: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:11:14 Europe/Berlin] Created new guest cart ID: 16
+[12-Sep-2025 12:11:14 Europe/Berlin] Executing INSERT for cart_item with cart_id: 16, station_id: 1190, station_name: MMA-3241, station_type: horizontal
+[12-Sep-2025 12:12:58 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:12:58 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:12:58 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 387
+            [station_id] => 11014
+            [station_name] => MMA-4043 (BBM-16)
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:14
+        )
+
+    [1] => Array
+        (
+            [item_id] => 386
+            [station_id] => 10418
+            [station_name] => MMA-3047
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:09
+        )
+
+    [2] => Array
+        (
+            [item_id] => 385
+            [station_id] => 11015
+            [station_name] => MMA-4044 (BBM-18)
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:07
+        )
+
+)
+
+[12-Sep-2025 12:12:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:12:59 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:12:59 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 387
+            [station_id] => 11014
+            [station_name] => MMA-4043 (BBM-16)
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:14
+        )
+
+    [1] => Array
+        (
+            [item_id] => 386
+            [station_id] => 10418
+            [station_name] => MMA-3047
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:09
+        )
+
+    [2] => Array
+        (
+            [item_id] => 385
+            [station_id] => 11015
+            [station_name] => MMA-4044 (BBM-18)
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:07
+        )
+
+)
+
+[12-Sep-2025 18:12:59 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:12:59 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:12:59 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 12:12:59 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:12:59 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:12:59 Europe/Berlin] getCartItems raw fetched items: Array
+(
+    [0] => Array
+        (
+            [item_id] => 387
+            [station_id] => 11014
+            [station_name] => MMA-4043 (BBM-16)
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:14
+        )
+
+    [1] => Array
+        (
+            [item_id] => 386
+            [station_id] => 10418
+            [station_name] => MMA-3047
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:09
+        )
+
+    [2] => Array
+        (
+            [item_id] => 385
+            [station_id] => 11015
+            [station_name] => MMA-4044 (BBM-18)
+            [station_type] => horizontal
+            [added_at] => 2025-09-09 10:12:07
+        )
+
+)
+
+[12-Sep-2025 12:13:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:00 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:13:00 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:13:00 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:13:00 Europe/Berlin] Found guest cart ID: 16
+[12-Sep-2025 12:13:00 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:13:00 Europe/Berlin] Found 1 items to sync from guest cart to user cart
+[12-Sep-2025 12:13:00 Europe/Berlin] Added item: 1190 (type: horizontal) to user cart
+[12-Sep-2025 12:13:00 Europe/Berlin] Deleted items from guest cart ID: 16
+[12-Sep-2025 12:13:00 Europe/Berlin] Deleted guest cart ID: 16
+[12-Sep-2025 12:13:00 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:00 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:13:00 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:13:00 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:13:00 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:13:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:01 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:13:01 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:01 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:13:02 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:02 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 18:13:12 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:13:47 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 10560
+    [station_type] => horizontal
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:13:47 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:47 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:13:47 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:13:47 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:13:47 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 10560, station_name: MMA-3241, station_type: horizontal
+[12-Sep-2025 12:13:49 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1190
+    [station_type] => horizontal
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:13:49 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:13:49 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:13:49 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:13:49 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 18:13:56 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 18:14:02 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:14:28 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 11432
+    [station_type] => horizontal
+    [station_name] => MMA-5108 (BBM-356)
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:14:28 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:14:28 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:14:28 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:14:28 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:14:28 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 11432, station_name: MMA-5108 (BBM-356), station_type: horizontal
+[12-Sep-2025 18:14:44 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:14:44 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:14:44 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:14:44 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:14:44 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[12-Sep-2025 18:14:44 Asia/Manila] Full token object: (object) array(
+   'iat' => 1757671978,
+   'exp' => 1757758378,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[12-Sep-2025 18:14:44 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 10560
+                    [station_name] => MMA-3241
+                    [station_type] => horizontal
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 1190
+                    [station_name] => MMA-3241
+                    [station_type] => horizontal
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 11432
+                    [station_name] => MMA-5108 (BBM-356)
+                    [station_type] => horizontal
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[12-Sep-2025 18:14:44 Asia/Manila] Generated transaction code: CSUMGB-20250912-1-001 for user_id: 1
+[12-Sep-2025 18:14:44 Asia/Manila] Inserted request with ID: 121, user_id: 1, transaction_code: CSUMGB-20250912-1-001
+[12-Sep-2025 18:14:44 Asia/Manila] [createRequest] DB Insert Values: ID='10560', Name='MMA-3241', Type='horizontal', Price='360'
+[12-Sep-2025 18:14:44 Asia/Manila] [createRequest] DB Insert Values: ID='1190', Name='MMA-3241', Type='horizontal', Price='360'
+[12-Sep-2025 18:14:44 Asia/Manila] [createRequest] DB Insert Values: ID='11432', Name='MMA-5108 (BBM-356)', Type='horizontal', Price='360'
+[12-Sep-2025 18:14:44 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[12-Sep-2025 18:14:44 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 3
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] uploadPaymentProof called with POST data: Array
+(
+    [request_id] => 121
+    [paid_amount] => 1080.00
+    [payment_method] => 1
+    [reference_number] => aa
+)
+
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] Files data: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Marc payment August.pdf
+            [full_path] => Marc payment August.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\phpD8E5.tmp
+            [error] => 0
+            [size] => 79727
+        )
+
+)
+
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] Parsed values - requestId: 121, paidAmount: 1080, paymentMethodId: 1, referenceNumber: aa
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] _handleGCSUpload called with baseFileName: 121
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] GCS_BUCKET_NAME not set, using default
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] Generated filename: payment_proofs/payment_proof_121_68c3f294a5067.pdf
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] Attempting to upload file to storage
+[12-Sep-2025 18:14:44 Asia/Manila] GCS credentials not found, using local storage
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] Upload successful, URL: assets/payment_proofs/payment_proof_121_68c3f294a5067.pdf
+[12-Sep-2025 18:14:44 Asia/Manila] [DEBUG] File uploaded successfully. URL: assets/payment_proofs/payment_proof_121_68c3f294a5067.pdf
+[12-Sep-2025 18:14:49 Asia/Manila] [2025-09-12 18:14:49] getAllPayments called by user_id: 1
+[12-Sep-2025 18:14:49 Asia/Manila] [2025-09-12 18:14:49] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:14:49 Asia/Manila] [2025-09-12 18:14:49] Found 10 transactions
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 18:14:53 Asia/Manila] [CONFIG] Database connection successful
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:14:53 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:14:53 Asia/Manila] [2025-09-12 18:14:53] Updating transaction ID: 72 with data: Array
+(
+    [status] => approved
+    [verified] => 1
+    [verified_by] => 1
+    [verified_date] => 2025-09-12 10:14:53
+)
+
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-001","request_id":"121"}
+[12-Sep-2025 18:14:53 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:14:53 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:14:53 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":3}
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10560 LIMIT 1"}
+[12-Sep-2025 18:14:53 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 1190 LIMIT 1"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":3,"station_identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 11432 LIMIT 1"}
+[12-Sep-2025 18:14:54 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-001.pdf","size":474014}
+[12-Sep-2025 18:14:55 Asia/Manila] [INFO] Certificate generated successfully for transaction: CSUMGB-20250912-1-001 at C:\projects\pgrs\main/assets/preprocessed_certs/CSUMGB-20250912-1-001.pdf. Filename: CSUMGB-20250912-1-001.pdf
+[12-Sep-2025 18:14:55 Asia/Manila] [INFO] Certificate record INSERTED for transaction_code CSUMGB-20250912-1-001 with filename CSUMGB-20250912-1-001.pdf
+[12-Sep-2025 12:14:55 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:14:55 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:14:55 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:14:55 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:14:55 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:14:55 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:14:55 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:14:55 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] request:start | {"action":"generate","method":"POST"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","Content-Length","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","Content-Type","sec-ch-ua-mobile","Accept","Origin","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] generate:payload | {"transaction_code":"CSUMGB-20250912-1-001"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] generate:transaction_lookup | {"transaction_id":72,"request_id":121}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] generate:call_generator
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-001","request_id":121}
+[12-Sep-2025 18:14:55 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:14:55 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:14:55 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":3}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10560 LIMIT 1"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 1190 LIMIT 1"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":3,"station_identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 11432 LIMIT 1"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-001.pdf","size":474014}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] generate:generator_result | {"status":"success","message":"Certificate generated successfully.","filepath":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-001.pdf"}
+[12-Sep-2025 18:14:55 Asia/Manila] [CERT_API] generate:cert_update | {"ok":true}
+[12-Sep-2025 18:14:55 Asia/Manila] [2025-09-12 18:14:55] getAllPayments called by user_id: 1
+[12-Sep-2025 18:14:55 Asia/Manila] [2025-09-12 18:14:55] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:14:55 Asia/Manila] [2025-09-12 18:14:55] Found 10 transactions
+[12-Sep-2025 18:14:57 Asia/Manila] [2025-09-12 18:14:57] getAllPayments called by user_id: 1
+[12-Sep-2025 18:14:57 Asia/Manila] [2025-09-12 18:14:57] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:14:57 Asia/Manila] [2025-09-12 18:14:57] Found 10 transactions
+[12-Sep-2025 12:14:58 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:14:58 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:14:58 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:14:58 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:14:58 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:14:58 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:14:58 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:14:58 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:14:58 Asia/Manila] [CERT_API] request:start | {"action":"download","method":"GET"}
+[12-Sep-2025 18:14:58 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","sec-ch-ua-mobile","Accept","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:14:58 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:14:58 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:14:58 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 12:25:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:22 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:22 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[12-Sep-2025 18:25:22 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:25:22 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:25:22 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 12:25:22 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:22 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:22 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[12-Sep-2025 12:25:23 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:23 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:23 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:25:23 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:25:23 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:25:23 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:23 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:23 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:25:23 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:25:23 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 18:25:30 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 18:25:38 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:25:42 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1190
+    [station_type] => horizontal
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:25:42 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:42 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:42 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:25:42 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:25:42 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 1190, station_name: MMA-3241, station_type: horizontal
+[12-Sep-2025 12:25:43 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 10560
+    [station_type] => horizontal
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:25:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:43 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:43 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:25:43 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:25:43 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 10560, station_name: MMA-3241, station_type: horizontal
+[12-Sep-2025 18:25:49 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:25:52 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 11432
+    [station_type] => horizontal
+    [station_name] => MMA-5108 (BBM-356)
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:25:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:25:52 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:25:52 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:25:52 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:25:52 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 11432, station_name: MMA-5108 (BBM-356), station_type: horizontal
+[12-Sep-2025 18:26:05 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:26:05 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:26:05 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:26:05 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:26:05 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[12-Sep-2025 18:26:05 Asia/Manila] Full token object: (object) array(
+   'iat' => 1757671978,
+   'exp' => 1757758378,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[12-Sep-2025 18:26:05 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1190
+                    [station_name] => MMA-3241
+                    [station_type] => horizontal
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 10560
+                    [station_name] => MMA-3241
+                    [station_type] => horizontal
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 11432
+                    [station_name] => MMA-5108 (BBM-356)
+                    [station_type] => horizontal
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[12-Sep-2025 18:26:05 Asia/Manila] Generated transaction code: CSUMGB-20250912-1-002 for user_id: 1
+[12-Sep-2025 18:26:05 Asia/Manila] Inserted request with ID: 122, user_id: 1, transaction_code: CSUMGB-20250912-1-002
+[12-Sep-2025 18:26:05 Asia/Manila] [createRequest] DB Insert Values: ID='1190', Name='MMA-3241', Type='horizontal', Price='360'
+[12-Sep-2025 18:26:05 Asia/Manila] [createRequest] DB Insert Values: ID='10560', Name='MMA-3241', Type='horizontal', Price='360'
+[12-Sep-2025 18:26:05 Asia/Manila] [createRequest] DB Insert Values: ID='11432', Name='MMA-5108 (BBM-356)', Type='horizontal', Price='360'
+[12-Sep-2025 18:26:05 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[12-Sep-2025 18:26:05 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 3
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] uploadPaymentProof called with POST data: Array
+(
+    [request_id] => 122
+    [paid_amount] => 1080.00
+    [payment_method] => 1
+    [reference_number] => aa
+)
+
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] Files data: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Sablay 3.png
+            [full_path] => Sablay 3.png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\php3CC0.tmp
+            [error] => 0
+            [size] => 213691
+        )
+
+)
+
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] Parsed values - requestId: 122, paidAmount: 1080, paymentMethodId: 1, referenceNumber: aa
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] _handleGCSUpload called with baseFileName: 122
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] GCS_BUCKET_NAME not set, using default
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] Generated filename: payment_proofs/payment_proof_122_68c3f53d8f35e.png
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] Attempting to upload file to storage
+[12-Sep-2025 18:26:05 Asia/Manila] GCS credentials not found, using local storage
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] Upload successful, URL: assets/payment_proofs/payment_proof_122_68c3f53d8f35e.png
+[12-Sep-2025 18:26:05 Asia/Manila] [DEBUG] File uploaded successfully. URL: assets/payment_proofs/payment_proof_122_68c3f53d8f35e.png
+[12-Sep-2025 18:26:08 Asia/Manila] [2025-09-12 18:26:08] getAllPayments called by user_id: 1
+[12-Sep-2025 18:26:08 Asia/Manila] [2025-09-12 18:26:08] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:26:08 Asia/Manila] [2025-09-12 18:26:08] Found 11 transactions
+[12-Sep-2025 18:26:09 Asia/Manila] [2025-09-12 18:26:09] Fetching transaction ID: 73 from action: view
+[12-Sep-2025 18:26:09 Asia/Manila] [2025-09-12 18:26:09] getTransactionById called with ID: 73
+[12-Sep-2025 18:26:09 Asia/Manila] [2025-09-12 18:26:09] User verified: user_id=1, user_type=admin
+[12-Sep-2025 18:26:09 Asia/Manila] [2025-09-12 18:26:09] Executing query for transaction_id: 73
+[12-Sep-2025 18:26:09 Asia/Manila] [2025-09-12 18:26:09] Found transaction: 73, request_id: 122, user_id: 1
+[12-Sep-2025 18:26:09 Asia/Manila] [2025-09-12 18:26:09] Fetching request ID: 122 from action: view
+[12-Sep-2025 18:26:09 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:26:09 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:26:09 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:26:09 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 18:26:12 Asia/Manila] [CONFIG] Database connection successful
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:26:12 Asia/Manila] [2025-09-12 18:26:12] Updating transaction ID: 73 with data: Array
+(
+    [status] => approved
+    [verified] => 1
+    [verified_by] => 1
+    [verified_date] => 2025-09-12 10:26:12
+)
+
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-002","request_id":"122"}
+[12-Sep-2025 18:26:12 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:26:12 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:26:12 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":3}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 1190 LIMIT 1"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10560 LIMIT 1"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":3,"station_identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 11432 LIMIT 1"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-002.pdf","size":474022}
+[12-Sep-2025 18:26:12 Asia/Manila] [INFO] Certificate generated successfully for transaction: CSUMGB-20250912-1-002 at C:\projects\pgrs\main/assets/preprocessed_certs/CSUMGB-20250912-1-002.pdf. Filename: CSUMGB-20250912-1-002.pdf
+[12-Sep-2025 18:26:12 Asia/Manila] [INFO] Certificate record INSERTED for transaction_code CSUMGB-20250912-1-002 with filename CSUMGB-20250912-1-002.pdf
+[12-Sep-2025 12:26:12 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:26:12 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:26:12 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:26:12 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:26:12 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:26:12 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:26:12 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] request:start | {"action":"generate","method":"POST"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","Content-Length","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","Content-Type","sec-ch-ua-mobile","Accept","Origin","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] generate:payload | {"transaction_code":"CSUMGB-20250912-1-002"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] generate:transaction_lookup | {"transaction_id":73,"request_id":122}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_API] generate:call_generator
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-002","request_id":122}
+[12-Sep-2025 18:26:12 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:26:12 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:26:12 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":3}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1190","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 1190 LIMIT 1"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10560","station_name":"MMA-3241","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10560 LIMIT 1"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":3,"station_identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:26:12 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"horizontal"}
+[12-Sep-2025 18:26:13 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:26:13 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 11432 LIMIT 1"}
+[12-Sep-2025 18:26:13 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:26:13 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-002.pdf","size":474022}
+[12-Sep-2025 18:26:13 Asia/Manila] [CERT_API] generate:generator_result | {"status":"success","message":"Certificate generated successfully.","filepath":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-002.pdf"}
+[12-Sep-2025 18:26:13 Asia/Manila] [CERT_API] generate:cert_update | {"ok":true}
+[12-Sep-2025 18:26:13 Asia/Manila] [2025-09-12 18:26:13] getAllPayments called by user_id: 1
+[12-Sep-2025 18:26:13 Asia/Manila] [2025-09-12 18:26:13] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:26:13 Asia/Manila] [2025-09-12 18:26:13] Found 11 transactions
+[12-Sep-2025 18:26:16 Asia/Manila] [2025-09-12 18:26:16] getAllPayments called by user_id: 1
+[12-Sep-2025 18:26:16 Asia/Manila] [2025-09-12 18:26:16] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:26:16 Asia/Manila] [2025-09-12 18:26:16] Found 11 transactions
+[12-Sep-2025 12:26:17 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:26:17 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:26:17 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:26:17 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:26:17 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:26:17 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:26:17 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:26:17 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:26:17 Asia/Manila] [CERT_API] request:start | {"action":"download","method":"GET"}
+[12-Sep-2025 18:26:17 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","sec-ch-ua-mobile","Accept","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:26:17 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:26:17 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:26:17 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 12:30:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:30:52 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 18:30:52 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:30:52 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 12:30:52 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[12-Sep-2025 18:30:52 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 12:30:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:30:52 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:30:52 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[12-Sep-2025 12:30:52 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:30:52 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:30:52 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:30:52 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:30:52 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:30:53 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:30:53 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:30:53 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:30:53 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:30:53 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 18:30:56 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:31:03 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 10351
+    [station_type] => horizontal
+    [station_name] => MMA-100 (NF-03)
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:31:03 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:31:03 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:31:03 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:31:03 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:31:03 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 10351, station_name: MMA-100 (NF-03), station_type: horizontal
+[12-Sep-2025 18:31:14 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 18:31:22 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:31:22 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:31:22 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM vgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 18:31:34 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:31:39 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1530
+    [station_type] => vertical
+    [station_name] => CP-1004
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:31:39 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:31:39 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:31:39 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:31:39 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:31:39 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 1530, station_name: CP-1004, station_type: vertical
+[12-Sep-2025 18:31:42 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:31:42 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:31:42 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM grav_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 18:31:42 Asia/Manila] Error in getLocationsTree: Unknown column 'city_or_municipality' in 'field list' | SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM grav_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 18:31:49 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:31:49 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:31:49 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM vgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 18:31:50 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:31:50 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:31:50 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 18:31:55 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 18:32:04 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:32:04 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:32:04 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:32:04 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:32:04 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[12-Sep-2025 18:32:04 Asia/Manila] Full token object: (object) array(
+   'iat' => 1757671978,
+   'exp' => 1757758378,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[12-Sep-2025 18:32:04 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 10351
+                    [station_name] => MMA-100 (NF-03)
+                    [station_type] => horizontal
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 1530
+                    [station_name] => CP-1004
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[12-Sep-2025 18:32:04 Asia/Manila] Generated transaction code: CSUMGB-20250912-1-003 for user_id: 1
+[12-Sep-2025 18:32:04 Asia/Manila] Inserted request with ID: 123, user_id: 1, transaction_code: CSUMGB-20250912-1-003
+[12-Sep-2025 18:32:04 Asia/Manila] [createRequest] DB Insert Values: ID='10351', Name='MMA-100 (NF-03)', Type='horizontal', Price='360'
+[12-Sep-2025 18:32:04 Asia/Manila] [createRequest] DB Insert Values: ID='1530', Name='CP-1004', Type='vertical', Price='360'
+[12-Sep-2025 18:32:04 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[12-Sep-2025 18:32:04 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 2
+[12-Sep-2025 18:32:04 Asia/Manila] [DEBUG] uploadPaymentProof called with POST data: Array
+(
+    [request_id] => 123
+    [paid_amount] => 720.00
+    [payment_method] => 1
+    [reference_number] => aa
+)
+
+[12-Sep-2025 18:32:04 Asia/Manila] [DEBUG] Files data: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Tof5_Flt4 - _500365.400_500547_bad_lidar_cliff_corrector.tiff
+            [full_path] => Tof5_Flt4 - _500365.400_500547_bad_lidar_cliff_corrector.tiff
+            [type] => image/tiff
+            [tmp_name] => C:\xampp\tmp\phpB813.tmp
+            [error] => 0
+            [size] => 93008
+        )
+
+)
+
+[12-Sep-2025 18:32:04 Asia/Manila] [DEBUG] Parsed values - requestId: 123, paidAmount: 720, paymentMethodId: 1, referenceNumber: aa
+[12-Sep-2025 18:32:04 Asia/Manila] [ERROR] Invalid file type: image/tiff
+[12-Sep-2025 18:32:14 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:32:14 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:32:14 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:32:14 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:32:14 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[12-Sep-2025 18:32:14 Asia/Manila] Full token object: (object) array(
+   'iat' => 1757671978,
+   'exp' => 1757758378,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[12-Sep-2025 18:32:14 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 10351
+                    [station_name] => MMA-100 (NF-03)
+                    [station_type] => horizontal
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 1530
+                    [station_name] => CP-1004
+                    [station_type] => vertical
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[12-Sep-2025 18:32:14 Asia/Manila] Generated transaction code: CSUMGB-20250912-1-004 for user_id: 1
+[12-Sep-2025 18:32:14 Asia/Manila] Inserted request with ID: 124, user_id: 1, transaction_code: CSUMGB-20250912-1-004
+[12-Sep-2025 18:32:14 Asia/Manila] [createRequest] DB Insert Values: ID='10351', Name='MMA-100 (NF-03)', Type='horizontal', Price='360'
+[12-Sep-2025 18:32:14 Asia/Manila] [createRequest] DB Insert Values: ID='1530', Name='CP-1004', Type='vertical', Price='360'
+[12-Sep-2025 18:32:14 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[12-Sep-2025 18:32:14 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 0
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] uploadPaymentProof called with POST data: Array
+(
+    [request_id] => 124
+    [paid_amount] => 720.00
+    [payment_method] => 1
+    [reference_number] => aa
+)
+
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] Files data: Array
+(
+    [proof_file] => Array
+        (
+            [name] => Upwork PFP (5).png
+            [full_path] => Upwork PFP (5).png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\phpDE59.tmp
+            [error] => 0
+            [size] => 2626960
+        )
+
+)
+
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] Parsed values - requestId: 124, paidAmount: 720, paymentMethodId: 1, referenceNumber: aa
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] _handleGCSUpload called with baseFileName: 124
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] GCS_BUCKET_NAME not set, using default
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] Generated filename: payment_proofs/payment_proof_124_68c3f6ae9e9c0.png
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] Attempting to upload file to storage
+[12-Sep-2025 18:32:14 Asia/Manila] GCS credentials not found, using local storage
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] Upload successful, URL: assets/payment_proofs/payment_proof_124_68c3f6ae9e9c0.png
+[12-Sep-2025 18:32:14 Asia/Manila] [DEBUG] File uploaded successfully. URL: assets/payment_proofs/payment_proof_124_68c3f6ae9e9c0.png
+[12-Sep-2025 18:32:20 Asia/Manila] [2025-09-12 18:32:20] getAllPayments called by user_id: 1
+[12-Sep-2025 18:32:20 Asia/Manila] [2025-09-12 18:32:20] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:32:20 Asia/Manila] [2025-09-12 18:32:20] Found 13 transactions
+[12-Sep-2025 18:32:23 Asia/Manila] [2025-09-12 18:32:23] getAllPayments called by user_id: 1
+[12-Sep-2025 18:32:23 Asia/Manila] [2025-09-12 18:32:23] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:32:23 Asia/Manila] [2025-09-12 18:32:23] Found 13 transactions
+[12-Sep-2025 18:32:25 Asia/Manila] [2025-09-12 18:32:25] Fetching transaction ID: 75 from action: view
+[12-Sep-2025 18:32:25 Asia/Manila] [2025-09-12 18:32:25] getTransactionById called with ID: 75
+[12-Sep-2025 18:32:25 Asia/Manila] [2025-09-12 18:32:25] User verified: user_id=1, user_type=admin
+[12-Sep-2025 18:32:25 Asia/Manila] [2025-09-12 18:32:25] Executing query for transaction_id: 75
+[12-Sep-2025 18:32:25 Asia/Manila] [2025-09-12 18:32:25] Found transaction: 75, request_id: 124, user_id: 1
+[12-Sep-2025 18:32:25 Asia/Manila] [2025-09-12 18:32:25] Fetching request ID: 124 from action: view
+[12-Sep-2025 18:32:25 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:32:25 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:32:25 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:32:25 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 18:32:31 Asia/Manila] [CONFIG] Database connection successful
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:32:31 Asia/Manila] [2025-09-12 18:32:31] Updating transaction ID: 75 with data: Array
+(
+    [status] => approved
+    [verified] => 1
+    [verified_by] => 1
+    [verified_date] => 2025-09-12 10:32:31
+)
+
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-004","request_id":"124"}
+[12-Sep-2025 18:32:31 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:32:31 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:32:31 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":2}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"10351","station_name":"MMA-100 (NF-03)","station_type":"horizontal"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10351","station_name":"MMA-100 (NF-03)","station_type":"horizontal"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10351 LIMIT 1"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"1530","station_name":"CP-1004","station_type":"vertical"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1530","station_name":"CP-1004","station_type":"vertical"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"vgcp_stations"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"vgcp_stations","sql":"SELECT * FROM `vgcp_stations` WHERE `id` = 1530 LIMIT 1"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"vgcp_stations","keys":["id","station_name","elevation_m","datum","reference_tide_station","tidal_series","std_dev","accuracy_class","order_of_accuracy","year_surveyed","fixing_method","year_computed_x","encoder","date_updated","reference_file","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_computed_y"]}
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $lonDeg in C:\projects\pgrs\main\certificate_generator.php on line 572
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $lonMin in C:\projects\pgrs\main\certificate_generator.php on line 572
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $lonSec in C:\projects\pgrs\main\certificate_generator.php on line 572
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $latDeg in C:\projects\pgrs\main\certificate_generator.php on line 580
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $latMin in C:\projects\pgrs\main\certificate_generator.php on line 580
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $latSec in C:\projects\pgrs\main\certificate_generator.php on line 580
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-004.pdf","size":470582}
+[12-Sep-2025 18:32:31 Asia/Manila] [INFO] Certificate generated successfully for transaction: CSUMGB-20250912-1-004 at C:\projects\pgrs\main/assets/preprocessed_certs/CSUMGB-20250912-1-004.pdf. Filename: CSUMGB-20250912-1-004.pdf
+[12-Sep-2025 18:32:31 Asia/Manila] [INFO] Certificate record INSERTED for transaction_code CSUMGB-20250912-1-004 with filename CSUMGB-20250912-1-004.pdf
+[12-Sep-2025 12:32:31 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:32:31 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:32:31 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:32:31 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:32:31 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:32:31 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] request:start | {"action":"generate","method":"POST"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","Content-Length","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","Content-Type","sec-ch-ua-mobile","Accept","Origin","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] generate:payload | {"transaction_code":"CSUMGB-20250912-1-004"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] generate:transaction_lookup | {"transaction_id":75,"request_id":124}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] generate:call_generator
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-004","request_id":124}
+[12-Sep-2025 18:32:31 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:32:31 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:32:31 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":2}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"10351","station_name":"MMA-100 (NF-03)","station_type":"horizontal"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10351","station_name":"MMA-100 (NF-03)","station_type":"horizontal"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10351 LIMIT 1"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"1530","station_name":"CP-1004","station_type":"vertical"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1530","station_name":"CP-1004","station_type":"vertical"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"vgcp_stations"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"vgcp_stations","sql":"SELECT * FROM `vgcp_stations` WHERE `id` = 1530 LIMIT 1"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"vgcp_stations","keys":["id","station_name","elevation_m","datum","reference_tide_station","tidal_series","std_dev","accuracy_class","order_of_accuracy","year_surveyed","fixing_method","year_computed_x","encoder","date_updated","reference_file","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_computed_y"]}
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $lonDeg in C:\projects\pgrs\main\certificate_generator.php on line 572
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $lonMin in C:\projects\pgrs\main\certificate_generator.php on line 572
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $lonSec in C:\projects\pgrs\main\certificate_generator.php on line 572
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $latDeg in C:\projects\pgrs\main\certificate_generator.php on line 580
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $latMin in C:\projects\pgrs\main\certificate_generator.php on line 580
+[12-Sep-2025 18:32:31 Asia/Manila] PHP Warning:  Undefined variable $latSec in C:\projects\pgrs\main\certificate_generator.php on line 580
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-004.pdf","size":470582}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] generate:generator_result | {"status":"success","message":"Certificate generated successfully.","filepath":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-004.pdf"}
+[12-Sep-2025 18:32:31 Asia/Manila] [CERT_API] generate:cert_update | {"ok":true}
+[12-Sep-2025 18:32:31 Asia/Manila] [2025-09-12 18:32:31] getAllPayments called by user_id: 1
+[12-Sep-2025 18:32:31 Asia/Manila] [2025-09-12 18:32:31] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:32:31 Asia/Manila] [2025-09-12 18:32:31] Found 13 transactions
+[12-Sep-2025 18:32:34 Asia/Manila] getUserRequests called with userId: 1
+[12-Sep-2025 18:32:34 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:32:34 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:32:34 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:32:34 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:32:34 Asia/Manila] Token user_id: 1, type: integer
+[12-Sep-2025 18:32:34 Asia/Manila] Requested user_id: 1, type: integer
+[12-Sep-2025 18:32:34 Asia/Manila] Found 13 requests for user 1
+[12-Sep-2025 18:32:34 Asia/Manila] getUserRequests called with userId: 1
+[12-Sep-2025 18:32:34 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:32:34 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:32:34 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:32:34 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:32:34 Asia/Manila] Token user_id: 1, type: integer
+[12-Sep-2025 18:32:34 Asia/Manila] Requested user_id: 1, type: integer
+[12-Sep-2025 18:32:34 Asia/Manila] Found 13 requests for user 1
+[12-Sep-2025 12:32:35 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:32:35 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:32:35 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:32:35 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:32:35 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:32:35 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:32:35 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:32:35 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:32:35 Asia/Manila] [CERT_API] request:start | {"action":"download","method":"GET"}
+[12-Sep-2025 18:32:35 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","sec-ch-ua-mobile","Accept","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:32:35 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:32:35 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:32:35 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 12:37:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:18 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:18 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[12-Sep-2025 18:37:18 Asia/Manila] API Route: api/locations
+[12-Sep-2025 18:37:18 Asia/Manila] Executing getLocationsTree
+[12-Sep-2025 18:37:18 Asia/Manila] Executing SQL: SELECT DISTINCT region, province, city_or_municipality as city_or_municipality, barangay FROM hgcp_stations_new WHERE region IS NOT NULL AND region != '' AND province IS NOT NULL AND province != ''
+[12-Sep-2025 12:37:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:18 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:18 Europe/Berlin] getCartItems raw fetched items: Array
+(
+)
+
+[12-Sep-2025 12:37:18 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:18 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:18 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:37:18 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:37:18 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:37:19 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:19 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:19 Europe/Berlin] Starting cart sync for user_id: 1
+[12-Sep-2025 12:37:19 Europe/Berlin] Syncing from guest session: guest_1754454147964_zpixy80frzc to user: 1
+[12-Sep-2025 12:37:19 Europe/Berlin] No guest cart found for session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 18:37:34 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 18:37:40 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:37:43 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 1190
+    [station_type] => caap
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:37:43 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:43 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:43 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:37:43 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:37:43 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 1190, station_name: MMA-3241, station_type: caap
+[12-Sep-2025 12:37:46 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 10560
+    [station_type] => caap
+    [station_name] => MMA-3241
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:37:46 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:46 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:46 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:37:46 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:37:46 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 10560, station_name: MMA-3241, station_type: caap
+[12-Sep-2025 18:37:54 Asia/Manila] API Route: api/search/stations
+[12-Sep-2025 12:37:55 Europe/Berlin] addToCart received data: stdClass Object
+(
+    [station_id] => 11432
+    [station_type] => caap
+    [station_name] => MMA-5108 (BBM-356)
+    [session_id] => guest_1754454147964_zpixy80frzc
+)
+
+[12-Sep-2025 12:37:55 Europe/Berlin] Verifying token: eyJ0eXAiOi...
+[12-Sep-2025 12:37:55 Europe/Berlin] Token belongs to user_id: 1
+[12-Sep-2025 12:37:55 Europe/Berlin] Getting cart for user_id: 1, session_id: guest_1754454147964_zpixy80frzc
+[12-Sep-2025 12:37:55 Europe/Berlin] Found existing user cart ID: 11
+[12-Sep-2025 12:37:55 Europe/Berlin] Executing INSERT for cart_item with cart_id: 11, station_id: 11432, station_name: MMA-5108 (BBM-356), station_type: caap
+[12-Sep-2025 18:38:32 Asia/Manila] verifyToken called with requiredRole: null
+[12-Sep-2025 18:38:32 Asia/Manila] Authorization header present: yes (Bearer eyJ0eXAi...)
+[12-Sep-2025 18:38:32 Asia/Manila] JWT token for verification (length: 198): eyJ0eXAiOiJKV1QiLCJh...
+[12-Sep-2025 18:38:32 Asia/Manila] Token payload decoded successfully. User ID: 1, Type: admin
+[12-Sep-2025 18:38:32 Asia/Manila] createRequest called with token user_id: 1 (type: integer)
+[12-Sep-2025 18:38:32 Asia/Manila] Full token object: (object) array(
+   'iat' => 1757671978,
+   'exp' => 1757758378,
+   'user_id' => 1,
+   'username' => 'admin',
+   'user_type' => 'admin',
+)
+[12-Sep-2025 18:38:32 Asia/Manila] Request data: stdClass Object
+(
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [station_id] => 1190
+                    [station_name] => MMA-3241
+                    [station_type] => caap
+                )
+
+            [1] => stdClass Object
+                (
+                    [station_id] => 10560
+                    [station_name] => MMA-3241
+                    [station_type] => caap
+                )
+
+            [2] => stdClass Object
+                (
+                    [station_id] => 11432
+                    [station_name] => MMA-5108 (BBM-356)
+                    [station_type] => caap
+                )
+
+        )
+
+    [clear_cart] => 1
+)
+
+[12-Sep-2025 18:38:32 Asia/Manila] Generated transaction code: CSUMGB-20250912-1-005 for user_id: 1
+[12-Sep-2025 18:38:32 Asia/Manila] Inserted request with ID: 125, user_id: 1, transaction_code: CSUMGB-20250912-1-005
+[12-Sep-2025 18:38:32 Asia/Manila] [createRequest] DB Insert Values: ID='1190', Name='MMA-3241', Type='caap', Price='720'
+[12-Sep-2025 18:38:32 Asia/Manila] [createRequest] DB Insert Values: ID='10560', Name='MMA-3241', Type='caap', Price='720'
+[12-Sep-2025 18:38:32 Asia/Manila] [createRequest] DB Insert Values: ID='11432', Name='MMA-5108 (BBM-356)', Type='caap', Price='720'
+[12-Sep-2025 18:38:32 Asia/Manila] Attempting to clear cart items for user_id: 1 using query: DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = :user_id)
+[12-Sep-2025 18:38:32 Asia/Manila] Cart items cleared for user_id: 1. Rows affected: 3
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] uploadPaymentProof called with POST data: Array
+(
+    [request_id] => 125
+    [paid_amount] => 2160.00
+    [payment_method] => 1
+    [reference_number] => aa
+)
+
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] Files data: Array
+(
+    [proof_file] => Array
+        (
+            [name] => image (3).png
+            [full_path] => image (3).png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\phpA105.tmp
+            [error] => 0
+            [size] => 925689
+        )
+
+)
+
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] Parsed values - requestId: 125, paidAmount: 2160, paymentMethodId: 1, referenceNumber: aa
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] _handleGCSUpload called with baseFileName: 125
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] GCS_BUCKET_NAME not set, using default
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] Generated filename: payment_proofs/payment_proof_125_68c3f82826107.png
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] Attempting to upload file to storage
+[12-Sep-2025 18:38:32 Asia/Manila] GCS credentials not found, using local storage
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] Upload successful, URL: assets/payment_proofs/payment_proof_125_68c3f82826107.png
+[12-Sep-2025 18:38:32 Asia/Manila] [DEBUG] File uploaded successfully. URL: assets/payment_proofs/payment_proof_125_68c3f82826107.png
+[12-Sep-2025 18:38:36 Asia/Manila] [2025-09-12 18:38:36] getAllPayments called by user_id: 1
+[12-Sep-2025 18:38:36 Asia/Manila] [2025-09-12 18:38:36] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:38:36 Asia/Manila] [2025-09-12 18:38:36] Found 14 transactions
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 18:38:39 Asia/Manila] [CONFIG] Database connection successful
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:38:39 Asia/Manila] [2025-09-12 18:38:39] Updating transaction ID: 76 with data: Array
+(
+    [status] => approved
+    [verified] => 1
+    [verified_by] => 1
+    [verified_date] => 2025-09-12 10:38:39
+)
+
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-005","request_id":"125"}
+[12-Sep-2025 18:38:39 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:38:39 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:38:39 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":3}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"1190","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1190","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 1190 LIMIT 1"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 431
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"10560","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10560","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10560 LIMIT 1"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 431
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":3,"station_identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 11432 LIMIT 1"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 431
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-005.pdf","size":474043}
+[12-Sep-2025 18:38:39 Asia/Manila] [INFO] Certificate generated successfully for transaction: CSUMGB-20250912-1-005 at C:\projects\pgrs\main/assets/preprocessed_certs/CSUMGB-20250912-1-005.pdf. Filename: CSUMGB-20250912-1-005.pdf
+[12-Sep-2025 18:38:39 Asia/Manila] [INFO] Certificate record INSERTED for transaction_code CSUMGB-20250912-1-005 with filename CSUMGB-20250912-1-005.pdf
+[12-Sep-2025 12:38:39 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:38:39 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:38:39 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:38:39 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:38:39 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:38:39 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] request:start | {"action":"generate","method":"POST"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","Content-Length","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","Content-Type","sec-ch-ua-mobile","Accept","Origin","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] generate:payload | {"transaction_code":"CSUMGB-20250912-1-005"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] generate:transaction_lookup | {"transaction_id":76,"request_id":125}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] generate:call_generator
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:start | {"transaction_code":"CSUMGB-20250912-1-005","request_id":125}
+[12-Sep-2025 18:38:39 Asia/Manila] [DEBUG] Initial qrOutputDir path defined as: C:\projects\pgrs\main/assets/qrcodes/
+[12-Sep-2025 18:38:39 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') already exists.
+[12-Sep-2025 18:38:39 Asia/Manila] [DEBUG] qrOutputDir ('C:\projects\pgrs\main/assets/qrcodes/') is writable.
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:request_items_count | {"count":3}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":1,"station_identifier":"1190","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"1190","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 1190 LIMIT 1"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 431
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":2,"station_identifier":"10560","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"10560","station_name":"MMA-3241","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 10560 LIMIT 1"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 431
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:item | {"index":3,"station_identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:start | {"identifier":"11432","station_name":"MMA-5108 (BBM-356)","station_type":"caap"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:mapped_table | {"table":"hgcp_stations"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:try_sql | {"table":"hgcp_stations","sql":"SELECT * FROM `hgcp_stations` WHERE `id` = 11432 LIMIT 1"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] getStationDetails:found | {"table":"hgcp_stations","keys":["id","station_name","island_group","region","province","city_or_municipality","barangay","year_established","latitude","latitude_dms","longitude","longitude_dms","description","year_surveyed","project","epoch","latitude_wgs84","latitude_wgs84_dms","longitude_wgs84","longitude_wgs84_dms","error_ellipse","accuracy_class","ellipsoidal_ht_wgs84","height_error","order_of_accuracy_wgs84","egm2008_elevation","utm_x_wgs84","utm_y_wgs84","utm_zone_wgs84","latitude_prs92","latitude_prs92_dms","longitude_prs92","longitude_prs92_dms","ellipsoidal_ht_prs92","northing_ptm","easting_ptm","ptm_zone","utm_x_prs92","utm_y_prs92","utm_zone_prs92","latitude_itrf","latitude_itrf_dms","longitude_itrf","longitude_itrf_dms","error_ellipse_itrf","ellipsoidal_ht_itrf","height_error_itrf","year_computed","encoder","date_updated","reference_file"]}
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 431
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 451
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 456
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 499
+[12-Sep-2025 18:38:39 Asia/Manila] PHP Deprecated:  Function utf8_decode() is deprecated in C:\projects\pgrs\main\certificate_generator.php on line 500
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_GEN] generateAndSaveCertificate:pdf_saved | {"path":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-005.pdf","size":474043}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] generate:generator_result | {"status":"success","message":"Certificate generated successfully.","filepath":"C:\\projects\\pgrs\\main/assets/preprocessed_certs/CSUMGB-20250912-1-005.pdf"}
+[12-Sep-2025 18:38:39 Asia/Manila] [CERT_API] generate:cert_update | {"ok":true}
+[12-Sep-2025 18:38:39 Asia/Manila] [2025-09-12 18:38:39] getAllPayments called by user_id: 1
+[12-Sep-2025 18:38:39 Asia/Manila] [2025-09-12 18:38:39] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:38:39 Asia/Manila] [2025-09-12 18:38:39] Found 14 transactions
+[12-Sep-2025 18:38:45 Asia/Manila] [2025-09-12 18:38:45] getAllPayments called by user_id: 1
+[12-Sep-2025 18:38:45 Asia/Manila] [2025-09-12 18:38:45] Running query: SELECT t.*,
+                pm.method_name, 
+                r.user_id, r.transaction_code,
+                u.username, u.email,
+                rs.status_name
+                FROM transactions t
+                LEFT JOIN payment_methods pm ON t.payment_method_id = pm.payment_method_id
+                LEFT JOIN requests r ON t.request_id = r.request_id
+                LEFT JOIN users u ON r.user_id = u.user_id
+                LEFT JOIN request_statuses rs ON t.status_id = rs.status_id
+                ORDER BY t.payment_date DESC
+                LIMIT :offset, :per_page
+[12-Sep-2025 18:38:45 Asia/Manila] [2025-09-12 18:38:45] Found 14 transactions
+[12-Sep-2025 12:38:46 Europe/Berlin] PHP Warning:  Constant DB_HOST already defined in C:\projects\pgrs\main\config.php on line 16
+[12-Sep-2025 12:38:46 Europe/Berlin] PHP Warning:  Constant DB_USER already defined in C:\projects\pgrs\main\config.php on line 17
+[12-Sep-2025 12:38:46 Europe/Berlin] PHP Warning:  Constant DB_PASS already defined in C:\projects\pgrs\main\config.php on line 18
+[12-Sep-2025 12:38:46 Europe/Berlin] PHP Warning:  Constant DB_NAME already defined in C:\projects\pgrs\main\config.php on line 19
+[12-Sep-2025 12:38:46 Europe/Berlin] PHP Warning:  Constant DB_CHARSET already defined in C:\projects\pgrs\main\config.php on line 21
+[12-Sep-2025 12:38:46 Europe/Berlin] [CONFIG] Database connection successful
+[12-Sep-2025 18:38:46 Asia/Manila] PHP Warning:  Constant JWT_SECRET already defined in C:\projects\pgrs\main\config.php on line 101
+[12-Sep-2025 18:38:46 Asia/Manila] PHP Warning:  Constant TOKEN_EXPIRY already defined in C:\projects\pgrs\main\config.php on line 102
+[12-Sep-2025 18:38:46 Asia/Manila] [CERT_API] request:start | {"action":"download","method":"GET"}
+[12-Sep-2025 18:38:46 Asia/Manila] [CERT_API] verifyToken:headers_present | {"keys":["Host","Connection","sec-ch-ua-platform","Authorization","User-Agent","sec-ch-ua","sec-ch-ua-mobile","Accept","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","Referer","Accept-Encoding","Accept-Language","Cookie"]}
+[12-Sep-2025 18:38:46 Asia/Manila] [CERT_API] verifyToken:jwt_prefix | {"prefix":"eyJ0eXAiOiJK..."}
+[12-Sep-2025 18:38:46 Asia/Manila] [CERT_API] verifyToken:ok | {"user_id":1,"user_type":"admin"}
+[12-Sep-2025 18:38:46 Asia/Manila] [CERT_API] auth:ok | {"user_id":1,"user_type":"admin"}
